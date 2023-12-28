@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  // sassOptions: {
+  //   includePaths: [path.join(__dirname, "src/shared/assets/styles")],
+  // },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
