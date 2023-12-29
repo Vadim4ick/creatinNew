@@ -1,0 +1,13 @@
+query GetHeader {
+  header {
+    data {
+      attributes {
+        links {
+          id
+          href
+          name
+        }
+      }
+    }
+  }
+}
