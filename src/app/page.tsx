@@ -142,6 +142,7 @@ export default function Home() {
         <section className="intro" data-watch data-watch-once>
           <div className="intro__container">
             <div className="intro__inner">
+              {/* @ts-ignore */}
               <div className="intro__row" style={customStyles}>
                 <div className="intro__content">
                   <div className="intro__title">
