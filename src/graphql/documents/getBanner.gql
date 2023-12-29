@@ -1,0 +1,35 @@
+query GetHomePage {
+  homePage {
+    data {
+      attributes {
+        title
+        HomeBanner {
+          IntroCard {
+            class
+            id
+            title
+            info
+          }
+        }
+
+        bannerMobile {
+          data {
+            attributes {
+              name
+              url
+            }
+          }
+        }
+
+        banner {
+          data {
+            attributes {
+              name
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}

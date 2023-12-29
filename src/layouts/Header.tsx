@@ -1,6 +1,19 @@
+import { GetHeaderQuery } from "@/graphql/client";
 import Link from "next/link";
 
-const Header = () => {
+interface HeaderProps {
+  header: GetHeaderQuery["header"]["data"]["attributes"];
+}
+
+const Header = (props: HeaderProps) => {
+  const { header } = props;
+
+  // const { data, isLoading, error } = useQuery({
+  //   queryKey: ["header"],
+  //   queryFn: () => gql.GetHeader(),
+  //   refetchOnWindowFocus: false,
+  // });
+
   return (
     <>
       <header className="header">
@@ -21,15 +34,15 @@ const Header = () => {
           <div className="header__menu menu">
             <nav className="menu__body">
               <ul className="menu__list">
-                <li className="menu__item">
-                  <a className="menu__link">услуги</a>
-                </li>
-                <li className="menu__item">
-                  <a className="menu__link">портфолио</a>
-                </li>
-                <li className="menu__item">
-                  <a className="menu__link">студия</a>
-                </li>
+                {header.links.map((link) => {
+                  return (
+                    <li key={link.id} className="menu__item">
+                      <Link className="menu__link" href={link.href}>
+                        {link.name}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </div>

@@ -4,6 +4,8 @@ import { Footer, Header } from "@/layouts";
 import Script from "next/script";
 
 import "@/shared/assets/styles/style.min.css";
+
+import { QueryProviders } from "@/shared/providers/queryProviders";
 import { gql } from "@/graphql/client";
 
 export const metadata: Metadata = {
@@ -18,17 +20,17 @@ export default async function RootLayout({
 }) {
   const { header } = await gql.GetHeader();
 
-  console.log(JSON.stringify(header, null, 2));
-
   return (
     <html lang="ru">
       <body>
         <div className="wrapper">
-          <Header />
+          <QueryProviders>
+            <Header header={header.data.attributes} />
 
-          {children}
+            {children}
 
-          <Footer />
+            <Footer />
+          </QueryProviders>
         </div>
 
         <Script src="/js/app.min.js" />

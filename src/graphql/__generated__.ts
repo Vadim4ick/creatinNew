@@ -65,6 +65,7 @@ export type ComponentComponentsHomeBannerInput = {
 
 export type ComponentElementsIntroCard = {
   readonly __typename?: 'ComponentElementsIntroCard';
+  readonly class: Maybe<Enum_Componentelementsintrocard_Class>;
   readonly id: Scalars['ID']['output'];
   readonly info: Maybe<Scalars['String']['output']>;
   readonly title: Scalars['String']['output'];
@@ -72,6 +73,7 @@ export type ComponentElementsIntroCard = {
 
 export type ComponentElementsIntroCardFiltersInput = {
   readonly and: InputMaybe<ReadonlyArray<InputMaybe<ComponentElementsIntroCardFiltersInput>>>;
+  readonly class: InputMaybe<StringFilterInput>;
   readonly info: InputMaybe<StringFilterInput>;
   readonly not: InputMaybe<ComponentElementsIntroCardFiltersInput>;
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<ComponentElementsIntroCardFiltersInput>>>;
@@ -79,6 +81,7 @@ export type ComponentElementsIntroCardFiltersInput = {
 };
 
 export type ComponentElementsIntroCardInput = {
+  readonly class: InputMaybe<Enum_Componentelementsintrocard_Class>;
   readonly id: InputMaybe<Scalars['ID']['input']>;
   readonly info: InputMaybe<Scalars['String']['input']>;
   readonly title: InputMaybe<Scalars['String']['input']>;
@@ -231,6 +234,12 @@ export type DateTimeFilterInput = {
   readonly startsWith: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export enum Enum_Componentelementsintrocard_Class {
+  Folders = 'folders',
+  ImageGroup = 'image_group',
+  Spiral = 'spiral'
+}
+
 export enum Enum_Contentreleasesreleaseaction_Type {
   Publish = 'publish',
   Unpublish = 'unpublish'
@@ -305,6 +314,8 @@ export type HeaderInput = {
 export type HomePage = {
   readonly __typename?: 'HomePage';
   readonly HomeBanner: Maybe<ComponentComponentsHomeBanner>;
+  readonly banner: Maybe<UploadFileEntityResponse>;
+  readonly bannerMobile: Maybe<UploadFileEntityResponse>;
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
   readonly title: Maybe<Scalars['String']['output']>;
@@ -324,6 +335,8 @@ export type HomePageEntityResponse = {
 
 export type HomePageInput = {
   readonly HomeBanner: InputMaybe<ComponentComponentsHomeBannerInput>;
+  readonly banner: InputMaybe<Scalars['ID']['input']>;
+  readonly bannerMobile: InputMaybe<Scalars['ID']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
   readonly title: InputMaybe<Scalars['String']['input']>;
 };
@@ -1192,12 +1205,52 @@ export type UsersPermissionsUserRelationResponseCollection = {
   readonly data: ReadonlyArray<UsersPermissionsUserEntity>;
 };
 
+export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly title: string, readonly HomeBanner: { readonly __typename?: 'ComponentComponentsHomeBanner', readonly IntroCard: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIntroCard', readonly class: Enum_Componentelementsintrocard_Class, readonly id: string, readonly title: string, readonly info: string }> }, readonly bannerMobile: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string } } }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string } } } } } } };
+
 export type GetHeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetHeaderQuery = { readonly __typename?: 'Query', readonly header: { readonly __typename?: 'HeaderEntityResponse', readonly data: { readonly __typename?: 'HeaderEntity', readonly attributes: { readonly __typename?: 'Header', readonly links: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly id: string, readonly href: string, readonly name: string }> } } } };
 
 
+export const GetHomePageDocument = gql`
+    query GetHomePage {
+  homePage {
+    data {
+      attributes {
+        title
+        HomeBanner {
+          IntroCard {
+            class
+            id
+            title
+            info
+          }
+        }
+        bannerMobile {
+          data {
+            attributes {
+              name
+              url
+            }
+          }
+        }
+        banner {
+          data {
+            attributes {
+              name
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
 export const GetHeaderDocument = gql`
     query GetHeader {
   header {
@@ -1221,6 +1274,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    GetHomePage(variables?: GetHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHomePageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageQuery>(GetHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHomePage', 'query', variables);
+    },
     GetHeader(variables?: GetHeaderQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHeaderQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetHeaderQuery>(GetHeaderDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHeader', 'query', variables);
     }

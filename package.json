@@ -10,6 +10,7 @@
     "generate": "graphql-codegen --config ./src/graphql/codegen.yml"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.15.3",
     "graphql": "^16.8.1",
     "next": "14.0.4",
     "react": "^18",
