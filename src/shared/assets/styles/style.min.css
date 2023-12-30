@@ -2167,12 +2167,12 @@ body.popup-show::after {
   flex-direction: column;
 }
 .callback__title {
-  margin-bottom: 22px;
   font-size: 3.5rem;
   font-weight: 600;
   line-height: 120%;
 }
 .callback__subtitle {
+  margin-top: 22px;
   font-size: 1.25rem;
   line-height: 140%;
   max-width: 593px;

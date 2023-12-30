@@ -21,6 +21,54 @@ query GetHomePage {
           }
         }
 
+        formSend {
+          title
+          description
+          number
+          address
+          email
+        }
+
+        Partners {
+          title
+          description
+          icons {
+            data {
+              id
+              attributes {
+                name
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+
+        cases {
+          data {
+            id
+            attributes {
+              title
+              info
+              imageBig {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+              imageMain {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+
         banner {
           data {
             attributes {
