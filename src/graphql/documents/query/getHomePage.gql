@@ -1,0 +1,29 @@
+query GetHomePage {
+  homePage {
+    data {
+      attributes {
+        title
+
+        HomeBanner {
+          ...GetHomeBanner
+        }
+
+        Partners {
+          ...GetHomePartners
+        }
+
+        formSend {
+          title
+          description
+          address
+          email
+          number
+        }
+
+        cases {
+          ...GetHomeCases
+        }
+      }
+    }
+  }
+}

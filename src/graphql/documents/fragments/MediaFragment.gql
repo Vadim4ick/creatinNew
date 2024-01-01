@@ -1,0 +1,6 @@
+fragment MediaFragment on UploadFile {
+  name
+  url
+  width
+  height
+}

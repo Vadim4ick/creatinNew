@@ -1,6 +1,6 @@
 import { Case } from "@/components/Case";
 import { GetHomePageQuery } from "@/graphql/__generated__";
-import { BtnArrow } from "@/shared/icons/BtnArrow";
+import { CustomLink } from "@/shared/ui/Link";
 
 interface CasesProps {
   cases: GetHomePageQuery["homePage"]["data"]["attributes"]["cases"];
@@ -23,13 +23,9 @@ const Cases = (props: CasesProps) => {
           ))}
 
           <div className="cases__more">
-            <a className="btn btn--alt btn--hasarrow">
-              <span className="btn__text">Все кейсы</span>
-
-              <span className="btn__arrow">
-                <BtnArrow />
-              </span>
-            </a>
+            <CustomLink variant="chartreuse" iconPosition="right">
+              Все кейсы
+            </CustomLink>
           </div>
         </div>
       </div>

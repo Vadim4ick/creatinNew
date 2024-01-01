@@ -1,0 +1,14 @@
+fragment GetHomePartners on ComponentSectionsPartners {
+  title
+  description
+
+  icons {
+    data {
+      id
+
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+}
