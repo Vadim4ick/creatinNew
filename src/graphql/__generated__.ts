@@ -102,6 +102,9 @@ export type CaseRelationResponseCollection = {
 export type ComponentComponentsHomeBanner = {
   readonly __typename?: 'ComponentComponentsHomeBanner';
   readonly IntroCard: Maybe<ReadonlyArray<Maybe<ComponentElementsIntroCard>>>;
+  readonly banner: Maybe<UploadFileEntityResponse>;
+  readonly bannerMasks: Maybe<UploadFileRelationResponseCollection>;
+  readonly bannerMobile: Maybe<UploadFileEntityResponse>;
   readonly id: Scalars['ID']['output'];
 };
 
@@ -112,8 +115,18 @@ export type ComponentComponentsHomeBannerIntroCardArgs = {
   sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
+export type ComponentComponentsHomeBannerBannerMasksArgs = {
+  filters: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type ComponentComponentsHomeBannerInput = {
   readonly IntroCard: InputMaybe<ReadonlyArray<InputMaybe<ComponentElementsIntroCardInput>>>;
+  readonly banner: InputMaybe<Scalars['ID']['input']>;
+  readonly bannerMasks: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
+  readonly bannerMobile: InputMaybe<Scalars['ID']['input']>;
   readonly id: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -410,8 +423,6 @@ export type HomePage = {
   readonly __typename?: 'HomePage';
   readonly HomeBanner: Maybe<ComponentComponentsHomeBanner>;
   readonly Partners: Maybe<ComponentSectionsPartners>;
-  readonly banner: Maybe<UploadFileEntityResponse>;
-  readonly bannerMobile: Maybe<UploadFileEntityResponse>;
   readonly cases: Maybe<CaseRelationResponseCollection>;
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
   readonly formSend: Maybe<ComponentSectionsFormSend>;
@@ -442,8 +453,6 @@ export type HomePageEntityResponse = {
 export type HomePageInput = {
   readonly HomeBanner: InputMaybe<ComponentComponentsHomeBannerInput>;
   readonly Partners: InputMaybe<ComponentSectionsPartnersInput>;
-  readonly banner: InputMaybe<Scalars['ID']['input']>;
-  readonly bannerMobile: InputMaybe<Scalars['ID']['input']>;
   readonly cases: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
   readonly formSend: InputMaybe<ComponentSectionsFormSendInput>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
@@ -1348,17 +1357,125 @@ export type UsersPermissionsUserRelationResponseCollection = {
   readonly data: ReadonlyArray<UsersPermissionsUserEntity>;
 };
 
-export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
+export type LinkFragmentFragment = { readonly __typename?: 'ComponentUiLink', readonly id: string, readonly href: string, readonly name: string };
 
+export type MediaFragmentFragment = { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number };
 
-export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly title: string, readonly HomeBanner: { readonly __typename?: 'ComponentComponentsHomeBanner', readonly IntroCard: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIntroCard', readonly class: Enum_Componentelementsintrocard_Class, readonly id: string, readonly title: string, readonly info: string }> }, readonly bannerMobile: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string } } }, readonly formSend: { readonly __typename?: 'ComponentSectionsFormSend', readonly title: string, readonly description: string, readonly number: any, readonly address: string, readonly email: string }, readonly Partners: { readonly __typename?: 'ComponentSectionsPartners', readonly title: string, readonly description: string, readonly icons: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly id: string, readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } }> } }, readonly cases: { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly url: string } } }, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly url: string } } } } }> }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string } } } } } } };
+export type GetHomeBannerFragment = { readonly __typename?: 'ComponentComponentsHomeBanner', readonly IntroCard: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIntroCard', readonly class: Enum_Componentelementsintrocard_Class, readonly id: string, readonly title: string, readonly info: string }>, readonly bannerMasks: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly id: string, readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } }> }, readonly bannerMobile: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } };
+
+export type GetHomeCasesFragment = { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } }> };
+
+export type GetHomePartnersFragment = { readonly __typename?: 'ComponentSectionsPartners', readonly title: string, readonly description: string, readonly icons: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly id: string, readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } }> } };
 
 export type GetHeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetHeaderQuery = { readonly __typename?: 'Query', readonly header: { readonly __typename?: 'HeaderEntityResponse', readonly data: { readonly __typename?: 'HeaderEntity', readonly attributes: { readonly __typename?: 'Header', readonly links: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly id: string, readonly href: string, readonly name: string }> } } } };
 
+export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
+
+export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly title: string, readonly HomeBanner: { readonly __typename?: 'ComponentComponentsHomeBanner', readonly IntroCard: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIntroCard', readonly class: Enum_Componentelementsintrocard_Class, readonly id: string, readonly title: string, readonly info: string }>, readonly bannerMasks: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly id: string, readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } }> }, readonly bannerMobile: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } }, readonly Partners: { readonly __typename?: 'ComponentSectionsPartners', readonly title: string, readonly description: string, readonly icons: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly id: string, readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } }> } }, readonly formSend: { readonly __typename?: 'ComponentSectionsFormSend', readonly title: string, readonly description: string, readonly address: string, readonly email: string, readonly number: any }, readonly cases: { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } }> } } } } };
+
+export const LinkFragmentFragmentDoc = gql`
+    fragment LinkFragment on ComponentUiLink {
+  id
+  href
+  name
+}
+    `;
+export const MediaFragmentFragmentDoc = gql`
+    fragment MediaFragment on UploadFile {
+  name
+  url
+  width
+  height
+}
+    `;
+export const GetHomeBannerFragmentDoc = gql`
+    fragment GetHomeBanner on ComponentComponentsHomeBanner {
+  IntroCard {
+    class
+    id
+    title
+    info
+  }
+  bannerMasks {
+    data {
+      id
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+  bannerMobile {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+  banner {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+}
+    ${MediaFragmentFragmentDoc}`;
+export const GetHomeCasesFragmentDoc = gql`
+    fragment GetHomeCases on CaseRelationResponseCollection {
+  data {
+    id
+    attributes {
+      title
+      info
+      imageBig {
+        data {
+          attributes {
+            ...MediaFragment
+          }
+        }
+      }
+      imageMain {
+        data {
+          attributes {
+            ...MediaFragment
+          }
+        }
+      }
+    }
+  }
+}
+    ${MediaFragmentFragmentDoc}`;
+export const GetHomePartnersFragmentDoc = gql`
+    fragment GetHomePartners on ComponentSectionsPartners {
+  title
+  description
+  icons {
+    data {
+      id
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+}
+    ${MediaFragmentFragmentDoc}`;
+export const GetHeaderDocument = gql`
+    query GetHeader {
+  header {
+    data {
+      attributes {
+        links {
+          ...LinkFragment
+        }
+      }
+    }
+  }
+}
+    ${LinkFragmentFragmentDoc}`;
 export const GetHomePageDocument = gql`
     query GetHomePage {
   homePage {
@@ -1366,94 +1483,28 @@ export const GetHomePageDocument = gql`
       attributes {
         title
         HomeBanner {
-          IntroCard {
-            class
-            id
-            title
-            info
-          }
+          ...GetHomeBanner
         }
-        bannerMobile {
-          data {
-            attributes {
-              name
-              url
-            }
-          }
+        Partners {
+          ...GetHomePartners
         }
         formSend {
           title
           description
-          number
           address
           email
-        }
-        Partners {
-          title
-          description
-          icons {
-            data {
-              id
-              attributes {
-                name
-                url
-                width
-                height
-              }
-            }
-          }
+          number
         }
         cases {
-          data {
-            id
-            attributes {
-              title
-              info
-              imageBig {
-                data {
-                  attributes {
-                    url
-                  }
-                }
-              }
-              imageMain {
-                data {
-                  attributes {
-                    url
-                  }
-                }
-              }
-            }
-          }
-        }
-        banner {
-          data {
-            attributes {
-              name
-              url
-            }
-          }
+          ...GetHomeCases
         }
       }
     }
   }
 }
-    `;
-export const GetHeaderDocument = gql`
-    query GetHeader {
-  header {
-    data {
-      attributes {
-        links {
-          id
-          href
-          name
-        }
-      }
-    }
-  }
-}
-    `;
+    ${GetHomeBannerFragmentDoc}
+${GetHomePartnersFragmentDoc}
+${GetHomeCasesFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
@@ -1462,11 +1513,11 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    GetHomePage(variables?: GetHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHomePageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageQuery>(GetHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHomePage', 'query', variables);
-    },
     GetHeader(variables?: GetHeaderQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHeaderQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetHeaderQuery>(GetHeaderDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHeader', 'query', variables);
+    },
+    GetHomePage(variables?: GetHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHomePageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageQuery>(GetHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHomePage', 'query', variables);
     }
   };
 }

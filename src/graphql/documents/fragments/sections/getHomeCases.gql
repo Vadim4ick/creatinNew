@@ -1,0 +1,26 @@
+fragment GetHomeCases on CaseRelationResponseCollection {
+  data {
+    id
+
+    attributes {
+      title
+      info
+
+      imageBig {
+        data {
+          attributes {
+            ...MediaFragment
+          }
+        }
+      }
+
+      imageMain {
+        data {
+          attributes {
+            ...MediaFragment
+          }
+        }
+      }
+    }
+  }
+}

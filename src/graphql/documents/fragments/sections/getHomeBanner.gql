@@ -1,0 +1,33 @@
+fragment GetHomeBanner on ComponentComponentsHomeBanner {
+  IntroCard {
+    class
+    id
+    title
+    info
+  }
+
+  bannerMasks {
+    data {
+      id
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+
+  bannerMobile {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+
+  banner {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+}

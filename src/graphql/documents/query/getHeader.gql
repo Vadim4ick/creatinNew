@@ -3,9 +3,7 @@ query GetHeader {
     data {
       attributes {
         links {
-          id
-          href
-          name
+          ...LinkFragment
         }
       }
     }

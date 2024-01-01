@@ -1,6 +1,6 @@
 import { GetHomePageQuery } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
-import { BtnArrow } from "@/shared/icons/BtnArrow";
+import { CustomLink } from "@/shared/ui/Link";
 import Image from "next/image";
 
 interface PartnersProps {
@@ -37,12 +37,9 @@ const Partners = (props: PartnersProps) => {
             data-watch
             data-da=".partners__container,1200,last"
           >
-            <a className="btn btn--whte btn--hasarrow">
-              <span className="btn__text">Стать партнером</span>
-              <span className="btn__arrow">
-                <BtnArrow />
-              </span>
-            </a>
+            <CustomLink variant="white" iconPosition="right">
+              Стать партнером
+            </CustomLink>
           </div>
         </div>
         <div className="partners__slider swiper js-partners fade-up" data-watch>
