@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
 import { Footer, Header } from "@/layouts";
-import Script from "next/script";
 
 import "@/shared/assets/styles/style.min.css";
 
 import { QueryProviders } from "@/shared/providers/queryProviders";
 import { gql } from "@/graphql/client";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -142,7 +142,7 @@ export default async function RootLayout({
           </QueryProviders>
         </div>
 
-        <Script src="/js/app.min.js" />
+        <Script src="/js/app.min.js" defer />
       </body>
     </html>
   );
