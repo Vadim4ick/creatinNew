@@ -1,4 +1,5 @@
 import { GetHeaderQuery } from "@/graphql/client";
+import Image from "next/image";
 import Link from "next/link";
 
 interface HeaderProps {
@@ -20,14 +21,14 @@ const Header = (props: HeaderProps) => {
         <div className="header__container">
           <Link href={"/"} className="header__logo logo">
             <span className="logo__base">
-              <img data-src="/img/logo-base.svg" alt="" />
+              <img src="/img/logo-base.svg" alt="" />
             </span>
             <span className="logo__in">
               <span className="logo__in-def">
-                <img data-src="/img/logo-in-def.svg" alt="" />
+                <img src="/img/logo-in-def.svg" alt="" />
               </span>
               <span className="logo__in-hv">
-                <img data-src="/img/logo-in-hv.svg" alt="" />
+                <img src="/img/logo-in-hv.svg" alt="" />
               </span>
             </span>
           </Link>

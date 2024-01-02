@@ -5,11 +5,13 @@ function useIntersectionObserver({
   removeClass,
   margin = "0px",
   once = false,
+  threshold = 0,
 }: {
   ref: RefObject<HTMLElement>;
   removeClass?: boolean;
   margin?: string;
   once?: boolean;
+  threshold?: number;
 }) {
   useEffect(() => {
     // Получаем элемент из ref
@@ -35,6 +37,7 @@ function useIntersectionObserver({
     }; // Создаем наблюдатель
     let observer = new IntersectionObserver(callback, {
       rootMargin: margin,
+      threshold: threshold,
     });
 
     // Начинаем наблюдение

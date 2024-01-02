@@ -4,6 +4,7 @@ import { GetHomePageQuery } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { useSwiper } from "@/shared/hooks/useSwiper";
 import { CustomLink } from "@/shared/ui/Link";
 import { Portal } from "@/shared/ui/Portal";
@@ -44,6 +45,7 @@ const Partners = (props: PartnersProps) => {
   useIntersectionObserver({
     ref: swiperRef,
     removeClass: true,
+    threshold: 0.2,
   });
 
   useSwiper({
@@ -98,9 +100,12 @@ const Partners = (props: PartnersProps) => {
       <div className="partners__container" ref={partnersContainerRef}>
         <div className="partners__top">
           <div className="partners__text">
-            <h2 ref={titleRef} className="partners__title fade-up">
-              {partners.title}
-            </h2>
+            <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#fff">
+              <h2 ref={titleRef} className="partners__title fade-up">
+                {partners.title}
+              </h2>
+            </SplitTypeAnimation>
+
             <div ref={subTitleRef} className="partners__subtitle fade-up">
               {partners.description}
             </div>

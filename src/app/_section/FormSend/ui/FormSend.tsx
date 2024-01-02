@@ -5,8 +5,8 @@ import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
 import { useRef } from "react";
-import ReactMarkdown from "react-markdown";
 import { Address } from "../lib/Address";
+import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 
 interface FormSendProps {
   form: GetHomePageQuery["homePage"]["data"]["attributes"]["formSend"];
@@ -34,6 +34,8 @@ const FormSend = (props: FormSendProps) => {
   useIntersectionObserver({
     ref: formRef,
     removeClass: true,
+
+    threshold: 0.07,
   });
 
   return (
@@ -41,7 +43,7 @@ const FormSend = (props: FormSendProps) => {
       <div className="callback__container">
         <div ref={callbackRef} className="callback__row">
           <div className="callback__left">
-            <ReactMarkdown
+            {/* <ReactMarkdown
               skipHtml
               components={{
                 h2: ({ children }) => (
@@ -56,7 +58,17 @@ const FormSend = (props: FormSendProps) => {
               }}
             >
               {form.title}
-            </ReactMarkdown>
+            </ReactMarkdown> */}
+
+            <SplitTypeAnimation bg="#aaaaaa" fg="#181818" refChar={titleRef}>
+              <h2
+                className="callback__title text-decorated fade-up"
+                ref={titleRef}
+              >
+                Оставьте <b>заявку,</b> <br />
+                чтобы обсудить проект
+              </h2>
+            </SplitTypeAnimation>
 
             <h3 ref={subTitleRef} className="callback__subtitle fade-up">
               Cвяжитесь с нами любым удобным способом <br />
