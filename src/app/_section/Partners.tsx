@@ -45,7 +45,6 @@ const Partners = (props: PartnersProps) => {
   useIntersectionObserver({
     ref: swiperRef,
     removeClass: true,
-    threshold: 0.2,
   });
 
   useSwiper({

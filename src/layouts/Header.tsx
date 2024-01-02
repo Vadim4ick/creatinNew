@@ -1,6 +1,8 @@
+"use client";
+
 import { GetHeaderQuery } from "@/graphql/client";
-import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 interface HeaderProps {
   header: GetHeaderQuery["header"]["data"]["attributes"];
@@ -9,15 +11,40 @@ interface HeaderProps {
 const Header = (props: HeaderProps) => {
   const { header } = props;
 
-  // const { data, isLoading, error } = useQuery({
-  //   queryKey: ["header"],
-  //   queryFn: () => gql.GetHeader(),
-  //   refetchOnWindowFocus: false,
-  // });
+  const headerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleScroll = (e: WheelEvent) => {
+      if (headerRef.current) {
+        if (e.deltaY < 0) {
+          headerRef.current.classList.remove("header--scroll-top");
+          document.documentElement.classList.remove("header-sroll-top");
+        } else {
+          headerRef.current.classList.add("header--scroll-top");
+          document.documentElement.classList.add("header-sroll-top");
+        }
+      }
+    };
+
+    window.addEventListener("wheel", handleScroll);
+
+    return () => {
+      window.removeEventListener("wheel", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      document.documentElement.style.setProperty(
+        "--header",
+        window.getComputedStyle(headerRef.current).height
+      );
+    }
+  }, []);
 
   return (
     <>
-      <header className="header">
+      <header ref={headerRef} className="header">
         <div className="header__container">
           <Link href={"/"} className="header__logo logo">
             <span className="logo__base">
