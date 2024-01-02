@@ -1,8 +1,12 @@
+"use client";
+
 import { GetHomePageQuery } from "@/graphql/__generated__";
 import { formatPhoneNumber } from "@/shared/helpers/numberFormatter";
+import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
 import Link from "next/link";
+import { useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
 interface FormSendProps {
@@ -11,6 +15,44 @@ interface FormSendProps {
 
 const FormSend = (props: FormSendProps) => {
   const { form } = props;
+
+  const titleRef = useRef<HTMLDivElement | null>(null);
+  const subTitleRef = useRef<HTMLDivElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const numberRef = useRef<HTMLAnchorElement | null>(null);
+  const emailRef = useRef<HTMLAnchorElement | null>(null);
+  const addressRef = useRef<HTMLAnchorElement | null>(null);
+
+  useIntersectionObserver({
+    ref: titleRef,
+    removeClass: true,
+  });
+
+  useIntersectionObserver({
+    ref: subTitleRef,
+    removeClass: true,
+  });
+
+  useIntersectionObserver({
+    ref: formRef,
+    removeClass: true,
+  });
+
+  useIntersectionObserver({
+    ref: numberRef,
+    once: true,
+  });
+
+  useIntersectionObserver({
+    ref: emailRef,
+    once: true,
+  });
+
+  useIntersectionObserver({
+    ref: addressRef,
+    once: true,
+  });
 
   return (
     <section className="callback animate-block" id="callback">
@@ -23,8 +65,7 @@ const FormSend = (props: FormSendProps) => {
                 h2: ({ children }) => (
                   <h2
                     className="callback__title text-decorated fade-up"
-                    data-watch
-                    data-observe
+                    ref={titleRef}
                   >
                     {children}
                   </h2>
@@ -35,10 +76,15 @@ const FormSend = (props: FormSendProps) => {
               {form.title}
             </ReactMarkdown>
 
-            <h3 className="callback__subtitle fade-up" data-watch>
+            <h3
+              ref={subTitleRef}
+              className="callback__subtitle fade-up"
+              data-watch
+            >
               Cвяжитесь с нами любым удобным способом <br />
               Мы всегда рады новым идеям и ответим на ваши вопросы
             </h3>
+
             <address
               className="callback__contancs"
               data-da=".callback__row,1200,last"
@@ -47,8 +93,7 @@ const FormSend = (props: FormSendProps) => {
                 <Link
                   href={`tel:${form.number}`}
                   className="callback__contancs-item fade-up"
-                  data-watch
-                  data-watch-once
+                  ref={numberRef}
                 >
                   <span>{formatPhoneNumber(String(form.number))} </span>
                 </Link>
@@ -57,18 +102,13 @@ const FormSend = (props: FormSendProps) => {
                 <Link
                   href={`mailto:${form.email}`}
                   className="callback__contancs-item fade-up"
-                  data-watch
-                  data-watch-once
+                  ref={emailRef}
                 >
                   <span>{form.email}</span>
                 </Link>
               )}
               {form.address && (
-                <a
-                  className="callback__contancs-item fade-up"
-                  data-watch
-                  data-watch-once
-                >
+                <a className="callback__contancs-item fade-up" ref={addressRef}>
                   <span>{form.address}</span>
                 </a>
               )}
@@ -80,7 +120,7 @@ const FormSend = (props: FormSendProps) => {
             data-dev
             method="GET"
             className="callback__form callback-form form fade-up"
-            data-watch
+            ref={formRef}
           >
             <fieldset className="callback-form__group form__group">
               <div className="form__item">

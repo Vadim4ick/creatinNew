@@ -1495,7 +1495,7 @@ export const GetHomePartnersFragmentDoc = gql`
     fragment GetHomePartners on ComponentSectionsPartners {
   title
   description
-  icons {
+  icons(pagination: {limit: 25}) {
     data {
       id
       attributes {

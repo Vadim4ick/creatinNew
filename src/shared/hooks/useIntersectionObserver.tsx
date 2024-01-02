@@ -3,9 +3,13 @@ import { useEffect, RefObject } from "react";
 function useIntersectionObserver({
   ref,
   removeClass,
+  margin = "0px",
+  once = false,
 }: {
   ref: RefObject<HTMLElement>;
   removeClass?: boolean;
+  margin?: string;
+  once?: boolean;
 }) {
   useEffect(() => {
     // Получаем элемент из ref
@@ -18,13 +22,20 @@ function useIntersectionObserver({
         if (entry.isIntersecting) {
           // Добавляем класс
           entry.target.classList.add("_watcher-view");
+
+          if (once) {
+            // Если once = true, прекращаем наблюдение после первого пересечения
+            observer.unobserve(entry.target);
+          }
         } else if (removeClass) {
           // Удаляем класс
           entry.target.classList.remove("_watcher-view");
         }
       });
     }; // Создаем наблюдатель
-    let observer = new IntersectionObserver(callback);
+    let observer = new IntersectionObserver(callback, {
+      rootMargin: margin,
+    });
 
     // Начинаем наблюдение
     if (element) {
@@ -37,7 +48,7 @@ function useIntersectionObserver({
         observer.unobserve(element);
       }
     };
-  }, [removeClass]); // Пустой массив зависимостей, чтобы запустить эффект один раз
+  }, [margin, removeClass]); // Пустой массив зависимостей, чтобы запустить эффект один раз
 }
 
 export default useIntersectionObserver;

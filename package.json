@@ -11,13 +11,12 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.15.3",
-    "@types/swiper": "^6.0.0",
     "graphql": "^16.8.1",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
-    "swiper": "^11.0.5"
+    "swiper": "^8.4.5"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",

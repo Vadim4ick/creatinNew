@@ -13,8 +13,7 @@ import { Spiral } from "@/shared/icons/introBanner/Spiral";
 import { CustomLink } from "@/shared/ui/Link";
 import { Portal } from "@/shared/ui/Portal";
 import Image from "next/image";
-import { useEffect, useMemo, useRef } from "react";
-import Swiper from "swiper";
+import { useMemo, useRef } from "react";
 
 interface BannerProps {
   banner: GetHomePageQuery["homePage"]["data"]["attributes"]["HomeBanner"];
@@ -45,6 +44,7 @@ const Banner = (props: BannerProps) => {
 
   useIntersectionObserver({
     ref: bannerRef,
+    once: true,
   });
   useSwiper({
     ref: introCardsSwiperRef,
