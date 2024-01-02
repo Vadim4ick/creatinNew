@@ -1,13 +1,12 @@
 "use client";
 
 import { GetHomePageQuery } from "@/graphql/__generated__";
-import { formatPhoneNumber } from "@/shared/helpers/numberFormatter";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
-import Link from "next/link";
 import { useRef } from "react";
 import ReactMarkdown from "react-markdown";
+import { Address } from "../lib/Address";
 
 interface FormSendProps {
   form: GetHomePageQuery["homePage"]["data"]["attributes"]["formSend"];
@@ -20,9 +19,7 @@ const FormSend = (props: FormSendProps) => {
   const subTitleRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  const numberRef = useRef<HTMLAnchorElement | null>(null);
-  const emailRef = useRef<HTMLAnchorElement | null>(null);
-  const addressRef = useRef<HTMLAnchorElement | null>(null);
+  const callbackRef = useRef<HTMLDivElement | null>(null);
 
   useIntersectionObserver({
     ref: titleRef,
@@ -39,25 +36,10 @@ const FormSend = (props: FormSendProps) => {
     removeClass: true,
   });
 
-  useIntersectionObserver({
-    ref: numberRef,
-    once: true,
-  });
-
-  useIntersectionObserver({
-    ref: emailRef,
-    once: true,
-  });
-
-  useIntersectionObserver({
-    ref: addressRef,
-    once: true,
-  });
-
   return (
     <section className="callback animate-block" id="callback">
       <div className="callback__container">
-        <div className="callback__row">
+        <div ref={callbackRef} className="callback__row">
           <div className="callback__left">
             <ReactMarkdown
               skipHtml
@@ -76,43 +58,12 @@ const FormSend = (props: FormSendProps) => {
               {form.title}
             </ReactMarkdown>
 
-            <h3
-              ref={subTitleRef}
-              className="callback__subtitle fade-up"
-              data-watch
-            >
+            <h3 ref={subTitleRef} className="callback__subtitle fade-up">
               Cвяжитесь с нами любым удобным способом <br />
               Мы всегда рады новым идеям и ответим на ваши вопросы
             </h3>
 
-            <address
-              className="callback__contancs"
-              data-da=".callback__row,1200,last"
-            >
-              {form.number && (
-                <Link
-                  href={`tel:${form.number}`}
-                  className="callback__contancs-item fade-up"
-                  ref={numberRef}
-                >
-                  <span>{formatPhoneNumber(String(form.number))} </span>
-                </Link>
-              )}
-              {form.email && (
-                <Link
-                  href={`mailto:${form.email}`}
-                  className="callback__contancs-item fade-up"
-                  ref={emailRef}
-                >
-                  <span>{form.email}</span>
-                </Link>
-              )}
-              {form.address && (
-                <a className="callback__contancs-item fade-up" ref={addressRef}>
-                  <span>{form.address}</span>
-                </a>
-              )}
-            </address>
+            <Address form={form} callbackRef={callbackRef} />
           </div>
           <form
             action="#"
