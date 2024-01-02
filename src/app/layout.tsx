@@ -25,7 +25,7 @@ export default async function RootLayout({
       <body>
         <div className="wrapper">
           <QueryProviders>
-            <div className="mobile-menu">
+            {/* <div className="mobile-menu">
               <nav className="mobile-menu__row js-menu">
                 <div className="mobile-menu__base">
                   <button
@@ -132,7 +132,7 @@ export default async function RootLayout({
                   </div>
                 </div>
               </nav>
-            </div>
+            </div> */}
 
             <Header header={header.data.attributes} />
 
@@ -142,7 +142,7 @@ export default async function RootLayout({
           </QueryProviders>
         </div>
 
-        <Script src="/js/app.min.js" defer />
+        {/* <Script src="/js/app.min.js" defer /> */}
       </body>
     </html>
   );
