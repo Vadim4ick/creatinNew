@@ -130,6 +130,27 @@ export type ComponentComponentsHomeBannerInput = {
   readonly id: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type ComponentComponentsTextBlock = {
+  readonly __typename?: 'ComponentComponentsTextBlock';
+  readonly description: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly titlle: Scalars['String']['output'];
+};
+
+export type ComponentComponentsTextBlockFiltersInput = {
+  readonly and: InputMaybe<ReadonlyArray<InputMaybe<ComponentComponentsTextBlockFiltersInput>>>;
+  readonly description: InputMaybe<StringFilterInput>;
+  readonly not: InputMaybe<ComponentComponentsTextBlockFiltersInput>;
+  readonly or: InputMaybe<ReadonlyArray<InputMaybe<ComponentComponentsTextBlockFiltersInput>>>;
+  readonly titlle: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentComponentsTextBlockInput = {
+  readonly description: InputMaybe<Scalars['String']['input']>;
+  readonly id: InputMaybe<Scalars['ID']['input']>;
+  readonly titlle: InputMaybe<Scalars['String']['input']>;
+};
+
 export type ComponentElementsIntroCard = {
   readonly __typename?: 'ComponentElementsIntroCard';
   readonly class: Maybe<Enum_Componentelementsintrocard_Class>;
@@ -382,7 +403,7 @@ export type FloatFilterInput = {
   readonly startsWith: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = Case | ComponentComponentsHomeBanner | ComponentElementsIntroCard | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentUiLink | ContentReleasesRelease | ContentReleasesReleaseAction | Header | HomePage | I18NLocale | PortfolioPage | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Case | ComponentComponentsHomeBanner | ComponentComponentsTextBlock | ComponentElementsIntroCard | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentUiLink | ContentReleasesRelease | ContentReleasesReleaseAction | Header | HomePage | I18NLocale | PortfolioPage | Service | ServicesPage | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   readonly __typename?: 'Header';
@@ -575,6 +596,7 @@ export type Mutation = {
   readonly createCase: Maybe<CaseEntityResponse>;
   readonly createContentReleasesRelease: Maybe<ContentReleasesReleaseEntityResponse>;
   readonly createContentReleasesReleaseAction: Maybe<ContentReleasesReleaseActionEntityResponse>;
+  readonly createService: Maybe<ServiceEntityResponse>;
   readonly createUploadFile: Maybe<UploadFileEntityResponse>;
   readonly createUploadFolder: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
@@ -587,6 +609,8 @@ export type Mutation = {
   readonly deleteHeader: Maybe<HeaderEntityResponse>;
   readonly deleteHomePage: Maybe<HomePageEntityResponse>;
   readonly deletePortfolioPage: Maybe<PortfolioPageEntityResponse>;
+  readonly deleteService: Maybe<ServiceEntityResponse>;
+  readonly deleteServicesPage: Maybe<ServicesPageEntityResponse>;
   readonly deleteUploadFile: Maybe<UploadFileEntityResponse>;
   readonly deleteUploadFolder: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
@@ -611,6 +635,8 @@ export type Mutation = {
   readonly updateHeader: Maybe<HeaderEntityResponse>;
   readonly updateHomePage: Maybe<HomePageEntityResponse>;
   readonly updatePortfolioPage: Maybe<PortfolioPageEntityResponse>;
+  readonly updateService: Maybe<ServiceEntityResponse>;
+  readonly updateServicesPage: Maybe<ServicesPageEntityResponse>;
   readonly updateUploadFile: Maybe<UploadFileEntityResponse>;
   readonly updateUploadFolder: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
@@ -640,6 +666,11 @@ export type MutationCreateContentReleasesReleaseArgs = {
 
 export type MutationCreateContentReleasesReleaseActionArgs = {
   data: ContentReleasesReleaseActionInput;
+};
+
+
+export type MutationCreateServiceArgs = {
+  data: ServiceInput;
 };
 
 
@@ -674,6 +705,11 @@ export type MutationDeleteContentReleasesReleaseArgs = {
 
 
 export type MutationDeleteContentReleasesReleaseActionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteServiceArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -777,6 +813,17 @@ export type MutationUpdatePortfolioPageArgs = {
 };
 
 
+export type MutationUpdateServiceArgs = {
+  data: ServiceInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateServicesPageArgs = {
+  data: ServicesPageInput;
+};
+
+
 export type MutationUpdateUploadFileArgs = {
   data: UploadFileInput;
   id: Scalars['ID']['input'];
@@ -867,6 +914,9 @@ export type Query = {
   readonly i18NLocales: Maybe<I18NLocaleEntityResponseCollection>;
   readonly me: Maybe<UsersPermissionsMe>;
   readonly portfolioPage: Maybe<PortfolioPageEntityResponse>;
+  readonly service: Maybe<ServiceEntityResponse>;
+  readonly services: Maybe<ServiceEntityResponseCollection>;
+  readonly servicesPage: Maybe<ServicesPageEntityResponse>;
   readonly uploadFile: Maybe<UploadFileEntityResponse>;
   readonly uploadFiles: Maybe<UploadFileEntityResponseCollection>;
   readonly uploadFolder: Maybe<UploadFolderEntityResponse>;
@@ -942,6 +992,24 @@ export type QueryPortfolioPageArgs = {
 };
 
 
+export type QueryServiceArgs = {
+  id: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryServicesArgs = {
+  filters: InputMaybe<ServiceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryServicesPageArgs = {
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+
 export type QueryUploadFileArgs = {
   id: InputMaybe<Scalars['ID']['input']>;
 };
@@ -992,6 +1060,93 @@ export type QueryUsersPermissionsUsersArgs = {
 export type ResponseCollectionMeta = {
   readonly __typename?: 'ResponseCollectionMeta';
   readonly pagination: Pagination;
+};
+
+export type Service = {
+  readonly __typename?: 'Service';
+  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
+  readonly description: Scalars['String']['output'];
+  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly title: Maybe<Scalars['String']['output']>;
+  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ServiceEntity = {
+  readonly __typename?: 'ServiceEntity';
+  readonly attributes: Maybe<Service>;
+  readonly id: Maybe<Scalars['ID']['output']>;
+};
+
+export type ServiceEntityResponse = {
+  readonly __typename?: 'ServiceEntityResponse';
+  readonly data: Maybe<ServiceEntity>;
+};
+
+export type ServiceEntityResponseCollection = {
+  readonly __typename?: 'ServiceEntityResponseCollection';
+  readonly data: ReadonlyArray<ServiceEntity>;
+  readonly meta: ResponseCollectionMeta;
+};
+
+export type ServiceFiltersInput = {
+  readonly and: InputMaybe<ReadonlyArray<InputMaybe<ServiceFiltersInput>>>;
+  readonly createdAt: InputMaybe<DateTimeFilterInput>;
+  readonly description: InputMaybe<StringFilterInput>;
+  readonly id: InputMaybe<IdFilterInput>;
+  readonly not: InputMaybe<ServiceFiltersInput>;
+  readonly or: InputMaybe<ReadonlyArray<InputMaybe<ServiceFiltersInput>>>;
+  readonly publishedAt: InputMaybe<DateTimeFilterInput>;
+  readonly title: InputMaybe<StringFilterInput>;
+  readonly updatedAt: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ServiceInput = {
+  readonly description: InputMaybe<Scalars['String']['input']>;
+  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly title: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ServicesPage = {
+  readonly __typename?: 'ServicesPage';
+  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
+  readonly description: Scalars['String']['output'];
+  readonly heading: Scalars['String']['output'];
+  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly servicesDescription: Scalars['String']['output'];
+  readonly servicesTitle: Scalars['String']['output'];
+  readonly textBlocks: Maybe<ReadonlyArray<Maybe<ComponentComponentsTextBlock>>>;
+  readonly title: Maybe<Scalars['String']['output']>;
+  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly video: Maybe<UploadFileEntityResponse>;
+};
+
+
+export type ServicesPageTextBlocksArgs = {
+  filters: InputMaybe<ComponentComponentsTextBlockFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ServicesPageEntity = {
+  readonly __typename?: 'ServicesPageEntity';
+  readonly attributes: Maybe<ServicesPage>;
+  readonly id: Maybe<Scalars['ID']['output']>;
+};
+
+export type ServicesPageEntityResponse = {
+  readonly __typename?: 'ServicesPageEntityResponse';
+  readonly data: Maybe<ServicesPageEntity>;
+};
+
+export type ServicesPageInput = {
+  readonly description: InputMaybe<Scalars['String']['input']>;
+  readonly heading: InputMaybe<Scalars['String']['input']>;
+  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly servicesDescription: InputMaybe<Scalars['String']['input']>;
+  readonly servicesTitle: InputMaybe<Scalars['String']['input']>;
+  readonly textBlocks: InputMaybe<ReadonlyArray<InputMaybe<ComponentComponentsTextBlockInput>>>;
+  readonly title: InputMaybe<Scalars['String']['input']>;
+  readonly video: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type StringFilterInput = {
@@ -1397,6 +1552,11 @@ export type GetCasesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCasesQuery = { readonly __typename?: 'Query', readonly cases: { readonly __typename?: 'CaseEntityResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } }> } };
 
+export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetServicesQuery = { readonly __typename?: 'Query', readonly services: { readonly __typename?: 'ServiceEntityResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'ServiceEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Service', readonly title: string, readonly description: string } }> } };
+
 export type LinkFragmentFragment = { readonly __typename?: 'ComponentUiLink', readonly id: string, readonly href: string, readonly name: string };
 
 export type MediaFragmentFragment = { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number };
@@ -1416,6 +1576,11 @@ export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly title: string, readonly HomeBanner: { readonly __typename?: 'ComponentComponentsHomeBanner', readonly IntroCard: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIntroCard', readonly class: Enum_Componentelementsintrocard_Class, readonly id: string, readonly title: string, readonly info: string }>, readonly bannerMasks: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly id: string, readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } }> }, readonly bannerMobile: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } }, readonly Partners: { readonly __typename?: 'ComponentSectionsPartners', readonly title: string, readonly description: string, readonly icons: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly id: string, readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } }> } }, readonly formSend: { readonly __typename?: 'ComponentSectionsFormSend', readonly description: string, readonly address: string, readonly email: string, readonly number: any }, readonly cases: { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } }> } } } } };
+
+export type GetServicesPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetServicesPageQuery = { readonly __typename?: 'Query', readonly servicesPage: { readonly __typename?: 'ServicesPageEntityResponse', readonly data: { readonly __typename?: 'ServicesPageEntity', readonly attributes: { readonly __typename?: 'ServicesPage', readonly heading: string, readonly description: string, readonly servicesTitle: string, readonly servicesDescription: string, readonly textBlocks: ReadonlyArray<{ readonly __typename?: 'ComponentComponentsTextBlock', readonly id: string, readonly titlle: string, readonly description: string }>, readonly video: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string } } } } } } };
 
 export const LinkFragmentFragmentDoc = gql`
     fragment LinkFragment on ComponentUiLink {
@@ -1530,6 +1695,19 @@ export const GetCasesDocument = gql`
   }
 }
     ${MediaFragmentFragmentDoc}`;
+export const GetServicesDocument = gql`
+    query GetServices {
+  services {
+    data {
+      id
+      attributes {
+        title
+        description
+      }
+    }
+  }
+}
+    `;
 export const GetHeaderDocument = gql`
     query GetHeader {
   header {
@@ -1571,6 +1749,33 @@ export const GetHomePageDocument = gql`
     ${GetHomeBannerFragmentDoc}
 ${GetHomePartnersFragmentDoc}
 ${GetHomeCasesFragmentDoc}`;
+export const GetServicesPageDocument = gql`
+    query GetServicesPage {
+  servicesPage {
+    data {
+      attributes {
+        heading
+        description
+        servicesTitle
+        servicesDescription
+        textBlocks {
+          id
+          titlle
+          description
+        }
+        video {
+          data {
+            attributes {
+              name
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
@@ -1582,11 +1787,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     GetCases(variables?: GetCasesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetCasesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCasesQuery>(GetCasesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetCases', 'query', variables);
     },
+    GetServices(variables?: GetServicesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetServicesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetServicesQuery>(GetServicesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetServices', 'query', variables);
+    },
     GetHeader(variables?: GetHeaderQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHeaderQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetHeaderQuery>(GetHeaderDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHeader', 'query', variables);
     },
     GetHomePage(variables?: GetHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageQuery>(GetHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetHomePage', 'query', variables);
+    },
+    GetServicesPage(variables?: GetServicesPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetServicesPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetServicesPageQuery>(GetServicesPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetServicesPage', 'query', variables);
     }
   };
 }

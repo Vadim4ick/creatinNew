@@ -14,6 +14,7 @@ import { CustomLink } from "@/shared/ui/Link";
 import { Portal } from "@/shared/ui/Portal";
 import Image from "next/image";
 import { useMemo, useRef } from "react";
+import { A11y, Mousewheel } from "swiper";
 
 interface BannerProps {
   banner: GetHomePageQuery["homePage"]["data"]["attributes"]["HomeBanner"];
@@ -49,6 +50,7 @@ const Banner = (props: BannerProps) => {
   useSwiper({
     ref: introCardsSwiperRef,
     options: {
+      modules: [A11y, Mousewheel],
       direction: "horizontal",
       speed: 800,
       spaceBetween: 12,
