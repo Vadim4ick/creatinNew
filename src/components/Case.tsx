@@ -1,7 +1,11 @@
+"use client";
+
 import { Case } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
+import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { CustomLink } from "@/shared/ui/Link";
 import Image from "next/image";
+import { useRef } from "react";
 
 interface CaseProps {
   case: Omit<Case, "publishedAt" | "updatedAt" | "createdAt">;
@@ -10,13 +14,16 @@ interface CaseProps {
 const Case = (props: CaseProps) => {
   const { case: project } = props;
 
+  const caseRef = useRef<HTMLDivElement | null>(null);
+
+  useIntersectionObserver({
+    ref: caseRef,
+    margin: "30px",
+    once: true,
+  });
+
   return (
-    <div
-      className="cases__column case-card fade-up"
-      data-watch
-      data-watch-once
-      data-watch-margin="30"
-    >
+    <div ref={caseRef} className="cases__column case-card fade-up">
       <div className="case-card__item case-card__item--text">
         <div className="case-card__title">{project.title && project.title}</div>
         <div className="case-card__info">{project.info && project.info}</div>

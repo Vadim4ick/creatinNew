@@ -5,11 +5,15 @@ import {
   GetHomePageQuery,
 } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
+import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
+import { useMedia } from "@/shared/hooks/useMedia";
+import { useSwiper } from "@/shared/hooks/useSwiper";
 import { Folder } from "@/shared/icons/introBanner/Folder";
 import { Spiral } from "@/shared/icons/introBanner/Spiral";
 import { CustomLink } from "@/shared/ui/Link";
+import { Portal } from "@/shared/ui/Portal";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
 interface BannerProps {
   banner: GetHomePageQuery["homePage"]["data"]["attributes"]["HomeBanner"];
@@ -21,13 +25,44 @@ const arrImages: Record<Enum_Componentelementsintrocard_Class, any> = {
   image_group: ["/img/intro/01.png", "/img/intro/02.png", "/img/intro/03.png"],
 };
 
+const ButtonIntro = () => {
+  return (
+    <div className="intro__btns" data-da=".intro__inner,767,last">
+      <CustomLink iconPosition="right">Оставить заявку</CustomLink>
+    </div>
+  );
+};
+
 const Banner = (props: BannerProps) => {
   const { banner } = props;
 
-  // const customStyles = {
-  //   "--mask": "url(/img/intro/mask.svg)",
-  //   "--mask-mob": "url(/img/intro/mask-mobile.svg)",
-  // };
+  const bannerRef = useRef<HTMLElement | null>(null);
+  const introCardsSwiperRef = useRef<HTMLDivElement | null>(null);
+  const test = useRef<HTMLDivElement | null>(null);
+
+  const isPhone = useMedia("(max-width: 767px)");
+
+  useIntersectionObserver({
+    ref: bannerRef,
+    once: true,
+  });
+  useSwiper({
+    ref: introCardsSwiperRef,
+    options: {
+      direction: "horizontal",
+      speed: 800,
+      spaceBetween: 12,
+      breakpoints: {
+        320: {
+          autoHeight: false,
+          spaceBetween: 12,
+        },
+        1439: {
+          direction: "vertical",
+        },
+      },
+    },
+  });
 
   const customStyles: { [key: string]: string } = useMemo(() => {
     const stylesObject: { [key: string]: string } = {};
@@ -42,9 +77,9 @@ const Banner = (props: BannerProps) => {
   }, [banner.bannerMasks.data]);
 
   return (
-    <section className="intro" data-watch data-watch-once>
+    <section ref={bannerRef} className="intro">
       <div className="intro__container">
-        <div className="intro__inner">
+        <div ref={test} className="intro__inner">
           <div
             className="intro__row"
             style={banner.bannerMasks ? customStyles : undefined}
@@ -57,24 +92,36 @@ const Banner = (props: BannerProps) => {
                   готовых <br />к <span>изменениям</span>
                 </p>
               </div>
-              <div className="intro__btns" data-da=".intro__inner,767,last">
-                <CustomLink iconPosition="right">Оставить заявку</CustomLink>
-              </div>
+              {isPhone.matches ? (
+                test.current && (
+                  <Portal element={test.current}>
+                    <ButtonIntro />
+                  </Portal>
+                )
+              ) : (
+                <ButtonIntro />
+              )}
             </div>
             <div className="intro__bg">
-              <picture>
-                <source
-                  srcSet={getFileUrl(banner.bannerMobile.data.attributes.url)}
-                  media="(max-width: 767px)"
+              {isPhone.matches ? (
+                <Image
+                  fill
+                  src={getFileUrl(banner.bannerMobile.data.attributes.url)}
+                  alt=""
                 />
-                <img
-                  data-src={getFileUrl(banner.banner.data.attributes.url)}
-                  alt={banner.banner.data.attributes.url}
+              ) : (
+                <Image
+                  fill
+                  src={getFileUrl(banner.banner.data.attributes.url)}
+                  alt=""
                 />
-              </picture>
+              )}
             </div>
           </div>
-          <div className="intro__cards intro-cards swiper js-intro-cards">
+          <div
+            ref={introCardsSwiperRef}
+            className="intro__cards intro-cards swiper js-intro-cards"
+          >
             <div className="intro-cards__swiper swiper-wrapper">
               {banner.IntroCard &&
                 banner.IntroCard.map((card) => {

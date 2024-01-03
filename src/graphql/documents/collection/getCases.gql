@@ -1,0 +1,25 @@
+query GetCases {
+  cases {
+    data {
+      id
+      attributes {
+        title
+        info
+        imageMain {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+        imageBig {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+      }
+    }
+  }
+}

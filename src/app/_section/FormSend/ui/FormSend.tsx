@@ -1,8 +1,12 @@
+"use client";
+
 import { GetHomePageQuery } from "@/graphql/__generated__";
-import { formatPhoneNumber } from "@/shared/helpers/numberFormatter";
+import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
-import Link from "next/link";
+import React, { ReactNode, useRef } from "react";
+import { Address } from "../lib/Address";
+import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import ReactMarkdown from "react-markdown";
 
 interface FormSendProps {
@@ -12,19 +16,41 @@ interface FormSendProps {
 const FormSend = (props: FormSendProps) => {
   const { form } = props;
 
+  const titleRef = useRef<HTMLDivElement | null>(null);
+  const subTitleRef = useRef<HTMLDivElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const callbackRef = useRef<HTMLDivElement | null>(null);
+
+  useIntersectionObserver({
+    ref: titleRef,
+    removeClass: true,
+  });
+
+  useIntersectionObserver({
+    ref: subTitleRef,
+    removeClass: true,
+  });
+
+  useIntersectionObserver({
+    ref: formRef,
+    removeClass: true,
+
+    threshold: 0.07,
+  });
+
   return (
     <section className="callback animate-block" id="callback">
       <div className="callback__container">
-        <div className="callback__row">
+        <div ref={callbackRef} className="callback__row">
           <div className="callback__left">
-            <ReactMarkdown
+            {/* <ReactMarkdown
               skipHtml
               components={{
                 h2: ({ children }) => (
                   <h2
                     className="callback__title text-decorated fade-up"
-                    data-watch
-                    data-observe
+                    ref={titleRef}
                   >
                     {children}
                   </h2>
@@ -33,46 +59,53 @@ const FormSend = (props: FormSendProps) => {
               }}
             >
               {form.title}
+            </ReactMarkdown> */}
+
+            <SplitTypeAnimation bg="#aaaaaa" fg="#181818" refChar={titleRef}>
+              <h2
+                className="callback__title text-decorated fade-up"
+                ref={titleRef}
+              >
+                Оставьте <b>заявку,</b> <br />
+                чтобы обсудить проект
+              </h2>
+            </SplitTypeAnimation>
+
+            <ReactMarkdown
+              skipHtml
+              components={{
+                p: ({ children }) => {
+                  return (
+                    <>
+                      <h3
+                        ref={subTitleRef}
+                        className="callback__subtitle fade-up"
+                      >
+                        {children
+                          ?.toString()
+                          .split("\n")
+                          .map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              {/* @ts-ignore */}
+                              {index < children.length - 1 && <br />}
+                            </React.Fragment>
+                          ))}
+                      </h3>
+                    </>
+                  );
+                },
+              }}
+            >
+              {form.description}
             </ReactMarkdown>
 
-            <h3 className="callback__subtitle fade-up" data-watch>
+            {/* <h3 ref={subTitleRef} className="callback__subtitle fade-up">
               Cвяжитесь с нами любым удобным способом <br />
               Мы всегда рады новым идеям и ответим на ваши вопросы
-            </h3>
-            <address
-              className="callback__contancs"
-              data-da=".callback__row,1200,last"
-            >
-              {form.number && (
-                <Link
-                  href={`tel:${form.number}`}
-                  className="callback__contancs-item fade-up"
-                  data-watch
-                  data-watch-once
-                >
-                  <span>{formatPhoneNumber(String(form.number))} </span>
-                </Link>
-              )}
-              {form.email && (
-                <Link
-                  href={`mailto:${form.email}`}
-                  className="callback__contancs-item fade-up"
-                  data-watch
-                  data-watch-once
-                >
-                  <span>{form.email}</span>
-                </Link>
-              )}
-              {form.address && (
-                <a
-                  className="callback__contancs-item fade-up"
-                  data-watch
-                  data-watch-once
-                >
-                  <span>{form.address}</span>
-                </a>
-              )}
-            </address>
+            </h3> */}
+
+            <Address form={form} callbackRef={callbackRef} />
           </div>
           <form
             action="#"
@@ -80,7 +113,7 @@ const FormSend = (props: FormSendProps) => {
             data-dev
             method="GET"
             className="callback__form callback-form form fade-up"
-            data-watch
+            ref={formRef}
           >
             <fieldset className="callback-form__group form__group">
               <div className="form__item">
