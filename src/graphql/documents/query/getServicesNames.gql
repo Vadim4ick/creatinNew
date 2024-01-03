@@ -1,0 +1,18 @@
+query GetServicesNames {
+  serviceNames {
+    data {
+      id
+      attributes {
+        name
+        service {
+          data {
+            id
+            attributes {
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}

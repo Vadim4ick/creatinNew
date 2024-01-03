@@ -2,28 +2,28 @@
 
 import { classNames } from "@/shared/lib";
 import { CustomLink } from "@/shared/ui/Link";
-import { useState } from "react";
+import { memo, useState } from "react";
 import cls from "./Sidebar.module.scss";
 import Image from "next/image";
+import { GetServicesNamesQuery } from "@/graphql/__generated__";
 
 export interface SidebarItems {
-  id: number;
-  title: string;
+  id: string;
+  attributes: {
+    name: string;
+  };
 }
 
 interface SidebarProps {
-  items: SidebarItems[];
+  // items: SidebarItems[];
+  items: GetServicesNamesQuery["serviceNames"]["data"] | undefined;
   viewSpecialOffers: boolean;
+  onChange: (id: string) => void;
+  active: string;
 }
 
-const Sidebar = (props: SidebarProps) => {
-  const { items, viewSpecialOffers } = props;
-
-  const [activeItemIdx, setActiveItemIdx] = useState<number>(0);
-
-  const handleClick = (idx: number) => {
-    setActiveItemIdx(idx);
-  };
+const Sidebar = memo((props: SidebarProps) => {
+  const { items, viewSpecialOffers, onChange, active } = props;
 
   return (
     <aside className="sidebar">
@@ -67,21 +67,22 @@ const Sidebar = (props: SidebarProps) => {
           </ul>
         </div>
         <ul className="sidebar__items">
-          {items.map((item, i) => (
-            <li
-              onClick={() => handleClick(i)}
-              key={item.id}
-              className={"sidebar__item"}
-            >
-              <a
-                className={classNames("sidebar__link", {
-                  [cls.active]: i === activeItemIdx,
-                })}
+          {items?.length &&
+            items.map((item) => (
+              <li
+                onClick={() => onChange(item.id)}
+                key={item.id}
+                className={"sidebar__item"}
               >
-                {item.title}
-              </a>
-            </li>
-          ))}
+                <a
+                  className={classNames("sidebar__link", {
+                    [cls.active]: item.id === active,
+                  })}
+                >
+                  {item.attributes.name}
+                </a>
+              </li>
+            ))}
         </ul>
 
         {viewSpecialOffers && (
@@ -102,6 +103,6 @@ const Sidebar = (props: SidebarProps) => {
       </div>
     </aside>
   );
-};
+});
 
 export { Sidebar };

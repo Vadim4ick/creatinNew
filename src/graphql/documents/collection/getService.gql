@@ -1,0 +1,50 @@
+query GetServiceById($id: ID) {
+  services(filters: { serviceName: { id: { eq: $id } } }) {
+    data {
+      id
+      attributes {
+        title
+        textBlocks {
+          id
+          titlle
+          description
+        }
+        description
+        serviceName {
+          data {
+            id
+            attributes {
+              name
+            }
+          }
+        }
+        Services {
+          id
+          title
+          description
+          services {
+            id
+            titleService
+            descriptionService
+          }
+        }
+        banner {
+          data {
+            attributes {
+              name
+              url
+            }
+          }
+        }
+        video {
+          data {
+            attributes {
+              name
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}
