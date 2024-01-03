@@ -6,7 +6,6 @@ import "@/shared/assets/styles/style.min.css";
 
 import { QueryProviders } from "@/shared/providers/queryProviders";
 import { gql } from "@/graphql/client";
-import Script from "next/script";
 import { Burger } from "@/components/Burger";
 
 export const metadata: Metadata = {
