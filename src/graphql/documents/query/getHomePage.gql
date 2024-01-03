@@ -13,7 +13,6 @@ query GetHomePage {
         }
 
         formSend {
-          title
           description
           address
           email

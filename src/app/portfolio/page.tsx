@@ -65,7 +65,7 @@ const PortfolioPage = () => {
               <a className="sidebar__baner" style={{ background: "#d1e791" }}>
                 <div className="sidebar__name">Спецпредложения</div>
                 <div className="sidebar__image">
-                  <img data-src="/img/services/sidebar.png" alt="" />
+                  <img src="/img/services/sidebar.png" alt="" />
                 </div>
               </a>
 

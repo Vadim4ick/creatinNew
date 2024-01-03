@@ -4,9 +4,10 @@ import { GetHomePageQuery } from "@/graphql/__generated__";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
-import { useRef } from "react";
+import React, { ReactNode, useRef } from "react";
 import { Address } from "../lib/Address";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
+import ReactMarkdown from "react-markdown";
 
 interface FormSendProps {
   form: GetHomePageQuery["homePage"]["data"]["attributes"]["formSend"];
@@ -70,10 +71,39 @@ const FormSend = (props: FormSendProps) => {
               </h2>
             </SplitTypeAnimation>
 
-            <h3 ref={subTitleRef} className="callback__subtitle fade-up">
+            <ReactMarkdown
+              skipHtml
+              components={{
+                p: ({ children }) => {
+                  return (
+                    <>
+                      <h3
+                        ref={subTitleRef}
+                        className="callback__subtitle fade-up"
+                      >
+                        {children
+                          ?.toString()
+                          .split("\n")
+                          .map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              {/* @ts-ignore */}
+                              {index < children.length - 1 && <br />}
+                            </React.Fragment>
+                          ))}
+                      </h3>
+                    </>
+                  );
+                },
+              }}
+            >
+              {form.description}
+            </ReactMarkdown>
+
+            {/* <h3 ref={subTitleRef} className="callback__subtitle fade-up">
               Cвяжитесь с нами любым удобным способом <br />
               Мы всегда рады новым идеям и ответим на ваши вопросы
-            </h3>
+            </h3> */}
 
             <Address form={form} callbackRef={callbackRef} />
           </div>
