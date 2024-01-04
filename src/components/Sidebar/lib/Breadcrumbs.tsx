@@ -1,12 +1,12 @@
-import { Router } from "@/shared/const/pages";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import cls from "./Breadcrumbs.module.scss";
+import { useRouteName } from "@/shared/hooks/useRouteName";
 
 const Breadcrumbs = () => {
-  const pathname = usePathname();
-  const currentRoute = Router.find((route) => route.path === pathname);
   const router = useRouter();
+
+  const routeActive = useRouteName();
 
   const onClick = () => {
     router.back();
@@ -44,10 +44,10 @@ const Breadcrumbs = () => {
             </Link>
           </span>
         </li>
-        {currentRoute && (
+        {routeActive && (
           <li className="breadcrumb__item breadcrumb__item-link--active">
             <span>
-              <span>{currentRoute.name}</span>
+              <span>{routeActive}</span>
             </span>
           </li>
         )}

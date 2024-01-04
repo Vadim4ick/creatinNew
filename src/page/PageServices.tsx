@@ -8,6 +8,8 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import { RelevantProjects } from "@/app/services/_sections/Relevant-project";
 import { Loader } from "@/shared/ui/Loader/Loader";
 import { useGetServiceByNameID } from "@/shared/services/serviceByNameID";
+import { getRouteService } from "@/shared/const/pages";
+import { TextBlocks } from "@/components/TextBlocks";
 
 const PageServices = memo(
   ({
@@ -112,7 +114,7 @@ const PageServices = memo(
                       (service) => (
                         <Link
                           key={service.id}
-                          href={`test`}
+                          href={getRouteService(service.id)}
                           className="services__column"
                           // @ts-ignore
                           style={{ "--icon": "url(/img/icons/services.svg)" }}
@@ -130,18 +132,7 @@ const PageServices = memo(
                 </section>
               )}
 
-              <section className="text-block">
-                {service?.textBlocks.map((block) => (
-                  <div className="text-block__item" key={block.id}>
-                    <div className="text-block__title">{block.titlle}</div>
-                    <div className="text-block__info">
-                      <ReactMarkdown skipHtml>
-                        {block.description}
-                      </ReactMarkdown>
-                    </div>
-                  </div>
-                ))}
-              </section>
+              {service.textBlocks && <TextBlocks blocks={service.textBlocks} />}
 
               {service.SliderCase && (
                 <RelevantProjects cases={service.SliderCase.cases.data} />

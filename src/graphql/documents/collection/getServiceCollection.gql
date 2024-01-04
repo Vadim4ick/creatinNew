@@ -1,0 +1,72 @@
+query GetServiceCollectionById($id: ID) {
+  serviceCollection(id: $id) {
+    data {
+      attributes {
+        title
+        description
+        deadlines
+        price
+        Title {
+          id
+          title
+          titles {
+            id
+            title
+          }
+        }
+        sliderCase {
+          cases {
+            data {
+              id
+              attributes {
+                title
+                info
+                imageMain {
+                  data {
+                    attributes {
+                      name
+                      url
+                      width
+                      height
+                    }
+                  }
+                }
+                imageBig {
+                  data {
+                    attributes {
+                      name
+                      url
+                      width
+                      height
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        banner {
+          data {
+            attributes {
+              name
+              url
+            }
+          }
+        }
+        textBlocks {
+          id
+          titlle
+          description
+        }
+        video {
+          data {
+            attributes {
+              name
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}

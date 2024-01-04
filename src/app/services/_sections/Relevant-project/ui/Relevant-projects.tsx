@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import { GetServiceByIdQuery } from "@/graphql/__generated__";
+import { MediaFragmentFragment } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { useSwiper } from "@/shared/hooks/useSwiper";
@@ -10,16 +11,48 @@ import { useRef } from "react";
 import { A11y } from "swiper";
 import cls from "./RelevantProject.module.scss";
 import { classNames } from "@/shared/lib";
+import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 
-const RelevantProjects = ({
-  cases,
-}: {
-  cases: GetServiceByIdQuery["services"]["data"][0]["attributes"]["SliderCase"]["cases"]["data"];
-}) => {
+interface RelevantProject {
+  readonly id: string;
+
+  readonly attributes: {
+    readonly title: string;
+    readonly info: string;
+
+    readonly imageMain: {
+      readonly data: {
+        readonly attributes: MediaFragmentFragment;
+      };
+    };
+
+    readonly imageBig: {
+      readonly data: {
+        readonly attributes: MediaFragmentFragment;
+      };
+    };
+  };
+}
+
+interface RelevantProjectsProps {
+  cases: readonly RelevantProject[];
+  animation?: boolean;
+}
+
+const RelevantProjects = (props: RelevantProjectsProps) => {
+  const { cases, animation = false } = props;
+
   const projectsSeiperRef = useRef<HTMLDivElement | null>(null);
 
   const titleRef = useRef<HTMLDivElement | null>(null);
+  const refBlocks = useRef<HTMLElement | null>(null);
 
+  if (animation) {
+    useIntersectionObserver({
+      ref: refBlocks,
+      once: true,
+    });
+  }
   //   useEffect(() => {
   //     const swiperRef = projectsSeiperRef.current;
   //     if (!swiperRef) return;
@@ -78,7 +111,10 @@ const RelevantProjects = ({
   });
 
   return (
-    <section className="relevant">
+    <section
+      ref={animation ? refBlocks : undefined}
+      className={classNames("relevant", { "fade-up": animation })}
+    >
       <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#181818">
         <div ref={titleRef} className="relevant__title" data-observe>
           Релевантные проекты

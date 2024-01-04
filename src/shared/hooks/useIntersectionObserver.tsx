@@ -1,21 +1,33 @@
-import { useEffect, RefObject } from "react";
+import { useEffect, RefObject, MutableRefObject } from "react";
 
 function useIntersectionObserver({
   ref,
+  refs,
   removeClass,
   margin = "0px",
   once = false,
   threshold = 0,
 }: {
-  ref: RefObject<HTMLElement>;
+  ref?: RefObject<HTMLElement>;
+  refs?: MutableRefObject<HTMLDivElement | null>[];
   removeClass?: boolean;
   margin?: string;
   once?: boolean;
   threshold?: number;
 }) {
   useEffect(() => {
-    // Получаем элемент из ref
-    let element = ref.current;
+    let elements: HTMLElement[] = [];
+
+    // Заполняем массив elements в зависимости от того, передан ли один ref или массив refs
+    if (ref) {
+      elements.push(ref.current!);
+    } else if (refs) {
+      refs.forEach((r) => {
+        if (r && r.current) {
+          elements.push(r.current);
+        }
+      });
+    }
 
     // Функция обратного вызова
     let callback = (entries: IntersectionObserverEntry[]) => {
@@ -34,24 +46,26 @@ function useIntersectionObserver({
           entry.target.classList.remove("_watcher-view");
         }
       });
-    }; // Создаем наблюдатель
+    };
+
+    // Создаем наблюдатель
     let observer = new IntersectionObserver(callback, {
       rootMargin: margin,
       threshold: threshold,
     });
 
-    // Начинаем наблюдение
-    if (element) {
+    // Начинаем наблюдение для каждого элемента
+    elements.forEach((element) => {
       observer.observe(element);
-    }
+    });
 
     // Очистка при размонтировании
     return () => {
-      if (element) {
+      elements.forEach((element) => {
         observer.unobserve(element);
-      }
+      });
     };
-  }, [margin, removeClass]); // Пустой массив зависимостей, чтобы запустить эффект один раз
+  }, [margin, removeClass, refs, ref, once, threshold]);
 }
 
 export default useIntersectionObserver;
