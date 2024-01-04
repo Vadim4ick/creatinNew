@@ -14,7 +14,7 @@ import { classNames } from "@/shared/lib";
 const RelevantProjects = ({
   cases,
 }: {
-  cases: GetServiceByIdQuery["services"]["data"][0]["attributes"]["cases"]["data"];
+  cases: GetServiceByIdQuery["services"]["data"][0]["attributes"]["SliderCase"]["cases"]["data"];
 }) => {
   const projectsSeiperRef = useRef<HTMLDivElement | null>(null);
 
@@ -78,58 +78,50 @@ const RelevantProjects = ({
   });
 
   return (
-    <>
-      {cases.length !== 0 && (
-        <section className="relevant">
-          <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#181818">
-            <div ref={titleRef} className="relevant__title" data-observe>
-              Релевантные проекты
-            </div>
-          </SplitTypeAnimation>
+    <section className="relevant">
+      <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#181818">
+        <div ref={titleRef} className="relevant__title" data-observe>
+          Релевантные проекты
+        </div>
+      </SplitTypeAnimation>
 
-          <div
-            ref={projectsSeiperRef}
-            className="relevant__slider swiper js-relevant-slider"
-          >
-            <div className="relevant__swiper swiper-wrapper">
-              {cases.map((item) => (
-                <div key={item.id} className="relevant__slide swiper-slide">
-                  <div className="relevant__inner">
-                    <div className="relevant__slide-image">
-                      <Image
-                        width={item.attributes.imageMain.data.attributes.width}
-                        height={
-                          item.attributes.imageMain.data.attributes.height
-                        }
-                        src={getFileUrl(
-                          item.attributes.imageMain.data.attributes.url
-                        )}
-                        alt={item.attributes.title}
-                      />
-                    </div>
-
-                    <div className="relevant__bottom">
-                      <div className="relevant__name">
-                        {item.attributes.title}
-                      </div>
-                      <div className={classNames(`relevant__info ${cls.info}`)}>
-                        {item.attributes.info}
-                      </div>
-
-                      <CustomLink
-                        className="relevant__btn"
-                        variant="white"
-                        iconPosition="right"
-                      />
-                    </div>
-                  </div>
+      <div
+        ref={projectsSeiperRef}
+        className="relevant__slider swiper js-relevant-slider"
+      >
+        <div className="relevant__swiper swiper-wrapper">
+          {cases.map((item) => (
+            <div key={item.id} className="relevant__slide swiper-slide">
+              <div className="relevant__inner">
+                <div className="relevant__slide-image">
+                  <Image
+                    width={item.attributes.imageMain.data.attributes.width}
+                    height={item.attributes.imageMain.data.attributes.height}
+                    src={getFileUrl(
+                      item.attributes.imageMain.data.attributes.url
+                    )}
+                    alt={item.attributes.title}
+                  />
                 </div>
-              ))}
+
+                <div className="relevant__bottom">
+                  <div className="relevant__name">{item.attributes.title}</div>
+                  <div className={classNames(`relevant__info ${cls.info}`)}>
+                    {item.attributes.info}
+                  </div>
+
+                  <CustomLink
+                    className="relevant__btn"
+                    variant="white"
+                    iconPosition="right"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
-      )}
-    </>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 

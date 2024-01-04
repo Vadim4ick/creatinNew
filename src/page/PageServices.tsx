@@ -96,35 +96,39 @@ const PageServices = memo(
                 ></div>
               </div>
 
-              <section className="services">
-                <div className="services__left">
-                  <h2 className="services__title" data-observe>
-                    {service?.Services.title}
-                  </h2>
-                  <p className="services__subtitle">
-                    {service?.Services.description}
-                  </p>
-                </div>
+              {service.Services.service_collections.data && (
+                <section className="services">
+                  <div className="services__left">
+                    <h2 className="services__title" data-observe>
+                      {service?.Services.title}
+                    </h2>
+                    <p className="services__subtitle">
+                      {service?.Services.description}
+                    </p>
+                  </div>
 
-                <div className="services__row">
-                  {service?.Services.services.map((service) => (
-                    <Link
-                      key={service.id}
-                      href={`test`}
-                      className="services__column"
-                      // @ts-ignore
-                      style={{ "--icon": "url(/img/icons/services.svg)" }}
-                    >
-                      <div className="services__name">
-                        {service.titleService}
-                      </div>
-                      <div className="services__info">
-                        {service.descriptionService}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </section>
+                  <div className="services__row">
+                    {service.Services.service_collections.data.map(
+                      (service) => (
+                        <Link
+                          key={service.id}
+                          href={`test`}
+                          className="services__column"
+                          // @ts-ignore
+                          style={{ "--icon": "url(/img/icons/services.svg)" }}
+                        >
+                          <div className="services__name">
+                            {service.attributes.title}
+                          </div>
+                          <div className="services__info">
+                            {service.attributes.description}
+                          </div>
+                        </Link>
+                      )
+                    )}
+                  </div>
+                </section>
+              )}
 
               <section className="text-block">
                 {service?.textBlocks.map((block) => (
@@ -139,7 +143,9 @@ const PageServices = memo(
                 ))}
               </section>
 
-              <RelevantProjects cases={service.cases.data} />
+              {service.SliderCase && (
+                <RelevantProjects cases={service.SliderCase.cases.data} />
+              )}
 
               <div className="cta">
                 <div className="cta__title">

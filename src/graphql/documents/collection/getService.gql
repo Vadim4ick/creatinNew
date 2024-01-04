@@ -1,8 +1,103 @@
 query GetServiceById($id: ID) {
   services(filters: { serviceName: { id: { eq: $id } } }) {
     data {
-      id
       attributes {
+        SliderCase {
+          cases {
+            data {
+              id
+              attributes {
+                title
+                info
+                imageMain {
+                  data {
+                    attributes {
+                      name
+                      url
+                      width
+                      height
+                    }
+                  }
+                }
+                imageBig {
+                  data {
+                    attributes {
+                      name
+                      url
+                      width
+                      height
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        Services {
+          id
+          title
+          description
+          service_collections {
+            data {
+              id
+              attributes {
+                title
+                description
+                price
+                textBlocks {
+                  titlle
+                  description
+                  id
+                }
+                banner {
+                  data {
+                    attributes {
+                      name
+                      url
+                    }
+                  }
+                }
+                sliderCase {
+                  id
+                  cases {
+                    data {
+                      attributes {
+                        title
+                        info
+
+                        imageBig {
+                          data {
+                            attributes {
+                              name
+                              url
+                            }
+                          }
+                        }
+                        imageMain {
+                          data {
+                            attributes {
+                              name
+                              url
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                video {
+                  data {
+                    attributes {
+                      name
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
         title
         textBlocks {
           id
@@ -18,25 +113,7 @@ query GetServiceById($id: ID) {
             }
           }
         }
-        cases {
-          data {
-            id
-            attributes {
-              ...CaseFragment
-            }
-          }
-        }
 
-        Services {
-          id
-          title
-          description
-          services {
-            id
-            titleService
-            descriptionService
-          }
-        }
         banner {
           data {
             attributes {
