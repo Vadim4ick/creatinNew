@@ -6,7 +6,7 @@ type CustomLinkVariant = "ultramarin" | "chartreuse" | "white";
 
 interface CustomLinkProps extends ReactTagProps<"a"> {
   variant?: CustomLinkVariant;
-  children: ReactNode;
+  children?: ReactNode;
   iconPosition?: "left" | "right";
   className?: string;
 }

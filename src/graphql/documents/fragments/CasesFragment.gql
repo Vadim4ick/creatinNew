@@ -1,0 +1,18 @@
+fragment CaseFragment on Case {
+  title
+  info
+  imageMain {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+  imageBig {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+}

@@ -18,6 +18,15 @@ query GetServiceById($id: ID) {
             }
           }
         }
+        cases {
+          data {
+            id
+            attributes {
+              ...CaseFragment
+            }
+          }
+        }
+
         Services {
           id
           title

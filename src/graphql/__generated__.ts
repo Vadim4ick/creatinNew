@@ -53,6 +53,7 @@ export type Case = {
   readonly imageMain: UploadFileEntityResponse;
   readonly info: Scalars['String']['output'];
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly service: Maybe<ServiceEntityResponse>;
   readonly title: Scalars['String']['output'];
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
 };
@@ -82,6 +83,7 @@ export type CaseFiltersInput = {
   readonly not: InputMaybe<CaseFiltersInput>;
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<CaseFiltersInput>>>;
   readonly publishedAt: InputMaybe<DateTimeFilterInput>;
+  readonly service: InputMaybe<ServiceFiltersInput>;
   readonly title: InputMaybe<StringFilterInput>;
   readonly updatedAt: InputMaybe<DateTimeFilterInput>;
 };
@@ -91,6 +93,7 @@ export type CaseInput = {
   readonly imageMain: InputMaybe<Scalars['ID']['input']>;
   readonly info: InputMaybe<Scalars['String']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly service: InputMaybe<Scalars['ID']['input']>;
   readonly title: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1102,6 +1105,7 @@ export type Service = {
   readonly __typename?: 'Service';
   readonly Services: Maybe<ComponentSectionsServices>;
   readonly banner: Maybe<UploadFileRelationResponseCollection>;
+  readonly cases: Maybe<CaseRelationResponseCollection>;
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
   readonly description: Scalars['String']['output'];
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
@@ -1116,6 +1120,14 @@ export type Service = {
 export type ServiceBannerArgs = {
   filters: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ServiceCasesArgs = {
+  filters: InputMaybe<CaseFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -1153,6 +1165,7 @@ export type ServiceEntityResponseCollection = {
 export type ServiceFiltersInput = {
   readonly Services: InputMaybe<ComponentSectionsServicesFiltersInput>;
   readonly and: InputMaybe<ReadonlyArray<InputMaybe<ServiceFiltersInput>>>;
+  readonly cases: InputMaybe<CaseFiltersInput>;
   readonly createdAt: InputMaybe<DateTimeFilterInput>;
   readonly description: InputMaybe<StringFilterInput>;
   readonly id: InputMaybe<IdFilterInput>;
@@ -1168,6 +1181,7 @@ export type ServiceFiltersInput = {
 export type ServiceInput = {
   readonly Services: InputMaybe<ComponentSectionsServicesInput>;
   readonly banner: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
+  readonly cases: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
   readonly description: InputMaybe<Scalars['String']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
   readonly serviceName: InputMaybe<Scalars['ID']['input']>;
@@ -1628,7 +1642,9 @@ export type GetServiceByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetServiceByIdQuery = { readonly __typename?: 'Query', readonly services: { readonly __typename?: 'ServiceEntityResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'ServiceEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Service', readonly title: string, readonly description: string, readonly textBlocks: ReadonlyArray<{ readonly __typename?: 'ComponentComponentsTextBlock', readonly id: string, readonly titlle: string, readonly description: string }>, readonly serviceName: { readonly __typename?: 'ServiceNameEntityResponse', readonly data: { readonly __typename?: 'ServiceNameEntity', readonly id: string, readonly attributes: { readonly __typename?: 'ServiceName', readonly name: string } } }, readonly Services: { readonly __typename?: 'ComponentSectionsServices', readonly id: string, readonly title: string, readonly description: string, readonly services: ReadonlyArray<{ readonly __typename?: 'ComponentElementsService', readonly id: string, readonly titleService: string, readonly descriptionService: string }> }, readonly banner: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string } }> }, readonly video: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string } }> } } }> } };
+export type GetServiceByIdQuery = { readonly __typename?: 'Query', readonly services: { readonly __typename?: 'ServiceEntityResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'ServiceEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Service', readonly title: string, readonly description: string, readonly textBlocks: ReadonlyArray<{ readonly __typename?: 'ComponentComponentsTextBlock', readonly id: string, readonly titlle: string, readonly description: string }>, readonly serviceName: { readonly __typename?: 'ServiceNameEntityResponse', readonly data: { readonly __typename?: 'ServiceNameEntity', readonly id: string, readonly attributes: { readonly __typename?: 'ServiceName', readonly name: string } } }, readonly cases: { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } }> }, readonly Services: { readonly __typename?: 'ComponentSectionsServices', readonly id: string, readonly title: string, readonly description: string, readonly services: ReadonlyArray<{ readonly __typename?: 'ComponentElementsService', readonly id: string, readonly titleService: string, readonly descriptionService: string }> }, readonly banner: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string } }> }, readonly video: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string } }> } } }> } };
+
+export type CaseFragmentFragment = { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } };
 
 export type LinkFragmentFragment = { readonly __typename?: 'ComponentUiLink', readonly id: string, readonly href: string, readonly name: string };
 
@@ -1655,19 +1671,39 @@ export type GetServicesNamesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetServicesNamesQuery = { readonly __typename?: 'Query', readonly serviceNames: { readonly __typename?: 'ServiceNameEntityResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'ServiceNameEntity', readonly id: string, readonly attributes: { readonly __typename?: 'ServiceName', readonly name: string, readonly service: { readonly __typename?: 'ServiceEntityResponse', readonly data: { readonly __typename?: 'ServiceEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Service', readonly title: string } } } } }> } };
 
-export const LinkFragmentFragmentDoc = gql`
-    fragment LinkFragment on ComponentUiLink {
-  id
-  href
-  name
-}
-    `;
 export const MediaFragmentFragmentDoc = gql`
     fragment MediaFragment on UploadFile {
   name
   url
   width
   height
+}
+    `;
+export const CaseFragmentFragmentDoc = gql`
+    fragment CaseFragment on Case {
+  title
+  info
+  imageMain {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+  imageBig {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+}
+    ${MediaFragmentFragmentDoc}`;
+export const LinkFragmentFragmentDoc = gql`
+    fragment LinkFragment on ComponentUiLink {
+  id
+  href
+  name
 }
     `;
 export const GetHomeBannerFragmentDoc = gql`
@@ -1747,27 +1783,12 @@ export const GetCasesDocument = gql`
     data {
       id
       attributes {
-        title
-        info
-        imageMain {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
-        imageBig {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
+        ...CaseFragment
       }
     }
   }
 }
-    ${MediaFragmentFragmentDoc}`;
+    ${CaseFragmentFragmentDoc}`;
 export const GetServiceByIdDocument = gql`
     query GetServiceById($id: ID) {
   services(filters: {serviceName: {id: {eq: $id}}}) {
@@ -1786,6 +1807,14 @@ export const GetServiceByIdDocument = gql`
             id
             attributes {
               name
+            }
+          }
+        }
+        cases {
+          data {
+            id
+            attributes {
+              ...CaseFragment
             }
           }
         }
@@ -1819,7 +1848,7 @@ export const GetServiceByIdDocument = gql`
     }
   }
 }
-    `;
+    ${CaseFragmentFragmentDoc}`;
 export const GetHeaderDocument = gql`
     query GetHeader {
   header {
