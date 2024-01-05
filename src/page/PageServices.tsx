@@ -4,7 +4,7 @@ import { GetServiceByIdQuery, GetServicesNamesQuery } from "@/graphql/client";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import React, { memo, useEffect, useState } from "react";
-import { RelevantProjects } from "@/app/services/_sections/Relevant-project";
+import { RelevantProjects } from "@/components/Relevant-project";
 import { useGetServiceByNameID } from "@/shared/services/serviceByNameID";
 import { getRouteService } from "@/shared/const/pages";
 import { TextBlocks } from "@/components/TextBlocks";

@@ -37,7 +37,7 @@ const Address = (props: AddressProps) => {
   });
 
   const address = (
-    <address className="callback__contancs" data-da=".callback__row,1200,last">
+    <address className="callback__contancs">
       {form.number && (
         <Link
           href={`tel:${form.number}`}

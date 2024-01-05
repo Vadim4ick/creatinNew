@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import { MediaFragmentFragment } from "@/graphql/__generated__";
+import { SliderFragmentFragment } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { useSwiper } from "@/shared/hooks/useSwiper";
@@ -13,29 +13,8 @@ import cls from "./RelevantProject.module.scss";
 import { classNames } from "@/shared/lib";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 
-interface RelevantProject {
-  readonly id: string;
-
-  readonly attributes: {
-    readonly title: string;
-    readonly info: string;
-
-    readonly imageMain: {
-      readonly data: {
-        readonly attributes: MediaFragmentFragment;
-      };
-    };
-
-    readonly imageBig: {
-      readonly data: {
-        readonly attributes: MediaFragmentFragment;
-      };
-    };
-  };
-}
-
 interface RelevantProjectsProps {
-  cases: readonly RelevantProject[];
+  cases: SliderFragmentFragment["cases"]["data"];
   animation?: boolean;
 }
 

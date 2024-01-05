@@ -1,6 +1,6 @@
 "use client";
 
-import { RelevantProjects } from "@/app/services/_sections/Relevant-project";
+import { RelevantProjects } from "@/components/Relevant-project";
 import { SectionTitle } from "@/app/services/_sections/SectionTitle";
 import { TextBlocks } from "@/components/TextBlocks";
 import {
