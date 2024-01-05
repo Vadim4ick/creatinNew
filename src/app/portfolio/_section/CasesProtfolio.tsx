@@ -1,19 +1,17 @@
 "use client";
 
 import { Case } from "@/components/Case";
-import { useGetAllCases } from "@/shared/services/casesQuery";
+import { GetCasesByNameIdQuery } from "@/graphql/__generated__";
 
-const CasesProtfolio = () => {
-  const { data, isLoading } = useGetAllCases();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
+const CasesProtfolio = ({
+  cases,
+}: {
+  cases: GetCasesByNameIdQuery["cases"]["data"];
+}) => {
   return (
     <section className="cases cases--portfolio">
       <div className="cases__row">
-        {data?.cases.data.map((el) => (
+        {cases.map((el) => (
           // @ts-ignore
           <Case key={el.id} case={el.attributes} />
         ))}

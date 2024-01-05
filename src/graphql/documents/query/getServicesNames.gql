@@ -3,7 +3,7 @@ query GetServicesNames {
     data {
       id
       attributes {
-        ...ServicesNamesAttributesFragment
+        name
       }
     }
   }

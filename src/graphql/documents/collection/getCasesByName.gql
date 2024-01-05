@@ -1,0 +1,10 @@
+query GetCasesByNameId($id: ID) {
+  cases(filters: { case_name: { id: { eq: $id } } }) {
+    data {
+      id
+      attributes {
+        ...CaseFragment
+      }
+    }
+  }
+}

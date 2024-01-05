@@ -40,7 +40,7 @@ const Sidebar = memo((props: SidebarProps) => {
                 className={"sidebar__item"}
               >
                 <a
-                  className={classNames("sidebar__link", {
+                  className={classNames(`sidebar__link ${cls.link}`, {
                     [cls.active]: item.id === active,
                   })}
                 >

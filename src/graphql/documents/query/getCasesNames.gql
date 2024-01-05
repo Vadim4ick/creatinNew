@@ -1,9 +1,10 @@
-query GetCases {
-  cases {
+query GetCasesNames {
+  caseNames {
     data {
       id
+
       attributes {
-        ...CaseFragment
+        name
       }
     }
   }

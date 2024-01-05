@@ -1,39 +1,15 @@
-import { CasesProtfolio } from "./_section/CasesProtfolio";
-import { Sidebar } from "@/components/Sidebar";
+import { PagePortfilio } from "@/page/PagePortfilio";
+import { gql } from "@/graphql/client";
+import { notFound } from "next/navigation";
 
-const test = [
-  {
-    id: 1,
-    title: "Брендинг",
-  },
-  {
-    id: 2,
-    title: "Дизайн",
-  },
-  {
-    id: 3,
-    title: "Web-разработка",
-  },
-  {
-    id: 4,
-    title: "Мобильные приложения",
-  },
-];
+const PortfolioPage = async () => {
+  const { caseNames } = await gql.GetCasesNames();
 
-const PortfolioPage = () => {
-  return (
-    <>
-      <main className="page page--hassidebar">
-        <div className="page__container">
-          <Sidebar items={test} viewSpecialOffers={true} />
+  if (!caseNames.data.length) {
+    return notFound();
+  }
 
-          <div className="page__base">
-            <CasesProtfolio />
-          </div>
-        </div>
-      </main>
-    </>
-  );
+  return <PagePortfilio caseNames={caseNames.data} />;
 };
 
 export default PortfolioPage;

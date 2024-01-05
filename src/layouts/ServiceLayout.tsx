@@ -22,7 +22,7 @@ interface ServiceLayoutProps {
   items: readonly SidebarItems[];
   isLoading: boolean;
   children: ReactNode;
-  footer: FooterFragmentFragment | undefined;
+  footer?: FooterFragmentFragment | undefined;
   setId: React.Dispatch<React.SetStateAction<string>>;
 }
 

@@ -15,4 +15,16 @@ fragment CaseFragment on Case {
       }
     }
   }
+
+  case_name {
+    data {
+      attributes {
+        name
+      }
+    }
+  }
+
+  Footer {
+    ...FooterFragment
+  }
 }
