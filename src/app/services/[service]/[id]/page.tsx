@@ -10,24 +10,15 @@ const ServiceParamsPage = async ({
   const id = params.id;
   const service = params.service;
 
-  const { serviceCollection } = await gql.GetServiceCollectionById({
-    id: id,
-  });
-
   const { services } = await gql.GetServicesTitleById({
     title: decodeURIComponent(service),
   });
 
-  if (!serviceCollection.data) {
+  if (!id) {
     return notFound();
   }
 
-  return (
-    <ServiceCollection
-      serviceCollection={serviceCollection.data}
-      titleServices={services.data}
-    />
-  );
+  return <ServiceCollection id={id} titleServices={services.data} />;
 };
 
 export default ServiceParamsPage;

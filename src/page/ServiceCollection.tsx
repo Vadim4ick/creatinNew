@@ -9,24 +9,43 @@ import {
   GetServicesTitleByIdQuery,
 } from "@/graphql/__generated__";
 import { priceFormatter } from "@/shared/helpers/priceFormatter";
-import React, { memo, useCallback, useState } from "react";
+import { useGetServicesCollectionById } from "@/shared/services/serviceCollectionById";
+import { Loader } from "@/shared/ui/Loader/Loader";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const ServiceCollection = memo(
   ({
-    serviceCollection,
+    id,
     titleServices,
   }: {
-    serviceCollection: GetServiceCollectionByIdQuery["serviceCollection"]["data"];
+    id: string;
     titleServices: GetServicesTitleByIdQuery["services"]["data"];
   }) => {
-    const [serviceNameActive, setServiceNameActive] = useState(
-      serviceCollection.id
-    );
+    const [serviceNameActive, setServiceNameActive] = useState(id);
+
+    const [serviceCollection, setServiceCollection] = useState<
+      | GetServiceCollectionByIdQuery["serviceCollection"]["data"]["attributes"]
+      | undefined
+    >(undefined);
 
     const onChange = useCallback((id: string) => {
       setServiceNameActive(id);
     }, []);
+
+    const { data, isLoading } = useGetServicesCollectionById(serviceNameActive);
+
+    useEffect(() => {
+      if (data?.serviceCollection) {
+        setServiceCollection(data.serviceCollection.data.attributes);
+      } else {
+        setServiceCollection(undefined);
+      }
+    }, [data]);
+
+    if (isLoading) {
+      return <Loader />;
+    }
 
     return (
       <main className="page page--hassidebar">
@@ -50,9 +69,7 @@ const ServiceCollection = memo(
               data-watch-margin="30"
             >
               <div className="hero__left">
-                <h1 className="hero__title">
-                  {serviceCollection.attributes.name}
-                </h1>
+                <h1 className="hero__title">{serviceCollection?.name}</h1>
 
                 <ReactMarkdown
                   skipHtml
@@ -77,7 +94,7 @@ const ServiceCollection = memo(
                     },
                   }}
                 >
-                  {serviceCollection.attributes.description}
+                  {serviceCollection?.description}
                 </ReactMarkdown>
               </div>
 
@@ -95,15 +112,13 @@ const ServiceCollection = memo(
                     <span>
                       от
                       <b className="_rub">
-                        {` ${priceFormatter(
-                          serviceCollection.attributes.price
-                        )}`}
+                        {` ${priceFormatter(serviceCollection?.price)}`}
                       </b>
                     </span>
                   </div>
                 </div>
 
-                {serviceCollection.attributes.deadlines && (
+                {serviceCollection?.deadlines && (
                   <div
                     className="hero-card mobile-block"
                     // @ts-ignore
@@ -115,7 +130,7 @@ const ServiceCollection = memo(
                     </div>
                     <div className="hero-card__value">
                       <span>
-                        <b>{serviceCollection.attributes.deadlines}</b>
+                        <b>{serviceCollection?.deadlines}</b>
                       </span>
                     </div>
                   </div>
@@ -131,21 +146,21 @@ const ServiceCollection = memo(
               ></div>
             </div>
 
-            {serviceCollection.attributes.textBlocks && (
+            {serviceCollection?.textBlocks && (
               <TextBlocks
-                blocks={serviceCollection.attributes.textBlocks}
+                blocks={serviceCollection?.textBlocks}
                 animation={true}
               />
             )}
 
-            {serviceCollection.attributes.Title && (
-              <SectionTitle title={serviceCollection.attributes.Title} />
+            {serviceCollection?.Title && (
+              <SectionTitle title={serviceCollection?.Title} />
             )}
 
-            {serviceCollection.attributes.sliderCase && (
+            {serviceCollection?.sliderCase && (
               <RelevantProjects
                 animation={true}
-                cases={serviceCollection.attributes.sliderCase.cases.data}
+                cases={serviceCollection?.sliderCase.cases.data}
               />
             )}
 

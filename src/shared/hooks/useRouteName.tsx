@@ -1,9 +1,10 @@
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AppRoutes, Router } from "../const/pages";
 
 const useRouteName = () => {
   const pathname = usePathname();
+  const [isLoading, setIsLoading] = useState(true); // Добавлен флаг isLoading
 
   const [routeActive, setRouteActive] = useState([
     {
@@ -12,11 +13,17 @@ const useRouteName = () => {
     },
   ]);
 
-  const pathParts = decodeURIComponent(pathname)
-    .split("/")
-    .filter((part) => part);
+  const pathParts = useMemo(
+    () =>
+      decodeURIComponent(pathname)
+        .split("/")
+        .filter((part) => part),
+    [pathname]
+  );
 
   useEffect(() => {
+    setIsLoading(true); // Устанавливаем флаг isLoading в true перед началом загрузки
+
     Object.entries(Router).forEach(([pattern, route]) => {
       if (pattern === pathname) {
         setRouteActive([
@@ -40,7 +47,14 @@ const useRouteName = () => {
         ]);
       }
     });
+
+    setIsLoading(false); // Устанавливаем флаг isLoading в false после завершения загрузки
   }, [pathname]);
+
+  // Если данные загружаются, вы можете вернуть заглушку или null
+  if (isLoading) {
+    return null;
+  }
 
   return routeActive.reverse().slice(-2);
 };
