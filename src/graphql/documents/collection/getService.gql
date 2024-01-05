@@ -3,94 +3,43 @@ query GetServiceById($id: ID) {
     data {
       attributes {
         SliderCase {
-          cases {
-            data {
-              id
-              attributes {
-                title
-                info
-                imageMain {
-                  data {
-                    attributes {
-                      name
-                      url
-                      width
-                      height
-                    }
-                  }
-                }
-                imageBig {
-                  data {
-                    attributes {
-                      name
-                      url
-                      width
-                      height
-                    }
-                  }
-                }
-              }
-            }
-          }
+          ...SliderFragment
         }
 
         Services {
           id
           title
           description
+
           service_collections {
             data {
               id
+
               attributes {
                 name
+
                 description
+
                 price
+
                 textBlocks {
-                  titlle
-                  description
-                  id
+                  ...TextBlocksFragment
                 }
                 banner {
                   data {
                     attributes {
-                      name
-                      url
+                      ...MediaFragment
                     }
                   }
                 }
                 sliderCase {
-                  id
-                  cases {
-                    data {
-                      attributes {
-                        title
-                        info
-
-                        imageBig {
-                          data {
-                            attributes {
-                              name
-                              url
-                            }
-                          }
-                        }
-                        imageMain {
-                          data {
-                            attributes {
-                              name
-                              url
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
+                  ...SliderFragment
                 }
+
                 video {
                   data {
                     attributes {
-                      name
-                      url
+                      ...MediaFragment
                     }
                   }
                 }
@@ -100,23 +49,17 @@ query GetServiceById($id: ID) {
         }
 
         Footer {
-          title
-          img {
-            data {
-              attributes {
-                ...MediaFragment
-              }
-            }
-          }
+          ...FooterFragment
         }
 
         title
+
         textBlocks {
-          id
-          titlle
-          description
+          ...TextBlocksFragment
         }
+
         description
+
         serviceName {
           data {
             id
@@ -129,16 +72,14 @@ query GetServiceById($id: ID) {
         banner {
           data {
             attributes {
-              name
-              url
+              ...MediaFragment
             }
           }
         }
         video {
           data {
             attributes {
-              name
-              url
+              ...MediaFragment
             }
           }
         }

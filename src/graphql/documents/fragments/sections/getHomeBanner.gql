@@ -1,9 +1,6 @@
 fragment GetHomeBanner on ComponentComponentsHomeBanner {
   IntroCard {
-    class
-    id
-    title
-    info
+    ...IntroCardFragment
   }
 
   bannerMasks {

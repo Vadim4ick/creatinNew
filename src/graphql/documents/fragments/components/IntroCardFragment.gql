@@ -1,0 +1,6 @@
+fragment IntroCardFragment on ComponentElementsIntroCard {
+  class
+  id
+  title
+  info
+}

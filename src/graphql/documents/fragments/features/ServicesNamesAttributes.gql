@@ -1,0 +1,13 @@
+fragment ServicesNamesAttributesFragment on ServiceName {
+  name
+
+  service {
+    data {
+      id
+
+      attributes {
+        title
+      }
+    }
+  }
+}

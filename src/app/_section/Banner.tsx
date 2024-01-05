@@ -28,7 +28,7 @@ const arrImages: Record<Enum_Componentelementsintrocard_Class, any> = {
 
 const ButtonIntro = () => {
   return (
-    <div className="intro__btns" data-da=".intro__inner,767,last">
+    <div className="intro__btns">
       <CustomLink iconPosition="right">Оставить заявку</CustomLink>
     </div>
   );

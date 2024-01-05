@@ -1,0 +1,10 @@
+fragment FooterFragment on ComponentComponentsFooter {
+  title
+  img {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+}

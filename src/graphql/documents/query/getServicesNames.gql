@@ -3,15 +3,7 @@ query GetServicesNames {
     data {
       id
       attributes {
-        name
-        service {
-          data {
-            id
-            attributes {
-              title
-            }
-          }
-        }
+        ...ServicesNamesAttributesFragment
       }
     }
   }

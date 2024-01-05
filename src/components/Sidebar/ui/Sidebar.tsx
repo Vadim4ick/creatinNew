@@ -7,7 +7,7 @@ import cls from "./Sidebar.module.scss";
 import Image from "next/image";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
 
-interface SidebarItems {
+export interface SidebarItems {
   readonly id: string;
 
   readonly attributes: {

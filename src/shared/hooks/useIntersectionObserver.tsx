@@ -9,7 +9,7 @@ function useIntersectionObserver({
   threshold = 0,
 }: {
   ref?: RefObject<HTMLElement>;
-  refs?: MutableRefObject<HTMLDivElement | null>[];
+  refs?: MutableRefObject<HTMLDivElement | HTMLElement | null>[];
   removeClass?: boolean;
   margin?: string;
   once?: boolean;
@@ -20,7 +20,9 @@ function useIntersectionObserver({
 
     // Заполняем массив elements в зависимости от того, передан ли один ref или массив refs
     if (ref) {
-      elements.push(ref.current!);
+      if (ref && ref.current) {
+        elements.push(ref.current);
+      }
     } else if (refs) {
       refs.forEach((r) => {
         if (r && r.current) {
@@ -62,7 +64,7 @@ function useIntersectionObserver({
     // Очистка при размонтировании
     return () => {
       elements.forEach((element) => {
-        observer.unobserve(element);
+        observer?.unobserve(element);
       });
     };
   }, [margin, removeClass, refs, ref, once, threshold]);

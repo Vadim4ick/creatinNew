@@ -1,0 +1,5 @@
+fragment TextBlocksFragment on ComponentComponentsTextBlock {
+  id
+  titlle
+  description
+}

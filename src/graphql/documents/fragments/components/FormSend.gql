@@ -1,0 +1,6 @@
+fragment FormSendFragment on ComponentSectionsFormSend {
+  description
+  address
+  email
+  number
+}

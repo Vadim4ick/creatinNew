@@ -5,12 +5,17 @@ query GetServiceCollectionById($id: ID) {
 
       attributes {
         name
+
         description
+
         deadlines
+
         price
+
         Title {
           id
           title
+
           titles {
             id
             title
@@ -18,65 +23,26 @@ query GetServiceCollectionById($id: ID) {
         }
 
         Footer {
-          title
-          img {
-            data {
-              attributes {
-                ...MediaFragment
-              }
-            }
-          }
+          ...FooterFragment
         }
 
         sliderCase {
-          cases {
-            data {
-              id
-              attributes {
-                title
-                info
-                imageMain {
-                  data {
-                    attributes {
-                      name
-                      url
-                      width
-                      height
-                    }
-                  }
-                }
-                imageBig {
-                  data {
-                    attributes {
-                      name
-                      url
-                      width
-                      height
-                    }
-                  }
-                }
-              }
-            }
-          }
+          ...SliderFragment
         }
         banner {
           data {
             attributes {
-              name
-              url
+              ...MediaFragment
             }
           }
         }
         textBlocks {
-          id
-          titlle
-          description
+          ...TextBlocksFragment
         }
         video {
           data {
             attributes {
-              name
-              url
+              ...MediaFragment
             }
           }
         }

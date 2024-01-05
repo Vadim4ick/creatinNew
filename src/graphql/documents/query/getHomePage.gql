@@ -13,10 +13,7 @@ query GetHomePage {
         }
 
         formSend {
-          description
-          address
-          email
-          number
+          ...FormSendFragment
         }
 
         cases {
