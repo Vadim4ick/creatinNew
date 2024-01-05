@@ -11,6 +11,12 @@ import { useGetServiceByNameID } from "@/shared/services/serviceByNameID";
 import { getRouteService } from "@/shared/const/pages";
 import { TextBlocks } from "@/components/TextBlocks";
 import { Footer } from "@/layouts/Footer/ui/Footer";
+import useSmoothScrollToTop from "@/shared/hooks/useSmoothScrollToTop";
+
+interface IndexDateState {
+  id: string;
+  index: number;
+}
 
 const PageServices = memo(
   ({
@@ -22,13 +28,36 @@ const PageServices = memo(
       serviceNames[0].id
     );
 
+    const [indexDate, setIndexDate] = useState<IndexDateState[] | null>(null);
+
     const [service, setService] = useState<
       GetServiceByIdQuery["services"]["data"][0]["attributes"] | undefined
     >(undefined);
 
+    useSmoothScrollToTop({
+      trigger: serviceNameActive,
+      time: 100,
+    });
+
     const onChange = useCallback((id: string) => {
       setServiceNameActive(id);
     }, []);
+
+    const onClickFooter = () => {
+      if (!indexDate) {
+        return null;
+      }
+
+      const currentDate = indexDate.filter((el) => el.id === serviceNameActive);
+
+      const nextDate = currentDate[0].index + 1;
+
+      if (nextDate >= serviceNames.length) {
+        setServiceNameActive(indexDate[0].id);
+      } else {
+        setServiceNameActive(indexDate[nextDate].id);
+      }
+    };
 
     const { data: serviceData, isLoading: isLoadingService } =
       useGetServiceByNameID(serviceNameActive);
@@ -40,6 +69,15 @@ const PageServices = memo(
         setService(undefined);
       }
     }, [serviceData]);
+
+    useEffect(() => {
+      const initialIndexes = serviceNames.map((item, index) => ({
+        id: item.id,
+        index,
+      }));
+
+      setIndexDate(initialIndexes);
+    }, [serviceNames]);
 
     if (isLoadingService) {
       return <Loader />;
@@ -159,6 +197,7 @@ const PageServices = memo(
           <Footer
             title={service.Footer.title}
             img={service.Footer.img.data.attributes}
+            callback={onClickFooter}
           />
         )}
       </>

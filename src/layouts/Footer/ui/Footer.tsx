@@ -7,10 +7,11 @@ import cls from "./Footer.module.scss";
 interface FooterProps {
   img?: MediaFragmentFragment;
   title: string;
+  callback?: () => void;
 }
 
 const Footer = (props: FooterProps) => {
-  const { img, title } = props;
+  const { img, title, callback } = props;
 
   return (
     <footer className="footer footer--service">
@@ -19,9 +20,9 @@ const Footer = (props: FooterProps) => {
         <div className="footer__row">
           <div className="footer__name">{title}</div>
 
-          <a className="footer__link">
+          <button onClick={callback} className="footer__link">
             <FooterLink />
-          </a>
+          </button>
         </div>
 
         <div className="footer__image">

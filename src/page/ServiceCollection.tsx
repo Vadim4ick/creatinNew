@@ -10,10 +10,16 @@ import {
 } from "@/graphql/__generated__";
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import { priceFormatter } from "@/shared/helpers/priceFormatter";
+import useSmoothScrollToTop from "@/shared/hooks/useSmoothScrollToTop";
 import { useGetServicesCollectionById } from "@/shared/services/serviceCollectionById";
 import { Loader } from "@/shared/ui/Loader/Loader";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+
+interface IndexDateState {
+  id: string;
+  index: number;
+}
 
 const ServiceCollection = memo(
   ({
@@ -25,6 +31,13 @@ const ServiceCollection = memo(
   }) => {
     const [serviceNameActive, setServiceNameActive] = useState(id);
 
+    const [indexDate, setIndexDate] = useState<IndexDateState[] | null>(null);
+
+    useSmoothScrollToTop({
+      trigger: serviceNameActive,
+      time: 100,
+    });
+
     const [serviceCollection, setServiceCollection] = useState<
       | GetServiceCollectionByIdQuery["serviceCollection"]["data"]["attributes"]
       | undefined
@@ -33,6 +46,25 @@ const ServiceCollection = memo(
     const onChange = useCallback((id: string) => {
       setServiceNameActive(id);
     }, []);
+
+    const onClickFooter = () => {
+      if (!indexDate) {
+        return null;
+      }
+
+      const currentDate = indexDate.filter((el) => el.id === serviceNameActive);
+
+      const nextDate = currentDate[0].index + 1;
+
+      if (
+        nextDate >=
+        titleServices[0].attributes.Services.service_collections.data.length
+      ) {
+        setServiceNameActive(indexDate[0].id);
+      } else {
+        setServiceNameActive(indexDate[nextDate].id);
+      }
+    };
 
     const { data, isLoading } = useGetServicesCollectionById(serviceNameActive);
 
@@ -43,6 +75,19 @@ const ServiceCollection = memo(
         setServiceCollection(undefined);
       }
     }, [data]);
+
+    useEffect(() => {
+      // Создаем массив индексов от 0 до (длины массива - 1)
+      const initialIndexes =
+        titleServices[0].attributes.Services.service_collections.data.map(
+          (item, index) => ({
+            id: item.id,
+            index,
+          })
+        );
+
+      setIndexDate(initialIndexes);
+    }, [titleServices]);
 
     if (isLoading) {
       return <Loader />;
@@ -186,6 +231,7 @@ const ServiceCollection = memo(
           <Footer
             title={serviceCollection.Footer.title}
             img={serviceCollection.Footer.img.data.attributes}
+            callback={onClickFooter}
           />
         )}
       </>
