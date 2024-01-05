@@ -16,6 +16,18 @@ query GetServiceCollectionById($id: ID) {
             title
           }
         }
+
+        Footer {
+          title
+          img {
+            data {
+              attributes {
+                ...MediaFragment
+              }
+            }
+          }
+        }
+
         sliderCase {
           cases {
             data {

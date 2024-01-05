@@ -8,6 +8,7 @@ import {
   GetServiceCollectionByIdQuery,
   GetServicesTitleByIdQuery,
 } from "@/graphql/__generated__";
+import { Footer } from "@/layouts/Footer/ui/Footer";
 import { priceFormatter } from "@/shared/helpers/priceFormatter";
 import { useGetServicesCollectionById } from "@/shared/services/serviceCollectionById";
 import { Loader } from "@/shared/ui/Loader/Loader";
@@ -48,136 +49,146 @@ const ServiceCollection = memo(
     }
 
     return (
-      <main className="page page--hassidebar">
-        <div className="page__container">
-          <aside className="sidebar">
-            <Sidebar
-              onChange={onChange}
-              active={serviceNameActive}
-              viewSpecialOffers={true}
-              items={
-                titleServices[0].attributes.Services.service_collections.data
-              }
-            />
-          </aside>
+      <>
+        <main className="page page--hassidebar">
+          <div className="page__container">
+            <aside className="sidebar">
+              <Sidebar
+                onChange={onChange}
+                active={serviceNameActive}
+                viewSpecialOffers={true}
+                items={
+                  titleServices[0].attributes.Services.service_collections.data
+                }
+              />
+            </aside>
 
-          <div className="page__base">
-            <section
-              className="hero fade-up mb-96"
-              data-watch
-              data-watch-once
-              data-watch-margin="30"
-            >
-              <div className="hero__left">
-                <h1 className="hero__title">{serviceCollection?.name}</h1>
+            <div className="page__base">
+              <section
+                className="hero fade-up mb-96"
+                data-watch
+                data-watch-once
+                data-watch-margin="30"
+              >
+                <div className="hero__left">
+                  <h1 className="hero__title">{serviceCollection?.name}</h1>
 
-                <ReactMarkdown
-                  skipHtml
-                  components={{
-                    p: ({ children }) => {
-                      return (
-                        <>
-                          <div className="hero__info">
-                            {children
-                              ?.toString()
-                              .split("\n")
-                              .map((line, index) => (
-                                <React.Fragment key={index}>
-                                  {line}
-                                  {/* @ts-ignore */}
-                                  {index < children.length - 1 && <br />}
-                                </React.Fragment>
-                              ))}
-                          </div>
-                        </>
-                      );
-                    },
-                  }}
-                >
-                  {serviceCollection?.description}
-                </ReactMarkdown>
-              </div>
-
-              <div className="hero__right">
-                <div
-                  className="hero-card"
-                  // @ts-ignore
-                  style={{ "--icon": "url(/img/icons/price.svg)" }}
-                >
-                  <div className="hero-card__icon"></div>
-                  <div className="hero-card__name">
-                    <span> Стоимость </span>
-                  </div>
-                  <div className="hero-card__value">
-                    <span>
-                      от
-                      <b className="_rub">
-                        {` ${priceFormatter(serviceCollection?.price)}`}
-                      </b>
-                    </span>
-                  </div>
+                  <ReactMarkdown
+                    skipHtml
+                    components={{
+                      p: ({ children }) => {
+                        return (
+                          <>
+                            <div className="hero__info">
+                              {children
+                                ?.toString()
+                                .split("\n")
+                                .map((line, index) => (
+                                  <React.Fragment key={index}>
+                                    {line}
+                                    {/* @ts-ignore */}
+                                    {index < children.length - 1 && <br />}
+                                  </React.Fragment>
+                                ))}
+                            </div>
+                          </>
+                        );
+                      },
+                    }}
+                  >
+                    {serviceCollection?.description}
+                  </ReactMarkdown>
                 </div>
 
-                {serviceCollection?.deadlines && (
+                <div className="hero__right">
                   <div
-                    className="hero-card mobile-block"
+                    className="hero-card"
                     // @ts-ignore
-                    style={{ "--icon": "url(/img/icons/time.svg)" }}
+                    style={{ "--icon": "url(/img/icons/price.svg)" }}
                   >
                     <div className="hero-card__icon"></div>
                     <div className="hero-card__name">
-                      <span> срок выполнения </span>
+                      <span> Стоимость </span>
                     </div>
                     <div className="hero-card__value">
                       <span>
-                        <b>{serviceCollection?.deadlines}</b>
+                        от
+                        <b className="_rub">
+                          {` ${priceFormatter(serviceCollection?.price)}`}
+                        </b>
                       </span>
                     </div>
                   </div>
-                )}
-              </div>
-            </section>
 
-            <div className="video fade-up" data-da=".hero,767,1">
+                  {serviceCollection?.deadlines && (
+                    <div
+                      className="hero-card mobile-block"
+                      // @ts-ignore
+                      style={{ "--icon": "url(/img/icons/time.svg)" }}
+                    >
+                      <div className="hero-card__icon"></div>
+                      <div className="hero-card__name">
+                        <span> срок выполнения </span>
+                      </div>
+                      <div className="hero-card__value">
+                        <span>
+                          <b>{serviceCollection?.deadlines}</b>
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </section>
+
+              <div className="video fade-up" data-da=".hero,767,1">
+                <div
+                  className="video__item"
+                  // @ts-ignore
+                  style={{ "--icon": "url(/img/icons/video-icon.svg)" }}
+                ></div>
+              </div>
+
+              {serviceCollection?.textBlocks && (
+                <TextBlocks
+                  blocks={serviceCollection?.textBlocks}
+                  animation={true}
+                />
+              )}
+
+              {serviceCollection?.Title && (
+                <SectionTitle title={serviceCollection?.Title} />
+              )}
+
+              {serviceCollection?.sliderCase && (
+                <RelevantProjects
+                  animation={true}
+                  cases={serviceCollection?.sliderCase.cases.data}
+                />
+              )}
+
               <div
-                className="video__item"
-                // @ts-ignore
-                style={{ "--icon": "url(/img/icons/video-icon.svg)" }}
-              ></div>
-            </div>
-
-            {serviceCollection?.textBlocks && (
-              <TextBlocks
-                blocks={serviceCollection?.textBlocks}
-                animation={true}
-              />
-            )}
-
-            {serviceCollection?.Title && (
-              <SectionTitle title={serviceCollection?.Title} />
-            )}
-
-            {serviceCollection?.sliderCase && (
-              <RelevantProjects
-                animation={true}
-                cases={serviceCollection?.sliderCase.cases.data}
-              />
-            )}
-
-            <div
-              className="cta fade-up"
-              data-watch
-              data-watch-once
-              data-watch-margin="30"
-            >
-              <div className="cta__title">
-                Здесь будет CTA баннер, под него нужно оставить просто контейнер
+                className="cta fade-up"
+                data-watch
+                data-watch-once
+                data-watch-margin="30"
+              >
+                <div className="cta__title">
+                  Здесь будет CTA баннер, под него нужно оставить просто
+                  контейнер
+                </div>
+                <div className="cta__image"></div>
               </div>
-              <div className="cta__image"></div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+
+        {serviceCollection?.Footer && (
+          <Footer
+            title={serviceCollection.Footer.title}
+            img={serviceCollection.Footer.img.data.attributes}
+          />
+        )}
+      </>
     );
   }
 );

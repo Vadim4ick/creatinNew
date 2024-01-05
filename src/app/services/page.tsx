@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 const ServicesPage = async () => {
   const { serviceNames } = await gql.GetServicesNames();
 
-  if (!serviceNames.data) {
+  if (!serviceNames.data.length) {
     return notFound();
   }
 

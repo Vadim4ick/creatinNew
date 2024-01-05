@@ -98,6 +98,18 @@ query GetServiceById($id: ID) {
             }
           }
         }
+
+        Footer {
+          title
+          img {
+            data {
+              attributes {
+                ...MediaFragment
+              }
+            }
+          }
+        }
+
         title
         textBlocks {
           id

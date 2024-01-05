@@ -5,6 +5,7 @@ import { gql } from "@/graphql/client";
 import { Cases } from "./_section/Cases";
 import { Partners } from "./_section/Partners";
 import { FormSend } from "./_section/FormSend";
+import { MainFooter } from "@/layouts";
 
 const Home = async () => {
   const { homePage } = await gql.GetHomePage();
@@ -35,6 +36,8 @@ const Home = async () => {
             <Image src={"/img/smile.png"} width={316} height={300} alt="" />
           </div>
         </section>
+
+        <MainFooter />
       </main>
     </>
   );

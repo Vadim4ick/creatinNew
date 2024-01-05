@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Footer, Header } from "@/layouts";
+import { Header } from "@/layouts";
 
 import "@/shared/assets/styles/style.min.css";
 
@@ -30,8 +30,6 @@ export default async function RootLayout({
             <Header header={header.data.attributes} />
 
             {children}
-
-            <Footer />
           </QueryProviders>
         </div>
 

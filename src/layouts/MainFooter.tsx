@@ -1,7 +1,7 @@
 import { Inblog } from "@/shared/icons/Inblog";
 import Link from "next/link";
 
-const Footer = () => {
+const MainFooter = () => {
   return (
     <footer className="footer">
       <span className="footer__decor"></span>
@@ -34,4 +34,4 @@ const Footer = () => {
   );
 };
 
-export { Footer };
+export { MainFooter };
