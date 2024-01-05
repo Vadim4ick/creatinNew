@@ -42,7 +42,7 @@ query GetServiceById($id: ID) {
             data {
               id
               attributes {
-                title
+                name
                 description
                 price
                 textBlocks {

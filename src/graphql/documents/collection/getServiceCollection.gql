@@ -1,8 +1,10 @@
 query GetServiceCollectionById($id: ID) {
   serviceCollection(id: $id) {
     data {
+      id
+
       attributes {
-        title
+        name
         description
         deadlines
         price

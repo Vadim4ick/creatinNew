@@ -60,7 +60,7 @@ const PageServices = memo(
             <div className="page__base">
               <section className="hero">
                 <div className="hero__left">
-                  <h1 className="hero__title">{service?.title}</h1>
+                  <h1 className="hero__title">{service.title}</h1>
 
                   <ReactMarkdown
                     skipHtml
@@ -110,24 +110,25 @@ const PageServices = memo(
                   </div>
 
                   <div className="services__row">
-                    {service.Services.service_collections.data.map(
-                      (service) => (
-                        <Link
-                          key={service.id}
-                          href={getRouteService(service.id)}
-                          className="services__column"
-                          // @ts-ignore
-                          style={{ "--icon": "url(/img/icons/services.svg)" }}
-                        >
-                          <div className="services__name">
-                            {service.attributes.title}
-                          </div>
-                          <div className="services__info">
-                            {service.attributes.description}
-                          </div>
-                        </Link>
-                      )
-                    )}
+                    {service.Services.service_collections.data.map((item) => (
+                      <Link
+                        key={item.id}
+                        href={getRouteService(
+                          service.serviceName.data.attributes.name,
+                          item.id
+                        )}
+                        className="services__column"
+                        // @ts-ignore
+                        style={{ "--icon": "url(/img/icons/services.svg)" }}
+                      >
+                        <div className="services__name">
+                          {item.attributes.name}
+                        </div>
+                        <div className="services__info">
+                          {item.attributes.description}
+                        </div>
+                      </Link>
+                    ))}
                   </div>
                 </section>
               )}

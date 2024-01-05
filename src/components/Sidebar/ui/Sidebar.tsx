@@ -2,22 +2,22 @@
 
 import { classNames } from "@/shared/lib";
 import { CustomLink } from "@/shared/ui/Link";
-import { memo, useState } from "react";
+import { memo } from "react";
 import cls from "./Sidebar.module.scss";
 import Image from "next/image";
-import { GetServicesNamesQuery } from "@/graphql/__generated__";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
 
-export interface SidebarItems {
-  id: string;
-  attributes: {
+interface SidebarItems {
+  readonly id: string;
+
+  readonly attributes: {
     name: string;
   };
 }
 
 interface SidebarProps {
-  // items: SidebarItems[];
-  items: GetServicesNamesQuery["serviceNames"]["data"] | undefined;
+  items: readonly SidebarItems[];
+
   viewSpecialOffers: boolean;
   onChange: (id: string) => void;
   active: string;

@@ -5,12 +5,17 @@ import { notFound } from "next/navigation";
 const ServiceParamsPage = async ({
   params,
 }: {
-  params: { service: string };
+  params: { id: string; service: string };
 }) => {
-  const id = params.service;
+  const id = params.id;
+  const service = params.service;
 
   const { serviceCollection } = await gql.GetServiceCollectionById({
     id: id,
+  });
+
+  const { services } = await gql.GetServicesTitleById({
+    title: decodeURIComponent(service),
   });
 
   if (!serviceCollection.data) {
@@ -18,7 +23,10 @@ const ServiceParamsPage = async ({
   }
 
   return (
-    <ServiceCollection serviceCollection={serviceCollection.data.attributes} />
+    <ServiceCollection
+      serviceCollection={serviceCollection.data}
+      titleServices={services.data}
+    />
   );
 };
 

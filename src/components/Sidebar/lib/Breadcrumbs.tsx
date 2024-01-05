@@ -2,8 +2,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import cls from "./Breadcrumbs.module.scss";
 import { useRouteName } from "@/shared/hooks/useRouteName";
+import { classNames } from "@/shared/lib";
+import { memo } from "react";
 
-const Breadcrumbs = () => {
+const Breadcrumbs = memo(() => {
   const router = useRouter();
 
   const routeActive = useRouteName();
@@ -37,23 +39,29 @@ const Breadcrumbs = () => {
             </button>
           </span>
         </li>
-        <li className="breadcrumb__item">
-          <span>
-            <Link href={"/"}>
-              <span>Главная</span>
-            </Link>
-          </span>
-        </li>
-        {routeActive && (
-          <li className="breadcrumb__item breadcrumb__item-link--active">
-            <span>
-              <span>{routeActive}</span>
-            </span>
-          </li>
-        )}
+
+        {routeActive &&
+          routeActive.map((route, i) => (
+            <li
+              key={route.path}
+              className={classNames("breadcrumb__item", {
+                "breadcrumb__item-link--active": i === routeActive.length - 1,
+              })}
+            >
+              <span>
+                <span>
+                  {i === routeActive.length - 1 ? (
+                    route.name
+                  ) : (
+                    <Link href={route.path}>{route.name}</Link>
+                  )}
+                </span>
+              </span>
+            </li>
+          ))}
       </ul>
     </div>
   );
-};
+});
 
 export { Breadcrumbs };

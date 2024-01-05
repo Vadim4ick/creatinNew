@@ -1,0 +1,22 @@
+query GetServicesTitleById($title: String) {
+  services(filters: { serviceName: { name: { eq: $title } } }) {
+    data {
+      id
+      attributes {
+        Services {
+          id
+
+          service_collections {
+            data {
+              id
+
+              attributes {
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
