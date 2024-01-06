@@ -9,6 +9,8 @@ import { MainFooter } from "@/layouts";
 
 const Home = async () => {
   const { homePage } = await gql.GetHomePage();
+  const { partner } = await gql.GetPartners();
+  const { formFeedback } = await gql.GetFormFeedback();
 
   return (
     <>
@@ -23,12 +25,12 @@ const Home = async () => {
           <Cases cases={homePage.data.attributes.cases} />
         )}
 
-        {homePage.data.attributes.Partners && (
-          <Partners partners={homePage.data.attributes.Partners} />
+        {partner.data.attributes.partners && (
+          <Partners partners={partner.data.attributes.partners} />
         )}
 
-        {homePage.data.attributes.formSend && (
-          <FormSend form={homePage.data.attributes.formSend} />
+        {formFeedback.data.attributes.formFeedback && (
+          <FormSend form={formFeedback.data.attributes.formFeedback} />
         )}
 
         <section className="smile">

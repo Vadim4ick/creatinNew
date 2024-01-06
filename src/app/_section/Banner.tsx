@@ -20,7 +20,11 @@ interface BannerProps {
   banner: GetHomePageQuery["homePage"]["data"]["attributes"]["HomeBanner"];
 }
 
-const arrImages: Record<Enum_Componentelementsintrocard_Class, any> = {
+type PartialImages = Partial<
+  Record<Enum_Componentelementsintrocard_Class, any>
+>;
+
+const arrImages: PartialImages = {
   folders: <Folder />,
   spiral: <Spiral />,
   image_group: ["/img/intro/01.png", "/img/intro/02.png", "/img/intro/03.png"],

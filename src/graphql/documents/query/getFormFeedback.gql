@@ -1,0 +1,11 @@
+query GetFormFeedback {
+  formFeedback {
+    data {
+      attributes {
+        formFeedback {
+          ...FormSendFragment
+        }
+      }
+    }
+  }
+}

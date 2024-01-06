@@ -1,0 +1,11 @@
+query GetPartners {
+  partner {
+    data {
+      attributes {
+        partners {
+          ...GetHomePartners
+        }
+      }
+    }
+  }
+}

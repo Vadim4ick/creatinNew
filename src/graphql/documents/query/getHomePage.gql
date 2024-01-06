@@ -8,14 +8,6 @@ query GetHomePage {
           ...GetHomeBanner
         }
 
-        Partners {
-          ...GetHomePartners
-        }
-
-        formSend {
-          ...FormSendFragment
-        }
-
         cases {
           ...GetHomeCases
         }

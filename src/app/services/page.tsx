@@ -2,6 +2,8 @@ import { gql } from "@/graphql/client";
 import { PageServices } from "@/page/PageServices";
 import { notFound } from "next/navigation";
 
+// const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const ServicesPage = async () => {
   const { serviceNames } = await gql.GetServicesNames();
 

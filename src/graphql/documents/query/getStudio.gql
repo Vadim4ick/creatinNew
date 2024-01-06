@@ -1,0 +1,29 @@
+query GetStudio {
+  studio {
+    data {
+      attributes {
+        title
+
+        introCards {
+          ...IntroCardFragment
+        }
+
+        aboutSection {
+          id
+          mainTitle
+          description
+          aboutTitle
+          aboutDescription
+        }
+
+        video {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+      }
+    }
+  }
+}

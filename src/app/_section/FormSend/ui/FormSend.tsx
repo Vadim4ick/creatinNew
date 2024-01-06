@@ -1,16 +1,16 @@
 "use client";
 
-import { GetHomePageQuery } from "@/graphql/__generated__";
+import { FormSendFragmentFragment } from "@/graphql/__generated__";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
-import React, { ReactNode, useRef } from "react";
+import React, { useRef } from "react";
 import { Address } from "../lib/Address";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import ReactMarkdown from "react-markdown";
 
 interface FormSendProps {
-  form: GetHomePageQuery["homePage"]["data"]["attributes"]["formSend"];
+  form: FormSendFragmentFragment;
 }
 
 const FormSend = (props: FormSendProps) => {

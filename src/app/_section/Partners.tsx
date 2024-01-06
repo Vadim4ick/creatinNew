@@ -1,6 +1,9 @@
 "use client";
 
-import { GetHomePageQuery } from "@/graphql/__generated__";
+import {
+  GetHomePageQuery,
+  GetHomePartnersFragment,
+} from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
@@ -13,7 +16,7 @@ import { useRef } from "react";
 import { A11y, Grid, Mousewheel } from "swiper";
 
 interface PartnersProps {
-  partners: GetHomePageQuery["homePage"]["data"]["attributes"]["Partners"];
+  partners: GetHomePartnersFragment;
 }
 
 const Partners = (props: PartnersProps) => {
