@@ -1,12 +1,12 @@
 import { gql } from "@/graphql/client";
 import { About } from "../_section/About";
 import { notFound } from "next/navigation";
-import { Quality } from "./_section/Quality";
 import { Partners } from "../_section/Partners";
 import { FormSend } from "../_section/FormSend";
 import { Vacancies } from "./_section/Vacancies";
 import { MainFooter } from "@/layouts";
 import { Video } from "@/components/Video";
+import { Quality } from "./_section/Quality";
 
 const AboutPage = async () => {
   const { studio } = await gql.GetStudio();

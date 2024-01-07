@@ -1,18 +1,10 @@
-import React, {
-  ReactNode,
-  memo,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { ReactNode, memo, useEffect, useState } from "react";
 import { Loader } from "@/shared/ui/Loader/Loader";
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import useSmoothScrollToTop from "@/shared/hooks/useSmoothScrollToTop";
 import { Sidebar } from "@/components/Sidebar";
 import { FooterFragmentFragment } from "@/graphql/__generated__";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
-import { useRouter } from "next/navigation";
-import { usePathname, useSearchParams } from "next/navigation";
 
 interface IndexDateState {
   id: string;
@@ -25,7 +17,7 @@ interface ServiceLayoutProps {
   isLoading: boolean;
   children: ReactNode;
   footer?: FooterFragmentFragment | undefined;
-  setId: React.Dispatch<React.SetStateAction<string>>;
+  setId: (id: any) => void | React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ServiceLayout: React.FC<ServiceLayoutProps> = ({

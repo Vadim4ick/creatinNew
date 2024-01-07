@@ -7,16 +7,17 @@ import {
 } from "@/graphql/__generated__";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { useGetCasesByNameId } from "@/shared/services/casesByNameId";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 
 interface PagePortfolioProps {
   caseNames: GetCasesNamesQuery["caseNames"]["data"];
 }
 
-const PagePortfilio = (props: PagePortfolioProps) => {
+const PagePortfilio = memo((props: PagePortfolioProps) => {
   const { caseNames } = props;
 
-  const [caseId, setCaseId] = useState(caseNames[0].id);
+  const [caseIndex, setCaseIndex] = useState(0);
+  const caseId = useMemo(() => caseNames[caseIndex].id, [caseIndex]);
 
   const { data, isLoading } = useGetCasesByNameId(caseId);
 
@@ -32,20 +33,30 @@ const PagePortfilio = (props: PagePortfolioProps) => {
     }
   }, [data]);
 
-  return (
-    <ServiceLayout
-      items={caseNames}
-      isLoading={isLoading}
-      serviceId={caseId}
-      setId={setCaseId}
-    >
-      <div className="page__base">
-        {!cases && <div>В данном разделе кейсов пока нет!</div>}
+  const setId = (id: string) => {
+    const index = caseNames.findIndex((el) => el.id === id);
+    setCaseIndex(index);
+  };
 
-        {cases && <CasesProtfolio cases={cases} />}
-      </div>
-    </ServiceLayout>
+  return (
+    <>
+      <ServiceLayout
+        items={caseNames}
+        isLoading={isLoading}
+        serviceId={caseId}
+        setId={setId}
+        footer={
+          caseIndex !== -1 ? caseNames[caseIndex].attributes.footer : undefined
+        }
+      >
+        <div className="page__base">
+          {!cases && <div>В данном разделе кейсов пока нет!</div>}
+
+          {cases && <CasesProtfolio cases={cases} />}
+        </div>
+      </ServiceLayout>
+    </>
   );
-};
+});
 
 export { PagePortfilio };

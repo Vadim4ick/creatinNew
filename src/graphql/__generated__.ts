@@ -104,6 +104,7 @@ export type CaseName = {
   readonly __typename?: 'CaseName';
   readonly cases: Maybe<CaseRelationResponseCollection>;
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
+  readonly footer: Maybe<ComponentComponentsFooter>;
   readonly name: Scalars['String']['output'];
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
@@ -138,6 +139,7 @@ export type CaseNameFiltersInput = {
   readonly and: InputMaybe<ReadonlyArray<InputMaybe<CaseNameFiltersInput>>>;
   readonly cases: InputMaybe<CaseFiltersInput>;
   readonly createdAt: InputMaybe<DateTimeFilterInput>;
+  readonly footer: InputMaybe<ComponentComponentsFooterFiltersInput>;
   readonly id: InputMaybe<IdFilterInput>;
   readonly name: InputMaybe<StringFilterInput>;
   readonly not: InputMaybe<CaseNameFiltersInput>;
@@ -148,6 +150,7 @@ export type CaseNameFiltersInput = {
 
 export type CaseNameInput = {
   readonly cases: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
+  readonly footer: InputMaybe<ComponentComponentsFooterInput>;
   readonly name: InputMaybe<Scalars['String']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -471,6 +474,45 @@ export type ComponentSectionsServicesInput = {
   readonly title: InputMaybe<Scalars['String']['input']>;
 };
 
+export type ComponentSharedMetaSocial = {
+  readonly __typename?: 'ComponentSharedMetaSocial';
+  readonly description: Scalars['String']['output'];
+  readonly id: Scalars['ID']['output'];
+  readonly image: Maybe<UploadFileEntityResponse>;
+  readonly socialNetwork: Enum_Componentsharedmetasocial_Socialnetwork;
+  readonly title: Scalars['String']['output'];
+};
+
+export type ComponentSharedMetaSocialFiltersInput = {
+  readonly and: InputMaybe<ReadonlyArray<InputMaybe<ComponentSharedMetaSocialFiltersInput>>>;
+  readonly description: InputMaybe<StringFilterInput>;
+  readonly not: InputMaybe<ComponentSharedMetaSocialFiltersInput>;
+  readonly or: InputMaybe<ReadonlyArray<InputMaybe<ComponentSharedMetaSocialFiltersInput>>>;
+  readonly socialNetwork: InputMaybe<StringFilterInput>;
+  readonly title: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentSharedSeo = {
+  readonly __typename?: 'ComponentSharedSeo';
+  readonly canonicalURL: Maybe<Scalars['String']['output']>;
+  readonly id: Scalars['ID']['output'];
+  readonly keywords: Maybe<Scalars['String']['output']>;
+  readonly metaDescription: Scalars['String']['output'];
+  readonly metaImage: Maybe<UploadFileEntityResponse>;
+  readonly metaRobots: Maybe<Scalars['String']['output']>;
+  readonly metaSocial: Maybe<ReadonlyArray<Maybe<ComponentSharedMetaSocial>>>;
+  readonly metaTitle: Scalars['String']['output'];
+  readonly metaViewport: Maybe<Scalars['String']['output']>;
+  readonly structuredData: Maybe<Scalars['JSON']['output']>;
+};
+
+
+export type ComponentSharedSeoMetaSocialArgs = {
+  filters: InputMaybe<ComponentSharedMetaSocialFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type ComponentUiLink = {
   readonly __typename?: 'ComponentUiLink';
   readonly href: Scalars['String']['output'];
@@ -633,6 +675,11 @@ export enum Enum_Componentelementsvacancy_Level {
   Senoir = 'senoir'
 }
 
+export enum Enum_Componentsharedmetasocial_Socialnetwork {
+  Facebook = 'Facebook',
+  Twitter = 'Twitter'
+}
+
 export enum Enum_Contentreleasesreleaseaction_Type {
   Publish = 'publish',
   Unpublish = 'unpublish'
@@ -693,7 +740,7 @@ export type FormFeedbackInput = {
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type GenericMorph = Case | CaseName | ComponentComponentsFooter | ComponentComponentsHomeBanner | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIntroCard | ComponentElementsTitle | ComponentElementsVacancy | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentUiLink | ContentReleasesRelease | ContentReleasesReleaseAction | FormFeedback | Header | HomePage | I18NLocale | Partner | Service | ServiceCollection | ServiceName | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Case | CaseName | ComponentComponentsFooter | ComponentComponentsHomeBanner | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIntroCard | ComponentElementsTitle | ComponentElementsVacancy | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ContentReleasesRelease | ContentReleasesReleaseAction | FormFeedback | Header | HomePage | I18NLocale | Partner | Service | ServiceCollection | ServiceName | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   readonly __typename?: 'Header';
@@ -2179,7 +2226,7 @@ export type GetHomePartnersFragment = { readonly __typename?: 'ComponentSections
 export type GetCasesNamesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCasesNamesQuery = { readonly __typename?: 'Query', readonly caseNames: { readonly __typename?: 'CaseNameEntityResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseNameEntity', readonly id: string, readonly attributes: { readonly __typename?: 'CaseName', readonly name: string } }> } };
+export type GetCasesNamesQuery = { readonly __typename?: 'Query', readonly caseNames: { readonly __typename?: 'CaseNameEntityResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseNameEntity', readonly id: string, readonly attributes: { readonly __typename?: 'CaseName', readonly name: string, readonly footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } }> } };
 
 export type GetFormFeedbackQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2558,11 +2605,14 @@ export const GetCasesNamesDocument = gql`
       id
       attributes {
         name
+        footer {
+          ...FooterFragment
+        }
       }
     }
   }
 }
-    `;
+    ${FooterFragmentFragmentDoc}`;
 export const GetFormFeedbackDocument = gql`
     query GetFormFeedback {
   formFeedback {

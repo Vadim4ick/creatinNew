@@ -4,6 +4,7 @@ import { GetServicesNamesQuery } from "@/graphql/__generated__";
 import { getRouteServices } from "@/shared/const/pages";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { useRouter } from "next/navigation";
+import cls from "./Quality.module.scss";
 
 const Quality = ({
   serviceNames,
@@ -11,6 +12,7 @@ const Quality = ({
   serviceNames: GetServicesNamesQuery["serviceNames"]["data"];
 }) => {
   const router = useRouter();
+
   return (
     <section className="quality">
       <div className="quality__container">
@@ -18,6 +20,7 @@ const Quality = ({
           Качественный <b>digital- </b>
           продукт создается на базе стратегии, креатива и технологий
         </div>
+
         <div className="quality__row">
           {serviceNames.map((service) => (
             <a
@@ -26,7 +29,7 @@ const Quality = ({
                 router.push(getRouteServices());
               }}
               key={service.id}
-              className="quality__item"
+              className={`quality__item ${cls.item}`}
             >
               {service.attributes.name}
 

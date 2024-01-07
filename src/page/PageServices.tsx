@@ -3,7 +3,7 @@
 import { GetServiceByIdQuery, GetServicesNamesQuery } from "@/graphql/client";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import { RelevantProjects } from "@/components/Relevant-project";
 import { useGetServiceByNameID } from "@/shared/services/serviceByNameID";
 import { getRouteService } from "@/shared/const/pages";
@@ -24,6 +24,7 @@ const PageServices = memo(
         sessionStorage.getItem(STORAGE_KEYS.SERVICE_ID)) ||
         serviceNames[0].id
     );
+
     const { data: serviceData, isLoading: isLoadingService } =
       useGetServiceByNameID(serviceId);
 

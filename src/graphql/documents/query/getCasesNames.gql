@@ -5,6 +5,10 @@ query GetCasesNames {
 
       attributes {
         name
+
+        footer {
+          ...FooterFragment
+        }
       }
     }
   }
