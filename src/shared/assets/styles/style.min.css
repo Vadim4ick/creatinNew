@@ -3887,7 +3887,7 @@ body.popup-show::after {
   align-items: flex-start;
 }
 .vacancies__column {
-  max-width: 555px;
+  max-width: 565px;
 }
 .vacancies__title {
   font-size: 3.5rem;

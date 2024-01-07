@@ -11,10 +11,11 @@ import ReactMarkdown from "react-markdown";
 
 interface FormSendProps {
   form: FormSendFragmentFragment;
+  className?: string;
 }
 
 const FormSend = (props: FormSendProps) => {
-  const { form } = props;
+  const { form, className = "" } = props;
 
   const titleRef = useRef<HTMLDivElement | null>(null);
   const subTitleRef = useRef<HTMLDivElement | null>(null);
@@ -40,27 +41,10 @@ const FormSend = (props: FormSendProps) => {
   });
 
   return (
-    <section className="callback animate-block" id="callback">
+    <section className={`callback animate-block ${className}`} id="callback">
       <div className="callback__container">
         <div ref={callbackRef} className="callback__row">
           <div className="callback__left">
-            {/* <ReactMarkdown
-              skipHtml
-              components={{
-                h2: ({ children }) => (
-                  <h2
-                    className="callback__title text-decorated fade-up"
-                    ref={titleRef}
-                  >
-                    {children}
-                  </h2>
-                ),
-                strong: ({ children }) => <b>{children}</b>,
-              }}
-            >
-              {form.title}
-            </ReactMarkdown> */}
-
             <SplitTypeAnimation bg="#aaaaaa" fg="#181818" refChar={titleRef}>
               <h2
                 className="callback__title text-decorated fade-up"

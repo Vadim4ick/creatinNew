@@ -14,6 +14,7 @@ import { A11y, Mousewheel } from "swiper";
 import cls from "./About.module.scss";
 import { AboutLogo } from "@/shared/icons/AboutLogo";
 import ReactMarkdown from "react-markdown";
+import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 
 type PartialImages = Partial<
   Record<Enum_Componentelementsintrocard_Class, any>
@@ -32,6 +33,7 @@ const About = ({
   aboutSection: GetStudioQuery["studio"]["data"]["attributes"];
 }) => {
   const introCardsSwiperRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef(null);
 
   useSwiper({
     ref: introCardsSwiperRef,
@@ -55,19 +57,19 @@ const About = ({
   return (
     <section className="about">
       <div className="about__container">
-        <h1 className="about__title" data-observe>
-          {aboutSection.aboutSection.mainTitle}
-        </h1>
+        <SplitTypeAnimation bg="#aaaaaa" fg="#181818" refChar={titleRef}>
+          <h1 ref={titleRef} className="about__title">
+            {aboutSection.aboutSection.mainTitle}
+          </h1>
+        </SplitTypeAnimation>
 
-        <div className="about__row">
+        <div className={`about__row ${cls.row}`}>
           <div className="about__left">
             <div
               ref={introCardsSwiperRef}
-              className="about__cards intro-cards swiper js-intro-cards"
+              className={`about__cards intro-cards js-intro-cards swiper `}
             >
-              <div
-                className={`intro-cards__swiper swiper-wrapper ${cls.cards}`}
-              >
+              <div className={`intro-cards__swiper swiper-wrapper }`}>
                 {aboutSection.introCards.map((card) => (
                   <div
                     key={card.id}

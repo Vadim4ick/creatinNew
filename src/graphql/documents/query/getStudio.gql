@@ -8,6 +8,30 @@ query GetStudio {
           ...IntroCardFragment
         }
 
+        vacancies {
+          title
+          description
+          date
+          info
+
+          vacancies {
+            id
+            title
+            descriptionVacancy
+            level
+            btnLink
+            telegrammLink
+          }
+
+          image {
+            data {
+              attributes {
+                ...MediaFragment
+              }
+            }
+          }
+        }
+
         aboutSection {
           id
           mainTitle

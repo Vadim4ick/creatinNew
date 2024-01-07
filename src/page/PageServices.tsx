@@ -9,6 +9,8 @@ import { useGetServiceByNameID } from "@/shared/services/serviceByNameID";
 import { getRouteService } from "@/shared/const/pages";
 import { TextBlocks } from "@/components/TextBlocks";
 import ServiceLayout from "@/layouts/ServiceLayout";
+import { Video } from "@/components/Video";
+import { CtaBanner } from "@/components/CtaBanner";
 
 const PageServices = memo(
   ({
@@ -77,13 +79,7 @@ const PageServices = memo(
               </div>
             </section>
 
-            <div className="video">
-              <div
-                className="video__item"
-                // @ts-ignore
-                style={{ "--icon": "url(/img/icons/video-icon.svg)" }}
-              ></div>
-            </div>
+            <Video />
 
             {service.Services.service_collections.data && (
               <section className="services">
@@ -126,12 +122,7 @@ const PageServices = memo(
               <RelevantProjects cases={service.SliderCase.cases.data} />
             )}
 
-            <div className="cta">
-              <div className="cta__title">
-                Здесь будет CTA баннер, под него нужно оставить просто контейнер
-              </div>
-              <div className="cta__image"></div>
-            </div>
+            <CtaBanner />
           </div>
         )}
       </ServiceLayout>

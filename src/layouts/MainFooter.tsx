@@ -1,9 +1,9 @@
 import { Inblog } from "@/shared/icons/Inblog";
 import Link from "next/link";
 
-const MainFooter = () => {
+const MainFooter = ({ className = "" }: { className?: string }) => {
   return (
-    <footer className="footer">
+    <footer className={`footer ${className}`}>
       <span className="footer__decor"></span>
       <div className="footer__container">
         <div className="footer__title">

@@ -21,10 +21,25 @@ const SplitTypeAnimation = ({
     if (refChar.current) {
       const char = refChar.current;
 
-      const text = new SplitType(char, { types: "chars" });
+      let allChars: HTMLElement[] = [];
+
+      const text = new SplitType(char, { types: "words", tagName: "span" });
+
+      if (text.words) {
+        text.words.forEach((word) => {
+          const split = new SplitType(word, {
+            types: "chars",
+            tagName: "span",
+          });
+
+          if (split.chars) {
+            allChars = allChars.concat(split.chars);
+          }
+        });
+      }
 
       gsap.fromTo(
-        text.chars,
+        allChars,
         {
           color: bg,
         },

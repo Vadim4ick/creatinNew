@@ -14,6 +14,8 @@ import { useMedia } from "@/shared/hooks/useMedia";
 import { useGetServicesCollectionById } from "@/shared/services/serviceCollectionById";
 import React, { memo, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { Video } from "@/components/Video";
+import { CtaBanner } from "@/components/CtaBanner";
 
 const ServiceCollection = memo(
   ({
@@ -28,7 +30,6 @@ const ServiceCollection = memo(
     const isPhone = useMedia("(max-width: 767px)");
 
     const refSection = useRef<HTMLElement | null>(null);
-    const refBanner = useRef<HTMLDivElement | null>(null);
     const refVideo = useRef<HTMLDivElement | null>(null);
 
     const { data, isLoading } = useGetServicesCollectionById(serviceNameActive);
@@ -46,10 +47,6 @@ const ServiceCollection = memo(
       refs: [refVideo],
       once: true,
     });
-    useIntersectionObserver({
-      refs: [refBanner],
-      once: true,
-    });
 
     useEffect(() => {
       if (data?.serviceCollection) {
@@ -60,16 +57,10 @@ const ServiceCollection = memo(
     }, [data]);
 
     const video = (
-      <div
-        className="video fade-up"
+      <Video
         style={{ marginBottom: isPhone.matches ? 0 : undefined }}
-      >
-        <div
-          className="video__item"
-          // @ts-ignore
-          style={{ "--icon": "url(/img/icons/video-icon.svg)" }}
-        ></div>
-      </div>
+        animation={true}
+      />
     );
 
     return (
@@ -178,12 +169,7 @@ const ServiceCollection = memo(
             />
           )}
 
-          <div className="cta fade-up" ref={refBanner}>
-            <div className="cta__title">
-              Здесь будет CTA баннер, под него нужно оставить просто контейнер
-            </div>
-            <div className="cta__image"></div>
-          </div>
+          <CtaBanner animation={true} />
         </div>
       </ServiceLayout>
     );
