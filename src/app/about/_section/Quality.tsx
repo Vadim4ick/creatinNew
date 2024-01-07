@@ -1,12 +1,16 @@
+"use client";
+
 import { GetServicesNamesQuery } from "@/graphql/__generated__";
 import { getRouteServices } from "@/shared/const/pages";
-import Link from "next/link";
+import { STORAGE_KEYS } from "@/shared/const/storageKey";
+import { useRouter } from "next/navigation";
 
 const Quality = ({
   serviceNames,
 }: {
   serviceNames: GetServicesNamesQuery["serviceNames"]["data"];
 }) => {
+  const router = useRouter();
   return (
     <section className="quality">
       <div className="quality__container">
@@ -16,8 +20,11 @@ const Quality = ({
         </div>
         <div className="quality__row">
           {serviceNames.map((service) => (
-            <Link
-              href={`${getRouteServices()}`}
+            <a
+              onClick={() => {
+                sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, service.id);
+                router.push(getRouteServices());
+              }}
               key={service.id}
               className="quality__item"
             >
@@ -41,7 +48,7 @@ const Quality = ({
                   />
                 </g>
               </svg>
-            </Link>
+            </a>
           ))}
         </div>
       </div>

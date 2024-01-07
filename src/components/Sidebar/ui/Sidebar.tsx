@@ -2,10 +2,11 @@
 
 import { classNames } from "@/shared/lib";
 import { CustomLink } from "@/shared/ui/Link";
-import { memo } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import cls from "./Sidebar.module.scss";
 import Image from "next/image";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export interface SidebarItems {
   readonly id: string;
@@ -32,10 +33,12 @@ const Sidebar = memo((props: SidebarProps) => {
         <Breadcrumbs />
 
         <ul className="sidebar__items">
-          {items?.length &&
+          {items.length &&
             items.map((item) => (
               <li
-                onClick={() => onChange(item.id)}
+                onClick={() => {
+                  onChange(item.id);
+                }}
                 key={item.id}
                 className={"sidebar__item"}
               >

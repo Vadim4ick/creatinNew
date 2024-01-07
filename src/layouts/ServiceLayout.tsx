@@ -11,6 +11,8 @@ import useSmoothScrollToTop from "@/shared/hooks/useSmoothScrollToTop";
 import { Sidebar } from "@/components/Sidebar";
 import { FooterFragmentFragment } from "@/graphql/__generated__";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
+import { useRouter } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 interface IndexDateState {
   id: string;
@@ -36,9 +38,9 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 }) => {
   const [indexDate, setIndexDate] = useState<IndexDateState[] | null>(null);
 
-  const onChange = useCallback((id: string) => {
+  const onChange = (id: string) => {
     setId(id);
-  }, []);
+  };
 
   useSmoothScrollToTop({
     trigger: serviceId,

@@ -11,6 +11,7 @@ import { TextBlocks } from "@/components/TextBlocks";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { Video } from "@/components/Video";
 import { CtaBanner } from "@/components/CtaBanner";
+import { STORAGE_KEYS } from "@/shared/const/storageKey";
 
 const PageServices = memo(
   ({
@@ -18,8 +19,11 @@ const PageServices = memo(
   }: {
     serviceNames: GetServicesNamesQuery["serviceNames"]["data"];
   }) => {
-    const [serviceId, setServiceId] = useState(serviceNames[0].id);
-
+    const [serviceId, setServiceId] = useState<string>(
+      (typeof window !== "undefined" &&
+        sessionStorage.getItem(STORAGE_KEYS.SERVICE_ID)) ||
+        serviceNames[0].id
+    );
     const { data: serviceData, isLoading: isLoadingService } =
       useGetServiceByNameID(serviceId);
 
@@ -34,6 +38,12 @@ const PageServices = memo(
         setService(undefined);
       }
     }, [serviceData]);
+
+    useEffect(() => {
+      sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, serviceId);
+
+      return () => sessionStorage.removeItem(STORAGE_KEYS.SERVICE_ID);
+    }, [serviceId]);
 
     return (
       <ServiceLayout
