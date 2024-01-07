@@ -48,10 +48,6 @@ query GetServiceById($id: ID) {
           }
         }
 
-        Footer {
-          ...FooterFragment
-        }
-
         title
 
         textBlocks {

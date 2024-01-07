@@ -4,6 +4,10 @@ query GetServicesNames {
       id
       attributes {
         name
+
+        footer {
+          ...FooterFragment
+        }
       }
     }
   }

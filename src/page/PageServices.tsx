@@ -32,6 +32,11 @@ const PageServices = memo(
       GetServiceByIdQuery["services"]["data"][0]["attributes"] | undefined
     >(undefined);
 
+    const index = useMemo(
+      () => serviceNames.findIndex((el) => el.id === serviceId),
+      [serviceId, serviceNames]
+    );
+
     useEffect(() => {
       if (serviceData?.services.data[0]) {
         setService(serviceData.services.data[0].attributes);
@@ -48,7 +53,7 @@ const PageServices = memo(
 
     return (
       <ServiceLayout
-        footer={service?.Footer}
+        footer={serviceNames[index].attributes.footer}
         isLoading={isLoadingService}
         items={serviceNames}
         setId={setServiceId}
