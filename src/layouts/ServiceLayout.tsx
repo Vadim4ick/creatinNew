@@ -1,10 +1,11 @@
-import React, { ReactNode, memo, useEffect, useState } from "react";
+import React, { ReactNode, memo, useEffect, useRef, useState } from "react";
 import { Loader } from "@/shared/ui/Loader/Loader";
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import useSmoothScrollToTop from "@/shared/hooks/useSmoothScrollToTop";
 import { Sidebar } from "@/components/Sidebar";
 import { FooterFragmentFragment } from "@/graphql/__generated__";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
+import { Offers } from "@/components/Offers";
 
 interface IndexDateState {
   id: string;
@@ -29,9 +30,13 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   setId,
 }) => {
   const [indexDate, setIndexDate] = useState<IndexDateState[] | null>(null);
+  const [activeOffers, setActiveOffers] = useState<boolean>(false);
+
+  const ref = useRef<HTMLElement | null>(null);
 
   const onChange = (id: string) => {
     setId(id);
+    setActiveOffers(false);
   };
 
   useSmoothScrollToTop({
@@ -70,26 +75,30 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 
   return (
     <>
-      <main className="page page--hassidebar">
+      <main ref={ref} className="page page--hassidebar">
         <div className="page__container">
           <Sidebar
             active={serviceId}
             onChange={onChange}
             items={items}
             viewSpecialOffers={true}
+            setActiveOffers={setActiveOffers}
+            activeOffers={activeOffers}
           />
 
-          {children}
+          {activeOffers ? <Offers mainRef={ref} /> : children}
         </div>
       </main>
 
-      {footer && (
+      {footer && !activeOffers && (
         <Footer
           title={footer.title}
           img={footer.img.data.attributes}
           callback={onClickFooter}
         />
       )}
+
+      {/* {activeOffers && <Footer title={"Первая акция"} />} */}
     </>
   );
 };

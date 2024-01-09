@@ -6,6 +6,8 @@ import { memo } from "react";
 import cls from "./Sidebar.module.scss";
 import Image from "next/image";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
+import Link from "next/link";
+import { getRouteOffers } from "@/shared/const/pages";
 
 export interface SidebarItems {
   readonly id: string;
@@ -21,10 +23,19 @@ interface SidebarProps {
   viewSpecialOffers: boolean;
   onChange: (id: string) => void;
   active: string;
+  setActiveOffers: React.Dispatch<React.SetStateAction<boolean>>;
+  activeOffers: boolean;
 }
 
 const Sidebar = memo((props: SidebarProps) => {
-  const { items, viewSpecialOffers, onChange, active } = props;
+  const {
+    items,
+    viewSpecialOffers,
+    onChange,
+    active,
+    setActiveOffers,
+    activeOffers,
+  } = props;
 
   return (
     <aside className="sidebar">
@@ -33,7 +44,7 @@ const Sidebar = memo((props: SidebarProps) => {
 
         <ul className="sidebar__items">
           {items.length &&
-            items.map((item, idx) => (
+            items.map((item) => (
               <li
                 onClick={() => {
                   onChange(item.id);
@@ -43,7 +54,7 @@ const Sidebar = memo((props: SidebarProps) => {
               >
                 <a
                   className={classNames(`sidebar__link ${cls.link}`, {
-                    [cls.active]: item.id === active,
+                    [cls.active]: item.id === active && !activeOffers,
                   })}
                 >
                   {item.attributes.name}
@@ -53,7 +64,13 @@ const Sidebar = memo((props: SidebarProps) => {
         </ul>
 
         {viewSpecialOffers && (
-          <a className="sidebar__baner" style={{ background: "#d1e791" }}>
+          <button
+            onClick={() => {
+              setActiveOffers(true);
+            }}
+            className="sidebar__baner"
+            style={{ background: "#d1e791" }}
+          >
             <div className="sidebar__name">Спецпредложения</div>
             <div className="sidebar__image">
               <Image
@@ -63,7 +80,7 @@ const Sidebar = memo((props: SidebarProps) => {
                 height={180}
               />
             </div>
-          </a>
+          </button>
         )}
 
         <CustomLink iconPosition="right">Оставить заявку</CustomLink>
