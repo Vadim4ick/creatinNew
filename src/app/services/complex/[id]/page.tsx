@@ -5,15 +5,9 @@ import { notFound } from "next/navigation";
 const ComplexPage = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
 
-  const { complex } = await gql.GetComplexById({
-    id: id,
-  });
+  const { complexes } = await gql.GetComplexNames();
 
-  if (!complex.data) {
-    return notFound();
-  }
-
-  return <PageComplex complex={complex.data.attributes} />;
+  return <PageComplex complexesNames={complexes.data} id={id} />;
 };
 
 export default ComplexPage;

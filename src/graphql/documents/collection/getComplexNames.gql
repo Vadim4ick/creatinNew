@@ -1,0 +1,10 @@
+query GetComplexNames {
+  complexes {
+    data {
+      id
+      attributes {
+        name
+      }
+    }
+  }
+}

@@ -1,6 +1,5 @@
 import { gql } from "@/graphql/client";
 import { PageOffer } from "@/page/PageOffer";
-import { notFound } from "next/navigation";
 
 const OffersPage = async ({ params }: { params: { id: string } }) => {
   const id = params.id;

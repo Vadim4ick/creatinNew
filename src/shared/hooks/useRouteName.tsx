@@ -33,6 +33,22 @@ const useRouteName = () => {
             path: `/${pathParts}`,
           },
         ]);
+      } else if (pathParts.length > 2 && pathParts[1] === "offers") {
+        setRouteActive([
+          ...routeActive,
+          {
+            name: `${AppRoutes["OFFERS"]}`,
+            path: `/${pathParts[0]}`,
+          },
+        ]);
+      } else if (pathParts.length > 2 && pathParts[1] === "complex") {
+        setRouteActive([
+          ...routeActive,
+          {
+            name: `${AppRoutes["COMPLEX"]}`,
+            path: `/${pathParts[0]}`,
+          },
+        ]);
       } else if (pathParts.length > 2 && pathParts[0] === "services") {
         setRouteActive([
           ...routeActive,
@@ -43,14 +59,6 @@ const useRouteName = () => {
           {
             name: `${pathParts[1]}`,
             path: `/`,
-          },
-        ]);
-      } else if (pathParts.length > 1 && pathParts[0] === "offers") {
-        setRouteActive([
-          ...routeActive,
-          {
-            name: `${AppRoutes["OFFERS"]}`,
-            path: `/${pathParts[1]}`,
           },
         ]);
       }

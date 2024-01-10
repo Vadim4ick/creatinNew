@@ -38,6 +38,7 @@ const PageOffer = ({
       setId={setOfferId}
       serviceId={offerId}
       footer={offer?.footer}
+      mainClass={""}
     >
       <div className="page__base">
         <section

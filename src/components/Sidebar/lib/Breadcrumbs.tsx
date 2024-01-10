@@ -16,7 +16,7 @@ const Breadcrumbs = memo(() => {
 
   return (
     <div className="breadcrumb">
-      <ul className="breadcrumb__list">
+      <ul className={`breadcrumb__list ${cls.breadcrumb__list}`}>
         <li className="breadcrumb__item breadcrumb__item--back">
           <span>
             <button className={cls.btn} onClick={onClick}>
@@ -44,8 +44,9 @@ const Breadcrumbs = memo(() => {
           routeActive.map((route, i) => (
             <li
               key={route.path}
-              className={classNames("breadcrumb__item", {
+              className={classNames(`breadcrumb__item`, {
                 "breadcrumb__item-link--active": i === routeActive.length - 1,
+                [cls.breadcrumb__item]: i === routeActive.length - 1,
               })}
             >
               <span>

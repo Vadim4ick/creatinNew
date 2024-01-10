@@ -9,6 +9,7 @@ import { Offers } from "@/components/Offers";
 import { Complex } from "@/components/Complex";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { useGetOffersPage } from "@/shared/services/offers";
+import { classNames } from "@/shared/lib";
 
 interface IndexDateState {
   id: string;
@@ -23,6 +24,8 @@ interface ServiceLayoutProps {
   children: ReactNode;
   footer?: FooterFragmentFragment | undefined;
   setId: (id: string) => void | React.Dispatch<React.SetStateAction<string>>;
+  containerClass?: string;
+  mainClass?: string;
 }
 
 export type ActiveOffers = "offer" | "complex";
@@ -34,6 +37,8 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   children,
   footer,
   setId,
+  containerClass,
+  mainClass = "page--hassidebar",
 }) => {
   const { data: offersPage, isLoading: isLoadingOffers } = useGetOffersPage();
 
@@ -110,8 +115,8 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 
   return (
     <>
-      <main ref={ref} className="page page--hassidebar">
-        <div className="page__container">
+      <main ref={ref} className={classNames("page", {}, [mainClass])}>
+        <div className={classNames("page__container", {}, [containerClass])}>
           <Sidebar
             active={serviceId}
             onChange={onChange}

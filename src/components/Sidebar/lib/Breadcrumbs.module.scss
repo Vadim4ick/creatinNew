@@ -8,3 +8,14 @@
   width: var(--size);
   aspect-ratio: 1/1;
 }
+
+.breadcrumb__item {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.breadcrumb__list {
+  flex-wrap: nowrap !important;
+}

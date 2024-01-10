@@ -2,7 +2,11 @@ query GetComplexById($id: ID) {
   complex(id: $id) {
     data {
       attributes {
-        title
+        name
+
+        footer {
+          ...FooterFragment
+        }
 
         includes_blocks {
           data {
