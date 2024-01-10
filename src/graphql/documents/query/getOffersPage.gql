@@ -2,48 +2,7 @@ query GetOffersPage {
   offersPage {
     data {
       attributes {
-        title
-
-        description
-
-        banner {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
-
-        footer {
-          ...FooterFragment
-        }
-
-        offers {
-          data {
-            id
-            attributes {
-              name
-
-              offer {
-                id
-                price
-                info
-                tag
-                number
-                about
-                titleList
-                list
-                img {
-                  data {
-                    attributes {
-                      ...MediaFragment
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+        ...PageOffersFragment
       }
     }
   }

@@ -1,0 +1,17 @@
+fragment OffersFragment on ComponentElementsOffer {
+  id
+  price
+  info
+  tag
+  number
+  about
+  titleList
+  list
+  img {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+}

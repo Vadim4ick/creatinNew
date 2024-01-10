@@ -1,26 +1,34 @@
-import { PromotionOffer } from "./PromotionOffer";
+/* eslint-disable react-hooks/rules-of-hooks */
+"use client";
+
+import { Loader } from "@/shared/ui/Loader/Loader";
 import ReactMarkdown from "react-markdown";
 import React, { useRef } from "react";
 import { Portal } from "@/shared/ui/Portal";
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import { notFound } from "next/navigation";
-import { GetOffersPageQuery } from "@/graphql/__generated__";
-import { CtaBanner } from "./CtaBanner";
+import { useGetComplexPage } from "@/shared/services/complex";
+import { PromotionOffer } from "./PromotionOffer";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
+import { CtaBanner } from "./CtaBanner";
 
-const Offers = ({
+const Complex = ({
   mainRef,
-  data,
 }: {
   mainRef: React.MutableRefObject<HTMLElement | null>;
-  data: GetOffersPageQuery | undefined;
 }) => {
+  const { data, isLoading } = useGetComplexPage();
+
   const heroSection = useRef<HTMLDivElement | null>(null);
 
   useIntersectionObserver({
     ref: heroSection,
     once: true,
   });
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   if (!data) {
     return notFound();
@@ -32,7 +40,7 @@ const Offers = ({
         <section className="hero fade-up mb-96" ref={heroSection}>
           <div className="hero__left">
             <h1 className="hero__title">
-              {data?.offersPage.data.attributes.title}
+              {data.complexAccompany.data.attributes.title}
             </h1>
             <ReactMarkdown
               skipHtml
@@ -57,14 +65,14 @@ const Offers = ({
                 },
               }}
             >
-              {data?.offersPage.data.attributes.description}
+              {data.complexAccompany.data.attributes.description}
             </ReactMarkdown>
           </div>
         </section>
 
-        {data?.offersPage && (
+        {data.complexAccompany && (
           <PromotionOffer
-            offers={data.offersPage.data.attributes.offers.data}
+            offers={data.complexAccompany.data.attributes.complexes.data}
           />
         )}
 
@@ -74,8 +82,10 @@ const Offers = ({
       {mainRef.current && (
         <Portal element={mainRef.current}>
           <Footer
-            title={data?.offersPage.data.attributes.footer.title}
-            img={data?.offersPage.data.attributes.footer.img.data.attributes}
+            title={data.complexAccompany.data.attributes.footer.title}
+            img={
+              data.complexAccompany.data.attributes.footer.img.data.attributes
+            }
           />
         </Portal>
       )}
@@ -83,4 +93,4 @@ const Offers = ({
   );
 };
 
-export { Offers };
+export { Complex };

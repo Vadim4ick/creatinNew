@@ -6,10 +6,14 @@ import { Sidebar } from "@/components/Sidebar";
 import { FooterFragmentFragment } from "@/graphql/__generated__";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 import { Offers } from "@/components/Offers";
+import { Complex } from "@/components/Complex";
+import { STORAGE_KEYS } from "@/shared/const/storageKey";
+import { useGetOffersPage } from "@/shared/services/offers";
 
 interface IndexDateState {
   id: string;
   index: number;
+  nameID: undefined | string;
 }
 
 interface ServiceLayoutProps {
@@ -18,8 +22,10 @@ interface ServiceLayoutProps {
   isLoading: boolean;
   children: ReactNode;
   footer?: FooterFragmentFragment | undefined;
-  setId: (id: any) => void | React.Dispatch<React.SetStateAction<string>>;
+  setId: (id: string) => void | React.Dispatch<React.SetStateAction<string>>;
 }
+
+export type ActiveOffers = "offer" | "complex";
 
 const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   serviceId,
@@ -29,14 +35,18 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   footer,
   setId,
 }) => {
+  const { data: offersPage, isLoading: isLoadingOffers } = useGetOffersPage();
+
   const [indexDate, setIndexDate] = useState<IndexDateState[] | null>(null);
-  const [activeOffers, setActiveOffers] = useState<boolean>(false);
+
+  const [activeOffers, setActiveOffers] = useState<ActiveOffers | null>(null);
 
   const ref = useRef<HTMLElement | null>(null);
 
   const onChange = (id: string) => {
     setId(id);
-    setActiveOffers(false);
+    setActiveOffers(null);
+    sessionStorage.clear();
   };
 
   useSmoothScrollToTop({
@@ -51,6 +61,12 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 
     const currentDate = indexDate.filter((el) => el.id === serviceId);
 
+    const idx = indexDate.findIndex((el) => el.id === serviceId);
+
+    if (indexDate[idx + 1].nameID === "complex") {
+      return setId(indexDate[0].id);
+    }
+
     const nextDate = currentDate[0].index + 1;
 
     if (nextDate >= items.length) {
@@ -63,15 +79,34 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   useEffect(() => {
     const initialIndexes = items.map((item, index) => ({
       id: item.id,
+      nameID: item.attributes.nameID,
       index,
     }));
 
     setIndexDate(initialIndexes);
   }, [items]);
 
-  if (isLoading) {
+  useEffect(() => {
+    if (sessionStorage.getItem(STORAGE_KEYS.COMPLEX) === STORAGE_KEYS.COMPLEX) {
+      setActiveOffers("complex");
+    }
+  }, []);
+
+  if (isLoading || isLoadingOffers) {
     return <Loader />;
   }
+
+  const activeComponent = () => {
+    switch (activeOffers) {
+      case "offer":
+        return <Offers mainRef={ref} data={offersPage} />;
+      case "complex":
+        return <Complex mainRef={ref} />;
+
+      default:
+        return children;
+    }
+  };
 
   return (
     <>
@@ -84,9 +119,10 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
             viewSpecialOffers={true}
             setActiveOffers={setActiveOffers}
             activeOffers={activeOffers}
+            imageOffers={offersPage?.offersPage.data.attributes.img}
           />
 
-          {activeOffers ? <Offers mainRef={ref} /> : children}
+          {activeComponent()}
         </div>
       </main>
 
@@ -97,8 +133,6 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
           callback={onClickFooter}
         />
       )}
-
-      {/* {activeOffers && <Footer title={"Первая акция"} />} */}
     </>
   );
 };

@@ -25,7 +25,20 @@ const Quality = ({
           {serviceNames.map((service) => (
             <a
               onClick={() => {
-                sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, service.id);
+                // service.attributes.nameID === 'complex'
+                // sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, service.id);
+
+                if (service.attributes.nameID === STORAGE_KEYS.COMPLEX) {
+                  // sessionStorage.removeItem(STORAGE_KEYS.SERVICE_ID);
+                  sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, service.id);
+                  sessionStorage.setItem(
+                    STORAGE_KEYS.COMPLEX,
+                    STORAGE_KEYS.COMPLEX
+                  );
+                } else {
+                  sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, service.id);
+                }
+
                 router.push(getRouteServices());
               }}
               key={service.id}

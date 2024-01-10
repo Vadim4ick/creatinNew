@@ -3,7 +3,8 @@ type TKeys =
   | "SERVICES_NAME"
   | "SERVICES_BY_NAME_ID"
   | "SERVICES_COLLECTION_BY_ID"
-  | "OFFERS";
+  | "OFFERS"
+  | "COMPLEX";
 
 export const KEYS: Record<TKeys, string> = {
   CASES_BY_NAME_ID: "cases",
@@ -11,4 +12,5 @@ export const KEYS: Record<TKeys, string> = {
   SERVICES_BY_NAME_ID: "servicesByNameID",
   SERVICES_COLLECTION_BY_ID: "servicesCollectionById",
   OFFERS: "offers",
+  COMPLEX: "complex",
 };

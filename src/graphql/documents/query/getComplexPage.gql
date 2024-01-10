@@ -1,0 +1,9 @@
+query GetComplexPage {
+  complexAccompany {
+    data {
+      attributes {
+        ...PageComplexFragment
+      }
+    }
+  }
+}

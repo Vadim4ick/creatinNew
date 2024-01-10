@@ -45,11 +45,11 @@ const PageServices = memo(
       }
     }, [serviceData]);
 
-    useEffect(() => {
-      sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, serviceId);
+    // useEffect(() => {
+    //   sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, serviceId);
 
-      return () => sessionStorage.removeItem(STORAGE_KEYS.SERVICE_ID);
-    }, [serviceId]);
+    //   return () => sessionStorage.removeItem(STORAGE_KEYS.SERVICE_ID);
+    // }, [serviceId]);
 
     return (
       <ServiceLayout

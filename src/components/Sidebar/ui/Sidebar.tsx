@@ -6,14 +6,16 @@ import { memo } from "react";
 import cls from "./Sidebar.module.scss";
 import Image from "next/image";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
-import Link from "next/link";
-import { getRouteOffers } from "@/shared/const/pages";
+import { ActiveOffers } from "@/layouts/ServiceLayout";
+import { GetOffersPageQuery } from "@/graphql/__generated__";
+import { getFileUrl } from "@/shared/helpers/getFileUrl";
 
 export interface SidebarItems {
   readonly id: string;
 
   readonly attributes: {
     name: string;
+    nameID?: string;
   };
 }
 
@@ -23,8 +25,11 @@ interface SidebarProps {
   viewSpecialOffers: boolean;
   onChange: (id: string) => void;
   active: string;
-  setActiveOffers: React.Dispatch<React.SetStateAction<boolean>>;
-  activeOffers: boolean;
+  setActiveOffers: React.Dispatch<React.SetStateAction<ActiveOffers | null>>;
+  activeOffers: ActiveOffers | null;
+  imageOffers:
+    | GetOffersPageQuery["offersPage"]["data"]["attributes"]["img"]
+    | undefined;
 }
 
 const Sidebar = memo((props: SidebarProps) => {
@@ -35,6 +40,7 @@ const Sidebar = memo((props: SidebarProps) => {
     active,
     setActiveOffers,
     activeOffers,
+    imageOffers,
   } = props;
 
   return (
@@ -48,13 +54,18 @@ const Sidebar = memo((props: SidebarProps) => {
               <li
                 onClick={() => {
                   onChange(item.id);
+
+                  if (item.attributes.nameID === "complex") {
+                    return setActiveOffers("complex");
+                  }
                 }}
                 key={item.id}
                 className={"sidebar__item"}
               >
                 <a
                   className={classNames(`sidebar__link ${cls.link}`, {
-                    [cls.active]: item.id === active && !activeOffers,
+                    [cls.active]:
+                      item.id === active && activeOffers !== "offer",
                   })}
                 >
                   {item.attributes.name}
@@ -66,20 +77,22 @@ const Sidebar = memo((props: SidebarProps) => {
         {viewSpecialOffers && (
           <button
             onClick={() => {
-              setActiveOffers(true);
+              setActiveOffers("offer");
             }}
             className="sidebar__baner"
             style={{ background: "#d1e791" }}
           >
             <div className="sidebar__name">Спецпредложения</div>
-            <div className="sidebar__image">
-              <Image
-                src={"/img/services/sidebar.png"}
-                alt=""
-                width={184}
-                height={180}
-              />
-            </div>
+            {imageOffers?.data && (
+              <div className="sidebar__image">
+                <Image
+                  src={getFileUrl(imageOffers.data.attributes.url)}
+                  alt=""
+                  width={imageOffers.data.attributes.width}
+                  height={imageOffers.data.attributes.height}
+                />
+              </div>
+            )}
           </button>
         )}
 

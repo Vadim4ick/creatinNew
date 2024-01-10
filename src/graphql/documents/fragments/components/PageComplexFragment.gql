@@ -1,0 +1,30 @@
+fragment PageComplexFragment on ComplexAccompany {
+  title
+
+  description
+
+  banner {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+
+  footer {
+    ...FooterFragment
+  }
+
+  complexes {
+    data {
+      id
+      attributes {
+        name
+
+        offer {
+          ...OffersFragment
+        }
+      }
+    }
+  }
+}

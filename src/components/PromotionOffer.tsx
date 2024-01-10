@@ -1,6 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { GetOffersPageQuery } from "@/graphql/__generated__";
+import {
+  GetOffersPageQuery,
+  OffersFragmentFragment,
+  PageComplexFragmentFragment,
+  PageOffersFragmentFragment,
+} from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
+import { priceFormatter } from "@/shared/helpers/priceFormatter";
 import Image from "next/image";
 import { Fragment, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -8,7 +14,9 @@ import ReactMarkdown from "react-markdown";
 const PromotionOffer = ({
   offers,
 }: {
-  offers: GetOffersPageQuery["offersPage"]["data"]["attributes"]["offers"]["data"];
+  offers:
+    | PageOffersFragmentFragment["offers"]["data"]
+    | PageComplexFragmentFragment["complexes"]["data"];
 }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [activeIndexRow, setActiveIndexRow] = useState<number | null>(null);
@@ -85,7 +93,9 @@ const PromotionOffer = ({
                   </div>
                   <div className="promotion__base-content">
                     <div className="promotion__price">
-                      <span className="_rub">{offer.price}</span>
+                      <span className="_rub">
+                        {`${priceFormatter(offer.price)} `}
+                      </span>
                     </div>
                     <div className="promotion__info">{offer.info}</div>
                     <div className="promotion__tag">{offer.tag}</div>
@@ -125,7 +135,9 @@ const PromotionOffer = ({
                     </ReactMarkdown>
                   </ul>
                   <div className="promotion__more-price">
-                    <span className="_rub">{offer.price}</span>
+                    <span className="_rub">
+                      {`${priceFormatter(offer.price)} `}
+                    </span>
                   </div>
                 </div>
               </div>
