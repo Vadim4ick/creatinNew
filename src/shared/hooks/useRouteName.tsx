@@ -45,6 +45,14 @@ const useRouteName = () => {
             path: `/`,
           },
         ]);
+      } else if (pathParts.length > 1 && pathParts[0] === "offers") {
+        setRouteActive([
+          ...routeActive,
+          {
+            name: `${AppRoutes["OFFERS"]}`,
+            path: `/${pathParts[1]}`,
+          },
+        ]);
       }
     });
 

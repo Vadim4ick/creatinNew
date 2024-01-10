@@ -1,0 +1,10 @@
+query GetOffersName {
+  offers {
+    data {
+      id
+      attributes {
+        name
+      }
+    }
+  }
+}

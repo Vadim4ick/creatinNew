@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 
 interface SpollerProps {
   className?: string;
+  style?: any;
   children: React.ReactNode;
   btn: ReactNode;
 }
@@ -22,13 +23,14 @@ const panelVariants = {
 };
 
 export function Spoller(props: SpollerProps) {
-  const { children, className, btn } = props;
+  const { children, className, btn, style } = props;
 
   return (
     <Disclosure>
       {({ open }) => (
         <>
           <Disclosure.Button
+            style={style}
             className={classNames(
               "",
               {

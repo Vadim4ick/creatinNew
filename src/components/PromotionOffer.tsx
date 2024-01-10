@@ -1,22 +1,23 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import {
-  GetOffersPageQuery,
-  OffersFragmentFragment,
-  PageComplexFragmentFragment,
-  PageOffersFragmentFragment,
+  ComplexBlockFragment,
+  OffersBlockFragment,
 } from "@/graphql/__generated__";
+import { ActiveOffers } from "@/layouts/ServiceLayout";
+import { getRouteComplex, getRouteOffers } from "@/shared/const/pages";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { priceFormatter } from "@/shared/helpers/priceFormatter";
 import Image from "next/image";
+import Link from "next/link";
 import { Fragment, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const PromotionOffer = ({
   offers,
+  name,
 }: {
-  offers:
-    | PageOffersFragmentFragment["offers"]["data"]
-    | PageComplexFragmentFragment["complexes"]["data"];
+  offers: readonly OffersBlockFragment[] | readonly ComplexBlockFragment[];
+  name: ActiveOffers;
 }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [activeIndexRow, setActiveIndexRow] = useState<number | null>(null);
@@ -70,10 +71,10 @@ const PromotionOffer = ({
     <section className="promotion">
       {offers.map((el, i) => (
         <Fragment key={el.id}>
-          <h2 className="promotion__title ">{el.attributes.name}</h2>
+          <h2 className="promotion__title">{el.name}</h2>
 
           <div ref={promotionRefs[i]} className="promotion__row js-promotion">
-            {el.attributes.offer.map((offer, offerI) => (
+            {el.offers.data.map((offer, offerI) => (
               <div
                 key={offer.id}
                 className={`promotion__column js-promotion-item ${
@@ -86,20 +87,28 @@ const PromotionOffer = ({
                   <div className="promotion__image">
                     <Image
                       alt=""
-                      width={offer.img.data.attributes.width}
-                      height={offer.img.data.attributes.height}
-                      src={getFileUrl(offer.img.data.attributes.url)}
+                      width={offer.attributes.offer.img.data.attributes.width}
+                      height={offer.attributes.offer.img.data.attributes.height}
+                      src={getFileUrl(
+                        offer.attributes.offer.img.data.attributes.url
+                      )}
                     />
                   </div>
                   <div className="promotion__base-content">
                     <div className="promotion__price">
                       <span className="_rub">
-                        {`${priceFormatter(offer.price)} `}
+                        {`${priceFormatter(offer.attributes.offer.price)} `}
                       </span>
                     </div>
-                    <div className="promotion__info">{offer.info}</div>
-                    <div className="promotion__tag">{offer.tag}</div>
-                    <div className="promotion__bottom">{offer.number}</div>
+                    <div className="promotion__info">
+                      {offer.attributes.offer.info}
+                    </div>
+                    <div className="promotion__tag">
+                      {offer.attributes.offer.tag}
+                    </div>
+                    <div className="promotion__bottom">
+                      {offer.attributes.offer.number}
+                    </div>
                   </div>
 
                   <div className="promotion__btns">
@@ -111,15 +120,28 @@ const PromotionOffer = ({
                       <span className="btn__text">Развернуть</span>
                     </button>
 
-                    <a className="promotion__btn btn ">
+                    <Link
+                      href={
+                        name === "offer"
+                          ? getRouteOffers(offer.id)
+                          : getRouteComplex(offer.id)
+                      }
+                      className="promotion__btn btn "
+                    >
                       <span className="btn__text">Подробнее</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="promotion__more">
-                  <div className="promotion__bottom">{offer.number}</div>
-                  <div className="promotion__about">{offer.about}</div>
-                  <div className="promotion__list-title">{offer.titleList}</div>
+                  <div className="promotion__bottom">
+                    {offer.attributes.offer.number}
+                  </div>
+                  <div className="promotion__about">
+                    {offer.attributes.offer.about}
+                  </div>
+                  <div className="promotion__list-title">
+                    {offer.attributes.offer.titleList}
+                  </div>
                   <ul className="promotion__list">
                     <ReactMarkdown
                       skipHtml
@@ -131,12 +153,12 @@ const PromotionOffer = ({
                         },
                       }}
                     >
-                      {offer.list}
+                      {offer.attributes.offer.list}
                     </ReactMarkdown>
                   </ul>
                   <div className="promotion__more-price">
                     <span className="_rub">
-                      {`${priceFormatter(offer.price)} `}
+                      {`${priceFormatter(offer.attributes.offer.price)} `}
                     </span>
                   </div>
                 </div>

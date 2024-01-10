@@ -2,7 +2,24 @@ query GetOffersPage {
   offersPage {
     data {
       attributes {
-        ...PageOffersFragment
+        title
+        description
+
+        offersBlock {
+          ...OffersBlock
+        }
+
+        img {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
+        footer {
+          ...FooterFragment
+        }
       }
     }
   }

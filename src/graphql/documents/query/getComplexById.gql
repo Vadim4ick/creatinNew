@@ -1,0 +1,48 @@
+query GetComplexById($id: ID) {
+  complex(id: $id) {
+    data {
+      attributes {
+        title
+
+        includes_blocks {
+          data {
+            id
+            attributes {
+              title
+
+              blockHover {
+                id
+                title
+                text
+                subTitle
+                list
+              }
+
+              includesContent {
+                id
+                title
+                content
+              }
+            }
+          }
+        }
+
+        offer {
+          id
+          price
+        }
+
+        description
+        deadlines
+
+        banner {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+      }
+    }
+  }
+}

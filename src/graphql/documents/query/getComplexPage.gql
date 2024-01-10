@@ -2,7 +2,16 @@ query GetComplexPage {
   complexAccompany {
     data {
       attributes {
-        ...PageComplexFragment
+        title
+        description
+
+        complexBlocks {
+          ...ComplexBlock
+        }
+
+        footer {
+          ...FooterFragment
+        }
       }
     }
   }

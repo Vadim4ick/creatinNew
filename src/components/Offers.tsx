@@ -64,7 +64,8 @@ const Offers = ({
 
         {data?.offersPage && (
           <PromotionOffer
-            offers={data.offersPage.data.attributes.offers.data}
+            name="offer"
+            offers={data.offersPage.data.attributes.offersBlock}
           />
         )}
 

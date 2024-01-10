@@ -1,0 +1,60 @@
+query GetOfferById($id: ID) {
+  offer(id: $id) {
+    data {
+      attributes {
+        includes_blocks {
+          data {
+            id
+            attributes {
+              title
+
+              blockHover {
+                id
+                title
+                text
+                subTitle
+                list
+              }
+
+              includesContent {
+                id
+                title
+                content
+              }
+            }
+          }
+        }
+
+        footer {
+          ...FooterFragment
+        }
+
+        name
+        description
+        oldPrice
+        sale
+
+        banner {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
+        video {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
+        offer {
+          id
+          price
+        }
+      }
+    }
+  }
+}

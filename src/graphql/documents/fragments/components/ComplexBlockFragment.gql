@@ -1,0 +1,15 @@
+fragment ComplexBlock on ComponentComponentsComplexComponent {
+  id
+  name
+
+  offers {
+    data {
+      id
+      attributes {
+        offer {
+          ...OffersFragment
+        }
+      }
+    }
+  }
+}

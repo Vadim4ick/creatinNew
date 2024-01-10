@@ -1,0 +1,15 @@
+fragment OffersBlock on ComponentComponentsOfferComponent {
+  id
+  name
+
+  offers {
+    data {
+      id
+      attributes {
+        offer {
+          ...OffersFragment
+        }
+      }
+    }
+  }
+}

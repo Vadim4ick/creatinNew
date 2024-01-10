@@ -9,6 +9,7 @@ import { Breadcrumbs } from "../lib/Breadcrumbs";
 import { ActiveOffers } from "@/layouts/ServiceLayout";
 import { GetOffersPageQuery } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
+import { STORAGE_KEYS } from "@/shared/const/storageKey";
 
 export interface SidebarItems {
   readonly id: string;
@@ -55,7 +56,7 @@ const Sidebar = memo((props: SidebarProps) => {
                 onClick={() => {
                   onChange(item.id);
 
-                  if (item.attributes.nameID === "complex") {
+                  if (item.attributes?.nameID === STORAGE_KEYS.COMPLEX) {
                     return setActiveOffers("complex");
                   }
                 }}

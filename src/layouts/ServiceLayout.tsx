@@ -63,7 +63,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 
     const idx = indexDate.findIndex((el) => el.id === serviceId);
 
-    if (indexDate[idx + 1].nameID === "complex") {
+    if (indexDate[idx + 1]?.nameID === "complex") {
       return setId(indexDate[0].id);
     }
 

@@ -72,7 +72,8 @@ const Complex = ({
 
         {data.complexAccompany && (
           <PromotionOffer
-            offers={data.complexAccompany.data.attributes.complexes.data}
+            name="complex"
+            offers={data.complexAccompany.data.attributes.complexBlocks}
           />
         )}
 
