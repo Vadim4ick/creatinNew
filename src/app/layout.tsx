@@ -7,6 +7,7 @@ import "@/shared/assets/styles/style.min.css";
 import { QueryProviders } from "@/shared/providers/queryProviders";
 import { gql } from "@/graphql/client";
 import { Burger } from "@/components/Burger";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Create Next App",

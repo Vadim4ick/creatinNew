@@ -3,10 +3,14 @@
 import { CtaBanner } from "@/components/CtaBanner";
 import { GetOfferByIdQuery, GetOffersNameQuery } from "@/graphql/__generated__";
 import { Spoller } from "@/shared/ui/Spoller";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { useGetOffersById } from "@/shared/services/offerById";
+import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
+import { Video } from "@/components/Video";
+import { useMedia } from "@/shared/hooks/useMedia";
+import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 
 const PageOffer = ({
   offersName,
@@ -16,6 +20,11 @@ const PageOffer = ({
   id: string;
 }) => {
   const [offerId, setOfferId] = useState(id);
+
+  const isPhone = useMedia("(max-width: 767px)");
+
+  const refSection = useRef<HTMLElement | null>(null);
+  const titleRef = useRef<HTMLDivElement | null>(null);
 
   const { data, isLoading } = useGetOffersById(offerId);
 
@@ -31,6 +40,11 @@ const PageOffer = ({
     }
   }, [data]);
 
+  useIntersectionObserver({
+    refs: [refSection],
+    once: true,
+  });
+
   return (
     <ServiceLayout
       items={offersName}
@@ -41,12 +55,7 @@ const PageOffer = ({
       mainClass={""}
     >
       <div className="page__base">
-        <section
-          className="hero fade-up mb-42"
-          data-watch
-          data-watch-once
-          data-watch-margin="30"
-        >
+        <section className="hero fade-up mb-42" ref={refSection}>
           <div className="hero__left">
             {offer?.name && (
               <h1 className="hero__title">Акция “{offer.name}”</h1>
@@ -108,25 +117,19 @@ const PageOffer = ({
             </div>
           </div>
         </section>
-        <div
-          className="video fade-up"
-          data-watch
-          data-watch-once
-          data-watch-margin="30"
-          data-da=".hero,767,1"
-        >
-          <div
-            className="video__item"
-            // @ts-ignore
-            style={{ "--icon": "url(/img/icons/video-icon.svg)" }}
-          >
-            <img src="/img/promotion/01.png" alt="" />
-          </div>
-        </div>
+
+        <Video
+          style={{ marginBottom: isPhone.matches ? 0 : undefined }}
+          animation={true}
+        />
+
         <section className="includes mb-96">
-          <h2 className="includes__title" data-observe>
-            Что входит:
-          </h2>
+          <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#181818">
+            <h2 ref={titleRef} className="includes__title">
+              Что входит:
+            </h2>
+          </SplitTypeAnimation>
+
           <div className="includes__row includes__row--no-hover">
             {offer?.includes_blocks.data &&
               offer.includes_blocks.data.map((el) => (

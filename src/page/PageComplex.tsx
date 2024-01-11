@@ -1,14 +1,19 @@
 "use client";
 
+import { CtaBanner } from "@/components/CtaBanner";
+import { Video } from "@/components/Video";
 import {
   GetComplexByIdQuery,
   GetComplexNamesQuery,
 } from "@/graphql/__generated__";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { priceFormatter } from "@/shared/helpers/priceFormatter";
+import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
+import { useMedia } from "@/shared/hooks/useMedia";
+import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { useGetComplexById } from "@/shared/services/complexById";
 import { Spoller } from "@/shared/ui/Spoller";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import ReactMarkdown from "react-markdown";
 
@@ -21,7 +26,12 @@ const PageComplex = ({
 }) => {
   const [complexId, setComplexId] = useState(id);
 
+  const refSection = useRef<HTMLElement | null>(null);
+  const titleRef = useRef<HTMLDivElement | null>(null);
+
   const { data, isLoading } = useGetComplexById(complexId);
+
+  const isPhone = useMedia("(max-width: 767px)");
 
   const [complex, setComplex] = useState<
     GetComplexByIdQuery["complex"]["data"]["attributes"] | undefined
@@ -35,6 +45,11 @@ const PageComplex = ({
     }
   }, [data]);
 
+  useIntersectionObserver({
+    refs: [refSection],
+    once: true,
+  });
+
   return (
     <ServiceLayout
       isLoading={isLoading}
@@ -45,12 +60,7 @@ const PageComplex = ({
       containerClass={"page__container--sidebar"}
     >
       <div className="page__base">
-        <section
-          className="hero fade-up mb-11"
-          data-watch
-          data-watch-once
-          data-watch-margin="30"
-        >
+        <section className="hero fade-up mb-11" ref={refSection}>
           <div className="hero__left">
             {complex?.name && (
               <h1 className="hero__title">Пакет “{complex.name}”</h1>
@@ -82,21 +92,12 @@ const PageComplex = ({
               {complex?.description}
             </ReactMarkdown>
           </div>
-          <div
-            className="video fade-up desktop-hidden"
-            data-watch
-            data-watch-once
-            data-watch-margin="30"
-            data-da=".hero,767,1"
-          >
-            <div
-              className="video__item"
-              // @ts-ignore
-              style={{ "--icon": "url(/img/icons/video-icon.svg)" }}
-            >
-              <img src="./img/promotion/01.png" alt="" />
-            </div>
-          </div>
+
+          <Video
+            style={{ marginBottom: isPhone.matches ? 0 : undefined }}
+            animation={true}
+          />
+
           <div className="hero__right  tablet-hidden">
             <div
               className="hero-card"
@@ -111,34 +112,39 @@ const PageComplex = ({
                 <div className="hero-card__value">
                   <span>
                     <b className="_rub">
-                      `${priceFormatter(complex.offer.price)}`
+                      {`${priceFormatter(complex.offer.price)} `}
                     </b>
                   </span>
                 </div>
               )}
             </div>
-            <div
-              className="hero-card desktop-hidden"
-              // @ts-ignore
-              style={{ "--icon": "url(/img/icons/time.svg)" }}
-            >
-              <div className="hero-card__icon"></div>
-              <div className="hero-card__name">
-                <span>общее кол-во часов</span>
+
+            {complex?.totalHours && (
+              <div
+                className="hero-card desktop-hidden"
+                // @ts-ignore
+                style={{ "--icon": "url(/img/icons/time.svg)" }}
+              >
+                <div className="hero-card__icon"></div>
+                <div className="hero-card__name">
+                  <span>общее кол-во часов</span>
+                </div>
+                <div className="hero-card__value">
+                  <span>
+                    <b>{complex.totalHours}</b>
+                  </span>
+                </div>
               </div>
-              <div className="hero-card__value">
-                <span>
-                  <b>500</b>
-                </span>
-              </div>
-            </div>
+            )}
           </div>
         </section>
 
         <section className="includes mt-11">
-          <h2 className="includes__title desktop-hidden" data-observe>
-            Что входит:
-          </h2>
+          <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#181818">
+            <h2 ref={titleRef} className="includes__title desktop-hidden">
+              Что входит:
+            </h2>
+          </SplitTypeAnimation>
 
           <div className="includes__row mb-116">
             {complex?.includes_blocks.data &&
@@ -211,17 +217,7 @@ const PageComplex = ({
           </div>
         </section>
 
-        <div
-          className="cta fade-up"
-          data-watch
-          data-watch-once
-          data-watch-margin="30"
-        >
-          <div className="cta__title ">
-            Здесь будет CTA баннер, под него нужно оставить просто контейнер
-          </div>
-          <div className="cta__image"></div>
-        </div>
+        <CtaBanner animation={true} />
       </div>
 
       <aside className="page__right ">
@@ -240,7 +236,7 @@ const PageComplex = ({
                 <span>
                   от
                   <b className="_rub">
-                    {`${priceFormatter(complex.offer.price)}`}
+                    {` ${priceFormatter(complex.offer.price)} `}
                   </b>
                 </span>
               </div>
@@ -255,6 +251,7 @@ const PageComplex = ({
             <div className="hero-card__name">
               <span>срок выполнения</span>
             </div>
+
             {complex?.deadlines && (
               <div className="hero-card__value">
                 <span>

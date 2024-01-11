@@ -95,7 +95,7 @@ const RelevantProjects = (props: RelevantProjectsProps) => {
       className={classNames("relevant", { "fade-up": animation })}
     >
       <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#181818">
-        <div ref={titleRef} className="relevant__title" data-observe>
+        <div ref={titleRef} className="relevant__title">
           Релевантные проекты
         </div>
       </SplitTypeAnimation>

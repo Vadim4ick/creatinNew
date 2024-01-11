@@ -174,6 +174,7 @@ export type Complex = {
   readonly name: Scalars['String']['output'];
   readonly offer: Maybe<ComponentElementsOffer>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly totalHours: Maybe<Scalars['Int']['output']>;
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -252,6 +253,7 @@ export type ComplexFiltersInput = {
   readonly offer: InputMaybe<ComponentElementsOfferFiltersInput>;
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<ComplexFiltersInput>>>;
   readonly publishedAt: InputMaybe<DateTimeFilterInput>;
+  readonly totalHours: InputMaybe<IntFilterInput>;
   readonly updatedAt: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -264,6 +266,7 @@ export type ComplexInput = {
   readonly name: InputMaybe<Scalars['String']['input']>;
   readonly offer: InputMaybe<ComponentElementsOfferInput>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly totalHours: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type ComplexRelationResponseCollection = {
@@ -2809,7 +2812,7 @@ export type GetComplexByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetComplexByIdQuery = { readonly __typename?: 'Query', readonly complex: { readonly __typename?: 'ComplexEntityResponse', readonly data: { readonly __typename?: 'ComplexEntity', readonly attributes: { readonly __typename?: 'Complex', readonly name: string, readonly description: string, readonly deadlines: string, readonly footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } }, readonly includes_blocks: { readonly __typename?: 'IncludesBlockRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'IncludesBlockEntity', readonly id: string, readonly attributes: { readonly __typename?: 'IncludesBlock', readonly title: string, readonly blockHover: { readonly __typename?: 'ComponentBlocksIncludesHover', readonly id: string, readonly title: string, readonly text: string, readonly subTitle: string, readonly list: string }, readonly includesContent: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIncludesContent', readonly id: string, readonly title: string, readonly content: string }> } }> }, readonly offer: { readonly __typename?: 'ComponentElementsOffer', readonly id: string, readonly price: number }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } } };
+export type GetComplexByIdQuery = { readonly __typename?: 'Query', readonly complex: { readonly __typename?: 'ComplexEntityResponse', readonly data: { readonly __typename?: 'ComplexEntity', readonly attributes: { readonly __typename?: 'Complex', readonly name: string, readonly totalHours: number, readonly description: string, readonly deadlines: string, readonly footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } }, readonly includes_blocks: { readonly __typename?: 'IncludesBlockRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'IncludesBlockEntity', readonly id: string, readonly attributes: { readonly __typename?: 'IncludesBlock', readonly title: string, readonly blockHover: { readonly __typename?: 'ComponentBlocksIncludesHover', readonly id: string, readonly title: string, readonly text: string, readonly subTitle: string, readonly list: string }, readonly includesContent: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIncludesContent', readonly id: string, readonly title: string, readonly content: string }> } }> }, readonly offer: { readonly __typename?: 'ComponentElementsOffer', readonly id: string, readonly price: number }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } } };
 
 export type GetComplexPageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3294,6 +3297,7 @@ export const GetComplexByIdDocument = gql`
         footer {
           ...FooterFragment
         }
+        totalHours
         includes_blocks {
           data {
             id

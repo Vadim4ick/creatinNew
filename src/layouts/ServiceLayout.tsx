@@ -10,6 +10,7 @@ import { Complex } from "@/components/Complex";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { useGetOffersPage } from "@/shared/services/offers";
 import { classNames } from "@/shared/lib";
+import { useRouter, redirect } from "next/navigation";
 
 interface IndexDateState {
   id: string;
@@ -45,6 +46,8 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   const [indexDate, setIndexDate] = useState<IndexDateState[] | null>(null);
 
   const [activeOffers, setActiveOffers] = useState<ActiveOffers | null>(null);
+
+  const router = useRouter();
 
   const ref = useRef<HTMLElement | null>(null);
 
@@ -105,6 +108,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
     switch (activeOffers) {
       case "offer":
         return <Offers mainRef={ref} data={offersPage} />;
+      // redirect("/services");
       case "complex":
         return <Complex mainRef={ref} />;
 
