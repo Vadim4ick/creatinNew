@@ -1,12 +1,13 @@
 import { PromotionOffer } from "./PromotionOffer";
 import ReactMarkdown from "react-markdown";
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { Portal } from "@/shared/ui/Portal";
 import { Footer } from "@/layouts/Footer/ui/Footer";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { GetOffersPageQuery } from "@/graphql/__generated__";
 import { CtaBanner } from "./CtaBanner";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
+import { getRouteOffers } from "@/shared/const/pages";
 
 const Offers = ({
   mainRef,
@@ -16,11 +17,20 @@ const Offers = ({
   data: GetOffersPageQuery | undefined;
 }) => {
   const heroSection = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   useIntersectionObserver({
     ref: heroSection,
     once: true,
   });
+
+  const onClick = useCallback(() => {
+    if (data?.offersPage) {
+      router.push(
+        getRouteOffers(data.offersPage.data.attributes.offersBlock[0].id)
+      );
+    }
+  }, [data]);
 
   if (!data) {
     return notFound();
@@ -77,6 +87,7 @@ const Offers = ({
           <Footer
             title={data?.offersPage.data.attributes.footer.title}
             img={data?.offersPage.data.attributes.footer.img.data.attributes}
+            callback={onClick}
           />
         </Portal>
       )}

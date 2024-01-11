@@ -3,14 +3,15 @@
 
 import { Loader } from "@/shared/ui/Loader/Loader";
 import ReactMarkdown from "react-markdown";
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { Portal } from "@/shared/ui/Portal";
 import { Footer } from "@/layouts/Footer/ui/Footer";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { useGetComplexPage } from "@/shared/services/complex";
 import { PromotionOffer } from "./PromotionOffer";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { CtaBanner } from "./CtaBanner";
+import { getRouteComplex } from "@/shared/const/pages";
 
 const Complex = ({
   mainRef,
@@ -18,6 +19,7 @@ const Complex = ({
   mainRef: React.MutableRefObject<HTMLElement | null>;
 }) => {
   const { data, isLoading } = useGetComplexPage();
+  const router = useRouter();
 
   const heroSection = useRef<HTMLDivElement | null>(null);
 
@@ -25,6 +27,16 @@ const Complex = ({
     ref: heroSection,
     once: true,
   });
+
+  const onClick = useCallback(() => {
+    if (data?.complexAccompany) {
+      router.push(
+        getRouteComplex(
+          data.complexAccompany.data.attributes.complexBlocks[0].id
+        )
+      );
+    }
+  }, [data]);
 
   if (isLoading) {
     return <Loader />;
@@ -87,6 +99,7 @@ const Complex = ({
             img={
               data.complexAccompany.data.attributes.footer.img.data.attributes
             }
+            callback={onClick}
           />
         </Portal>
       )}

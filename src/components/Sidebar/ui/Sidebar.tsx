@@ -57,6 +57,10 @@ const Sidebar = memo((props: SidebarProps) => {
                   onChange(item.id);
 
                   if (item.attributes?.nameID === STORAGE_KEYS.COMPLEX) {
+                    sessionStorage.setItem(
+                      STORAGE_KEYS.ACTIVE_OFFER,
+                      "complex" as ActiveOffers
+                    );
                     return setActiveOffers("complex");
                   }
                 }}
@@ -79,6 +83,11 @@ const Sidebar = memo((props: SidebarProps) => {
           <button
             onClick={() => {
               setActiveOffers("offer");
+
+              sessionStorage.setItem(
+                STORAGE_KEYS.ACTIVE_OFFER,
+                "offer" as ActiveOffers
+              );
             }}
             className="sidebar__baner"
             style={{ background: "#d1e791" }}

@@ -1,4 +1,11 @@
-import React, { ReactNode, memo, useEffect, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  memo,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Loader } from "@/shared/ui/Loader/Loader";
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import useSmoothScrollToTop from "@/shared/hooks/useSmoothScrollToTop";
@@ -10,7 +17,8 @@ import { Complex } from "@/components/Complex";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { useGetOffersPage } from "@/shared/services/offers";
 import { classNames } from "@/shared/lib";
-import { useRouter, redirect } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { getRouteServices } from "@/shared/const/pages";
 
 interface IndexDateState {
   id: string;
@@ -45,11 +53,17 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 
   const [indexDate, setIndexDate] = useState<IndexDateState[] | null>(null);
 
-  const [activeOffers, setActiveOffers] = useState<ActiveOffers | null>(null);
-
-  const router = useRouter();
+  const pathname = usePathname();
+  const [activeOffers, setActiveOffers] = useState<ActiveOffers | null>(
+    (typeof window !== "undefined" &&
+      pathname === getRouteServices() &&
+      (sessionStorage.getItem(STORAGE_KEYS.ACTIVE_OFFER) as ActiveOffers)) ||
+      null
+  );
 
   const ref = useRef<HTMLElement | null>(null);
+
+  const router = useRouter();
 
   const onChange = (id: string) => {
     setId(id);
@@ -100,22 +114,25 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
     }
   }, []);
 
-  if (isLoading || isLoadingOffers) {
-    return <Loader />;
-  }
-
-  const activeComponent = () => {
+  const activeComponent = useMemo(() => {
     switch (activeOffers) {
       case "offer":
+        if (pathname !== "/services") {
+          router.push("/services");
+        }
+
         return <Offers mainRef={ref} data={offersPage} />;
-      // redirect("/services");
       case "complex":
         return <Complex mainRef={ref} />;
 
       default:
         return children;
     }
-  };
+  }, [activeOffers, children, offersPage]);
+
+  if (isLoading || isLoadingOffers) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -131,7 +148,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
             imageOffers={offersPage?.offersPage.data.attributes.img}
           />
 
-          {activeComponent()}
+          {activeComponent}
         </div>
       </main>
 
