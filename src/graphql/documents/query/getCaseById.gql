@@ -1,0 +1,68 @@
+query GetCaseById($id: ID) {
+  case(id: $id) {
+    data {
+      attributes {
+        firstBlock {
+          id
+          textBlock {
+            titlle
+            description
+          }
+
+          images {
+            data {
+              id
+              attributes {
+                ...MediaFragment
+              }
+            }
+          }
+        }
+
+        secondBlock {
+          id
+          textBlock {
+            id
+            titlle
+            description
+          }
+          images(pagination: { limit: 25 }) {
+            data {
+              id
+              attributes {
+                ...MediaFragment
+              }
+            }
+          }
+        }
+
+        headBlock {
+          title
+          description
+          mainImage {
+            data {
+              id
+              attributes {
+                ...MediaFragment
+              }
+            }
+          }
+          subTitleImage {
+            data {
+              id
+              attributes {
+                ...MediaFragment
+              }
+            }
+          }
+
+          textBlocks {
+            id
+            titlle
+            description
+          }
+        }
+      }
+    }
+  }
+}
