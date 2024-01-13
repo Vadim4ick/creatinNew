@@ -9,6 +9,14 @@ query GetComplexPage {
           ...ComplexBlock
         }
 
+        banner {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
         footer {
           ...FooterFragment
         }

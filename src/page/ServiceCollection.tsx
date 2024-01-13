@@ -169,7 +169,12 @@ const ServiceCollection = memo(
             />
           )}
 
-          <CtaBanner animation={true} />
+          {serviceCollection?.banner.data && (
+            <CtaBanner
+              animation={true}
+              src={serviceCollection.banner.data.attributes}
+            />
+          )}
         </div>
       </ServiceLayout>
     );

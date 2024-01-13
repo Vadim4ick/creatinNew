@@ -7,18 +7,19 @@ import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { useSwiper } from "@/shared/hooks/useSwiper";
 import { CustomLink } from "@/shared/ui/Link";
 import Image from "next/image";
-import { useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { A11y } from "swiper";
 import cls from "./RelevantProject.module.scss";
 import { classNames } from "@/shared/lib";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
+import { getRouteCase } from "@/shared/const/pages";
 
 interface RelevantProjectsProps {
   cases: SliderFragmentFragment["cases"]["data"];
   animation?: boolean;
 }
 
-const RelevantProjects = (props: RelevantProjectsProps) => {
+const RelevantProjects = memo((props: RelevantProjectsProps) => {
   const { cases, animation = false } = props;
 
   const projectsSeiperRef = useRef<HTMLDivElement | null>(null);
@@ -32,21 +33,39 @@ const RelevantProjects = (props: RelevantProjectsProps) => {
       once: true,
     });
   }
-  //   useEffect(() => {
-  //     const swiperRef = projectsSeiperRef.current;
-  //     if (!swiperRef) return;
+  // useEffect(() => {
+  //   const swiperRef = projectsSeiperRef.current;
+  //   if (!swiperRef) return;
 
-  //     const slides = swiperRef.querySelectorAll(".swiper-slide");
-  //     const wrapper = swiperRef.querySelector(".swiper-wrapper");
+  //   const slides = swiperRef.querySelectorAll(".swiper-slide");
+  //   const wrapper = swiperRef.querySelector(".swiper-wrapper");
 
-  //     if (slides.length < 10 && wrapper) {
-  //       const clones = Array.from(slides)
-  //         .map((slide) => slide.cloneNode(true))
-  //         .filter(() => swiperRef.querySelectorAll(".swiper-slide").length < 20);
+  //   if (slides.length < 10 && wrapper) {
+  //     const clones = Array.from(slides)
+  //       .map((slide) => slide.cloneNode(true))
+  //       .filter(() => swiperRef.querySelectorAll(".swiper-slide").length < 20);
 
-  //       clones.forEach((clone) => wrapper.appendChild(clone));
-  //     }
-  //   }, []);
+  //     clones.forEach((clone) => wrapper.appendChild(clone));
+  //   }
+  // }, []);
+
+  //   on: {
+  //     slideChange: function () {
+  //       // if(this.activeIndexChange)
+  //       //   console.log(this.activeIndex);
+  //       //   console.log(projectsSeiperRef.current);
+
+  //       if (projectsSeiperRef.current) {
+  //         const swiper =
+  //           projectsSeiperRef.current.querySelector(".swiper-wrapper");
+
+  //         if (swiper) {
+  //           console.log(swiper.children.length);
+  //           console.log(this.activeIndex);
+  //         }
+  //       }
+  //     },
+  //   },
 
   useSwiper({
     ref: projectsSeiperRef,
@@ -54,27 +73,19 @@ const RelevantProjects = (props: RelevantProjectsProps) => {
     options: {
       modules: [A11y],
       slideToClickedSlide: true,
-      loop: true,
+      // loop: true,
       autoHeight: false,
       speed: 1200,
-
-      //   on: {
-      //     slideChange: function () {
-      //       // if(this.activeIndexChange)
-      //       //   console.log(this.activeIndex);
-      //       //   console.log(projectsSeiperRef.current);
-
-      //       if (projectsSeiperRef.current) {
-      //         const swiper =
-      //           projectsSeiperRef.current.querySelector(".swiper-wrapper");
-
-      //         if (swiper) {
-      //           console.log(swiper.children.length);
-      //           console.log(this.activeIndex);
-      //         }
-      //       }
-      //     },
-      //   },
+      on: {
+        transitionStart: (swiper) => {
+          if (!swiper.animating) {
+            swiper.allowSlideNext = false;
+          }
+        },
+        transitionEnd: (swiper) => {
+          swiper.allowSlideNext = true;
+        },
+      },
 
       breakpoints: {
         320: {
@@ -126,6 +137,8 @@ const RelevantProjects = (props: RelevantProjectsProps) => {
                   </div>
 
                   <CustomLink
+                    onClick={(e) => e.stopPropagation()}
+                    href={getRouteCase(item.id)}
                     className="relevant__btn"
                     variant="white"
                     iconPosition="right"
@@ -138,6 +151,6 @@ const RelevantProjects = (props: RelevantProjectsProps) => {
       </div>
     </section>
   );
-};
+});
 
 export { RelevantProjects };

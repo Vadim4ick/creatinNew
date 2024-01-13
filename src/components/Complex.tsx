@@ -89,7 +89,12 @@ const Complex = ({
           />
         )}
 
-        <CtaBanner animation={true} />
+        {data.complexAccompany.data.attributes.banner.data && (
+          <CtaBanner
+            animation={true}
+            src={data.complexAccompany.data.attributes.banner.data.attributes}
+          />
+        )}
       </div>
 
       {mainRef.current && (

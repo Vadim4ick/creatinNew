@@ -45,12 +45,6 @@ const PageServices = memo(
       }
     }, [serviceData]);
 
-    // useEffect(() => {
-    //   sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, serviceId);
-
-    //   return () => sessionStorage.removeItem(STORAGE_KEYS.SERVICE_ID);
-    // }, [serviceId]);
-
     return (
       <ServiceLayout
         footer={serviceNames[index].attributes.footer}
@@ -138,7 +132,9 @@ const PageServices = memo(
               <RelevantProjects cases={service.SliderCase.cases.data} />
             )}
 
-            <CtaBanner />
+            {service.banner.data.length !== 0 && (
+              <CtaBanner src={service.banner.data[0].attributes} />
+            )}
           </div>
         )}
       </ServiceLayout>

@@ -9,7 +9,7 @@ import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { priceFormatter } from "@/shared/helpers/priceFormatter";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const PromotionOffer = ({
@@ -24,7 +24,7 @@ const PromotionOffer = ({
 
   const promotionRefs = offers.map(() => useRef<HTMLDivElement | null>(null));
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const calculateWidth = (item: any, index: number): number => {
       if (item.classList.contains("_active")) {
         const nextItem = item[index + 1];

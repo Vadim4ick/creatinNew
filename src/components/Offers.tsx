@@ -79,7 +79,12 @@ const Offers = ({
           />
         )}
 
-        <CtaBanner animation={true} />
+        {data.offersPage.data.attributes.banner.data && (
+          <CtaBanner
+            animation={true}
+            src={data.offersPage.data.attributes.banner.data.attributes}
+          />
+        )}
       </div>
 
       {mainRef.current && (

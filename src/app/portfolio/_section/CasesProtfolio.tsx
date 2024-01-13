@@ -13,7 +13,7 @@ const CasesProtfolio = ({
       <div className="cases__row">
         {cases.map((el) => (
           // @ts-ignore
-          <Case key={el.id} case={el.attributes} />
+          <Case key={el.id} project={el} />
         ))}
       </div>
     </section>

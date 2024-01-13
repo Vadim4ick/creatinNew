@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { BtnArrow } from "../icons/BtnArrow";
 import { classNames } from "../lib";
+import Link from "next/link";
 
 type CustomLinkVariant = "ultramarin" | "chartreuse" | "white";
 

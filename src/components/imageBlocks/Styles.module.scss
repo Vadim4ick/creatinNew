@@ -1,0 +1,11 @@
+.textInfo {
+  @media (min-width: 1200px) {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
+.infoBlockTitle {
+  white-space: nowrap;
+}

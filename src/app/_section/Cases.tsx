@@ -2,6 +2,7 @@
 
 import { Case } from "@/components/Case";
 import { GetHomePageQuery } from "@/graphql/__generated__";
+import { getRoutePortfolio } from "@/shared/const/pages";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { CustomLink } from "@/shared/ui/Link";
@@ -32,11 +33,15 @@ const Cases = (props: CasesProps) => {
         <div className="cases__row">
           {cases.data.map((el) => (
             // @ts-ignore
-            <Case key={el.id} case={el.attributes} />
+            <Case key={el.id} project={el} />
           ))}
 
           <div className="cases__more">
-            <CustomLink variant="chartreuse" iconPosition="right">
+            <CustomLink
+              href={getRoutePortfolio()}
+              variant="chartreuse"
+              iconPosition="right"
+            >
               Все кейсы
             </CustomLink>
           </div>

@@ -17,6 +17,14 @@ query GetOffersPage {
           }
         }
 
+        banner {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
         footer {
           ...FooterFragment
         }

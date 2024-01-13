@@ -112,6 +112,8 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
     if (sessionStorage.getItem(STORAGE_KEYS.COMPLEX) === STORAGE_KEYS.COMPLEX) {
       setActiveOffers("complex");
     }
+
+    return () => sessionStorage.clear();
   }, []);
 
   const activeComponent = useMemo(() => {

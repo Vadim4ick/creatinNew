@@ -2,64 +2,76 @@ query GetCaseById($id: ID) {
   case(id: $id) {
     data {
       attributes {
-        firstBlock {
-          id
-          textBlock {
-            titlle
-            description
-          }
-
-          images {
-            data {
-              id
-              attributes {
-                ...MediaFragment
-              }
-            }
-          }
+        Footer {
+          ...FooterFragment
         }
 
-        secondBlock {
-          id
-          textBlock {
+        content {
+          ... on ComponentImageBlocksOneImage {
+            idBlock
             id
-            titlle
-            description
-          }
-          images(pagination: { limit: 25 }) {
-            data {
-              id
-              attributes {
-                ...MediaFragment
-              }
-            }
-          }
-        }
-
-        headBlock {
-          title
-          description
-          mainImage {
-            data {
-              id
-              attributes {
-                ...MediaFragment
-              }
-            }
-          }
-          subTitleImage {
-            data {
-              id
-              attributes {
-                ...MediaFragment
+            image {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
               }
             }
           }
 
-          textBlocks {
+          ... on ComponentImageBlocksGridImage {
+            idBlock
             id
-            titlle
+            streech
+            threeImage {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+            twoImage {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+            oneImage {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+          }
+
+          ... on ComponentImageBlocksDoubleImage {
+            id
+            idBlock
+            imageTwo {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+            imageOne {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+          }
+
+          ... on ComponentImageBlocksTextBlock {
+            id
+            idBlock
+            title
             description
+            type
+            desctopMaxWidth
           }
         }
       }

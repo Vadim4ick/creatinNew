@@ -201,7 +201,9 @@ const PageOffer = ({
           </div>
         </section>
 
-        <CtaBanner animation={true} />
+        {offer?.banner.data && (
+          <CtaBanner animation={true} src={offer.banner.data.attributes} />
+        )}
       </div>
     </ServiceLayout>
   );

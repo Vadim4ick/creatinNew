@@ -217,7 +217,9 @@ const PageComplex = ({
           </div>
         </section>
 
-        <CtaBanner animation={true} />
+        {complex?.banner.data && (
+          <CtaBanner animation={true} src={complex.banner.data.attributes} />
+        )}
       </div>
 
       <aside className="page__right ">

@@ -1,18 +1,19 @@
 "use client";
 
-import { Case } from "@/graphql/__generated__";
+import { CaseEntity } from "@/graphql/__generated__";
+import { getRouteCase } from "@/shared/const/pages";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { CustomLink } from "@/shared/ui/Link";
 import Image from "next/image";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 
 interface CaseProps {
-  case: Omit<Case, "publishedAt" | "updatedAt" | "createdAt">;
+  project: CaseEntity;
 }
 
-const Case = (props: CaseProps) => {
-  const { case: project } = props;
+const Case = memo((props: CaseProps) => {
+  const { project } = props;
 
   const caseRef = useRef<HTMLDivElement | null>(null);
 
@@ -25,35 +26,43 @@ const Case = (props: CaseProps) => {
   return (
     <div ref={caseRef} className="cases__column case-card fade-up">
       <div className="case-card__item case-card__item--text">
-        <div className="case-card__title">{project.title && project.title}</div>
-        <div className="case-card__info">{project.info && project.info}</div>
+        <div className="case-card__title">
+          {project.attributes.title && project.attributes.title}
+        </div>
+        <div className="case-card__info">
+          {project.attributes.info && project.attributes.info}
+        </div>
         <div className="case-card__btns">
-          <CustomLink variant="white" iconPosition="right">
+          <CustomLink
+            href={getRouteCase(project.id)}
+            variant="white"
+            iconPosition="right"
+          >
             Смотреть кейс
           </CustomLink>
         </div>
       </div>
 
       <div className="case-card__item case-card__item--big">
-        {project.imageBig && (
+        {project.attributes.imageBig && (
           <Image
             fill
-            src={getFileUrl(project.imageBig.data.attributes.url)}
+            src={getFileUrl(project.attributes.imageBig.data.attributes.url)}
             alt=""
           />
         )}
       </div>
       <a className="case-card__item case-card__item--main">
-        {project.imageMain && (
+        {project.attributes.imageMain && (
           <Image
             fill
-            src={getFileUrl(project.imageMain.data.attributes.url)}
+            src={getFileUrl(project.attributes.imageMain.data.attributes.url)}
             alt=""
           />
         )}
       </a>
     </div>
   );
-};
+});
 
 export { Case };

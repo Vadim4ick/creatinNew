@@ -5,11 +5,14 @@ export enum AppRoutes {
   SERVICES_DISCLOSURE = "Услуга",
   OFFERS = "Спецпредложения",
   COMPLEX = "Cопровождения",
+  CASE = "Проект",
 }
 
 export const getRouteHome = () => "/";
 export const getRoutePortfolio = () => "/portfolio";
 export const getRouteServices = () => "/services";
+
+export const getRouteCase = (id: string) => `${getRoutePortfolio()}/${id}`;
 
 export const getRouteService = (service: string, id: string) =>
   `${getRouteServices()}/${service}/${id}`;
@@ -27,4 +30,5 @@ export const Router: Record<string, AppRoutes> = {
   [getRouteService(":service", ":id")]: AppRoutes.SERVICES_DISCLOSURE,
   [getRouteOffers(":id")]: AppRoutes.OFFERS,
   [getRouteComplex(":id")]: AppRoutes.COMPLEX,
+  [getRouteCase(":id")]: AppRoutes.CASE,
 };
