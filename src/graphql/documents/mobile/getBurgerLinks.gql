@@ -1,0 +1,19 @@
+query GetBurgerLinks {
+  mobileNavigation {
+    data {
+      attributes {
+        mobileLink {
+          id
+          name
+          href
+          subMenuTitle
+        }
+        links {
+          id
+          href
+          name
+        }
+      }
+    }
+  }
+}

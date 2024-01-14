@@ -6,8 +6,7 @@ import "@/shared/assets/styles/style.min.css";
 
 import { QueryProviders } from "@/shared/providers/queryProviders";
 import { gql } from "@/graphql/client";
-import { Burger } from "@/components/Burger";
-import { Suspense } from "react";
+import { ActiveOfferProvider } from "@/shared/providers/activeOfferProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,15 +25,13 @@ export default async function RootLayout({
       <body>
         <div className="wrapper">
           <QueryProviders>
-            <Burger />
+            <ActiveOfferProvider>
+              <Header header={header.data.attributes} />
 
-            <Header header={header.data.attributes} />
-
-            {children}
+              {children}
+            </ActiveOfferProvider>
           </QueryProviders>
         </div>
-
-        {/* <Script src="/js/app.min.js" defer /> */}
       </body>
     </html>
   );

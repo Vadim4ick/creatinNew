@@ -2,7 +2,7 @@
 
 import { classNames } from "@/shared/lib";
 import { CustomLink } from "@/shared/ui/Link";
-import { memo } from "react";
+import { Dispatch, SetStateAction, memo } from "react";
 import cls from "./Sidebar.module.scss";
 import Image from "next/image";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
@@ -20,17 +20,21 @@ export interface SidebarItems {
   };
 }
 
+export type SidebarItemElement = "normal" | "input";
+
 interface SidebarProps {
   items: readonly SidebarItems[];
 
   viewSpecialOffers: boolean;
   onChange: (id: string) => void;
-  active: string;
+  active?: string;
   setActiveOffers: React.Dispatch<React.SetStateAction<ActiveOffers | null>>;
   activeOffers: ActiveOffers | null;
   imageOffers:
     | GetOffersPageQuery["offersPage"]["data"]["attributes"]["img"]
     | undefined;
+  itemElement?: SidebarItemElement;
+  setInputIds?: Dispatch<SetStateAction<string[]>>;
 }
 
 const Sidebar = memo((props: SidebarProps) => {
@@ -42,6 +46,8 @@ const Sidebar = memo((props: SidebarProps) => {
     setActiveOffers,
     activeOffers,
     imageOffers,
+    itemElement = "normal",
+    setInputIds,
   } = props;
 
   return (
@@ -51,32 +57,72 @@ const Sidebar = memo((props: SidebarProps) => {
 
         <ul className="sidebar__items">
           {items.length &&
-            items.map((item) => (
-              <li
-                onClick={() => {
-                  onChange(item.id);
+            items.map((item, i) => {
+              if (itemElement === "normal") {
+                return (
+                  <li
+                    onClick={() => {
+                      onChange(item.id);
 
-                  if (item.attributes?.nameID === STORAGE_KEYS.COMPLEX) {
-                    sessionStorage.setItem(
-                      STORAGE_KEYS.ACTIVE_OFFER,
-                      "complex" as ActiveOffers
-                    );
-                    return setActiveOffers("complex");
-                  }
-                }}
-                key={item.id}
-                className={"sidebar__item"}
-              >
-                <a
-                  className={classNames(`sidebar__link ${cls.link}`, {
-                    [cls.active]:
-                      item.id === active && activeOffers !== "offer",
-                  })}
-                >
-                  {item.attributes.name}
-                </a>
-              </li>
-            ))}
+                      if (item.attributes?.nameID === STORAGE_KEYS.COMPLEX) {
+                        sessionStorage.setItem(
+                          STORAGE_KEYS.ACTIVE_OFFER,
+                          "complex" as ActiveOffers
+                        );
+                        return setActiveOffers("complex");
+                      }
+                    }}
+                    key={item.id}
+                    className={"sidebar__item"}
+                  >
+                    <a
+                      className={classNames(`sidebar__link ${cls.link}`, {
+                        [cls.active]:
+                          item.id === active && activeOffers !== "offer",
+                      })}
+                    >
+                      {item.attributes.name}
+                    </a>
+                  </li>
+                );
+              } else if (itemElement === "input" && setInputIds) {
+                return (
+                  <li
+                    onClick={() => {
+                      onChange(item.id);
+
+                      if (item.attributes?.nameID === STORAGE_KEYS.COMPLEX) {
+                        sessionStorage.setItem(
+                          STORAGE_KEYS.ACTIVE_OFFER,
+                          "complex" as ActiveOffers
+                        );
+                        return setActiveOffers("complex");
+                      }
+                    }}
+                    key={item.id}
+                    className={"sidebar__item"}
+                  >
+                    <input
+                      id={`c_${i}`}
+                      className="visually-hidden _form-field"
+                      type="checkbox"
+                      onChange={(e) =>
+                        setInputIds((prev) =>
+                          e.target.checked
+                            ? [...prev, item.id]
+                            : prev.filter((id) => id !== item.id)
+                        )
+                      }
+                    />
+                    <label htmlFor={`c_${i}`} className="sidebar__label">
+                      <span className="sidebar__link">
+                        {item.attributes.name}
+                      </span>
+                    </label>
+                  </li>
+                );
+              }
+            })}
         </ul>
 
         {viewSpecialOffers && (

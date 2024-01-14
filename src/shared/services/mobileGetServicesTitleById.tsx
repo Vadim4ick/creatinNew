@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { KEYS } from "../const/keys";
 import { gql } from "@/graphql/client";
 
-export const useGetCasesByNameId = (ids: string[]) => {
+export const useGetServicesTitleById = (title: string) => {
   return useQuery({
-    queryKey: [KEYS.CASES_BY_NAME_ID, ids],
+    queryKey: [KEYS.SERVICES_BY_TITLE_ID],
     queryFn: () =>
-      gql.GetCasesByNameIds({
-        ids: ids,
+      gql.GetServicesTitleById({
+        title: title,
       }),
     refetchOnWindowFocus: false,
   });

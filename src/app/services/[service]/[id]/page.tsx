@@ -1,5 +1,6 @@
 import { gql } from "@/graphql/client";
 import { ServiceCollection } from "@/page/ServiceCollection";
+import { ActiveOfferProvider } from "@/shared/providers/activeOfferProvider";
 import { notFound } from "next/navigation";
 
 const ServiceParamsPage = async ({
@@ -18,7 +19,13 @@ const ServiceParamsPage = async ({
     return notFound();
   }
 
-  return <ServiceCollection id={id} titleServices={services.data} />;
+  return (
+    <ServiceCollection
+      id={id}
+      titleServices={services.data}
+      title={decodeURIComponent(service)}
+    />
+  );
 };
 
 export default ServiceParamsPage;

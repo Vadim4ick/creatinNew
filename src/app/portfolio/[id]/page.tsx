@@ -15,11 +15,6 @@ const CasePage = async ({ params }: { params: { id: string } }) => {
     return notFound();
   }
 
-  // console.log(cases.data);
-  if (!caseContent.data.attributes.content.length) {
-    return <div>Эта страница пока не заполнена</div>;
-  }
-
   return (
     <PageCase
       //@ts-ignore

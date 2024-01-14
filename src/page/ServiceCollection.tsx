@@ -16,14 +16,17 @@ import React, { memo, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Video } from "@/components/Video";
 import { CtaBanner } from "@/components/CtaBanner";
+import { BurgerServiceCollection } from "@/components/Burger/ui/BurgerServiceCollection/BurgerServiceCollection";
 
 const ServiceCollection = memo(
   ({
     id,
     titleServices,
+    title,
   }: {
     id: string;
     titleServices: GetServicesTitleByIdQuery["services"]["data"];
+    title: string;
   }) => {
     const [serviceNameActive, setServiceNameActive] = useState(id);
 
@@ -70,6 +73,15 @@ const ServiceCollection = memo(
         serviceId={serviceNameActive}
         setId={setServiceNameActive}
         items={titleServices[0].attributes.Services.service_collections.data}
+        BugerMenu={() => (
+          <BurgerServiceCollection
+            SubMenuName={serviceCollection?.name || ""}
+            items={
+              titleServices[0]?.attributes.Services.service_collections.data
+            }
+            title={title}
+          />
+        )}
       >
         {!serviceCollection && <div>Такой коллекции пока не существует</div>}
 

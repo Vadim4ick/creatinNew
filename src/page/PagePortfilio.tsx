@@ -1,13 +1,15 @@
 "use client";
 
 import { CasesProtfolio } from "@/app/portfolio/_section/CasesProtfolio";
+import { BurgerPortfolio } from "@/components/Burger/ui/BurgerPortfolio/BurgerPortfolio";
 import {
-  GetCasesByNameIdQuery,
+  GetCasesByNameIdsQuery,
   GetCasesNamesQuery,
 } from "@/graphql/__generated__";
 import ServiceLayout from "@/layouts/ServiceLayout";
+import { useMedia } from "@/shared/hooks/useMedia";
 import { useGetCasesByNameId } from "@/shared/services/casesByNameId";
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 interface PagePortfolioProps {
   caseNames: GetCasesNamesQuery["caseNames"]["data"];
@@ -16,13 +18,17 @@ interface PagePortfolioProps {
 const PagePortfilio = memo((props: PagePortfolioProps) => {
   const { caseNames } = props;
 
-  const [caseIndex, setCaseIndex] = useState(0);
-  const caseId = useMemo(() => caseNames[caseIndex].id, [caseIndex]);
+  const [caseIds, setCaseIds] = useState<string[]>([]);
+  const [caseIdsForHook, setCaseIdsForHook] = useState<string[]>([]);
 
-  const { data, isLoading } = useGetCasesByNameId(caseId);
+  const isDesktop = useMedia("(max-width: 1200px)");
+
+  const { data, isLoading } = useGetCasesByNameId(
+    isDesktop.matches ? caseIdsForHook : caseIds
+  );
 
   const [cases, setCases] = useState<
-    GetCasesByNameIdQuery["cases"]["data"] | undefined
+    GetCasesByNameIdsQuery["cases"]["data"] | undefined
   >(undefined);
 
   useEffect(() => {
@@ -33,24 +39,29 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
     }
   }, [data]);
 
-  const setId = (id: string) => {
-    const index = caseNames.findIndex((el) => el.id === id);
-    setCaseIndex(index);
-  };
+  const setId = (id: string) => {};
 
   return (
     <>
       <ServiceLayout
         items={caseNames}
-        isLoading={isLoading}
-        serviceId={caseId}
+        isLoading={false}
         setId={setId}
-        footer={
-          caseIndex !== -1 ? caseNames[caseIndex].attributes.footer : undefined
-        }
+        footer={cases && cases[0].attributes.Footer}
+        BugerMenu={() => (
+          <BurgerPortfolio
+            title="Сортировать по направлениям"
+            SubMenuName="Портфолио"
+            items={caseNames}
+            setCaseIdsForHook={setCaseIdsForHook}
+            caseIdsForHook={caseIdsForHook}
+          />
+        )}
+        sidebarItemElement={"input"}
+        setInputIds={setCaseIds}
       >
         <div className="page__base">
-          {!cases && <div>В данном разделе кейсов пока нет!</div>}
+          {!cases && !isLoading && <div>В данном разделе кейсов пока нет!</div>}
 
           {cases && <CasesProtfolio cases={cases} />}
         </div>

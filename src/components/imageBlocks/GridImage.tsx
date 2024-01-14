@@ -2,8 +2,9 @@ import { ComponentImageBlocksGridImage } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { classNames } from "@/shared/lib";
 import Image from "next/image";
+import { memo } from "react";
 
-const GridImage = (props: { content: ComponentImageBlocksGridImage }) => {
+const GridImage = memo((props: { content: ComponentImageBlocksGridImage }) => {
   const { content } = props;
 
   return (
@@ -42,6 +43,6 @@ const GridImage = (props: { content: ComponentImageBlocksGridImage }) => {
       </div>
     </div>
   );
-};
+});
 
 export { GridImage };

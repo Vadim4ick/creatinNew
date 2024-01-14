@@ -1,12 +1,12 @@
 "use client";
 
 import { Case } from "@/components/Case";
-import { GetCasesByNameIdQuery } from "@/graphql/__generated__";
+import { GetCasesByNameIdsQuery } from "@/graphql/__generated__";
 
 const CasesProtfolio = ({
   cases,
 }: {
-  cases: GetCasesByNameIdQuery["cases"]["data"];
+  cases: GetCasesByNameIdsQuery["cases"]["data"];
 }) => {
   return (
     <section className="cases cases--portfolio">

@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { GetHomePageQuery } from "@/graphql/__generated__";
+import { FormSendFragmentFragment } from "@/graphql/__generated__";
 import { formatPhoneNumber } from "@/shared/helpers/numberFormatter";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
@@ -8,7 +8,7 @@ import Link from "next/link";
 import { MutableRefObject, useRef } from "react";
 
 interface AddressProps {
-  form: GetHomePageQuery["homePage"]["data"]["attributes"]["formSend"];
+  form: FormSendFragmentFragment;
   callbackRef: MutableRefObject<HTMLDivElement | null>;
 }
 

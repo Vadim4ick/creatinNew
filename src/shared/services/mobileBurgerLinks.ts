@@ -2,13 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { KEYS } from "../const/keys";
 import { gql } from "@/graphql/client";
 
-export const useGetCasesByNameId = (ids: string[]) => {
+export const useGetMobileBurgerLinks = () => {
   return useQuery({
-    queryKey: [KEYS.CASES_BY_NAME_ID, ids],
-    queryFn: () =>
-      gql.GetCasesByNameIds({
-        ids: ids,
-      }),
+    queryKey: [KEYS.BURGER_LINKS],
+    queryFn: () => gql.GetBurgerLinks(),
     refetchOnWindowFocus: false,
   });
 };

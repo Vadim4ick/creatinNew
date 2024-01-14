@@ -12,6 +12,7 @@ import ServiceLayout from "@/layouts/ServiceLayout";
 import { Video } from "@/components/Video";
 import { CtaBanner } from "@/components/CtaBanner";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
+import { BurgerServices } from "@/components/Burger/ui/BurgerServices/BurgerServices";
 
 const PageServices = memo(
   ({
@@ -45,99 +46,109 @@ const PageServices = memo(
       }
     }, [serviceData]);
 
+    // Mobile
+    const nameBurger = useMemo(() => {
+      return serviceNames[index].attributes.name;
+    }, [index, serviceNames]);
+
     return (
-      <ServiceLayout
-        footer={serviceNames[index].attributes.footer}
-        isLoading={isLoadingService}
-        items={serviceNames}
-        setId={setServiceId}
-        serviceId={serviceId}
-      >
-        {!service && <div>У этого раздела пока нет услуги</div>}
+      <>
+        <ServiceLayout
+          footer={serviceNames[index].attributes.footer}
+          isLoading={isLoadingService}
+          items={serviceNames}
+          setId={setServiceId}
+          serviceId={serviceId}
+          BugerMenu={() => (
+            <BurgerServices SubMenuName={nameBurger} items={serviceNames} />
+          )}
+        >
+          {!service && <div>У этого раздела пока нет услуги</div>}
 
-        {service && (
-          <div className="page__base">
-            <section className="hero">
-              <div className="hero__left">
-                <h1 className="hero__title">{service.title}</h1>
+          {service && (
+            <div className="page__base">
+              <section className="hero">
+                <div className="hero__left">
+                  <h1 className="hero__title">{service.title}</h1>
 
-                <ReactMarkdown
-                  skipHtml
-                  components={{
-                    p: ({ children }) => {
-                      return (
-                        <>
-                          <div className="hero__info">
-                            {children
-                              ?.toString()
-                              .split("\n")
-                              .map((line, index) => (
-                                <React.Fragment key={index}>
-                                  {line}
-                                  {/* @ts-ignore */}
-                                  {index < children.length - 1 && <br />}
-                                </React.Fragment>
-                              ))}
-                          </div>
-                        </>
-                      );
-                    },
-                  }}
-                >
-                  {service.description}
-                </ReactMarkdown>
-              </div>
-            </section>
-
-            <Video />
-
-            {service.Services.service_collections.data && (
-              <section className="services">
-                <div className="services__left">
-                  <h2 className="services__title" data-observe>
-                    {service.Services.title}
-                  </h2>
-                  <p className="services__subtitle">
-                    {service.Services.description}
-                  </p>
-                </div>
-
-                <div className="services__row">
-                  {service.Services.service_collections.data.map((item) => (
-                    <Link
-                      key={item.id}
-                      href={getRouteService(
-                        service.serviceName.data.attributes.name,
-                        item.id
-                      )}
-                      className="services__column"
-                      // @ts-ignore
-                      style={{ "--icon": "url(/img/icons/services.svg)" }}
-                    >
-                      <div className="services__name">
-                        {item.attributes.name}
-                      </div>
-                      <div className="services__info">
-                        {item.attributes.description}
-                      </div>
-                    </Link>
-                  ))}
+                  <ReactMarkdown
+                    skipHtml
+                    components={{
+                      p: ({ children }) => {
+                        return (
+                          <>
+                            <div className="hero__info">
+                              {children
+                                ?.toString()
+                                .split("\n")
+                                .map((line, index) => (
+                                  <React.Fragment key={index}>
+                                    {line}
+                                    {/* @ts-ignore */}
+                                    {index < children.length - 1 && <br />}
+                                  </React.Fragment>
+                                ))}
+                            </div>
+                          </>
+                        );
+                      },
+                    }}
+                  >
+                    {service.description}
+                  </ReactMarkdown>
                 </div>
               </section>
-            )}
 
-            {service.textBlocks && <TextBlocks blocks={service.textBlocks} />}
+              <Video />
 
-            {service.SliderCase && (
-              <RelevantProjects cases={service.SliderCase.cases.data} />
-            )}
+              {service.Services.service_collections.data && (
+                <section className="services">
+                  <div className="services__left">
+                    <h2 className="services__title" data-observe>
+                      {service.Services.title}
+                    </h2>
+                    <p className="services__subtitle">
+                      {service.Services.description}
+                    </p>
+                  </div>
 
-            {service.banner.data.length !== 0 && (
-              <CtaBanner src={service.banner.data[0].attributes} />
-            )}
-          </div>
-        )}
-      </ServiceLayout>
+                  <div className="services__row">
+                    {service.Services.service_collections.data.map((item) => (
+                      <Link
+                        key={item.id}
+                        href={getRouteService(
+                          service.serviceName.data.attributes.name,
+                          item.id
+                        )}
+                        className="services__column"
+                        // @ts-ignore
+                        style={{ "--icon": "url(/img/icons/services.svg)" }}
+                      >
+                        <div className="services__name">
+                          {item.attributes.name}
+                        </div>
+                        <div className="services__info">
+                          {item.attributes.description}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {service.textBlocks && <TextBlocks blocks={service.textBlocks} />}
+
+              {service.SliderCase && (
+                <RelevantProjects cases={service.SliderCase.cases.data} />
+              )}
+
+              {service.banner.data.length !== 0 && (
+                <CtaBanner src={service.banner.data[0].attributes} />
+              )}
+            </div>
+          )}
+        </ServiceLayout>
+      </>
     );
   }
 );

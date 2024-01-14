@@ -1,5 +1,5 @@
-query GetCasesByNameId($id: ID) {
-  cases(filters: { case_name: { id: { eq: $id } } }) {
+query GetCasesByNameIds($ids: [ID]) {
+  cases(filters: { case_name: { id: { in: $ids } } }) {
     data {
       id
       attributes {

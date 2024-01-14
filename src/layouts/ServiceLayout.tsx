@@ -1,6 +1,9 @@
 import React, {
+  Dispatch,
   ReactNode,
+  SetStateAction,
   memo,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -11,7 +14,10 @@ import { Footer } from "@/layouts/Footer/ui/Footer";
 import useSmoothScrollToTop from "@/shared/hooks/useSmoothScrollToTop";
 import { Sidebar } from "@/components/Sidebar";
 import { FooterFragmentFragment } from "@/graphql/__generated__";
-import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
+import {
+  SidebarItemElement,
+  SidebarItems,
+} from "@/components/Sidebar/ui/Sidebar";
 import { Offers } from "@/components/Offers";
 import { Complex } from "@/components/Complex";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
@@ -19,15 +25,19 @@ import { useGetOffersPage } from "@/shared/services/offers";
 import { classNames } from "@/shared/lib";
 import { useRouter, usePathname } from "next/navigation";
 import { getRouteServices } from "@/shared/const/pages";
+import { Burger } from "@/components/Burger";
+import { nameServiceActive } from "@/shared/helpers/currentId";
+import { useMedia } from "@/shared/hooks/useMedia";
+import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 
-interface IndexDateState {
+export interface IndexDateState {
   id: string;
   index: number;
   nameID: undefined | string;
 }
 
 interface ServiceLayoutProps {
-  serviceId: string;
+  serviceId?: string;
   items: readonly SidebarItems[];
   isLoading: boolean;
   children: ReactNode;
@@ -35,6 +45,9 @@ interface ServiceLayoutProps {
   setId: (id: string) => void | React.Dispatch<React.SetStateAction<string>>;
   containerClass?: string;
   mainClass?: string;
+  BugerMenu?: () => JSX.Element;
+  sidebarItemElement?: SidebarItemElement;
+  setInputIds?: Dispatch<SetStateAction<string[]>>;
 }
 
 export type ActiveOffers = "offer" | "complex";
@@ -48,17 +61,20 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   setId,
   containerClass,
   mainClass = "page--hassidebar",
+  BugerMenu,
+  sidebarItemElement = "normal",
+  setInputIds,
 }) => {
   const { data: offersPage, isLoading: isLoadingOffers } = useGetOffersPage();
 
   const [indexDate, setIndexDate] = useState<IndexDateState[] | null>(null);
 
+  const isDesktop = useMedia("(max-width: 1200px)");
+
   const pathname = usePathname();
-  const [activeOffers, setActiveOffers] = useState<ActiveOffers | null>(
-    (typeof window !== "undefined" &&
-      pathname === getRouteServices() &&
-      (sessionStorage.getItem(STORAGE_KEYS.ACTIVE_OFFER) as ActiveOffers)) ||
-      null
+
+  const { activeOffers, setActiveOffers } = useContext(
+    ActiveOfferProviderContext
   );
 
   const ref = useRef<HTMLElement | null>(null);
@@ -138,26 +154,31 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 
   return (
     <>
+      {BugerMenu && isDesktop.matches && <BugerMenu />}
+
       <main ref={ref} className={classNames("page", {}, [mainClass])}>
         <div className={classNames("page__container", {}, [containerClass])}>
-          <Sidebar
-            active={serviceId}
-            onChange={onChange}
-            items={items}
-            viewSpecialOffers={true}
-            setActiveOffers={setActiveOffers}
-            activeOffers={activeOffers}
-            imageOffers={offersPage?.offersPage.data.attributes.img}
-          />
+          {!isDesktop.matches && (
+            <Sidebar
+              active={serviceId}
+              onChange={onChange}
+              items={items}
+              viewSpecialOffers={true}
+              setActiveOffers={setActiveOffers}
+              activeOffers={activeOffers}
+              imageOffers={offersPage?.offersPage.data.attributes.img}
+              itemElement={sidebarItemElement}
+              setInputIds={setInputIds}
+            />
+          )}
 
           {activeComponent}
         </div>
       </main>
-
       {footer && !activeOffers && (
         <Footer
           title={footer.title}
-          img={footer.img.data.attributes}
+          img={footer.img?.data?.attributes}
           callback={onClickFooter}
         />
       )}

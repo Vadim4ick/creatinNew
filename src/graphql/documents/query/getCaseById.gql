@@ -6,6 +6,8 @@ query GetCaseById($id: ID) {
           ...FooterFragment
         }
 
+        mobileName
+
         content {
           ... on ComponentImageBlocksOneImage {
             idBlock

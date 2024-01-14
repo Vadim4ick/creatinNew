@@ -2,10 +2,10 @@ import { ComponentImageBlocksTextBlock } from "@/graphql/__generated__";
 import ReactMarkdown from "react-markdown";
 import cls from "./Styles.module.scss";
 import { classNames } from "@/shared/lib";
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 
-const TextBlock = (props: { content: ComponentImageBlocksTextBlock }) => {
+const TextBlock = memo((props: { content: ComponentImageBlocksTextBlock }) => {
   const { content } = props;
 
   const titleRef = useRef<HTMLHeadingElement | null>(null);
@@ -149,6 +149,6 @@ const TextBlock = (props: { content: ComponentImageBlocksTextBlock }) => {
       </div>
     </div>
   );
-};
+});
 
 export { TextBlock };

@@ -6,6 +6,7 @@ import { Cases } from "./_section/Cases";
 import { Partners } from "./_section/Partners";
 import { FormSend } from "./_section/FormSend";
 import { MainFooter } from "@/layouts";
+import { Burger } from "@/components/Burger";
 
 const Home = async () => {
   const { homePage } = await gql.GetHomePage();
@@ -14,6 +15,8 @@ const Home = async () => {
 
   return (
     <>
+      <Burger SubMenuName="Услуги" />
+
       <h1 className="visually-hidden">Студия разработки и брендинга creatin</h1>
 
       <main className="page">
