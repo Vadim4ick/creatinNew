@@ -17,6 +17,8 @@ interface BurgerServiceCollectionProps {
 const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
   const { SubMenuName, items, title } = props;
 
+  const [activeContacts, setActiveContacts] = useState<boolean>(false);
+
   const [active, setActive] = useState(false);
 
   const [subMenuActive, setSubMenuActive] = useState(false);
@@ -60,6 +62,7 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
         // Если неактивный, то отключаю флаг
         setActive(false);
         setSubMenuActive(false);
+        setActiveContacts(false);
 
         // Убираю кнопку
         sendTaskBtnRef.current?.classList.remove("trigger-active");
@@ -107,6 +110,12 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
     setSubMenuContent(items);
   }, [items]);
 
+  const onClickContacts = () => {
+    setActiveContacts(true);
+    // Убираю кнопку
+    sendTaskBtnRef.current?.classList.remove("trigger-active");
+  };
+
   return (
     <>
       <div ref={overlayRef} className="mobile-menu-overlay"></div>
@@ -114,23 +123,28 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
       <div className="mobile-menu">
         <nav className="mobile-menu__row js-menu">
           <div className="mobile-menu__base">
-            {(!subMenuActive || submenuParent) && (
+            {(!subMenuActive || submenuParent || activeContacts) && (
               <a
                 onClick={() => {
-                  if (!subMenuActive) {
-                    return router.back();
-                  }
+                  if (activeContacts) {
+                    setActiveContacts(false);
+                    sendTaskBtnRef.current?.classList.add("trigger-active");
+                  } else {
+                    if (!subMenuActive) {
+                      return router.back();
+                    }
 
-                  if (items) {
-                    setSubMenuContent(items);
-                  }
-
-                  if (submenuParent) {
                     if (items) {
                       setSubMenuContent(items);
                     }
 
-                    setSubmenuParent(false);
+                    if (submenuParent) {
+                      if (items) {
+                        setSubMenuContent(items);
+                      }
+
+                      setSubmenuParent(false);
+                    }
                   }
                 }}
                 title="Вернуться на предыдущую страницу"
@@ -165,15 +179,27 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
               ></a>
             )}
 
-            <button
-              ref={btnSubMenuRef}
-              onClick={onToggleSubMenu}
-              type="button"
-              title="Показать подменю услуг"
-              className="mobile-menu__link btn"
-            >
-              {!submenuParent ? SubMenuName : "Услуги"}
-            </button>
+            {!activeContacts ? (
+              <button
+                ref={btnSubMenuRef}
+                onClick={onToggleSubMenu}
+                type="button"
+                title="Показать подменю услуг"
+                className="mobile-menu__link btn"
+              >
+                {!submenuParent ? SubMenuName : "Услуги"}
+              </button>
+            ) : (
+              <button
+                ref={btnSubMenuRef}
+                onClick={undefined}
+                type="button"
+                title="Показать подменю услуг"
+                className="mobile-menu__link btn"
+              >
+                Контакты
+              </button>
+            )}
 
             <a
               ref={sendTaskBtnRef}
@@ -206,7 +232,11 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
               />
             )}
 
-            <Menu active={active} />
+            <Menu
+              active={active}
+              activeContacts={activeContacts}
+              onClickContacts={onClickContacts}
+            />
           </div>
         </nav>
       </div>

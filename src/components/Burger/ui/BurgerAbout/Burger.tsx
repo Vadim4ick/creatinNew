@@ -14,6 +14,8 @@ interface BurgerAboutProps {
 const BurgerAbout = (props: BurgerAboutProps) => {
   const { SubMenuName } = props;
 
+  const [activeContacts, setActiveContacts] = useState<boolean>(false);
+
   const [active, setActive] = useState(false);
   const [subMenuActive, setSubMenuActive] = useState(false);
 
@@ -36,13 +38,6 @@ const BurgerAbout = (props: BurgerAboutProps) => {
       // Я кнопке с бургером добавляю active class
       btnRef.current.classList.toggle("_active");
 
-      // if (
-      //   btnRef.current.classList.contains("_active") &&
-      //   btnSubMenuRef.current?.classList.contains("_active")
-      // ) {
-      //   return setSubMenuActive(false);
-      // }
-
       // Если он активен
       if (btnRef.current.classList.contains("_active")) {
         // Устанавливаю флаг
@@ -60,6 +55,7 @@ const BurgerAbout = (props: BurgerAboutProps) => {
         // Если неактивный, то отключаю флаг
         setActive(false);
         setSubMenuActive(false);
+        setActiveContacts(false);
 
         // Убираю кнопку
         sendTaskBtnRef.current?.classList.remove("trigger-active");
@@ -105,6 +101,12 @@ const BurgerAbout = (props: BurgerAboutProps) => {
     setSubMenuContent(serviceNames?.serviceNames.data);
   }, [serviceNames]);
 
+  const onClickContacts = () => {
+    setActiveContacts(true);
+    // Убираю кнопку
+    sendTaskBtnRef.current?.classList.remove("trigger-active");
+  };
+
   return (
     <>
       <div ref={overlayRef} className="mobile-menu-overlay"></div>
@@ -112,10 +114,15 @@ const BurgerAbout = (props: BurgerAboutProps) => {
       <div className="mobile-menu">
         <nav className="mobile-menu__row js-menu">
           <div className="mobile-menu__base">
-            {!subMenuActive && (
+            {(!subMenuActive || activeContacts) && (
               <a
                 onClick={() => {
-                  router.back();
+                  if (activeContacts) {
+                    setActiveContacts(false);
+                    sendTaskBtnRef.current?.classList.add("trigger-active");
+                  } else {
+                    router.back();
+                  }
                 }}
                 title="Вернуться на предыдущую страницу"
                 className={"mobile-menu__back has-alt-icon"}
@@ -129,12 +136,12 @@ const BurgerAbout = (props: BurgerAboutProps) => {
 
             <button
               ref={btnSubMenuRef}
-              onClick={onToggleSubMenu}
+              onClick={activeContacts ? undefined : onToggleSubMenu}
               type="button"
               title="Показать подменю услуг"
               className="mobile-menu__link btn"
             >
-              {SubMenuName}
+              {activeContacts ? "Контакты" : SubMenuName}
             </button>
 
             <a
@@ -165,7 +172,11 @@ const BurgerAbout = (props: BurgerAboutProps) => {
               />
             )}
 
-            <Menu active={active} />
+            <Menu
+              active={active}
+              activeContacts={activeContacts}
+              onClickContacts={onClickContacts}
+            />
           </div>
         </nav>
       </div>

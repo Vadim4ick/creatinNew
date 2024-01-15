@@ -27,6 +27,8 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
   const { SubMenuName, items, title, setCaseIdsForHook, caseIdsForHook } =
     props;
 
+  const [activeContacts, setActiveContacts] = useState<boolean>(false);
+
   const [sortingId, setSortingId] = useState<string[]>(caseIdsForHook);
   const [active, setActive] = useState(false);
 
@@ -66,6 +68,7 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
         // Если неактивный, то отключаю флаг
         setActive(false);
         setSubMenuActive(false);
+        setActiveContacts(false);
 
         // Убираю кнопку
         sendTaskBtnRef.current?.classList.remove("trigger-active");
@@ -115,6 +118,12 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
     setCaseIdsForHook(sortingId);
   };
 
+  const onClickContacts = () => {
+    setActiveContacts(true);
+    // Убираю кнопку
+    sendTaskBtnRef.current?.classList.remove("trigger-active");
+  };
+
   return (
     <>
       <div ref={overlayRef} className="mobile-menu-overlay"></div>
@@ -122,15 +131,20 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
       <div className="mobile-menu">
         <nav className="mobile-menu__row js-menu">
           <div className="mobile-menu__base">
-            {!subMenuActive && (
+            {(!subMenuActive || activeContacts) && (
               <a
                 onClick={() => {
-                  if (!subMenuActive) {
-                    return router.back();
-                  }
+                  if (activeContacts) {
+                    setActiveContacts(false);
+                    sendTaskBtnRef.current?.classList.add("trigger-active");
+                  } else {
+                    if (!subMenuActive) {
+                      return router.back();
+                    }
 
-                  if (items) {
-                    setSubMenuContent(items);
+                    if (items) {
+                      setSubMenuContent(items);
+                    }
                   }
                 }}
                 title="Вернуться на предыдущую страницу"
@@ -143,20 +157,32 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
               ></a>
             )}
 
-            <button
-              ref={btnSubMenuRef}
-              onClick={
-                sortingId.length && subMenuActive
-                  ? handleButtonClick
-                  : onToggleSubMenu
-              }
-              type="button"
-              title="Показать подменю услуг"
-              className={classNames("mobile-menu__link btn", {}, [cls.btn])}
-              disabled={!sortingId.length && subMenuActive ? true : false}
-            >
-              {subMenuActive ? "Сортировать" : SubMenuName}
-            </button>
+            {!activeContacts ? (
+              <button
+                ref={btnSubMenuRef}
+                onClick={
+                  sortingId.length && subMenuActive
+                    ? handleButtonClick
+                    : onToggleSubMenu
+                }
+                type="button"
+                title="Показать подменю услуг"
+                className={classNames("mobile-menu__link btn", {}, [cls.btn])}
+                disabled={!sortingId.length && subMenuActive ? true : false}
+              >
+                {subMenuActive ? "Сортировать" : SubMenuName}
+              </button>
+            ) : (
+              <button
+                ref={btnSubMenuRef}
+                onClick={undefined}
+                type="button"
+                title="Показать подменю услуг"
+                className="mobile-menu__link btn"
+              >
+                Контакты
+              </button>
+            )}
 
             <a
               ref={sendTaskBtnRef}
@@ -189,7 +215,11 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
               />
             )}
 
-            <Menu active={active} />
+            <Menu
+              active={active}
+              activeContacts={activeContacts}
+              onClickContacts={onClickContacts}
+            />
           </div>
         </nav>
       </div>

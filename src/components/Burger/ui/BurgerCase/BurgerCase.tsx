@@ -13,6 +13,8 @@ interface BurgerCaseProps {
 const BurgerCase = memo((props: BurgerCaseProps) => {
   const { SubMenuName, onClick } = props;
 
+  const [activeContacts, setActiveContacts] = useState<boolean>(false);
+
   const [active, setActive] = useState(false);
 
   const [subMenuActive, setSubMenuActive] = useState(false);
@@ -45,6 +47,8 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
         // Если неактивный, то отключаю флаг
         setActive(false);
         setSubMenuActive(false);
+        setActiveContacts(false);
+
         // Убираю кнопку
         sendTaskBtnRef.current?.classList.remove("trigger-active");
 
@@ -85,6 +89,12 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
     }
   };
 
+  const onClickContacts = () => {
+    setActiveContacts(true);
+    // Убираю кнопку
+    sendTaskBtnRef.current?.classList.remove("trigger-active");
+  };
+
   return (
     <>
       <div ref={overlayRef} className="mobile-menu-overlay"></div>
@@ -92,10 +102,15 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
       <div className="mobile-menu">
         <nav className="mobile-menu__row js-menu">
           <div className="mobile-menu__base">
-            {!subMenuActive && (
+            {(!subMenuActive || activeContacts) && (
               <a
                 onClick={() => {
-                  router.back();
+                  if (activeContacts) {
+                    setActiveContacts(false);
+                    sendTaskBtnRef.current?.classList.add("trigger-active");
+                  } else {
+                    router.back();
+                  }
                 }}
                 title="Вернуться на предыдущую страницу"
                 className={classNames("mobile-menu__back has-alt-icon", {}, [])}
@@ -107,15 +122,27 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
               ></a>
             )}
 
-            <button
-              ref={btnSubMenuRef}
-              onClick={subMenuActive ? onClick : onToggleSubMenu}
-              type="button"
-              title="Показать подменю услуг"
-              className={classNames("mobile-menu__link btn", {}, [])}
-            >
-              {subMenuActive ? "Следующий проект" : SubMenuName}
-            </button>
+            {!activeContacts ? (
+              <button
+                ref={btnSubMenuRef}
+                onClick={subMenuActive ? onClick : onToggleSubMenu}
+                type="button"
+                title="Показать подменю услуг"
+                className={classNames("mobile-menu__link btn", {}, [])}
+              >
+                {subMenuActive ? "Следующий проект" : SubMenuName}
+              </button>
+            ) : (
+              <button
+                ref={btnSubMenuRef}
+                onClick={undefined}
+                type="button"
+                title="Показать подменю услуг"
+                className="mobile-menu__link btn"
+              >
+                Контакты
+              </button>
+            )}
 
             <a
               ref={sendTaskBtnRef}
@@ -138,7 +165,11 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
           </div>
 
           <div className="mobile-menu__subs">
-            <Menu active={active} />
+            <Menu
+              active={active}
+              activeContacts={activeContacts}
+              onClickContacts={onClickContacts}
+            />
           </div>
         </nav>
       </div>

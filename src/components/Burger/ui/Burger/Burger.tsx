@@ -8,11 +8,12 @@ import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 
 interface BurgerProps {
   SubMenuName?: string;
-  items?: readonly SidebarItems[];
 }
 
 const Burger = (props: BurgerProps) => {
-  const { SubMenuName, items } = props;
+  const { SubMenuName } = props;
+
+  const [activeContacts, setActiveContacts] = useState<boolean>(false);
 
   const [active, setActive] = useState(false);
   const [subMenuActive, setSubMenuActive] = useState(false);
@@ -51,6 +52,7 @@ const Burger = (props: BurgerProps) => {
         // Если неактивный, то отключаю флаг
         setActive(false);
         setSubMenuActive(false);
+        setActiveContacts(false);
 
         // Убираю кнопку
         sendTaskBtnRef.current?.classList.remove("trigger-active");
@@ -96,6 +98,12 @@ const Burger = (props: BurgerProps) => {
     setSubMenuContent(serviceNames?.serviceNames.data);
   }, [serviceNames]);
 
+  const onClickContacts = () => {
+    setActiveContacts(true);
+    // Убираю кнопку
+    sendTaskBtnRef.current?.classList.remove("trigger-active");
+  };
+
   return (
     <>
       <div ref={overlayRef} className="mobile-menu-overlay"></div>
@@ -103,14 +111,30 @@ const Burger = (props: BurgerProps) => {
       <div className="mobile-menu">
         <nav className="mobile-menu__row js-menu">
           <div className="mobile-menu__base">
+            {activeContacts && (
+              <a
+                onClick={() => {
+                  setActiveContacts(false);
+                  sendTaskBtnRef.current?.classList.add("trigger-active");
+                }}
+                title="Вернуться на предыдущую страницу"
+                className={"mobile-menu__back has-alt-icon"}
+                style={{
+                  // @ts-ignore
+                  "--icon": "url(/img/icons/back.svg)",
+                  "--icon-alt": "url(/img/icons/back-alt.svg)",
+                }}
+              ></a>
+            )}
+
             <button
               ref={btnSubMenuRef}
-              onClick={onToggleSubMenu}
+              onClick={activeContacts ? undefined : onToggleSubMenu}
               type="button"
               title="Показать подменю услуг"
               className="mobile-menu__link btn"
             >
-              {SubMenuName}
+              {activeContacts ? "Контакты" : SubMenuName}
             </button>
 
             <a
@@ -141,7 +165,11 @@ const Burger = (props: BurgerProps) => {
               />
             )}
 
-            <Menu active={active} />
+            <Menu
+              active={active}
+              activeContacts={activeContacts}
+              onClickContacts={onClickContacts}
+            />
           </div>
         </nav>
       </div>
