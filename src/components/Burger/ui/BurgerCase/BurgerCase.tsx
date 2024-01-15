@@ -1,8 +1,7 @@
 "use client";
 
 import { memo, useRef, useState } from "react";
-import { useGetMobileBurgerLinks } from "@/shared/services/mobileBurgerLinks";
-import { Menu } from "./Menu";
+import { Menu } from "../Menu";
 import { classNames } from "@/shared/lib";
 import { useRouter } from "next/navigation";
 
@@ -19,8 +18,6 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
   const [subMenuActive, setSubMenuActive] = useState(false);
 
   const router = useRouter();
-
-  const { data: burgerLinks } = useGetMobileBurgerLinks();
 
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const btnSubMenuRef = useRef<HTMLButtonElement | null>(null);
@@ -141,14 +138,7 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
           </div>
 
           <div className="mobile-menu__subs">
-            {burgerLinks?.mobileNavigation && (
-              <Menu
-                burgerLinks={
-                  burgerLinks.mobileNavigation.data.attributes.mobileLink
-                }
-                active={active}
-              />
-            )}
+            <Menu active={active} />
           </div>
         </nav>
       </div>

@@ -2,11 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Submenu } from "./Submenu";
-import { Menu } from "./Menu";
-import { useMobileRoute } from "../../lib/useMobileRoute";
-import { useGetMobileBurgerLinks } from "@/shared/services/mobileBurgerLinks";
+import { Menu } from "../Menu";
 import { useGetServicesNames } from "@/shared/services/servicesName";
-import { ComponentUiMobileLink } from "@/graphql/__generated__";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 
 interface BurgerProps {
@@ -20,25 +17,11 @@ const Burger = (props: BurgerProps) => {
   const [active, setActive] = useState(false);
   const [subMenuActive, setSubMenuActive] = useState(false);
 
-  const [routeActive, setRouteActive] = useState<
-    ComponentUiMobileLink | undefined
-  >(undefined);
-
   const [subMenuContent, setSubMenuContent] = useState<
     readonly SidebarItems[] | undefined
   >(undefined);
 
-  const { data: burgerLinks } = useGetMobileBurgerLinks();
   const { data: serviceNames } = useGetServicesNames();
-
-  // const { services } = await gql.GetServicesTitleById({
-  //   title: decodeURIComponent(service),
-  // });
-
-  useMobileRoute({
-    mobileNavigation: burgerLinks?.mobileNavigation.data.attributes.mobileLink,
-    setRouteActive,
-  });
 
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const btnSubMenuRef = useRef<HTMLButtonElement | null>(null);
@@ -50,13 +33,6 @@ const Burger = (props: BurgerProps) => {
     if (btnRef.current) {
       // Я кнопке с бургером добавляю active class
       btnRef.current.classList.toggle("_active");
-
-      // if (
-      //   btnRef.current.classList.contains("_active") &&
-      //   btnSubMenuRef.current?.classList.contains("_active")
-      // ) {
-      //   return setSubMenuActive(false);
-      // }
 
       // Если он активен
       if (btnRef.current.classList.contains("_active")) {
@@ -117,12 +93,8 @@ const Burger = (props: BurgerProps) => {
   };
 
   useEffect(() => {
-    if (routeActive?.href === "/") {
-      setSubMenuContent(serviceNames?.serviceNames.data);
-    } else {
-      setSubMenuContent(items);
-    }
-  }, [routeActive, serviceNames]);
+    setSubMenuContent(serviceNames?.serviceNames.data);
+  }, [serviceNames]);
 
   return (
     <>
@@ -169,14 +141,7 @@ const Burger = (props: BurgerProps) => {
               />
             )}
 
-            {burgerLinks?.mobileNavigation && (
-              <Menu
-                burgerLinks={
-                  burgerLinks.mobileNavigation.data.attributes.mobileLink
-                }
-                active={active}
-              />
-            )}
+            <Menu active={active} />
           </div>
         </nav>
       </div>

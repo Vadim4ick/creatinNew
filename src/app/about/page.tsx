@@ -1,12 +1,6 @@
 import { gql } from "@/graphql/client";
-import { About } from "../_section/About";
 import { notFound } from "next/navigation";
-import { Partners } from "../_section/Partners";
-import { FormSend } from "../_section/FormSend";
-import { Vacancies } from "./_section/Vacancies";
-import { MainFooter } from "@/layouts";
-import { Video } from "@/components/Video";
-import { Quality } from "./_section/Quality";
+import { PageAbout } from "@/page/PageAbout";
 
 const AboutPage = async () => {
   const { studio } = await gql.GetStudio();
@@ -22,32 +16,12 @@ const AboutPage = async () => {
 
   return (
     <>
-      <main className="page">
-        <Video className="video--about" container={true} animation={true} />
-
-        {studio.data.attributes.introCards && (
-          <About aboutSection={studio.data.attributes} />
-        )}
-
-        {serviceNames.data && <Quality serviceNames={serviceNames.data} />}
-
-        {partner.data.attributes.partners && (
-          <Partners partners={partner.data.attributes.partners} />
-        )}
-
-        {studio.data.attributes.vacancies && (
-          <Vacancies vacancies={studio.data.attributes.vacancies} />
-        )}
-
-        {formFeedback.data.attributes.formFeedback && (
-          <FormSend
-            className="callback--no-mb"
-            form={formFeedback.data.attributes.formFeedback}
-          />
-        )}
-
-        <MainFooter className="footer--whte" />
-      </main>
+      <PageAbout
+        serviceNames={serviceNames}
+        studio={studio}
+        partner={partner}
+        formFeedback={formFeedback}
+      />
     </>
   );
 };

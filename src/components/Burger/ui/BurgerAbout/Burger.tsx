@@ -1,34 +1,29 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 import { Submenu } from "./Submenu";
 import { Menu } from "../Menu";
-import { classNames } from "@/shared/lib";
-import { useRouter } from "next/navigation";
 import { useGetServicesNames } from "@/shared/services/servicesName";
+import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
+import { useRouter } from "next/navigation";
 
-interface BurgerServiceCollectionProps {
-  SubMenuName: string;
-  items?: readonly SidebarItems[];
-  title: string;
+interface BurgerAboutProps {
+  SubMenuName?: string;
 }
 
-const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
-  const { SubMenuName, items, title } = props;
+const BurgerAbout = (props: BurgerAboutProps) => {
+  const { SubMenuName } = props;
 
   const [active, setActive] = useState(false);
-
   const [subMenuActive, setSubMenuActive] = useState(false);
-  const [submenuParent, setSubmenuParent] = useState(false);
+
+  const router = useRouter();
 
   const [subMenuContent, setSubMenuContent] = useState<
     readonly SidebarItems[] | undefined
   >(undefined);
 
-  const { data } = useGetServicesNames();
-
-  const router = useRouter();
+  const { data: serviceNames } = useGetServicesNames();
 
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const btnSubMenuRef = useRef<HTMLButtonElement | null>(null);
@@ -40,6 +35,13 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
     if (btnRef.current) {
       // Я кнопке с бургером добавляю active class
       btnRef.current.classList.toggle("_active");
+
+      // if (
+      //   btnRef.current.classList.contains("_active") &&
+      //   btnSubMenuRef.current?.classList.contains("_active")
+      // ) {
+      //   return setSubMenuActive(false);
+      // }
 
       // Если он активен
       if (btnRef.current.classList.contains("_active")) {
@@ -54,8 +56,6 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
 
         // А подменю отключаю
         setSubMenuActive(false);
-
-        setSubmenuParent(false);
       } else {
         // Если неактивный, то отключаю флаг
         setActive(false);
@@ -69,8 +69,6 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
 
         // Удаляю активный класс кнопке сабменю
         btnSubMenuRef.current?.classList.remove("_active");
-
-        setSubmenuParent(false);
       }
     }
   };
@@ -104,8 +102,8 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
   };
 
   useEffect(() => {
-    setSubMenuContent(items);
-  }, [items]);
+    setSubMenuContent(serviceNames?.serviceNames.data);
+  }, [serviceNames]);
 
   return (
     <>
@@ -114,49 +112,13 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
       <div className="mobile-menu">
         <nav className="mobile-menu__row js-menu">
           <div className="mobile-menu__base">
-            {(!subMenuActive || submenuParent) && (
+            {!subMenuActive && (
               <a
                 onClick={() => {
-                  if (!subMenuActive) {
-                    return router.back();
-                  }
-
-                  if (items) {
-                    setSubMenuContent(items);
-                  }
-
-                  if (submenuParent) {
-                    if (items) {
-                      setSubMenuContent(items);
-                    }
-
-                    setSubmenuParent(false);
-                  }
+                  router.back();
                 }}
                 title="Вернуться на предыдущую страницу"
-                className={classNames("mobile-menu__back has-alt-icon", {}, [])}
-                style={{
-                  // @ts-ignore
-                  "--icon": "url(/img/icons/back.svg)",
-                  "--icon-alt": "url(/img/icons/back-alt.svg)",
-                }}
-              ></a>
-            )}
-
-            {subMenuActive && !submenuParent && (
-              <a
-                onClick={() => {
-                  if (data?.serviceNames) {
-                    setSubMenuContent(data.serviceNames.data);
-                    setSubmenuParent(true);
-                  }
-                }}
-                title="Вернуться на предыдущую страницу"
-                className={classNames(
-                  "mobile-menu__back has-alt-icon trigger-active",
-                  {},
-                  []
-                )}
+                className={"mobile-menu__back has-alt-icon"}
                 style={{
                   // @ts-ignore
                   "--icon": "url(/img/icons/back.svg)",
@@ -172,7 +134,7 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
               title="Показать подменю услуг"
               className="mobile-menu__link btn"
             >
-              {!submenuParent ? SubMenuName : "Услуги"}
+              {SubMenuName}
             </button>
 
             <a
@@ -200,9 +162,6 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
               <Submenu
                 subMenuContent={subMenuContent}
                 subMenuActive={subMenuActive}
-                name={title}
-                submenuParent={submenuParent}
-                activeName={SubMenuName}
               />
             )}
 
@@ -214,4 +173,4 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
   );
 };
 
-export { BurgerServiceCollection };
+export { BurgerAbout };

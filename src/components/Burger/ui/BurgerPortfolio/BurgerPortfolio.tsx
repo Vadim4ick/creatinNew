@@ -8,10 +8,9 @@ import {
   useRef,
   useState,
 } from "react";
-import { useGetMobileBurgerLinks } from "@/shared/services/mobileBurgerLinks";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 import { Submenu } from "./Submenu";
-import { Menu } from "./Menu";
+import { Menu } from "../Menu";
 import { classNames } from "@/shared/lib";
 import { useRouter } from "next/navigation";
 import cls from "./BurgerPortfolio.module.scss";
@@ -36,8 +35,6 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
   const [subMenuContent, setSubMenuContent] = useState<
     readonly SidebarItems[] | undefined
   >(undefined);
-
-  const { data: burgerLinks } = useGetMobileBurgerLinks();
 
   const router = useRouter();
 
@@ -192,14 +189,7 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
               />
             )}
 
-            {burgerLinks?.mobileNavigation && (
-              <Menu
-                burgerLinks={
-                  burgerLinks.mobileNavigation.data.attributes.mobileLink
-                }
-                active={active}
-              />
-            )}
+            <Menu active={active} />
           </div>
         </nav>
       </div>

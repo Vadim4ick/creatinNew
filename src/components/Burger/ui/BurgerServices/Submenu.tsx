@@ -45,7 +45,7 @@ const Submenu = (props: SubmenuProps) => {
     >
       <div className="mobile-services__row">
         <a className="mobile-services__title">
-          {submenuParent ? "Все услуги" : name}
+          {submenuParent || activeOffers !== null ? "Все услуги" : name}
         </a>
         <ul className="mobile-services__list">
           {subMenuContent?.map((el) => {
