@@ -1,17 +1,13 @@
 "use client";
 
 import { useContext, useEffect, useRef, useState } from "react";
-import { useMobileRoute } from "../../lib/useMobileRoute";
-import { useGetMobileBurgerLinks } from "@/shared/services/mobileBurgerLinks";
-import { ComponentUiMobileLink } from "@/graphql/__generated__";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 import { Submenu } from "./Submenu";
-import { Menu } from "./Menu";
 import { useGetServicesTitleById } from "@/shared/services/mobileGetServicesTitleById";
 import { classNames } from "@/shared/lib";
-import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { useRouter } from "next/navigation";
+import { Menu } from "../Menu";
 
 interface BurgerServicesProps {
   SubMenuName: string;
@@ -21,36 +17,29 @@ interface BurgerServicesProps {
 const BurgerServices = (props: BurgerServicesProps) => {
   const { SubMenuName, items } = props;
 
+  const [activeContacts, setActiveContacts] = useState<boolean>(false);
+
   const [active, setActive] = useState(false);
   const [subMenuActive, setSubMenuActive] = useState(false);
 
   const [submenuParent, setSubmenuParent] = useState(false);
 
-  const [routeActive, setRouteActive] = useState<
-    ComponentUiMobileLink | undefined
-  >(undefined);
-
   const [subMenuContent, setSubMenuContent] = useState<
     readonly SidebarItems[] | undefined
   >(undefined);
 
-  const { data: burgerLinks } = useGetMobileBurgerLinks();
-
   const { data } = useGetServicesTitleById(SubMenuName);
 
   const router = useRouter();
-
-  useMobileRoute({
-    mobileNavigation: burgerLinks?.mobileNavigation.data.attributes.mobileLink,
-    setRouteActive,
-  });
 
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const btnSubMenuRef = useRef<HTMLButtonElement | null>(null);
   const sendTaskBtnRef = useRef<HTMLAnchorElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
-  const { activeOffers } = useContext(ActiveOfferProviderContext);
+  const { activeOffers, setActiveOffers } = useContext(
+    ActiveOfferProviderContext
+  );
 
   // Если я кликнул на бургер
   const toggleMenu = () => {
@@ -83,6 +72,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
         // Если неактивный, то отключаю флаг
         setActive(false);
         setSubMenuActive(false);
+        setActiveContacts(false);
 
         // Убираю кнопку
         sendTaskBtnRef.current?.classList.remove("trigger-active");
@@ -143,7 +133,18 @@ const BurgerServices = (props: BurgerServicesProps) => {
       setSubMenuContent(items);
       setSubmenuParent(true);
     }
-  }, [data, items, routeActive]);
+
+    if (activeOffers === "offer") {
+      setSubMenuContent(items);
+      setSubmenuParent(true);
+    }
+  }, [activeOffers, data, items]);
+
+  const onClickContacts = () => {
+    setActiveContacts(true);
+    // Убираю кнопку
+    sendTaskBtnRef.current?.classList.remove("trigger-active");
+  };
 
   return (
     <>
@@ -152,27 +153,36 @@ const BurgerServices = (props: BurgerServicesProps) => {
       <div className="mobile-menu">
         <nav className="mobile-menu__row js-menu">
           <div className="mobile-menu__base">
-            {(!subMenuActive || submenuParent || activeOffers) && (
+            {(!subMenuActive ||
+              submenuParent ||
+              activeOffers ||
+              activeContacts) && (
               <a
                 onClick={() => {
-                  if (!subMenuActive) {
-                    return router.back();
-                  }
-
-                  if (!activeOffers) {
-                    if (items) {
-                      setSubMenuContent(items);
+                  if (activeContacts) {
+                    setActiveContacts(false);
+                    sendTaskBtnRef.current?.classList.add("trigger-active");
+                  } else {
+                    if (!subMenuActive) {
+                      setActiveOffers(null);
+                      return router.back();
                     }
 
-                    if (submenuParent) {
-                      if (data?.services.data[0]) {
-                        setSubMenuContent(
-                          data.services.data[0].attributes.Services
-                            .service_collections.data
-                        );
+                    if (!activeOffers) {
+                      if (items) {
+                        setSubMenuContent(items);
                       }
 
-                      setSubmenuParent(false);
+                      if (submenuParent) {
+                        if (data?.services.data[0]) {
+                          setSubMenuContent(
+                            data.services.data[0].attributes.Services
+                              .service_collections.data
+                          );
+                        }
+
+                        setSubmenuParent(false);
+                      }
                     }
                   }
                 }}
@@ -208,15 +218,27 @@ const BurgerServices = (props: BurgerServicesProps) => {
               ></a>
             )}
 
-            <button
-              ref={btnSubMenuRef}
-              onClick={onToggleSubMenu}
-              type="button"
-              title="Показать подменю услуг"
-              className="mobile-menu__link btn"
-            >
-              {SubMenuName}
-            </button>
+            {!activeContacts ? (
+              <button
+                ref={btnSubMenuRef}
+                onClick={onToggleSubMenu}
+                type="button"
+                title="Показать подменю услуг"
+                className="mobile-menu__link btn"
+              >
+                {activeOffers !== null ? "Услуги" : SubMenuName}
+              </button>
+            ) : (
+              <button
+                ref={btnSubMenuRef}
+                onClick={undefined}
+                type="button"
+                title="Показать подменю услуг"
+                className="mobile-menu__link btn"
+              >
+                Контакты
+              </button>
+            )}
 
             <a
               ref={sendTaskBtnRef}
@@ -248,14 +270,11 @@ const BurgerServices = (props: BurgerServicesProps) => {
               />
             )}
 
-            {burgerLinks?.mobileNavigation && (
-              <Menu
-                burgerLinks={
-                  burgerLinks.mobileNavigation.data.attributes.mobileLink
-                }
-                active={active}
-              />
-            )}
+            <Menu
+              active={active}
+              activeContacts={activeContacts}
+              onClickContacts={onClickContacts}
+            />
           </div>
         </nav>
       </div>
