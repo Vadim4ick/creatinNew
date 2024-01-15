@@ -8,11 +8,6 @@ query GetBurgerLinks {
           href
           subMenuTitle
         }
-        links {
-          id
-          href
-          name
-        }
       }
     }
   }

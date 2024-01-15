@@ -1350,17 +1350,9 @@ export type LongFilterInput = {
 export type MobileNavigation = {
   readonly __typename?: 'MobileNavigation';
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
-  readonly links: Maybe<ReadonlyArray<Maybe<ComponentUiLink>>>;
   readonly mobileLink: Maybe<ReadonlyArray<Maybe<ComponentUiMobileLink>>>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type MobileNavigationLinksArgs = {
-  filters: InputMaybe<ComponentUiLinkFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -1382,7 +1374,6 @@ export type MobileNavigationEntityResponse = {
 };
 
 export type MobileNavigationInput = {
-  readonly links: InputMaybe<ReadonlyArray<InputMaybe<ComponentUiLinkInput>>>;
   readonly mobileLink: InputMaybe<ReadonlyArray<InputMaybe<ComponentUiMobileLinkInput>>>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -2943,7 +2934,7 @@ export type GetHomePartnersFragment = { readonly __typename?: 'ComponentSections
 export type GetBurgerLinksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetBurgerLinksQuery = { readonly __typename?: 'Query', readonly mobileNavigation: { readonly __typename?: 'MobileNavigationEntityResponse', readonly data: { readonly __typename?: 'MobileNavigationEntity', readonly attributes: { readonly __typename?: 'MobileNavigation', readonly mobileLink: ReadonlyArray<{ readonly __typename?: 'ComponentUiMobileLink', readonly id: string, readonly name: string, readonly href: string, readonly subMenuTitle: string }>, readonly links: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly id: string, readonly href: string, readonly name: string }> } } } };
+export type GetBurgerLinksQuery = { readonly __typename?: 'Query', readonly mobileNavigation: { readonly __typename?: 'MobileNavigationEntityResponse', readonly data: { readonly __typename?: 'MobileNavigationEntity', readonly attributes: { readonly __typename?: 'MobileNavigation', readonly mobileLink: ReadonlyArray<{ readonly __typename?: 'ComponentUiMobileLink', readonly id: string, readonly name: string, readonly href: string, readonly subMenuTitle: string }> } } } };
 
 export type GetCaseByIdQueryVariables = Exact<{
   id: InputMaybe<Scalars['ID']['input']>;
@@ -3437,11 +3428,6 @@ export const GetBurgerLinksDocument = gql`
           name
           href
           subMenuTitle
-        }
-        links {
-          id
-          href
-          name
         }
       }
     }
