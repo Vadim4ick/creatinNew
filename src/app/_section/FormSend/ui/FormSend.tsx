@@ -4,7 +4,7 @@ import { FormSendFragmentFragment } from "@/graphql/__generated__";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
-import React, { memo, useRef } from "react";
+import React, { memo, useRef, useState } from "react";
 import { Address } from "../lib/Address";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import ReactMarkdown from "react-markdown";
@@ -14,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { classNames } from "@/shared/lib";
 import cls from "./FormSend.module.scss";
 import { Input } from "@/shared/ui/Input/Input";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const SignUpSchema = z.object({
   name: z
@@ -46,6 +47,8 @@ interface FormSendProps {
 const FormSend = memo((props: FormSendProps) => {
   const { form, className = "" } = props;
 
+  const [captcha, setCaptcha] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -62,12 +65,12 @@ const FormSend = memo((props: FormSendProps) => {
   const callbackRef = useRef<HTMLDivElement | null>(null);
 
   const onSubmit = async (data: SignUpSchemaType) => {
-    console.log(data);
-
-    await fetch(`${process.env.BASE_URL}/api/telegramm`, {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+    if (captcha) {
+      await fetch(`${process.env.BASE_URL}/api/telegramm`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+    }
   };
 
   useIntersectionObserver({
@@ -226,6 +229,12 @@ const FormSend = memo((props: FormSendProps) => {
                 <input type="file" id="file1" className="visually-hidden" />
               </div>
             </div>
+
+            <ReCAPTCHA
+              style={{ width: "100%" }}
+              sitekey={process.env.RECAPTCHA_SITE_KEY!}
+              onChange={setCaptcha}
+            />
 
             <Button type="submit" className="form__btn">
               Отправить
