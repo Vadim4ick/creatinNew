@@ -40,11 +40,11 @@ const PageHome = (props: PageHomeProps) => {
           <Cases cases={homePage.data.attributes.cases} />
         )}
 
-        {partner.data.attributes.partners && (
+        {partner.data && (
           <Partners partners={partner.data.attributes.partners} />
         )}
 
-        {formFeedback.data.attributes.formFeedback && (
+        {formFeedback.data && (
           <FormSend form={formFeedback.data.attributes.formFeedback} />
         )}
 

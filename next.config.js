@@ -11,12 +11,11 @@ const nextConfig = {
       },
     ],
   },
-  // env: {
-  //   STRAPI_URL: "http://127.0.0.1:1337",
-  //   BASE_URL: "http://localhost:3000",
-  //   STRAPI_TOKEN:
-  //     "4c9e5e1bf9fbfbf72e5c7594712855a2dc248210797b989bcf7ada3dc5dd7b82422273c4fea0a63a15bcb844ccae2f84f78f3a62ce0e3df959bff9c004dcca14d1bab2d047de367d1f9ce53239f15c9a27a258ecd43cc516b9e3643208916398ab1c10c21cc3f91749b931d13854c423e43378193f5c501e1980b605fb076fae",
-  // },
+  env: {
+    STRAPI_URL: "https://creatinserver.onrender.com",
+    STRAPI_TOKEN:
+      "6239c09daa33bfb66dcb2dc8d289ecddc01daa98903b1ef10088b49dd3c619410b650dae08d44ba3ba275af52029213142075679e30603617bed51fb4d30425e3fbec5efbc5c394599a8b3d520e499e510ff874cdf4972d82790d541d92d3da112916610d639ac612f83985b9141bb5f533d91d5ba8b24d1bc5d6237be29e93c",
+  },
 };
 
 module.exports = nextConfig;
