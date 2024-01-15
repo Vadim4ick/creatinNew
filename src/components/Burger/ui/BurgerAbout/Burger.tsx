@@ -5,18 +5,21 @@ import { Submenu } from "./Submenu";
 import { Menu } from "../Menu";
 import { useGetServicesNames } from "@/shared/services/servicesName";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
+import { useRouter } from "next/navigation";
 
-interface BurgerProps {
+interface BurgerAboutProps {
   SubMenuName?: string;
 }
 
-const Burger = (props: BurgerProps) => {
+const BurgerAbout = (props: BurgerAboutProps) => {
   const { SubMenuName } = props;
 
   const [activeContacts, setActiveContacts] = useState<boolean>(false);
 
   const [active, setActive] = useState(false);
   const [subMenuActive, setSubMenuActive] = useState(false);
+
+  const router = useRouter();
 
   const [subMenuContent, setSubMenuContent] = useState<
     readonly SidebarItems[] | undefined
@@ -111,11 +114,15 @@ const Burger = (props: BurgerProps) => {
       <div className="mobile-menu">
         <nav className="mobile-menu__row js-menu">
           <div className="mobile-menu__base">
-            {activeContacts && (
+            {(!subMenuActive || activeContacts) && (
               <a
                 onClick={() => {
-                  setActiveContacts(false);
-                  sendTaskBtnRef.current?.classList.add("trigger-active");
+                  if (activeContacts) {
+                    setActiveContacts(false);
+                    sendTaskBtnRef.current?.classList.add("trigger-active");
+                  } else {
+                    router.back();
+                  }
                 }}
                 title="Вернуться на предыдущую страницу"
                 className={"mobile-menu__back has-alt-icon"}
@@ -177,4 +184,4 @@ const Burger = (props: BurgerProps) => {
   );
 };
 
-export { Burger };
+export { BurgerAbout };
