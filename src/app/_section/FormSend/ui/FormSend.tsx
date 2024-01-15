@@ -4,24 +4,71 @@ import { FormSendFragmentFragment } from "@/graphql/__generated__";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import { Address } from "../lib/Address";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import ReactMarkdown from "react-markdown";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { classNames } from "@/shared/lib";
+import cls from "./FormSend.module.scss";
+import { Input } from "@/shared/ui/Input/Input";
+
+const SignUpSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "Имя слишком короткое" })
+    .max(20, { message: "Имя слишком длинное" }),
+
+  phone: z
+    .string()
+    .min(7, { message: "Телефонный номер слишком короткий" })
+    .max(25, { message: "Телефонный номер слишком длинный" }),
+
+  company: z
+    .string()
+    .min(3, { message: "Название компании слишком короткое" })
+    .max(35, { message: "Название компании слишком длинное" }),
+
+  email: z.string().email({ message: "Некорректный адрес электронной почты" }),
+
+  taskDescription: z.string(),
+});
+
+type SignUpSchemaType = z.infer<typeof SignUpSchema>;
 
 interface FormSendProps {
   form: FormSendFragmentFragment;
   className?: string;
 }
 
-const FormSend = (props: FormSendProps) => {
+const FormSend = memo((props: FormSendProps) => {
   const { form, className = "" } = props;
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<SignUpSchemaType>({
+    resolver: zodResolver(SignUpSchema),
+  });
 
   const titleRef = useRef<HTMLDivElement | null>(null);
   const subTitleRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const callbackRef = useRef<HTMLDivElement | null>(null);
+
+  const onSubmit = async (data: SignUpSchemaType) => {
+    console.log(data);
+
+    await fetch(`${process.env.BASE_URL}/api/telegramm`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  };
 
   useIntersectionObserver({
     ref: titleRef,
@@ -84,112 +131,102 @@ const FormSend = (props: FormSendProps) => {
               {form.description}
             </ReactMarkdown>
 
-            {/* <h3 ref={subTitleRef} className="callback__subtitle fade-up">
-              Cвяжитесь с нами любым удобным способом <br />
-              Мы всегда рады новым идеям и ответим на ваши вопросы
-            </h3> */}
-
             <Address form={form} callbackRef={callbackRef} />
           </div>
           <form
-            action="#"
-            data-ajax
-            data-dev
-            method="GET"
+            onSubmit={handleSubmit(onSubmit)}
             className="callback__form callback-form form fade-up"
             ref={formRef}
           >
             <fieldset className="callback-form__group form__group">
-              <div className="form__item">
-                <label htmlFor="inp1" className="input-label">
-                  Имя
-                </label>
-                <input
-                  autoComplete="off"
-                  type="text"
-                  name="form[]"
-                  id="inp1"
-                  data-error="Ошибка"
-                  placeholder=""
-                  data-required
-                  className="input"
-                />
-              </div>
-              <div className="form__item">
-                <label htmlFor="inp2" className="input-label">
-                  Компания
-                </label>
+              <Input
+                id="inp1"
+                register={register("name")}
+                label="Имя"
+                type="text"
+                watch={watch("name")}
+                className={classNames(
+                  "",
+                  {
+                    [cls.error]: errors.name?.message,
+                  },
+                  []
+                )}
+              />
 
-                <input
-                  autoComplete="off"
-                  type="text"
-                  name="form[]"
-                  id="inp2"
-                  data-error="Ошибка"
-                  placeholder=""
-                  data-required
-                  className="input"
-                />
-              </div>
+              <Input
+                id="inp2"
+                register={register("company")}
+                label="Компания"
+                type="text"
+                watch={watch("company")}
+                className={classNames(
+                  "",
+                  {
+                    [cls.error]: errors.company?.message,
+                  },
+                  []
+                )}
+              />
             </fieldset>
             <fieldset className="callback-form__group form__group">
-              <div className="form__item">
-                <label htmlFor="inp3" className="input-label">
-                  E-mail
-                </label>
-                <input
-                  autoComplete="off"
-                  type="email"
-                  name="form[]"
-                  id="inp3"
-                  data-error="Ошибка"
-                  placeholder=""
-                  className="input"
-                  data-required="email"
-                />
-              </div>
-              <div className="form__item">
-                <label htmlFor="inp4" className="input-label">
-                  Телефон
-                </label>
-                <input
-                  autoComplete="off"
-                  type="tel"
-                  name="form[]"
-                  id="inp4"
-                  data-error="Ошибка"
-                  className="input"
-                  data-required="tel"
-                />
-              </div>
+              <Input
+                id="inp3"
+                register={register("email")}
+                label="E-mail"
+                type="email"
+                watch={watch("email")}
+                className={classNames(
+                  "",
+                  {
+                    [cls.error]: errors.email?.message,
+                  },
+                  []
+                )}
+              />
+
+              <Input
+                id="inp4"
+                register={register("phone")}
+                label="Телефон"
+                type="tel"
+                watch={watch("phone")}
+                mask="+7 (999) 999-9999"
+                className={classNames(
+                  "",
+                  {
+                    [cls.error]: errors.phone?.message,
+                  },
+                  []
+                )}
+              />
             </fieldset>
             <div className="callback-form__item form__textarea-item">
-              <div className="form-textarea form__item">
-                <label htmlFor="txta1" className="input-label">
-                  Описание задачи (тезисно)
-                </label>
-                <textarea
-                  autoComplete="off"
-                  name="form[]"
-                  id="txta1"
-                  placeholder=""
-                  data-error="Ошибка"
-                  className="input"
-                ></textarea>
-              </div>
+              <Input
+                id="txta1"
+                register={register("taskDescription")}
+                label="Описание задачи (тезисно)"
+                type="text"
+                watch={watch("taskDescription")}
+                inpType="textarea"
+                className={classNames(
+                  "",
+                  {
+                    [cls.error]: errors.taskDescription?.message,
+                  },
+                  []
+                )}
+              />
               <div className="form-file">
                 <label className="form-file__label" htmlFor="file1">
                   <File />
                   Прикрепить файл
                 </label>
-                <input
-                  type="file"
-                  name="form[]"
-                  id="file1"
-                  className="visually-hidden"
-                />
+
+                <input type="file" id="file1" className="visually-hidden" />
               </div>
             </div>
+
             <Button type="submit" className="form__btn">
               Отправить
             </Button>
@@ -213,6 +250,6 @@ const FormSend = (props: FormSendProps) => {
       </div>
     </section>
   );
-};
+});
 
 export { FormSend };
