@@ -63,8 +63,6 @@ const PageServices = memo(
             <BurgerServices SubMenuName={nameBurger} items={serviceNames} />
           )}
         >
-          {!service && <div>У этого раздела пока нет услуги</div>}
-
           {service && (
             <div className="page__base">
               <section className="hero">

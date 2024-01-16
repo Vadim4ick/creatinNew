@@ -23,10 +23,6 @@ import { Complex } from "@/components/Complex";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { useGetOffersPage } from "@/shared/services/offers";
 import { classNames } from "@/shared/lib";
-import { useRouter, usePathname } from "next/navigation";
-import { getRouteServices } from "@/shared/const/pages";
-import { Burger } from "@/components/Burger";
-import { nameServiceActive } from "@/shared/helpers/currentId";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 
@@ -71,15 +67,11 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 
   const isDesktop = useMedia("(max-width: 1200px)");
 
-  const pathname = usePathname();
-
   const { activeOffers, setActiveOffers } = useContext(
     ActiveOfferProviderContext
   );
 
   const ref = useRef<HTMLElement | null>(null);
-
-  const router = useRouter();
 
   const onChange = (id: string) => {
     setId(id);
@@ -129,16 +121,14 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
       setActiveOffers("complex");
     }
 
-    return () => sessionStorage.clear();
-  }, []);
+    return () => {
+      sessionStorage.clear();
+    };
+  }, [setActiveOffers]);
 
   const activeComponent = useMemo(() => {
     switch (activeOffers) {
       case "offer":
-        if (pathname !== "/services") {
-          router.push("/services");
-        }
-
         return <Offers mainRef={ref} data={offersPage} />;
       case "complex":
         return <Complex mainRef={ref} />;

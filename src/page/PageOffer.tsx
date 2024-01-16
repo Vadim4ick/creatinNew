@@ -11,6 +11,8 @@ import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { Video } from "@/components/Video";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
+import { BurgerServices } from "@/components/Burger/ui/BurgerServices/BurgerServices";
+import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
 
 const PageOffer = ({
   offersName,
@@ -53,6 +55,7 @@ const PageOffer = ({
       serviceId={offerId}
       footer={offer?.footer}
       mainClass={""}
+      BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
     >
       <div className="page__base">
         <section className="hero fade-up mb-42" ref={refSection}>

@@ -1,5 +1,6 @@
 "use client";
 
+import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Video } from "@/components/Video";
 import {
@@ -58,6 +59,7 @@ const PageComplex = ({
       setId={setComplexId}
       footer={complex?.footer}
       containerClass={"page__container--sidebar"}
+      BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
     >
       <div className="page__base">
         <section className="hero fade-up mb-11" ref={refSection}>

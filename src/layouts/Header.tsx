@@ -1,8 +1,9 @@
 "use client";
 
 import { GetHeaderQuery } from "@/graphql/client";
+import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 
 interface HeaderProps {
   header: GetHeaderQuery["header"]["data"]["attributes"];
@@ -12,6 +13,8 @@ const Header = (props: HeaderProps) => {
   const { header } = props;
 
   const headerRef = useRef<HTMLDivElement | null>(null);
+
+  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
 
   useEffect(() => {
     const handleScroll = (e: WheelEvent) => {
@@ -65,7 +68,11 @@ const Header = (props: HeaderProps) => {
                 {header.links.map((link) => {
                   return (
                     <li key={link.id} className="menu__item">
-                      <Link className="menu__link" href={link.href}>
+                      <Link
+                        onClick={() => setActiveOffers(null)}
+                        className="menu__link"
+                        href={link.href}
+                      >
                         {link.name}
                       </Link>
                     </li>
