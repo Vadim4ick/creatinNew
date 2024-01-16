@@ -35,3 +35,5 @@ export const Router: Record<string, AppRoutes> = {
   [getRouteComplex(":id")]: AppRoutes.COMPLEX,
   [getRouteCase(":id")]: AppRoutes.CASE,
 };
+
+export type SeoPage = "/" | "/services" | "/portfolio" | "/about";

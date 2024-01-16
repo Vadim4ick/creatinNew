@@ -1,0 +1,11 @@
+query GetSeoServicesPage {
+  servicesPage {
+    data {
+      attributes {
+        seo {
+          ...SeoFragment
+        }
+      }
+    }
+  }
+}
