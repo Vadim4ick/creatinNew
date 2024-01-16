@@ -60,10 +60,15 @@ const ServiceCollection = memo(
     }, [data]);
 
     const video = (
-      <Video
-        style={{ marginBottom: isPhone.matches ? 0 : undefined }}
-        animation={true}
-      />
+      <>
+        {serviceCollection?.video.data && (
+          <Video
+            style={{ marginBottom: isPhone.matches ? 0 : undefined }}
+            animation={true}
+            srcMedia={serviceCollection.video.data.attributes}
+          />
+        )}
+      </>
     );
 
     return (

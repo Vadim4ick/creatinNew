@@ -95,10 +95,16 @@ const PageComplex = ({
             </ReactMarkdown>
           </div>
 
-          <Video
-            style={{ marginBottom: isPhone.matches ? 0 : undefined }}
-            animation={true}
-          />
+          {complex?.videoMobile.data && (
+            <Video
+              srcMedia={complex.videoMobile.data.attributes}
+              style={{
+                marginBottom: isPhone.matches ? 0 : undefined,
+                display: isPhone.matches ? "block" : "none",
+              }}
+              animation={true}
+            />
+          )}
 
           <div className="hero__right  tablet-hidden">
             <div

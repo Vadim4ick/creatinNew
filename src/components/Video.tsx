@@ -1,5 +1,7 @@
 "use client";
 
+import { MediaFragmentFragment } from "@/graphql/__generated__";
+import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { classNames } from "@/shared/lib";
 import { useRef } from "react";
@@ -8,6 +10,7 @@ interface VideoProps extends React.HTMLProps<HTMLDivElement> {
   animation?: boolean;
   container?: boolean;
   className?: string;
+  srcMedia: MediaFragmentFragment;
 }
 
 const Video = (props: VideoProps) => {
@@ -15,6 +18,7 @@ const Video = (props: VideoProps) => {
     animation = false,
     className = "",
     container = false,
+    srcMedia,
     ...otherProps
   } = props;
 
@@ -30,7 +34,17 @@ const Video = (props: VideoProps) => {
       className="video__item"
       // @ts-ignore
       style={{ "--icon": "url(/img/icons/video-icon-gray.svg)" }}
-    ></div>
+    >
+      <iframe
+        src={getFileUrl(srcMedia.url)}
+        title="Video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        width="100%"
+        height="100%"
+        frameBorder={0}
+      ></iframe>
+    </div>
   );
 
   return (

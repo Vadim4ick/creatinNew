@@ -42,7 +42,7 @@ query GetOfferById($id: ID) {
           }
         }
 
-        video {
+        headingBanner {
           data {
             attributes {
               ...MediaFragment

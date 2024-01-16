@@ -9,6 +9,14 @@ query GetComplexById($id: ID) {
         }
         totalHours
 
+        videoMobile {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
         includes_blocks {
           data {
             id

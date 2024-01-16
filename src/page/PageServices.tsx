@@ -97,7 +97,9 @@ const PageServices = memo(
                 </div>
               </section>
 
-              <Video />
+              {service.video.data && (
+                <Video srcMedia={service.video.data.attributes} />
+              )}
 
               {service.Services.service_collections.data && (
                 <section className="services">

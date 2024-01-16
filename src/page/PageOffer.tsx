@@ -47,6 +47,14 @@ const PageOffer = ({
     once: true,
   });
 
+  const banner = (
+    <>
+      {offer?.headingBanner.data && (
+        <CtaBanner animation={true} src={offer.headingBanner.data.attributes} />
+      )}
+    </>
+  );
+
   return (
     <ServiceLayout
       items={offersName}
@@ -91,6 +99,8 @@ const PageOffer = ({
             </ReactMarkdown>
           </div>
 
+          {isPhone.matches && banner}
+
           <div className="hero__right hero__right--one">
             <div className="hero-sale hero-sale--baner">
               <div className="hero-sale__name">
@@ -121,10 +131,7 @@ const PageOffer = ({
           </div>
         </section>
 
-        <Video
-          style={{ marginBottom: isPhone.matches ? 0 : undefined }}
-          animation={true}
-        />
+        {!isPhone.matches && banner}
 
         <section className="includes mb-96">
           <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#181818">
