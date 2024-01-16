@@ -73,7 +73,7 @@ const PageOffer = ({
                       <div className="hero__info">
                         {children
                           ?.toString()
-                          .split("\n")
+                          .split(",\n")
                           .map((line, index) => (
                             <React.Fragment key={index}>
                               {line}
@@ -156,7 +156,7 @@ const PageOffer = ({
                                   <div className="includes__info">
                                     {children
                                       ?.toString()
-                                      .split("\n")
+                                      .split(",\n")
                                       .map((line, index) => (
                                         <React.Fragment key={index}>
                                           {line}

@@ -140,7 +140,7 @@ const FormSend = memo((props: FormSendProps) => {
                       >
                         {children
                           ?.toString()
-                          .split("\n")
+                          .split(",\n")
                           .map((line, index) => (
                             <React.Fragment key={index}>
                               {line}

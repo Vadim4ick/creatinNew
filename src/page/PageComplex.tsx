@@ -77,7 +77,7 @@ const PageComplex = ({
                       <div className="hero__info">
                         {children
                           ?.toString()
-                          .split("\n")
+                          .split(",\n")
                           .map((line, index) => (
                             <React.Fragment key={index}>
                               {line}
@@ -171,7 +171,7 @@ const PageComplex = ({
                                   <div className="includes__info">
                                     {children
                                       ?.toString()
-                                      .split("\n")
+                                      .split(",\n")
                                       .map((line, index) => (
                                         <React.Fragment key={index}>
                                           {line}

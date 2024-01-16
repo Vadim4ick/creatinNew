@@ -53,7 +53,7 @@ const Offers = ({
                       <div className="hero__info">
                         {children
                           ?.toString()
-                          .split("\n")
+                          .split(",\n")
                           .map((line, index) => (
                             <React.Fragment key={index}>
                               {line}
