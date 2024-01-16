@@ -6,7 +6,7 @@ interface InputProps {
   id: string;
   label: string;
   type: "text" | "tel" | "email";
-  register: any;
+  register?: any;
   className?: string;
   watch?: string | number;
   inpType?: "input" | "textarea";

@@ -5,7 +5,6 @@ import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
 import React, { memo, useRef, useState } from "react";
-import { Address } from "../lib/Address";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import ReactMarkdown from "react-markdown";
 import { z } from "zod";
@@ -16,6 +15,7 @@ import cls from "./FormSend.module.scss";
 import { Input } from "@/shared/ui/Input/Input";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import axios from "axios";
+import { Address } from "../../lib/Address";
 
 const SignUpSchema = z.object({
   name: z

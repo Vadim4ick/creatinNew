@@ -2,7 +2,7 @@
 
 import { classNames } from "@/shared/lib";
 import { CustomLink } from "@/shared/ui/Link";
-import { Dispatch, SetStateAction, memo } from "react";
+import { Dispatch, SetStateAction, memo, useContext } from "react";
 import cls from "./Sidebar.module.scss";
 import Image from "next/image";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
@@ -10,6 +10,8 @@ import { ActiveOffers } from "@/layouts/ServiceLayout";
 import { GetOffersPageQuery } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
+import { BtnArrow } from "@/shared/icons/BtnArrow";
+import { PopupProviderContext } from "@/shared/providers/popupProvider";
 
 export interface SidebarItems {
   readonly id: string;
@@ -49,6 +51,8 @@ const Sidebar = memo((props: SidebarProps) => {
     itemElement = "normal",
     setInputIds,
   } = props;
+
+  const { onClickPopup } = useContext(PopupProviderContext);
 
   return (
     <aside className="sidebar">
@@ -152,7 +156,13 @@ const Sidebar = memo((props: SidebarProps) => {
           </button>
         )}
 
-        <CustomLink iconPosition="right">Оставить заявку</CustomLink>
+        <button onClick={onClickPopup} className={"btn btn--hasarrow"}>
+          <span className="btn__text">Оставить заявку</span>
+
+          <span className="btn__arrow">
+            <BtnArrow />
+          </span>
+        </button>
       </div>
     </aside>
   );
