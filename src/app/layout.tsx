@@ -7,6 +7,7 @@ import "@/shared/assets/styles/style.min.css";
 import { QueryProviders } from "@/shared/providers/queryProviders";
 import { gql } from "@/graphql/client";
 import { ActiveOfferProvider } from "@/shared/providers/activeOfferProvider";
+import GoogleCaptchaWrapper from "@/shared/providers/googleRecaptcha";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,9 +27,11 @@ export default async function RootLayout({
         <div className="wrapper">
           <QueryProviders>
             <ActiveOfferProvider>
-              <Header header={header.data.attributes} />
+              <GoogleCaptchaWrapper>
+                <Header header={header.data.attributes} />
 
-              {children}
+                {children}
+              </GoogleCaptchaWrapper>
             </ActiveOfferProvider>
           </QueryProviders>
         </div>

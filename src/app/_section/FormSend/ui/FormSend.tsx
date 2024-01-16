@@ -14,7 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { classNames } from "@/shared/lib";
 import cls from "./FormSend.module.scss";
 import { Input } from "@/shared/ui/Input/Input";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import axios from "axios";
 
 const SignUpSchema = z.object({
   name: z
@@ -47,7 +48,7 @@ interface FormSendProps {
 const FormSend = memo((props: FormSendProps) => {
   const { form, className = "" } = props;
 
-  const [captcha, setCaptcha] = useState<string | null>(null);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const {
     register,
@@ -65,11 +66,33 @@ const FormSend = memo((props: FormSendProps) => {
   const callbackRef = useRef<HTMLDivElement | null>(null);
 
   const onSubmit = async (data: SignUpSchemaType) => {
-    if (captcha) {
+    if (!executeRecaptcha) {
+      return console.log("Вы бот");
+    }
+
+    const gRecaptchaToken = await executeRecaptcha("inquirySubmit");
+
+    const response = await axios({
+      method: "post",
+      url: "/api/recaptcha",
+      data: {
+        gRecaptchaToken,
+      },
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response?.data?.success === true) {
+      console.log(`Успех с оценкой: ${response?.data?.score}`);
+
       await fetch(`${process.env.BASE_URL}/api/telegramm`, {
         method: "POST",
         body: JSON.stringify(data),
       });
+    } else {
+      console.log(`Неудача с оценкой: ${response?.data?.score}`);
     }
   };
 
@@ -229,12 +252,6 @@ const FormSend = memo((props: FormSendProps) => {
                 <input type="file" id="file1" className="visually-hidden" />
               </div>
             </div>
-
-            <ReCAPTCHA
-              style={{ width: "100%" }}
-              sitekey={process.env.RECAPTCHA_SITE_KEY!}
-              onChange={setCaptcha}
-            />
 
             <Button type="submit" className="form__btn">
               Отправить
