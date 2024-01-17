@@ -45,7 +45,7 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
     <>
       <ServiceLayout
         items={caseNames}
-        isLoading={isLoading}
+        isLoading={false}
         setId={setId}
         footer={cases && cases[0].attributes.Footer}
         BugerMenu={() => (
