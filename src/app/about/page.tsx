@@ -3,19 +3,19 @@ import { notFound } from "next/navigation";
 import { PageAbout } from "@/page/PageAbout";
 import { getRouteAbout } from "@/shared/const/pages";
 
-export async function generateMetadata() {
-  const seo = await fetch(
-    `${process.env.BASE_URL}/api/metadata?page=${getRouteAbout()}`
-  ).then((res) => res.json());
+// export async function generateMetadata() {
+//   const seo = await fetch(
+//     `${process.env.BASE_URL}/api/metadata?page=${getRouteAbout()}`
+//   ).then((res) => res.json());
 
-  const data = await seo;
+//   const data = await seo;
 
-  if (data.status === "error") {
-    throw new Error(data.error.text);
-  }
+//   if (data.status === "error") {
+//     throw new Error(data.error.text);
+//   }
 
-  return data.metadata;
-}
+//   return data.metadata;
+// }
 
 const AboutPage = async () => {
   const { studio } = await gql.GetStudio();
