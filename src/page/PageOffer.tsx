@@ -3,7 +3,7 @@
 import { CtaBanner } from "@/components/CtaBanner";
 import { GetOfferByIdQuery, GetOffersNameQuery } from "@/graphql/__generated__";
 import { Spoller } from "@/shared/ui/Spoller";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { useGetOffersById } from "@/shared/services/offerById";
@@ -13,6 +13,7 @@ import { useMedia } from "@/shared/hooks/useMedia";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { BurgerServices } from "@/components/Burger/ui/BurgerServices/BurgerServices";
 import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
+import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 
 const PageOffer = ({
   offersName,
@@ -28,6 +29,7 @@ const PageOffer = ({
   const refSection = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLDivElement | null>(null);
 
+  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
   const { data, isLoading } = useGetOffersById(offerId);
 
   const [offer, setOffer] = useState<
@@ -46,6 +48,12 @@ const PageOffer = ({
     refs: [refSection],
     once: true,
   });
+
+  useEffect(() => {
+    setActiveOffers(null);
+
+    return () => setActiveOffers(null);
+  }, [setActiveOffers]);
 
   const banner = (
     <>

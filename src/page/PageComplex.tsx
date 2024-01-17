@@ -12,9 +12,10 @@ import { priceFormatter } from "@/shared/helpers/priceFormatter";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
+import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { useGetComplexById } from "@/shared/services/complexById";
 import { Spoller } from "@/shared/ui/Spoller";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import ReactMarkdown from "react-markdown";
 
@@ -27,12 +28,20 @@ const PageComplex = ({
 }) => {
   const [complexId, setComplexId] = useState(id);
 
+  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
+
   const refSection = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLDivElement | null>(null);
 
   const { data, isLoading } = useGetComplexById(complexId);
 
   const isPhone = useMedia("(max-width: 767px)");
+
+  useEffect(() => {
+    setActiveOffers(null);
+
+    return () => setActiveOffers(null);
+  }, [setActiveOffers]);
 
   const [complex, setComplex] = useState<
     GetComplexByIdQuery["complex"]["data"]["attributes"] | undefined

@@ -11,14 +11,7 @@ import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvid
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {
-  Fragment,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { Fragment, useContext, useLayoutEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const PromotionOffer = ({
@@ -138,9 +131,6 @@ const PromotionOffer = ({
                           ? getRouteOffers(offer.id)
                           : getRouteComplex(offer.id)
                       }
-                      onClick={() => {
-                        setActiveOffers(null);
-                      }}
                       className="promotion__btn btn "
                     >
                       <span className="btn__text">Подробнее</span>
