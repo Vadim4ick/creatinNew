@@ -1,5 +1,5 @@
 query GetCasesIds {
-  cases {
+  cases(sort: "id:asc") {
     data {
       id
     }

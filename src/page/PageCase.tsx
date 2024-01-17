@@ -48,14 +48,21 @@ const PageCase = memo(
     const onClick = useCallback(() => {
       let nextId = String(currentId + 1);
 
-      // Проверка, есть ли id в массиве ids
+      // Предварительная сортировка массива ids по возрастанию
+      // @ts-ignore
+      // const newIds = ids.toSorted(
+      //   (a: { id: string }, b: { id: string }) =>
+      //     parseInt(a.id) - parseInt(b.id)
+      // );
+
+      // Проверка, есть ли id в отсортированном массиве ids
       if (ids.some((item) => item.id === nextId)) {
         router.push(getRouteCase(nextId));
       } else {
         // Возвращение к первому элементу в массиве, если id не найден
         router.push(getRouteCase(ids[0].id));
       }
-    }, [router]);
+    }, [currentId, ids, router]);
 
     return (
       <>

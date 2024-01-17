@@ -3607,7 +3607,7 @@ export const GetCaseByIdDocument = gql`
 ${MediaFragmentFragmentDoc}`;
 export const GetCasesIdsDocument = gql`
     query GetCasesIds {
-  cases {
+  cases(sort: "id:asc") {
     data {
       id
     }
