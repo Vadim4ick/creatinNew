@@ -1,5 +1,5 @@
 query GetComplexNames {
-  complexes {
+  complexes(sort: "id:asc") {
     data {
       id
       attributes {

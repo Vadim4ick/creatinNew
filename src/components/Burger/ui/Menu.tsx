@@ -1,6 +1,8 @@
 import { getRouteServices } from "@/shared/const/pages";
+import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { useGetMobileBurgerLinks } from "@/shared/services/mobileBurgerLinks";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useContext } from "react";
@@ -14,8 +16,7 @@ interface MenuProps {
 const Menu = (props: MenuProps) => {
   const { active, activeContacts, onClickContacts } = props;
 
-  const { data: burgerLinks } = useGetMobileBurgerLinks();
-
+  const { data: burgerLinks, isLoading } = useGetMobileBurgerLinks();
   const { setActiveOffers } = useContext(ActiveOfferProviderContext);
 
   const router = useRouter();
@@ -64,7 +65,23 @@ const Menu = (props: MenuProps) => {
             >
               <div className="mobile-nav__name">Спецпредложения</div>
               <div className="mobile-nav__image">
-                <img src="/img/header/01.png" alt="" />
+                {burgerLinks?.mobileNavigation.data.attributes.offersImg && (
+                  <Image
+                    alt=""
+                    height={
+                      burgerLinks.mobileNavigation.data.attributes.offersImg
+                        .data.attributes.height
+                    }
+                    width={
+                      burgerLinks.mobileNavigation.data.attributes.offersImg
+                        .data.attributes.width
+                    }
+                    src={getFileUrl(
+                      burgerLinks.mobileNavigation.data.attributes.offersImg
+                        .data.attributes.url
+                    )}
+                  />
+                )}
               </div>
             </a>
             <ul className="mobile-nav__list">
@@ -111,7 +128,24 @@ const Menu = (props: MenuProps) => {
             >
               <div className="mobile-nav__name">Спецпредложения</div>
               <div className="mobile-nav__image">
-                <img src="/img/header/01.png" alt="" />
+                {/* <img src="/img/header/01.png" alt="" /> */}
+                {burgerLinks?.mobileNavigation.data.attributes.offersImg && (
+                  <Image
+                    alt=""
+                    height={
+                      burgerLinks.mobileNavigation.data.attributes.offersImg
+                        .data.attributes.height
+                    }
+                    width={
+                      burgerLinks.mobileNavigation.data.attributes.offersImg
+                        .data.attributes.width
+                    }
+                    src={getFileUrl(
+                      burgerLinks.mobileNavigation.data.attributes.offersImg
+                        .data.attributes.url
+                    )}
+                  />
+                )}
               </div>
             </a>
 

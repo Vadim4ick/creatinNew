@@ -1,0 +1,11 @@
+query GetSeoOffers {
+  seoOffersPage {
+    data {
+      attributes {
+        seo {
+          ...SeoFragment
+        }
+      }
+    }
+  }
+}

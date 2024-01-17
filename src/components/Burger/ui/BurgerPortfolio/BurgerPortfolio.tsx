@@ -14,6 +14,7 @@ import { Menu } from "../Menu";
 import { classNames } from "@/shared/lib";
 import { useRouter } from "next/navigation";
 import cls from "./BurgerPortfolio.module.scss";
+import { SendTaskBtn } from "../../SendTaskBtn";
 
 interface BurgerPortfolioProps {
   SubMenuName: string;
@@ -184,13 +185,7 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
               </button>
             )}
 
-            <a
-              ref={sendTaskBtnRef}
-              title="Вернуться на предыдущую страницу"
-              className="mobile-menu__sublink mobile-menu__sublink--small btn btn--alt"
-            >
-              Оставить заявку
-            </a>
+            <SendTaskBtn sendTaskBtnRef={sendTaskBtnRef} />
 
             <button
               ref={btnRef}

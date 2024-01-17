@@ -8,6 +8,8 @@ import { classNames } from "@/shared/lib";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { useRouter } from "next/navigation";
 import { Menu } from "../Menu";
+import { SendTaskBtn } from "../../SendTaskBtn";
+import { Loader } from "@/shared/ui/Loader/Loader";
 
 interface BurgerServicesProps {
   SubMenuName: string;
@@ -28,7 +30,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
     readonly SidebarItems[] | undefined
   >(undefined);
 
-  const { data } = useGetServicesTitleById(SubMenuName);
+  const { data, isLoading } = useGetServicesTitleById(SubMenuName);
 
   const router = useRouter();
 
@@ -240,13 +242,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
               </button>
             )}
 
-            <a
-              ref={sendTaskBtnRef}
-              title="Вернуться на предыдущую страницу"
-              className="mobile-menu__sublink mobile-menu__sublink--small btn btn--alt"
-            >
-              Оставить заявку
-            </a>
+            <SendTaskBtn sendTaskBtnRef={sendTaskBtnRef} />
 
             <button
               ref={btnRef}

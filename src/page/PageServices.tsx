@@ -128,7 +128,31 @@ const PageServices = memo(
                           {item.attributes.name}
                         </div>
                         <div className="services__info">
-                          {item.attributes.description}
+                          <ReactMarkdown
+                            skipHtml
+                            components={{
+                              p: ({ children }) => {
+                                return (
+                                  <>
+                                    {children
+                                      ?.toString()
+                                      .split(",\n")
+                                      .map((line, index) => (
+                                        <React.Fragment key={index}>
+                                          {line}
+                                          {/* @ts-ignore */}
+                                          {index < children.length - 1 && (
+                                            <br />
+                                          )}
+                                        </React.Fragment>
+                                      ))}
+                                  </>
+                                );
+                              },
+                            }}
+                          >
+                            {item.attributes.description}
+                          </ReactMarkdown>
                         </div>
                       </Link>
                     ))}

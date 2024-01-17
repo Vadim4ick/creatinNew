@@ -179,12 +179,13 @@ const ServiceCollection = memo(
             <SectionTitle title={serviceCollection?.Title} />
           )}
 
-          {serviceCollection?.sliderCase && (
-            <RelevantProjects
-              animation={true}
-              cases={serviceCollection?.sliderCase.cases.data}
-            />
-          )}
+          {serviceCollection?.sliderCase?.cases.data.length !== 0 &&
+            serviceCollection?.sliderCase && (
+              <RelevantProjects
+                animation={true}
+                cases={serviceCollection?.sliderCase.cases.data}
+              />
+            )}
 
           {serviceCollection?.banner.data && (
             <CtaBanner

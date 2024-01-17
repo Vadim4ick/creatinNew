@@ -1,5 +1,5 @@
 query GetOffersName {
-  offers {
+  offers(sort: "id:asc") {
     data {
       id
       attributes {
