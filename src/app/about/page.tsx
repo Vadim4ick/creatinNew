@@ -3,19 +3,26 @@ import { notFound } from "next/navigation";
 import { PageAbout } from "@/page/PageAbout";
 import { getRouteAbout } from "@/shared/const/pages";
 
-// export async function generateMetadata() {
-//   const seo = await fetch(`/api/metadata?page=${getRouteAbout()}`).then((res) =>
-//     res.json()
-//   );
+export async function generateMetadata() {
+  const { studio } = await gql.GetSeoAboutPage();
 
-//   const data = await seo;
+  if (!studio.data || !studio.data.attributes || !studio.data.attributes.seo) {
+    // Добавьте проверку на существование нужных свойств
+    return null;
+  }
 
-//   if (data.status === "error") {
-//     throw new Error(data.error.text);
-//   }
+  const metadata = {
+    title: studio.data.attributes.seo.metaTitle,
+    description: studio.data.attributes.seo.metaDescription,
+    keywords: studio.data.attributes.seo.keywords,
+    robots: studio.data.attributes.seo.metaRobots,
+    viewport: studio.data.attributes.seo.metaViewport,
+    structuredData: studio.data.attributes.seo.structuredData,
+    canonical: studio.data.attributes.seo.canonicalURL,
+  };
 
-//   return data.metadata;
-// }
+  return metadata;
+}
 
 const AboutPage = async () => {
   const { studio } = await gql.GetStudio();

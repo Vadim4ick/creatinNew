@@ -898,107 +898,6 @@ export type ComponentUiMobileLinkInput = {
   readonly name: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ContentReleasesRelease = {
-  readonly __typename?: 'ContentReleasesRelease';
-  readonly actions: Maybe<ContentReleasesReleaseActionRelationResponseCollection>;
-  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
-  readonly name: Scalars['String']['output'];
-  readonly releasedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type ContentReleasesReleaseActionsArgs = {
-  filters: InputMaybe<ContentReleasesReleaseActionFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type ContentReleasesReleaseAction = {
-  readonly __typename?: 'ContentReleasesReleaseAction';
-  readonly contentType: Scalars['String']['output'];
-  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
-  readonly entry: Maybe<GenericMorph>;
-  readonly release: Maybe<ContentReleasesReleaseEntityResponse>;
-  readonly type: Enum_Contentreleasesreleaseaction_Type;
-  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ContentReleasesReleaseActionEntity = {
-  readonly __typename?: 'ContentReleasesReleaseActionEntity';
-  readonly attributes: Maybe<ContentReleasesReleaseAction>;
-  readonly id: Maybe<Scalars['ID']['output']>;
-};
-
-export type ContentReleasesReleaseActionEntityResponse = {
-  readonly __typename?: 'ContentReleasesReleaseActionEntityResponse';
-  readonly data: Maybe<ContentReleasesReleaseActionEntity>;
-};
-
-export type ContentReleasesReleaseActionEntityResponseCollection = {
-  readonly __typename?: 'ContentReleasesReleaseActionEntityResponseCollection';
-  readonly data: ReadonlyArray<ContentReleasesReleaseActionEntity>;
-  readonly meta: ResponseCollectionMeta;
-};
-
-export type ContentReleasesReleaseActionFiltersInput = {
-  readonly and: InputMaybe<ReadonlyArray<InputMaybe<ContentReleasesReleaseActionFiltersInput>>>;
-  readonly contentType: InputMaybe<StringFilterInput>;
-  readonly createdAt: InputMaybe<DateTimeFilterInput>;
-  readonly id: InputMaybe<IdFilterInput>;
-  readonly not: InputMaybe<ContentReleasesReleaseActionFiltersInput>;
-  readonly or: InputMaybe<ReadonlyArray<InputMaybe<ContentReleasesReleaseActionFiltersInput>>>;
-  readonly release: InputMaybe<ContentReleasesReleaseFiltersInput>;
-  readonly type: InputMaybe<StringFilterInput>;
-  readonly updatedAt: InputMaybe<DateTimeFilterInput>;
-};
-
-export type ContentReleasesReleaseActionInput = {
-  readonly contentType: InputMaybe<Scalars['String']['input']>;
-  readonly release: InputMaybe<Scalars['ID']['input']>;
-  readonly type: InputMaybe<Enum_Contentreleasesreleaseaction_Type>;
-};
-
-export type ContentReleasesReleaseActionRelationResponseCollection = {
-  readonly __typename?: 'ContentReleasesReleaseActionRelationResponseCollection';
-  readonly data: ReadonlyArray<ContentReleasesReleaseActionEntity>;
-};
-
-export type ContentReleasesReleaseEntity = {
-  readonly __typename?: 'ContentReleasesReleaseEntity';
-  readonly attributes: Maybe<ContentReleasesRelease>;
-  readonly id: Maybe<Scalars['ID']['output']>;
-};
-
-export type ContentReleasesReleaseEntityResponse = {
-  readonly __typename?: 'ContentReleasesReleaseEntityResponse';
-  readonly data: Maybe<ContentReleasesReleaseEntity>;
-};
-
-export type ContentReleasesReleaseEntityResponseCollection = {
-  readonly __typename?: 'ContentReleasesReleaseEntityResponseCollection';
-  readonly data: ReadonlyArray<ContentReleasesReleaseEntity>;
-  readonly meta: ResponseCollectionMeta;
-};
-
-export type ContentReleasesReleaseFiltersInput = {
-  readonly actions: InputMaybe<ContentReleasesReleaseActionFiltersInput>;
-  readonly and: InputMaybe<ReadonlyArray<InputMaybe<ContentReleasesReleaseFiltersInput>>>;
-  readonly createdAt: InputMaybe<DateTimeFilterInput>;
-  readonly id: InputMaybe<IdFilterInput>;
-  readonly name: InputMaybe<StringFilterInput>;
-  readonly not: InputMaybe<ContentReleasesReleaseFiltersInput>;
-  readonly or: InputMaybe<ReadonlyArray<InputMaybe<ContentReleasesReleaseFiltersInput>>>;
-  readonly releasedAt: InputMaybe<DateTimeFilterInput>;
-  readonly updatedAt: InputMaybe<DateTimeFilterInput>;
-};
-
-export type ContentReleasesReleaseInput = {
-  readonly actions: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
-  readonly name: InputMaybe<Scalars['String']['input']>;
-  readonly releasedAt: InputMaybe<Scalars['DateTime']['input']>;
-};
-
 export type DateTimeFilterInput = {
   readonly and: InputMaybe<ReadonlyArray<InputMaybe<Scalars['DateTime']['input']>>>;
   readonly between: InputMaybe<ReadonlyArray<InputMaybe<Scalars['DateTime']['input']>>>;
@@ -1053,11 +952,6 @@ export enum Enum_Componentimageblockstextblock_Type {
 export enum Enum_Componentsharedmetasocial_Socialnetwork {
   Facebook = 'Facebook',
   Twitter = 'Twitter'
-}
-
-export enum Enum_Contentreleasesreleaseaction_Type {
-  Publish = 'publish',
-  Unpublish = 'unpublish'
 }
 
 export type Error = {
@@ -1121,7 +1015,7 @@ export type FormFeedbackInput = {
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type GenericMorph = Case | CaseName | Complex | ComplexAccompany | ComponentBlocksIncludesHover | ComponentComponentsComplexComponent | ComponentComponentsFooter | ComponentComponentsHomeBanner | ComponentComponentsOfferComponent | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIncludesContent | ComponentElementsIntroCard | ComponentElementsOffer | ComponentElementsTitle | ComponentElementsVacancy | ComponentImageBlocksDoubleImage | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ComponentUiMobileLink | ContentReleasesRelease | ContentReleasesReleaseAction | FormFeedback | Header | HomePage | I18NLocale | IncludesBlock | MobileNavigation | Offer | OffersPage | Partner | PortfolioPage | SeoComplexPage | SeoOffersPage | Service | ServiceCollection | ServiceName | ServicesPage | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Case | CaseName | Complex | ComplexAccompany | ComponentBlocksIncludesHover | ComponentComponentsComplexComponent | ComponentComponentsFooter | ComponentComponentsHomeBanner | ComponentComponentsOfferComponent | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIncludesContent | ComponentElementsIntroCard | ComponentElementsOffer | ComponentElementsTitle | ComponentElementsVacancy | ComponentImageBlocksDoubleImage | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ComponentUiMobileLink | FormFeedback | Header | HomePage | I18NLocale | IncludesBlock | MobileNavigation | Offer | OffersPage | Partner | PortfolioPage | SeoComplexPage | SeoOffersPage | Service | ServiceCollection | ServiceName | ServicesPage | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   readonly __typename?: 'Header';
@@ -1429,8 +1323,6 @@ export type Mutation = {
   readonly createCase: Maybe<CaseEntityResponse>;
   readonly createCaseName: Maybe<CaseNameEntityResponse>;
   readonly createComplex: Maybe<ComplexEntityResponse>;
-  readonly createContentReleasesRelease: Maybe<ContentReleasesReleaseEntityResponse>;
-  readonly createContentReleasesReleaseAction: Maybe<ContentReleasesReleaseActionEntityResponse>;
   readonly createIncludesBlock: Maybe<IncludesBlockEntityResponse>;
   readonly createOffer: Maybe<OfferEntityResponse>;
   readonly createService: Maybe<ServiceEntityResponse>;
@@ -1446,8 +1338,6 @@ export type Mutation = {
   readonly deleteCaseName: Maybe<CaseNameEntityResponse>;
   readonly deleteComplex: Maybe<ComplexEntityResponse>;
   readonly deleteComplexAccompany: Maybe<ComplexAccompanyEntityResponse>;
-  readonly deleteContentReleasesRelease: Maybe<ContentReleasesReleaseEntityResponse>;
-  readonly deleteContentReleasesReleaseAction: Maybe<ContentReleasesReleaseActionEntityResponse>;
   readonly deleteFormFeedback: Maybe<FormFeedbackEntityResponse>;
   readonly deleteHeader: Maybe<HeaderEntityResponse>;
   readonly deleteHomePage: Maybe<HomePageEntityResponse>;
@@ -1485,8 +1375,6 @@ export type Mutation = {
   readonly updateCaseName: Maybe<CaseNameEntityResponse>;
   readonly updateComplex: Maybe<ComplexEntityResponse>;
   readonly updateComplexAccompany: Maybe<ComplexAccompanyEntityResponse>;
-  readonly updateContentReleasesRelease: Maybe<ContentReleasesReleaseEntityResponse>;
-  readonly updateContentReleasesReleaseAction: Maybe<ContentReleasesReleaseActionEntityResponse>;
   readonly updateFileInfo: UploadFileEntityResponse;
   readonly updateFormFeedback: Maybe<FormFeedbackEntityResponse>;
   readonly updateHeader: Maybe<HeaderEntityResponse>;
@@ -1533,16 +1421,6 @@ export type MutationCreateCaseNameArgs = {
 
 export type MutationCreateComplexArgs = {
   data: ComplexInput;
-};
-
-
-export type MutationCreateContentReleasesReleaseArgs = {
-  data: ContentReleasesReleaseInput;
-};
-
-
-export type MutationCreateContentReleasesReleaseActionArgs = {
-  data: ContentReleasesReleaseActionInput;
 };
 
 
@@ -1602,16 +1480,6 @@ export type MutationDeleteCaseNameArgs = {
 
 
 export type MutationDeleteComplexArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteContentReleasesReleaseArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteContentReleasesReleaseActionArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -1721,18 +1589,6 @@ export type MutationUpdateComplexArgs = {
 
 export type MutationUpdateComplexAccompanyArgs = {
   data: ComplexAccompanyInput;
-};
-
-
-export type MutationUpdateContentReleasesReleaseArgs = {
-  data: ContentReleasesReleaseInput;
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationUpdateContentReleasesReleaseActionArgs = {
-  data: ContentReleasesReleaseActionInput;
-  id: Scalars['ID']['input'];
 };
 
 
@@ -2063,10 +1919,6 @@ export type Query = {
   readonly complex: Maybe<ComplexEntityResponse>;
   readonly complexAccompany: Maybe<ComplexAccompanyEntityResponse>;
   readonly complexes: Maybe<ComplexEntityResponseCollection>;
-  readonly contentReleasesRelease: Maybe<ContentReleasesReleaseEntityResponse>;
-  readonly contentReleasesReleaseAction: Maybe<ContentReleasesReleaseActionEntityResponse>;
-  readonly contentReleasesReleaseActions: Maybe<ContentReleasesReleaseActionEntityResponseCollection>;
-  readonly contentReleasesReleases: Maybe<ContentReleasesReleaseEntityResponseCollection>;
   readonly formFeedback: Maybe<FormFeedbackEntityResponse>;
   readonly header: Maybe<HeaderEntityResponse>;
   readonly homePage: Maybe<HomePageEntityResponse>;
@@ -2142,30 +1994,6 @@ export type QueryComplexesArgs = {
   filters: InputMaybe<ComplexFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type QueryContentReleasesReleaseArgs = {
-  id: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type QueryContentReleasesReleaseActionArgs = {
-  id: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type QueryContentReleasesReleaseActionsArgs = {
-  filters: InputMaybe<ContentReleasesReleaseActionFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type QueryContentReleasesReleasesArgs = {
-  filters: InputMaybe<ContentReleasesReleaseFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 

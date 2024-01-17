@@ -4,7 +4,12 @@ import { PageComplex } from "@/page/PageComplex";
 export async function generateMetadata() {
   const seo = await gql.GetSeoComplex();
 
-  if (!seo.seoComplexPage.data.attributes.seo) {
+  if (
+    !seo.seoComplexPage.data ||
+    !seo.seoComplexPage.data.attributes ||
+    !seo.seoComplexPage.data.attributes.seo
+  ) {
+    // Добавьте проверку на существование нужных свойств
     return null;
   }
 

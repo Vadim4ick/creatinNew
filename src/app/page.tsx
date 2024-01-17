@@ -1,20 +1,30 @@
 import { gql } from "@/graphql/client";
 import { PageHome } from "@/page/PageHome";
-import { getRouteHome } from "@/shared/const/pages";
 
-// export async function generateMetadata() {
-//   const seo = await fetch(`/api/metadata?page=${getRouteHome()}`).then((res) =>
-//     res.json()
-//   );
+export async function generateMetadata() {
+  const { homePage } = await gql.GetSeoHomePage();
 
-//   const data = await seo;
+  if (
+    !homePage.data ||
+    !homePage.data.attributes ||
+    !homePage.data.attributes.seo
+  ) {
+    // Добавьте проверку на существование нужных свойств
+    return null;
+  }
 
-//   if (data.status === "error") {
-//     throw new Error(data.error.text);
-//   }
+  const metadata = {
+    title: homePage.data.attributes.seo.metaTitle,
+    description: homePage.data.attributes.seo.metaDescription,
+    keywords: homePage.data.attributes.seo.keywords,
+    robots: homePage.data.attributes.seo.metaRobots,
+    viewport: homePage.data.attributes.seo.metaViewport,
+    structuredData: homePage.data.attributes.seo.structuredData,
+    canonical: homePage.data.attributes.seo.canonicalURL,
+  };
 
-//   return data.metadata;
-// }
+  return metadata;
+}
 
 const Home = async () => {
   const { homePage } = await gql.GetHomePage();

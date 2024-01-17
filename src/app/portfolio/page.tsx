@@ -3,19 +3,30 @@ import { gql } from "@/graphql/client";
 import { notFound } from "next/navigation";
 import { getRoutePortfolio } from "@/shared/const/pages";
 
-// export async function generateMetadata() {
-//   const seo = await fetch(`/api/metadata?page=${getRoutePortfolio()}`).then(
-//     (res) => res.json()
-//   );
+export async function generateMetadata() {
+  const { portfolioPage } = await gql.GetSeoPortfolioPage();
 
-//   const data = await seo;
+  if (
+    !portfolioPage.data ||
+    !portfolioPage.data.attributes ||
+    !portfolioPage.data.attributes.seo
+  ) {
+    // Добавьте проверку на существование нужных свойств
+    return null;
+  }
 
-//   if (data.status === "error") {
-//     throw new Error(data.error.text);
-//   }
+  const metadata = {
+    title: portfolioPage.data.attributes.seo.metaTitle,
+    description: portfolioPage.data.attributes.seo.metaDescription,
+    keywords: portfolioPage.data.attributes.seo.keywords,
+    robots: portfolioPage.data.attributes.seo.metaRobots,
+    viewport: portfolioPage.data.attributes.seo.metaViewport,
+    structuredData: portfolioPage.data.attributes.seo.structuredData,
+    canonical: portfolioPage.data.attributes.seo.canonicalURL,
+  };
 
-//   return data.metadata;
-// }
+  return metadata;
+}
 
 const PortfolioPage = async () => {
   const { caseNames } = await gql.GetCasesNames();

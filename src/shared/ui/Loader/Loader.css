@@ -1,0 +1,14 @@
+.lds-dual-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--header));
+}
+
+.video {
+  margin-bottom: 0 !important;
+}
+
+.services {
+  margin-top: 77px;
+}/*# sourceMappingURL=Loader.css.map */

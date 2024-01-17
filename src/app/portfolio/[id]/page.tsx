@@ -5,7 +5,12 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const seo = await gql.GetSeoCaseId({ id: params.id });
 
-  if (!seo.case.data.attributes.seo) {
+  if (
+    !seo.case.data ||
+    !seo.case.data.attributes ||
+    !seo.case.data.attributes.seo
+  ) {
+    // Добавьте проверку на существование нужных свойств
     return null;
   }
 

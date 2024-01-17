@@ -4,7 +4,12 @@ import { PageOffer } from "@/page/PageOffer";
 export async function generateMetadata() {
   const seo = await gql.GetSeoOffers();
 
-  if (!seo.seoOffersPage.data.attributes.seo) {
+  if (
+    !seo.seoOffersPage.data ||
+    !seo.seoOffersPage.data.attributes ||
+    !seo.seoOffersPage.data.attributes.seo
+  ) {
+    // Добавьте проверку на существование нужных свойств
     return null;
   }
 

@@ -2,25 +2,30 @@ import { gql } from "@/graphql/client";
 import { ServiceCollection } from "@/page/ServiceCollection";
 import { notFound } from "next/navigation";
 
-// export async function generateMetadata({ params }: { params: { id: string } }) {
-//   const seo = await gql.GetSeoServiceCollectionPage({ id: params.id });
+export async function generateMetadata() {
+  const { serviceCollection } = await gql.GetSeoServiceCollectionPage();
 
-//   if (!seo.serviceCollection.data.attributes.seo) {
-//     return null;
-//   }
+  if (
+    !serviceCollection.data ||
+    !serviceCollection.data.attributes ||
+    !serviceCollection.data.attributes.seo
+  ) {
+    // Добавьте проверку на существование нужных свойств
+    return null;
+  }
 
-//   const metadata = {
-//     title: seo.serviceCollection.data.attributes.seo.metaTitle,
-//     description: seo.serviceCollection.data.attributes.seo.metaDescription,
-//     keywords: seo.serviceCollection.data.attributes.seo.keywords,
-//     robots: seo.serviceCollection.data.attributes.seo.metaRobots,
-//     viewport: seo.serviceCollection.data.attributes.seo.metaViewport,
-//     structuredData: seo.serviceCollection.data.attributes.seo.structuredData,
-//     canonical: seo.serviceCollection.data.attributes.seo.canonicalURL,
-//   };
+  const metadata = {
+    title: serviceCollection.data.attributes.seo.metaTitle,
+    description: serviceCollection.data.attributes.seo.metaDescription,
+    keywords: serviceCollection.data.attributes.seo.keywords,
+    robots: serviceCollection.data.attributes.seo.metaRobots,
+    viewport: serviceCollection.data.attributes.seo.metaViewport,
+    structuredData: serviceCollection.data.attributes.seo.structuredData,
+    canonical: serviceCollection.data.attributes.seo.canonicalURL,
+  };
 
-//   return metadata;
-// }
+  return metadata;
+}
 
 const ServiceParamsPage = async ({
   params,

@@ -1,0 +1,11 @@
+@media (min-width: 1439px) {
+  .cards {
+    flex-direction: column;
+  }
+  .row {
+    min-height: 710px;
+  }
+}
+.cards {
+  gap: 10px;
+}/*# sourceMappingURL=About.module.css.map */
