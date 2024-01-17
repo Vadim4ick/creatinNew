@@ -525,7 +525,7 @@ body.popup-show::after {
   -o-object-fit: contain;
   object-fit: contain;
 }
-@font-face {
+/* @font-face {
   font-weight: 400;
   font-family: Jeko-otf;
   font-style: normal;
@@ -566,7 +566,7 @@ body.popup-show::after {
   font-style: normal;
   src: url(../fonts/JekoRegular.woff) format("woff");
   font-display: swap;
-}
+} */
 .visually-hidden {
   position: absolute;
   width: 1px;
