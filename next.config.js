@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // sassOptions: {
-  //   includePaths: [path.join(__dirname, "src/shared/assets/styles")],
-  // },
   images: {
     remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
       {
         protocol: "https",
         hostname: "**",

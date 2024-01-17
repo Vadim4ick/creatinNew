@@ -1,0 +1,11 @@
+query GetSeoComplex {
+  seoComplexPage {
+    data {
+      attributes {
+        seo {
+          ...SeoFragment
+        }
+      }
+    }
+  }
+}

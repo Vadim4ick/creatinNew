@@ -5,6 +5,7 @@ import { Submenu } from "./Submenu";
 import { Menu } from "../Menu";
 import { useGetServicesNames } from "@/shared/services/servicesName";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
+import { SendTaskBtn } from "../../SendTaskBtn";
 
 interface BurgerProps {
   SubMenuName?: string;
@@ -137,13 +138,7 @@ const Burger = (props: BurgerProps) => {
               {activeContacts ? "Контакты" : SubMenuName}
             </button>
 
-            <a
-              ref={sendTaskBtnRef}
-              title="Вернуться на предыдущую страницу"
-              className="mobile-menu__sublink mobile-menu__sublink--small btn btn--alt"
-            >
-              Оставить заявку
-            </a>
+            <SendTaskBtn sendTaskBtnRef={sendTaskBtnRef} />
 
             <button
               ref={btnRef}

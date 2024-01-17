@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Header } from "@/layouts";
 
 import "@/shared/assets/styles/style.min.css";
+import "@/shared/assets/styles/index.scss";
 
 import { QueryProviders } from "@/shared/providers/queryProviders";
 import { gql } from "@/graphql/client";
