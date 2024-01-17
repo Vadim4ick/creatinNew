@@ -33,7 +33,14 @@ const PageAbout = (props: PageAboutProps) => {
       {isDesktop.matches && <BurgerAbout SubMenuName="услуги" />}
 
       <main className="page">
-        <Video className="video--about" container={true} animation={true} />
+        {studio.data.attributes.video.data && (
+          <Video
+            srcMedia={studio.data.attributes.video.data.attributes}
+            className="video--about"
+            container={true}
+            animation={true}
+          />
+        )}
 
         {studio.data.attributes.introCards && (
           <About aboutSection={studio.data.attributes} />

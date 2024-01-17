@@ -121,7 +121,12 @@ const Menu = (props: MenuProps) => {
                   return (
                     <li key={el.id} className="mobile-nav__item">
                       {el.href ? (
-                        <Link href={el.href}>{el.name}</Link>
+                        <Link
+                          onClick={() => setActiveOffers(null)}
+                          href={el.href}
+                        >
+                          {el.name}
+                        </Link>
                       ) : (
                         <a onClick={onClickContacts}>{el.name}</a>
                       )}

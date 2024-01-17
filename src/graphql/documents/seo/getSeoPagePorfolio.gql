@@ -1,0 +1,11 @@
+query GetSeoPortfolioPage {
+  portfolioPage {
+    data {
+      attributes {
+        seo {
+          ...SeoFragment
+        }
+      }
+    }
+  }
+}

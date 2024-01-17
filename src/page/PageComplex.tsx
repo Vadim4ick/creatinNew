@@ -1,5 +1,6 @@
 "use client";
 
+import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Video } from "@/components/Video";
 import {
@@ -11,9 +12,10 @@ import { priceFormatter } from "@/shared/helpers/priceFormatter";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
+import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { useGetComplexById } from "@/shared/services/complexById";
 import { Spoller } from "@/shared/ui/Spoller";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import ReactMarkdown from "react-markdown";
 
@@ -26,12 +28,20 @@ const PageComplex = ({
 }) => {
   const [complexId, setComplexId] = useState(id);
 
+  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
+
   const refSection = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLDivElement | null>(null);
 
   const { data, isLoading } = useGetComplexById(complexId);
 
   const isPhone = useMedia("(max-width: 767px)");
+
+  useEffect(() => {
+    setActiveOffers(null);
+
+    return () => setActiveOffers(null);
+  }, [setActiveOffers]);
 
   const [complex, setComplex] = useState<
     GetComplexByIdQuery["complex"]["data"]["attributes"] | undefined
@@ -58,6 +68,7 @@ const PageComplex = ({
       setId={setComplexId}
       footer={complex?.footer}
       containerClass={"page__container--sidebar"}
+      BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
     >
       <div className="page__base">
         <section className="hero fade-up mb-11" ref={refSection}>
@@ -75,7 +86,7 @@ const PageComplex = ({
                       <div className="hero__info">
                         {children
                           ?.toString()
-                          .split("\n")
+                          .split(",\n")
                           .map((line, index) => (
                             <React.Fragment key={index}>
                               {line}
@@ -93,10 +104,16 @@ const PageComplex = ({
             </ReactMarkdown>
           </div>
 
-          <Video
-            style={{ marginBottom: isPhone.matches ? 0 : undefined }}
-            animation={true}
-          />
+          {complex?.videoMobile.data && (
+            <Video
+              srcMedia={complex.videoMobile.data.attributes}
+              style={{
+                marginBottom: isPhone.matches ? 0 : undefined,
+                display: isPhone.matches ? "block" : "none",
+              }}
+              animation={true}
+            />
+          )}
 
           <div className="hero__right  tablet-hidden">
             <div
@@ -169,7 +186,7 @@ const PageComplex = ({
                                   <div className="includes__info">
                                     {children
                                       ?.toString()
-                                      .split("\n")
+                                      .split(",\n")
                                       .map((line, index) => (
                                         <React.Fragment key={index}>
                                           {line}

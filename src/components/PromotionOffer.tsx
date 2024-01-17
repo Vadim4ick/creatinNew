@@ -7,9 +7,11 @@ import { ActiveOffers } from "@/layouts/ServiceLayout";
 import { getRouteComplex, getRouteOffers } from "@/shared/const/pages";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { priceFormatter } from "@/shared/helpers/priceFormatter";
+import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Fragment, useContext, useLayoutEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const PromotionOffer = ({
@@ -23,6 +25,9 @@ const PromotionOffer = ({
   const [activeIndexRow, setActiveIndexRow] = useState<number | null>(null);
 
   const promotionRefs = offers.map(() => useRef<HTMLDivElement | null>(null));
+
+  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
+  const router = useRouter();
 
   useLayoutEffect(() => {
     const calculateWidth = (item: any, index: number): number => {

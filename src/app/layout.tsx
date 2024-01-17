@@ -7,6 +7,9 @@ import "@/shared/assets/styles/style.min.css";
 import { QueryProviders } from "@/shared/providers/queryProviders";
 import { gql } from "@/graphql/client";
 import { ActiveOfferProvider } from "@/shared/providers/activeOfferProvider";
+import GoogleCaptchaWrapper from "@/shared/providers/googleRecaptcha";
+import { FormSendPopup } from "./_section/FormSend/ui/FormSendPopup/FormSendPopup";
+import { PopupProvider } from "@/shared/providers/popupProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,9 +29,15 @@ export default async function RootLayout({
         <div className="wrapper">
           <QueryProviders>
             <ActiveOfferProvider>
-              <Header header={header.data.attributes} />
+              <GoogleCaptchaWrapper>
+                <PopupProvider>
+                  <Header header={header.data.attributes} />
 
-              {children}
+                  {children}
+
+                  <FormSendPopup />
+                </PopupProvider>
+              </GoogleCaptchaWrapper>
             </ActiveOfferProvider>
           </QueryProviders>
         </div>

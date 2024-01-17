@@ -3,7 +3,7 @@
 import { CtaBanner } from "@/components/CtaBanner";
 import { GetOfferByIdQuery, GetOffersNameQuery } from "@/graphql/__generated__";
 import { Spoller } from "@/shared/ui/Spoller";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { useGetOffersById } from "@/shared/services/offerById";
@@ -11,6 +11,9 @@ import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { Video } from "@/components/Video";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
+import { BurgerServices } from "@/components/Burger/ui/BurgerServices/BurgerServices";
+import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
+import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 
 const PageOffer = ({
   offersName,
@@ -26,6 +29,7 @@ const PageOffer = ({
   const refSection = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLDivElement | null>(null);
 
+  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
   const { data, isLoading } = useGetOffersById(offerId);
 
   const [offer, setOffer] = useState<
@@ -45,6 +49,20 @@ const PageOffer = ({
     once: true,
   });
 
+  useEffect(() => {
+    setActiveOffers(null);
+
+    return () => setActiveOffers(null);
+  }, [setActiveOffers]);
+
+  const banner = (
+    <>
+      {offer?.headingBanner.data && (
+        <CtaBanner animation={true} src={offer.headingBanner.data.attributes} />
+      )}
+    </>
+  );
+
   return (
     <ServiceLayout
       items={offersName}
@@ -53,6 +71,7 @@ const PageOffer = ({
       serviceId={offerId}
       footer={offer?.footer}
       mainClass={""}
+      BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
     >
       <div className="page__base">
         <section className="hero fade-up mb-42" ref={refSection}>
@@ -70,7 +89,7 @@ const PageOffer = ({
                       <div className="hero__info">
                         {children
                           ?.toString()
-                          .split("\n")
+                          .split(",\n")
                           .map((line, index) => (
                             <React.Fragment key={index}>
                               {line}
@@ -87,6 +106,8 @@ const PageOffer = ({
               {offer?.description}
             </ReactMarkdown>
           </div>
+
+          {isPhone.matches && banner}
 
           <div className="hero__right hero__right--one">
             <div className="hero-sale hero-sale--baner">
@@ -118,10 +139,7 @@ const PageOffer = ({
           </div>
         </section>
 
-        <Video
-          style={{ marginBottom: isPhone.matches ? 0 : undefined }}
-          animation={true}
-        />
+        {!isPhone.matches && banner}
 
         <section className="includes mb-96">
           <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#181818">
@@ -153,7 +171,7 @@ const PageOffer = ({
                                   <div className="includes__info">
                                     {children
                                       ?.toString()
-                                      .split("\n")
+                                      .split(",\n")
                                       .map((line, index) => (
                                         <React.Fragment key={index}>
                                           {line}

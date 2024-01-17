@@ -1,0 +1,11 @@
+query GetSeoAboutPage {
+  studio {
+    data {
+      attributes {
+        seo {
+          ...SeoFragment
+        }
+      }
+    }
+  }
+}

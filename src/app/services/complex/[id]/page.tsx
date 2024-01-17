@@ -1,6 +1,5 @@
 import { gql } from "@/graphql/client";
 import { PageComplex } from "@/page/PageComplex";
-import { notFound } from "next/navigation";
 
 const ComplexPage = async ({ params }: { params: { id: string } }) => {
   const id = params.id;

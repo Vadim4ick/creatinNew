@@ -63,8 +63,6 @@ const PageServices = memo(
             <BurgerServices SubMenuName={nameBurger} items={serviceNames} />
           )}
         >
-          {!service && <div>У этого раздела пока нет услуги</div>}
-
           {service && (
             <div className="page__base">
               <section className="hero">
@@ -80,7 +78,7 @@ const PageServices = memo(
                             <div className="hero__info">
                               {children
                                 ?.toString()
-                                .split("\n")
+                                .split(",\n")
                                 .map((line, index) => (
                                   <React.Fragment key={index}>
                                     {line}
@@ -99,7 +97,9 @@ const PageServices = memo(
                 </div>
               </section>
 
-              <Video />
+              {service.video.data && (
+                <Video srcMedia={service.video.data.attributes} />
+              )}
 
               {service.Services.service_collections.data && (
                 <section className="services">

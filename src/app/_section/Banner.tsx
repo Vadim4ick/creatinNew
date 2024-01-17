@@ -8,12 +8,13 @@ import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useSwiper } from "@/shared/hooks/useSwiper";
+import { BtnArrow } from "@/shared/icons/BtnArrow";
 import { Folder } from "@/shared/icons/introBanner/Folder";
 import { Spiral } from "@/shared/icons/introBanner/Spiral";
-import { CustomLink } from "@/shared/ui/Link";
+import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import { Portal } from "@/shared/ui/Portal";
 import Image from "next/image";
-import { useMemo, useRef } from "react";
+import { memo, useContext, useMemo, useRef } from "react";
 import { A11y, Mousewheel } from "swiper";
 
 interface BannerProps {
@@ -31,14 +32,22 @@ const arrImages: PartialImages = {
 };
 
 const ButtonIntro = () => {
+  const { onClickPopup } = useContext(PopupProviderContext);
+
   return (
     <div className="intro__btns">
-      <CustomLink iconPosition="right">Оставить заявку</CustomLink>
+      <button onClick={onClickPopup} className={"btn btn--hasarrow"}>
+        <span className="btn__text">Оставить заявку</span>
+
+        <span className="btn__arrow">
+          <BtnArrow />
+        </span>
+      </button>
     </div>
   );
 };
 
-const Banner = (props: BannerProps) => {
+const Banner = memo((props: BannerProps) => {
   const { banner } = props;
 
   const bannerRef = useRef<HTMLElement | null>(null);
@@ -164,6 +173,6 @@ const Banner = (props: BannerProps) => {
       </div>
     </section>
   );
-};
+});
 
 export { Banner };

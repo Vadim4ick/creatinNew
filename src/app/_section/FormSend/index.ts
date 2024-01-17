@@ -1,1 +1,1 @@
-export { FormSend } from "./ui/FormSend";
+export { FormSend } from "./ui/FormSendMain/FormSend";

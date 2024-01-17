@@ -3,7 +3,7 @@
 
 import { Loader } from "@/shared/ui/Loader/Loader";
 import ReactMarkdown from "react-markdown";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useContext, useEffect, useRef } from "react";
 import { Portal } from "@/shared/ui/Portal";
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import { notFound, useRouter } from "next/navigation";
@@ -12,6 +12,7 @@ import { PromotionOffer } from "./PromotionOffer";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { CtaBanner } from "./CtaBanner";
 import { getRouteComplex } from "@/shared/const/pages";
+import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 
 const Complex = ({
   mainRef,
@@ -36,7 +37,7 @@ const Complex = ({
         )
       );
     }
-  }, [data]);
+  }, [data, router]);
 
   if (isLoading) {
     return <Loader />;
@@ -63,7 +64,7 @@ const Complex = ({
                       <div className="hero__info">
                         {children
                           ?.toString()
-                          .split("\n")
+                          .split(",\n")
                           .map((line, index) => (
                             <React.Fragment key={index}>
                               {line}
