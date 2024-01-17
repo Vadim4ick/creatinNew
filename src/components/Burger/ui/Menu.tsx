@@ -18,7 +18,7 @@ interface MenuProps {
 const Menu = (props: MenuProps) => {
   const { active, activeContacts, onClickContacts } = props;
 
-  const { data: burgerLinks, isLoading } = useGetMobileBurgerLinks();
+  const { data: burgerLinks } = useGetMobileBurgerLinks();
   const { setActiveOffers } = useContext(ActiveOfferProviderContext);
 
   const router = useRouter();
@@ -67,7 +67,7 @@ const Menu = (props: MenuProps) => {
             >
               <div className="mobile-nav__name">Спецпредложения</div>
               <div className="mobile-nav__image">
-                {burgerLinks?.mobileNavigation.data.attributes.offersImg && (
+                {burgerLinks?.mobileNavigation.data && (
                   <Image
                     alt=""
                     height={
@@ -131,7 +131,7 @@ const Menu = (props: MenuProps) => {
               <div className="mobile-nav__name">Спецпредложения</div>
               <div className="mobile-nav__image">
                 {/* <img src="/img/header/01.png" alt="" /> */}
-                {burgerLinks?.mobileNavigation.data.attributes.offersImg && (
+                {burgerLinks?.mobileNavigation.data && (
                   <Image
                     alt=""
                     height={
