@@ -9,6 +9,7 @@ import {
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useGetCasesByNameId } from "@/shared/services/casesByNameId";
+import { Loader } from "@/shared/ui/Loader/Loader";
 import { memo, useEffect, useState } from "react";
 
 interface PagePortfolioProps {
@@ -62,6 +63,7 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
       >
         <div className="page__base">
           {!cases && !isLoading && <div>В данном разделе кейсов пока нет!</div>}
+          {isLoading && <Loader />}
 
           {cases && <CasesProtfolio cases={cases} />}
         </div>
