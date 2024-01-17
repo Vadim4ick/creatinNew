@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 import { getRouteServices } from "@/shared/const/pages";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";

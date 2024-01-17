@@ -87,7 +87,7 @@ const FormSend = memo((props: FormSendProps) => {
     if (response?.data?.success === true) {
       console.log(`Успех с оценкой: ${response?.data?.score}`);
 
-      await fetch(`${process.env.BASE_URL}/api/telegramm`, {
+      await fetch(`/api/telegramm`, {
         method: "POST",
         body: JSON.stringify(data),
       });

@@ -21,7 +21,7 @@ const useSmoothScrollToTop = (props: ScrollToTopProps) => {
     return () => {
       clearTimeout(timerId);
     };
-  }, [trigger]);
+  }, [time, trigger]);
 };
 
 export default useSmoothScrollToTop;

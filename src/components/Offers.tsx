@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { PromotionOffer } from "./PromotionOffer";
 import ReactMarkdown from "react-markdown";
 import React, { useCallback, useRef } from "react";
