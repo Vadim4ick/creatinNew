@@ -528,34 +528,59 @@ body.popup-show::after {
 }
 @font-face {
   font-family: "Jeko";
-  src: url("../fonts/JekoMedium.eot") format("embedded-opentype"),
-    url("../fonts/JekoMedium.woff2") format("woff2"),
-    url("../fonts/JekoMedium.woff") format("woff"),
-    url("../fonts/JekoMedium.ttf") format("truetype");
+  src: url("/fonts/JekoMedium.eot") format("embedded-opentype"),
+    url("/fonts/JekoMedium.woff2") format("woff2"),
+    url("/fonts/JekoMedium.woff") format("woff"),
+    url("/fonts/JekoMedium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 /* Для шрифта Jeko Regular */
 @font-face {
   font-family: "Jeko";
-  src: url("../fonts/JekoRegular.eot") format("embedded-opentype"),
-    url("../fonts/JekoRegular.woff2") format("woff2"),
-    url("../fonts/JekoRegular.woff") format("woff"),
-    url("../fonts/JekoRegular.ttf") format("truetype");
+  src: url("/fonts/JekoRegular.eot") format("embedded-opentype"),
+    url("/fonts/JekoRegular.woff2") format("woff2"),
+    url("/fonts/JekoRegular.woff") format("woff"),
+    url("/fonts/JekoRegular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 /* Для шрифта Jeko Regular */
 @font-face {
   font-family: "Jeko";
-  src: url("../fonts/JekoSemiBold.eot") format("embedded-opentype"),
-    url("../fonts/JekoSemiBold.woff2") format("woff2"),
-    url("../fonts/JekoSemiBold.woff") format("woff"),
-    url("../fonts/JekoSemiBold.ttf") format("truetype");
+  src: url("/fonts/JekoSemiBold.eot") format("embedded-opentype"),
+    url("/fonts/JekoSemiBold.woff2") format("woff2"),
+    url("/fonts/JekoSemiBold.woff") format("woff"),
+    url("/fonts/JekoSemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: Jeko-otf;
+  font-style: normal;
+  src: url(/fonts/JekoRegular.otf);
+  font-display: swap;
+}
+@font-face {
+  font-weight: 600;
+  font-family: Jeko-otf;
+  font-style: normal;
+  src: url(/fonts/JekoSemiBold.otf);
+  font-display: swap;
+}
+@font-face {
+  font-weight: 500;
+  font-family: Jeko-otf;
+  font-style: normal;
+  src: url(/fonts/JekoMedium.otf);
+  font-display: swap;
 }
 
 /* @font-face {

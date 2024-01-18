@@ -13,6 +13,7 @@ import {
 import { MainFooter } from "@/layouts";
 import { useMedia } from "@/shared/hooks/useMedia";
 import Image from "next/image";
+import { useEffect } from "react";
 
 interface PageHomeProps {
   homePage: GetHomePageQuery["homePage"];
@@ -24,6 +25,21 @@ const PageHome = (props: PageHomeProps) => {
   const { formFeedback, homePage, partner } = props;
 
   const isDesktop = useMedia("(max-width: 1200px)");
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+
+    if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+      // Браузер Safari
+      console.log("This is Safari");
+    } else {
+      // Браузер не Safari
+      document.documentElement.style.setProperty(
+        "--font-primary",
+        '"Jeko-otf", Fallback'
+      );
+    }
+  }, []);
 
   return (
     <>
