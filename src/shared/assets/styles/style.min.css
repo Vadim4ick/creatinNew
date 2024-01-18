@@ -525,7 +525,34 @@ body.popup-show::after {
   -o-object-fit: contain;
   object-fit: contain;
 }
+
 @font-face {
+  font-family: "Jeko";
+  src: url("../fonts/JekoMedium.woff2") format("woff2"),
+    url("../fonts/JekoMedium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Для шрифта Jeko Regular */
+@font-face {
+  font-family: "Jeko";
+  src: url("../fonts/JekoRegular.woff2") format("woff2"),
+    url("../fonts/JekoRegular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Для шрифта Jeko Regular */
+@font-face {
+  font-family: "Jeko";
+  src: url("../fonts/JekoSemiBold.woff2") format("woff2"),
+    url("../fonts/JekoSemiBold.woff") format("woff"); /* Для более старых браузеров */
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* @font-face {
   font-weight: 400;
   font-family: Jeko-otf;
   font-style: normal;
@@ -566,7 +593,7 @@ body.popup-show::after {
   font-style: normal;
   src: url(../fonts/JekoRegular.woff) format("woff");
   font-display: swap;
-}
+} */
 .visually-hidden {
   position: absolute;
   width: 1px;
