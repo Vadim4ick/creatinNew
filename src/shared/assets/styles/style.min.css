@@ -159,7 +159,8 @@ body::-webkit-scrollbar-thumb {
   --color-partners-bg: #8e8e8e52;
   --color-card-bg-dark: #e3e3e3;
   --color-card-bg: #f2f3f3;
-  --font-primary: "Jeko", Fallback;
+  --font-primary: "Jeko";
+  /* --font-primary: "Jeko", Fallback; */
   --color-accent: #c0ff00;
   --color-light: #3d87f6;
   --color-input: #dfe1e5;
