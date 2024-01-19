@@ -27,18 +27,28 @@ const PageHome = (props: PageHomeProps) => {
   const isDesktop = useMedia("(max-width: 1200px)");
 
   useEffect(() => {
-    const userAgent = navigator.userAgent;
+    // const userAgent = navigator.userAgent;
 
-    if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
-      // Браузер Safari
-      console.log("This is Safari");
-    } else {
-      // Браузер не Safari
-      document.documentElement.style.setProperty(
-        "--font-primary",
-        '"Jeko-otf", Fallback'
-      );
-    }
+    document.documentElement.setAttribute(
+      "style",
+      '--font-primary: "Jeko-otf", Fallback'
+    );
+
+    // if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+    //   // Браузер Safari
+    //   console.log("This is Safari");
+
+    //   document.documentElement.setAttribute(
+    //     "style",
+    //     '--font-primary: "Jeko-otf", Fallback'
+    //   );
+    // } else {
+    //   // Браузер не Safari
+    //   document.documentElement.style.setProperty(
+    //     "--font-primary",
+    //     '"Jeko-otf", Fallback'
+    //   );
+    // }
   }, []);
 
   return (
