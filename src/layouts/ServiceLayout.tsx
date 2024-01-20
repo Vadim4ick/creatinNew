@@ -126,6 +126,13 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
     };
   }, [setActiveOffers]);
 
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      "style",
+      '--font-primary: "Jeko-otf", Fallback'
+    );
+  }, []);
+
   const activeComponent = useMemo(() => {
     switch (activeOffers) {
       case "offer":

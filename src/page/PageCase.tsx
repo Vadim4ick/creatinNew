@@ -17,7 +17,7 @@ import { Footer } from "@/layouts/Footer/ui/Footer";
 import { getRouteCase } from "@/shared/const/pages";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useRouter } from "next/navigation";
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 
 type DoubleImage = ComponentImageBlocksDoubleImage;
 type GridImage = ComponentImageBlocksGridImage;
@@ -63,6 +63,13 @@ const PageCase = memo(
         router.push(getRouteCase(ids[0].id));
       }
     }, [currentId, ids, router]);
+
+    useEffect(() => {
+      document.documentElement.setAttribute(
+        "style",
+        '--font-primary: "Jeko-otf", Fallback'
+      );
+    }, []);
 
     return (
       <>

@@ -15,6 +15,7 @@ import {
 } from "@/graphql/__generated__";
 import { MainFooter } from "@/layouts";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { useEffect } from "react";
 
 interface PageAboutProps {
   serviceNames: GetServicesNamesQuery["serviceNames"];
@@ -27,6 +28,13 @@ const PageAbout = (props: PageAboutProps) => {
   const { formFeedback, serviceNames, partner, studio } = props;
 
   const isDesktop = useMedia("(max-width: 1200px)");
+
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      "style",
+      '--font-primary: "Jeko-otf", Fallback'
+    );
+  }, []);
 
   return (
     <>
