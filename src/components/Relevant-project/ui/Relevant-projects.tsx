@@ -5,14 +5,15 @@ import { SliderFragmentFragment } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { useSwiper } from "@/shared/hooks/useSwiper";
-import { CustomLink } from "@/shared/ui/Link";
 import Image from "next/image";
-import { memo, useEffect, useRef } from "react";
-import { A11y } from "swiper";
+import { memo, useRef } from "react";
+import Swiper, { A11y } from "swiper";
 import cls from "./RelevantProject.module.scss";
 import { classNames } from "@/shared/lib";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { getRouteCase } from "@/shared/const/pages";
+import Link from "next/link";
+import { BtnArrow } from "@/shared/icons/BtnArrow";
 
 interface RelevantProjectsProps {
   cases: SliderFragmentFragment["cases"]["data"];
@@ -33,39 +34,24 @@ const RelevantProjects = memo((props: RelevantProjectsProps) => {
       once: true,
     });
   }
-  // useEffect(() => {
-  //   const swiperRef = projectsSeiperRef.current;
-  //   if (!swiperRef) return;
 
-  //   const slides = swiperRef.querySelectorAll(".swiper-slide");
-  //   const wrapper = swiperRef.querySelector(".swiper-wrapper");
+  const onSwiperReachEnd = (swiper: Swiper) => {
+    if (swiper) {
+      // Получаем оригинальные слайды
+      const originalSlides = swiper.slides;
 
-  //   if (slides.length < 10 && wrapper) {
-  //     const clones = Array.from(slides)
-  //       .map((slide) => slide.cloneNode(true))
-  //       .filter(() => swiperRef.querySelectorAll(".swiper-slide").length < 20);
+      // // Клонируем оригинальные слайды
+      const clonedSlides = originalSlides.map((slide) => slide.cloneNode(true));
 
-  //     clones.forEach((clone) => wrapper.appendChild(clone));
-  //   }
-  // }, []);
+      // // Добавляем клонированные слайды в конец Swiper
+      clonedSlides.forEach((clonedSlide) => {
+        swiper.wrapperEl.appendChild(clonedSlide);
+      });
 
-  //   on: {
-  //     slideChange: function () {
-  //       // if(this.activeIndexChange)
-  //       //   console.log(this.activeIndex);
-  //       //   console.log(projectsSeiperRef.current);
-
-  //       if (projectsSeiperRef.current) {
-  //         const swiper =
-  //           projectsSeiperRef.current.querySelector(".swiper-wrapper");
-
-  //         if (swiper) {
-  //           console.log(swiper.children.length);
-  //           console.log(this.activeIndex);
-  //         }
-  //       }
-  //     },
-  //   },
+      // // Обновляем Swiper
+      swiper.update();
+    }
+  };
 
   useSwiper({
     ref: projectsSeiperRef,
@@ -73,7 +59,6 @@ const RelevantProjects = memo((props: RelevantProjectsProps) => {
     options: {
       modules: [A11y],
       slideToClickedSlide: true,
-      // loop: true,
       autoHeight: false,
       speed: 1200,
       on: {
@@ -85,6 +70,8 @@ const RelevantProjects = memo((props: RelevantProjectsProps) => {
         transitionEnd: (swiper) => {
           swiper.allowSlideNext = true;
         },
+
+        reachEnd: onSwiperReachEnd,
       },
 
       breakpoints: {
@@ -136,13 +123,15 @@ const RelevantProjects = memo((props: RelevantProjectsProps) => {
                     {item.attributes.info}
                   </div>
 
-                  <CustomLink
+                  <Link
                     onClick={(e) => e.stopPropagation()}
                     href={getRouteCase(item.id)}
-                    className="relevant__btn"
-                    variant="white"
-                    iconPosition="right"
-                  />
+                    className="btn btn--hasarrow relevant__btn btn--whte"
+                  >
+                    <span className="btn__arrow">
+                      <BtnArrow />
+                    </span>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -18,7 +18,7 @@ query GetStudio {
             id
             title
             descriptionVacancy
-            level
+            selectLevel
             btnLink
             telegrammLink
           }

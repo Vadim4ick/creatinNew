@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  Enum_Componentelementsintrocard_Class,
-  GetStudioQuery,
-} from "@/graphql/__generated__";
+import { GetStudioQuery } from "@/graphql/__generated__";
 import { useSwiper } from "@/shared/hooks/useSwiper";
 import { Achievement } from "@/shared/icons/introBanner/Achievement";
 import { Graph } from "@/shared/icons/introBanner/Graph";
@@ -15,16 +12,19 @@ import cls from "./About.module.scss";
 import { AboutLogo } from "@/shared/icons/AboutLogo";
 import ReactMarkdown from "react-markdown";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
+import { IconsType } from "@/shared/type/iconsType";
 
-type PartialImages = Partial<
-  Record<Enum_Componentelementsintrocard_Class, any>
->;
+type PartialImages = Partial<Record<IconsType, any>>;
 
 const arrImages: PartialImages = {
   graph: <Graph />,
   trust: <Trust />,
   achievement: <Achievement />,
-  image_group: ["/img/about/03.png", "/img/about/02.png", "/img/about/01.png"],
+  "__image--group": [
+    "/img/about/03.png",
+    "/img/about/02.png",
+    "/img/about/01.png",
+  ],
 };
 
 const About = ({
@@ -81,18 +81,20 @@ const About = ({
                     </div>
 
                     <div
-                      className={`intro-cards__image intro-cards-${card.class}`}
+                      className={`intro-cards__image intro-cards-${card.selectClass[0]}`}
                     >
-                      {card.class === "image_group" ? (
+                      {card.selectClass[0] === "__image--group" ? (
                         <>
-                          {arrImages[card.class].map((el: string) => (
-                            <div key={el} className="intro-cards__image-item">
-                              <Image src={el} width={57} height={57} alt="" />
-                            </div>
-                          ))}
+                          {arrImages[card.selectClass[0] as IconsType].map(
+                            (el: string) => (
+                              <div key={el} className="intro-cards__image-item">
+                                <Image src={el} width={57} height={57} alt="" />
+                              </div>
+                            )
+                          )}
                         </>
                       ) : (
-                        arrImages[card.class]
+                        arrImages[card.selectClass[0] as IconsType]
                       )}
                     </div>
                   </div>
@@ -127,7 +129,7 @@ const About = ({
                 {aboutSection.aboutSection.aboutDescription}
               </div>
             </div>
-            <div className="about__item about__item--logo ">
+            <div className="about__item about__item--logo">
               <AboutLogo />
             </div>
           </div>

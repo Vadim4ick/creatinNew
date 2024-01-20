@@ -24,7 +24,7 @@ query GetCaseById($id: ID) {
           ... on ComponentImageBlocksGridImage {
             idBlock
             id
-            streech
+            selectStreech
             threeImage {
               data {
                 attributes {
@@ -72,8 +72,8 @@ query GetCaseById($id: ID) {
             idBlock
             title
             description
-            type
             desctopMaxWidth
+            selectType
           }
         }
       }

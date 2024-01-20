@@ -1,5 +1,5 @@
-query GetSeoServiceCollectionPage($id: ID) {
-  serviceCollection(id: $id) {
+query GetSeoServiceCollectionPage {
+  seoCollectionService {
     data {
       attributes {
         seo {

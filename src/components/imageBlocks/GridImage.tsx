@@ -11,7 +11,7 @@ const GridImage = memo((props: { content: ComponentImageBlocksGridImage }) => {
     <div className="project__grid">
       <div
         className={classNames("project__image", {
-          "project__image--big": content.streech === "left",
+          "project__image--big": content.selectStreech[0] === "left",
         })}
       >
         <Image
@@ -23,7 +23,7 @@ const GridImage = memo((props: { content: ComponentImageBlocksGridImage }) => {
       </div>
       <div
         className={classNames("project__image", {
-          "project__image--big": content.streech === "right",
+          "project__image--big": content.selectStreech[0] === "right",
         })}
       >
         <Image

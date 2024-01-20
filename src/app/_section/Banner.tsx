@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  Enum_Componentelementsintrocard_Class,
-  GetHomePageQuery,
-} from "@/graphql/__generated__";
+import { GetHomePageQuery } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
@@ -12,6 +9,7 @@ import { BtnArrow } from "@/shared/icons/BtnArrow";
 import { Folder } from "@/shared/icons/introBanner/Folder";
 import { Spiral } from "@/shared/icons/introBanner/Spiral";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
+import { IconsType } from "@/shared/type/iconsType";
 import { Portal } from "@/shared/ui/Portal";
 import Image from "next/image";
 import { memo, useContext, useMemo, useRef } from "react";
@@ -21,14 +19,16 @@ interface BannerProps {
   banner: GetHomePageQuery["homePage"]["data"]["attributes"]["HomeBanner"];
 }
 
-type PartialImages = Partial<
-  Record<Enum_Componentelementsintrocard_Class, any>
->;
+type PartialImages = Partial<Record<IconsType, any>>;
 
 const arrImages: PartialImages = {
   folders: <Folder />,
   spiral: <Spiral />,
-  image_group: ["/img/intro/01.png", "/img/intro/02.png", "/img/intro/03.png"],
+  "__image--group": [
+    "/img/intro/01.png",
+    "/img/intro/02.png",
+    "/img/intro/03.png",
+  ],
 };
 
 const ButtonIntro = () => {
@@ -150,18 +150,28 @@ const Banner = memo((props: BannerProps) => {
                         <div className="intro-cards__info">{card.info}</div>
                       </div>
                       <div
-                        className={`intro-cards__image intro-cards-${card.class}`}
+                        className={`intro-cards__image intro-cards-${card.selectClass[0]}`}
                       >
-                        {card.class === "image_group" ? (
+                        {card.selectClass[0] === "__image--group" ? (
                           <>
-                            {arrImages[card.class].map((el: string) => (
-                              <div key={el} className="intro-cards__image-item">
-                                <Image src={el} width={57} height={57} alt="" />
-                              </div>
-                            ))}
+                            {arrImages[card.selectClass[0] as IconsType].map(
+                              (el: string) => (
+                                <div
+                                  key={el}
+                                  className="intro-cards__image-item"
+                                >
+                                  <Image
+                                    src={el}
+                                    width={57}
+                                    height={57}
+                                    alt=""
+                                  />
+                                </div>
+                              )
+                            )}
                           </>
                         ) : (
-                          arrImages[card.class]
+                          arrImages[card.selectClass[0] as IconsType]
                         )}
                       </div>
                     </div>

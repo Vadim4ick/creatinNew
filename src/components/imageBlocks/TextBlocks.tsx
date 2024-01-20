@@ -11,7 +11,7 @@ const TextBlock = memo((props: { content: ComponentImageBlocksTextBlock }) => {
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const infoBlockRef = useRef<HTMLHeadingElement | null>(null);
 
-  if (content.type === "titleBlock") {
+  if (content.selectType[0] === "titleBlock") {
     return (
       <div className="project__head project__head--big">
         <h1 className="project__title">
@@ -54,7 +54,7 @@ const TextBlock = memo((props: { content: ComponentImageBlocksTextBlock }) => {
     );
   }
 
-  if (content.type === "infoBlock") {
+  if (content.selectType[0] === "infoBlock") {
     return (
       <div className="project__head">
         <SplitTypeAnimation bg="#aaaaaa" fg="#181818" refChar={infoBlockRef}>

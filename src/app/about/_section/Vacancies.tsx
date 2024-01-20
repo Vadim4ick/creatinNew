@@ -51,7 +51,8 @@ const Vacancies = ({
                   className="vacancies__spoller"
                   btn={
                     <>
-                      {vacancy.title} <span data-text={vacancy.level}></span>
+                      {vacancy.title}
+                      <span data-text={vacancy.selectLevel[0]}></span>
                     </>
                   }
                 >

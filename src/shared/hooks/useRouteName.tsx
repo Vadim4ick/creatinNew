@@ -65,7 +65,7 @@ const useRouteName = () => {
     });
 
     setIsLoading(false); // Устанавливаем флаг isLoading в false после завершения загрузки
-  }, [pathname]);
+  }, [pathParts, pathname]);
 
   // Если данные загружаются, вы можете вернуть заглушку или null
   if (isLoading) {

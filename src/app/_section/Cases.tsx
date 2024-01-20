@@ -5,7 +5,9 @@ import { GetHomePageQuery } from "@/graphql/__generated__";
 import { getRoutePortfolio } from "@/shared/const/pages";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
+import { BtnArrow } from "@/shared/icons/BtnArrow";
 import { CustomLink } from "@/shared/ui/Link";
+import Link from "next/link";
 import { useRef } from "react";
 
 interface CasesProps {
@@ -37,13 +39,16 @@ const Cases = (props: CasesProps) => {
           ))}
 
           <div className="cases__more">
-            <CustomLink
+            <Link
               href={getRoutePortfolio()}
-              variant="chartreuse"
-              iconPosition="right"
+              className="btn btn--hasarrow btn--alt"
             >
-              Все кейсы
-            </CustomLink>
+              <span className="btn__text"> Все кейсы</span>
+
+              <span className="btn__arrow">
+                <BtnArrow />
+              </span>
+            </Link>
           </div>
         </div>
       </div>
