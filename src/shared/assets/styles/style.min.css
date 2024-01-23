@@ -5182,7 +5182,7 @@ picture {
   .video__item object,
   .video__item picture,
   .video__item video {
-    aspect-ratio: 350/188;
+    /* aspect-ratio: 350/188; */
   }
   .text-block__item {
     -webkit-box-orient: vertical;
