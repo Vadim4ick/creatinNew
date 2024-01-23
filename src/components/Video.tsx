@@ -35,7 +35,7 @@ const Video = (props: VideoProps) => {
       // @ts-ignore
       style={{ "--icon": "url(/img/icons/video-icon-gray.svg)" }}
     >
-      <iframe
+      {/* <iframe
         src={getFileUrl(srcMedia.url)}
         title="Video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -43,7 +43,11 @@ const Video = (props: VideoProps) => {
         width="100%"
         height="100%"
         frameBorder={0}
-      ></iframe>
+      ></iframe> */}
+
+      <video autoPlay muted playsInline loop>
+        <source src={getFileUrl(srcMedia.url)} type="video/mp4" />
+      </video>
     </div>
   );
 
