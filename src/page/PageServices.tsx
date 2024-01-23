@@ -162,7 +162,7 @@ const PageServices = memo(
 
               {service.textBlocks && <TextBlocks blocks={service.textBlocks} />}
 
-              {service.SliderCase.cases.data.length !== 0 && (
+              {service.SliderCase?.cases && (
                 <RelevantProjects cases={service.SliderCase.cases.data} />
               )}
 
