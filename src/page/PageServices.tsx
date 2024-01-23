@@ -101,7 +101,7 @@ const PageServices = memo(
                 <Video srcMedia={service.video.data.attributes} />
               )}
 
-              {service.Services.service_collections.data && (
+              {service.Services && (
                 <section className="services">
                   <div className="services__left">
                     <h2 className="services__title" data-observe>
@@ -162,7 +162,7 @@ const PageServices = memo(
 
               {service.textBlocks && <TextBlocks blocks={service.textBlocks} />}
 
-              {service.SliderCase && (
+              {service.SliderCase.cases.data.length !== 0 && (
                 <RelevantProjects cases={service.SliderCase.cases.data} />
               )}
 
