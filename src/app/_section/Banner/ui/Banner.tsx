@@ -226,9 +226,9 @@ const Banner = memo((props: BannerProps) => {
             </div>
             <div className="intro__bg">
               {isPhone.matches ? (
-                <Image src={"/banner/showmobil.gif"} fill alt="" />
+                <img src="/banner/showmobil.gif" />
               ) : (
-                <Image src={"/banner/show.gif"} fill alt="" />
+                <img src="/banner/show.gif" />
               )}
             </div>
           </div>
