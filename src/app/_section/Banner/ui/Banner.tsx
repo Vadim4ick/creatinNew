@@ -228,7 +228,9 @@ const Banner = memo((props: BannerProps) => {
               {isPhone.matches ? (
                 <img src="/banner/showmobil.gif" />
               ) : (
-                <img src="/banner/show.gif" />
+                <video autoPlay muted playsInline loop>
+                  <source src={"/banner/show.mp4"} type="video/mp4" />
+                </video>
               )}
             </div>
           </div>
