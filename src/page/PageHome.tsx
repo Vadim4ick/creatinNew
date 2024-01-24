@@ -11,9 +11,12 @@ import {
   GetPartnersQuery,
 } from "@/graphql/__generated__";
 import { MainFooter } from "@/layouts";
+import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { HomePreloaderProviderContext } from "@/shared/providers/homePreloader";
+import { HomePreloader } from "@/shared/ui/HomePreloader/HomePreloader";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 interface PageHomeProps {
   homePage: GetHomePageQuery["homePage"];
@@ -24,32 +27,26 @@ interface PageHomeProps {
 const PageHome = (props: PageHomeProps) => {
   const { formFeedback, homePage, partner } = props;
 
+  const { preloader, setPreloader } = useContext(HomePreloaderProviderContext);
+
   const isDesktop = useMedia("(max-width: 1200px)");
 
   useEffect(() => {
-    // const userAgent = navigator.userAgent;
+    const timeout = setTimeout(() => {
+      setPreloader(false);
+    }, 6000);
 
     document.documentElement.setAttribute(
       "style",
       '--font-primary: "Jeko-otf", Fallback'
     );
 
-    // if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
-    //   // Браузер Safari
-    //   console.log("This is Safari");
-
-    //   document.documentElement.setAttribute(
-    //     "style",
-    //     '--font-primary: "Jeko-otf", Fallback'
-    //   );
-    // } else {
-    //   // Браузер не Safari
-    //   document.documentElement.style.setProperty(
-    //     "--font-primary",
-    //     '"Jeko-otf", Fallback'
-    //   );
-    // }
+    return () => clearTimeout(timeout);
   }, []);
+
+  if (preloader) {
+    return <HomePreloader />;
+  }
 
   return (
     <>

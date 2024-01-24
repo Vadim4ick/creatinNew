@@ -51,11 +51,13 @@ const Breadcrumbs = memo(() => {
             >
               <span>
                 <span>
-                  {i === routeActive.length - 1 ? (
+                  {/* {i === routeActive.length - 1 ? (
                     route.name
                   ) : (
                     <Link href={route.path}>{route.name}</Link>
-                  )}
+                  )} */}
+
+                  <Link href={route.path}>{route.name}</Link>
                 </span>
               </span>
             </li>

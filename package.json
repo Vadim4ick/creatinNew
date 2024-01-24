@@ -10,6 +10,7 @@
     "generate": "graphql-codegen --config ./src/graphql/codegen.yml"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.0",
     "@headlessui/react": "^1.7.17",
     "@hookform/resolvers": "^3.3.4",
     "@tanstack/react-query": "^5.15.3",

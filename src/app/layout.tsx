@@ -11,6 +11,7 @@ import { ActiveOfferProvider } from "@/shared/providers/activeOfferProvider";
 import GoogleCaptchaWrapper from "@/shared/providers/googleRecaptcha";
 import { FormSendPopup } from "./_section/FormSend/ui/FormSendPopup/FormSendPopup";
 import { PopupProvider } from "@/shared/providers/popupProvider";
+import { HomePreloaderContextProvider } from "@/shared/providers/homePreloader";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,11 +33,13 @@ export default async function RootLayout({
             <ActiveOfferProvider>
               <GoogleCaptchaWrapper>
                 <PopupProvider>
-                  <Header header={header.data.attributes} />
+                  <HomePreloaderContextProvider>
+                    <Header header={header.data.attributes} />
 
-                  {children}
+                    {children}
 
-                  <FormSendPopup />
+                    <FormSendPopup />
+                  </HomePreloaderContextProvider>
                 </PopupProvider>
               </GoogleCaptchaWrapper>
             </ActiveOfferProvider>
