@@ -5173,7 +5173,8 @@ picture {
     max-width: 100%;
   }
   .video__item {
-    /* aspect-ratio: 350/188; */
+    aspect-ratio: 350/188;width: 100%;
+    object-fit: cover;
     background: var(--color-bg) var(--icon) center center/74px 94px no-repeat;
   }
   .video__item embed,
@@ -5182,7 +5183,8 @@ picture {
   .video__item object,
   .video__item picture,
   .video__item video {
-    /* aspect-ratio: 350/188; */
+    aspect-ratio: 350/188;
+    object-fit: cover;width: 100%;
   }
   .text-block__item {
     -webkit-box-orient: vertical;

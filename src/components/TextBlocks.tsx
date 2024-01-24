@@ -29,7 +29,7 @@ const TextBlocks = memo((props: TextBlocksProps) => {
   }
 
   return (
-    <section className="text-block">
+    <section className="text-block" style={{ marginTop: "77px" }}>
       {blocks.map((block, index) => (
         <div
           ref={animation ? refBlocks[index] : undefined}
