@@ -146,7 +146,7 @@ const useRouteName = (): Route[] | null => {
     return null;
   }
 
-  return routeActive.reverse().slice(-2);
+  return routeActive.slice(-2);
 };
 
 export { useRouteName };
