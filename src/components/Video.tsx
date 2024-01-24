@@ -36,23 +36,20 @@ const Video = (props: VideoProps) => {
 
   useEffect(() => {
     if (existion === "video") {
-      // // Define the touchstart handler function
-      // const touchStartHandler = function () {
-      //   if (videoVideo.current) {
-      //     // Start the video
-      //     videoVideo.current.play();
-      //   }
-      // };
+      // Define the touchstart handler function
+      const touchStartHandler = function () {
+        if (videoVideo.current) {
+          // Start the video
+          videoVideo.current.play();
+        }
+      };
 
-      // // Add the event listener
-      // document.body.addEventListener("touchstart", touchStartHandler);
+      // Add the event listener
+      document.body.addEventListener("touchstart", touchStartHandler);
 
-      // // Remove the event listener when the component is unmounted
-      // return () =>
-      //   document.body.removeEventListener("touchstart", touchStartHandler);
-      if (videoVideo.current) {
-        videoVideo.current.play();
-      }
+      // Remove the event listener when the component is unmounted
+      return () =>
+        document.body.removeEventListener("touchstart", touchStartHandler);
     }
   }, []);
 
