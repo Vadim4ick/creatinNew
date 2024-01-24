@@ -106,40 +106,6 @@ const Banner = memo((props: BannerProps) => {
     BannerAnimationProviderContext
   );
 
-  useEffect(() => {
-    let timerId: NodeJS.Timeout;
-
-    const handleScroll = () => {
-      if (contentInfo.current && contentCards.current) {
-        setAnimation(true);
-
-        if (
-          contentInfo.current.classList.contains(cls.cardInfo) &&
-          contentCards.current.classList.contains(cls.contentCards)
-        ) {
-          window.removeEventListener("scroll", handleScroll);
-        }
-      }
-    };
-
-    if (!animation && contentInfo.current && contentCards.current) {
-      const delay = isPhone.matches ? ANIMATION_DELAY_MOBILE : ANIMATION_DELAY;
-      timerId = setTimeout(() => {
-        setAnimation(true);
-      }, delay);
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    // Очистка обработчика при размонтировании
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (timerId) {
-        clearTimeout(timerId);
-      }
-    };
-  }, [animation]);
-
   // useGSAP(() => {
   //   const tl = gsap.timeline({
   //     // onComplete: () => {
@@ -187,28 +153,42 @@ const Banner = memo((props: BannerProps) => {
   //   }
   // }, [{ scope: contentInfo }, { scope: contentCards }]);
 
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const mobileVideo = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    const handleCanPlayThrough = () => {
-      if (videoRef.current) {
-        videoRef.current.play();
+    let timerId: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      if (contentInfo.current && contentCards.current) {
+        setAnimation(true);
+
+        if (
+          contentInfo.current.classList.contains(cls.cardInfo) &&
+          contentCards.current.classList.contains(cls.contentCards)
+        ) {
+          window.removeEventListener("scroll", handleScroll);
+        }
       }
     };
 
-    if (videoRef.current) {
-      videoRef.current.addEventListener("canplaythrough", handleCanPlayThrough);
+    if (!animation && contentInfo.current && contentCards.current) {
+      const delay = isPhone.matches ? ANIMATION_DELAY_MOBILE : ANIMATION_DELAY;
+
+      timerId = setTimeout(() => {
+        setAnimation(true);
+      }, delay);
     }
 
+    window.addEventListener("scroll", handleScroll);
+
+    // Очистка обработчика при размонтировании
     return () => {
-      if (videoRef.current) {
-        videoRef.current.removeEventListener(
-          "canplaythrough",
-          handleCanPlayThrough
-        );
+      window.removeEventListener("scroll", handleScroll);
+      if (timerId) {
+        clearTimeout(timerId);
       }
     };
-  }, []);
+  }, [animation]);
 
   return (
     <section ref={bannerRef} className="intro">
@@ -249,12 +229,18 @@ const Banner = memo((props: BannerProps) => {
             </div>
             <div className="intro__bg">
               {isPhone.matches ? (
-                <video ref={videoRef} autoPlay muted playsInline loop>
-                  <source src={"/banner/showmobil.mp4"} type="video/mp4" />
+                <video ref={mobileVideo} autoPlay muted playsInline loop>
+                  <source
+                    src={banner.bannerMobile.data.attributes.url}
+                    type="video/mp4"
+                  />
                 </video>
               ) : (
                 <video autoPlay muted playsInline loop>
-                  <source src={"/banner/show.mp4"} type="video/mp4" />
+                  <source
+                    src={banner.banner.data.attributes.url}
+                    type="video/mp4"
+                  />
                 </video>
               )}
             </div>
