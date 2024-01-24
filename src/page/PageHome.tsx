@@ -27,26 +27,26 @@ interface PageHomeProps {
 const PageHome = (props: PageHomeProps) => {
   const { formFeedback, homePage, partner } = props;
 
-  const { preloader, setPreloader } = useContext(HomePreloaderProviderContext);
+  // const { preloader, setPreloader } = useContext(HomePreloaderProviderContext);
 
   const isDesktop = useMedia("(max-width: 1200px)");
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setPreloader(false);
-    }, 6000);
+    // const timeout = setTimeout(() => {
+    //   setPreloader(false);
+    // }, 6000);
 
     document.documentElement.setAttribute(
       "style",
       '--font-primary: "Jeko-otf", Fallback'
     );
 
-    return () => clearTimeout(timeout);
+    // return () => clearTimeout(timeout);
   }, []);
 
-  if (preloader) {
-    return <HomePreloader />;
-  }
+  // if (preloader) {
+  //   return <HomePreloader />;
+  // }
 
   return (
     <>

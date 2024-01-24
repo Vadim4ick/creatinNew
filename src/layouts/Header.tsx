@@ -3,9 +3,9 @@
 
 import { GetHeaderQuery } from "@/graphql/client";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
-import { HomePreloaderProviderContext } from "@/shared/providers/homePreloader";
+// import { HomePreloaderProviderContext } from "@/shared/providers/homePreloader";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
 import { useContext, useEffect, useRef } from "react";
 
 interface HeaderProps {
@@ -18,9 +18,9 @@ const Header = (props: HeaderProps) => {
   const headerRef = useRef<HTMLDivElement | null>(null);
 
   const { setActiveOffers } = useContext(ActiveOfferProviderContext);
-  const { preloader } = useContext(HomePreloaderProviderContext);
+  // const { preloader } = useContext(HomePreloaderProviderContext);
 
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = (e: WheelEvent) => {
@@ -51,9 +51,9 @@ const Header = (props: HeaderProps) => {
     }
   }, []);
 
-  if (preloader && pathname === "/") {
-    return null;
-  }
+  // if (preloader && pathname === "/") {
+  //   return null;
+  // }
 
   return (
     <>
