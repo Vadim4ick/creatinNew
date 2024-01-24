@@ -187,6 +187,29 @@ const Banner = memo((props: BannerProps) => {
   //   }
   // }, [{ scope: contentInfo }, { scope: contentCards }]);
 
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const handleCanPlayThrough = () => {
+      if (videoRef.current) {
+        videoRef.current.play();
+      }
+    };
+
+    if (videoRef.current) {
+      videoRef.current.addEventListener("canplaythrough", handleCanPlayThrough);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.removeEventListener(
+          "canplaythrough",
+          handleCanPlayThrough
+        );
+      }
+    };
+  }, []);
+
   return (
     <section ref={bannerRef} className="intro">
       <div className="intro__container">
@@ -226,7 +249,9 @@ const Banner = memo((props: BannerProps) => {
             </div>
             <div className="intro__bg">
               {isPhone.matches ? (
-                <img src="/banner/showmobil.gif" />
+                <video ref={videoRef} autoPlay muted playsInline loop>
+                  <source src={"/banner/showmobil.mp4"} type="video/mp4" />
+                </video>
               ) : (
                 <video autoPlay muted playsInline loop>
                   <source src={"/banner/show.mp4"} type="video/mp4" />
