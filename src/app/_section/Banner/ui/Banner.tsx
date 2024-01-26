@@ -195,7 +195,7 @@ const Banner = memo((props: BannerProps) => {
       <div className="intro__container">
         <div ref={test} className="intro__inner">
           <div
-            className="intro__row"
+            className={classNames("intro__row", {}, [cls.introRow])}
             style={banner.bannerMasks ? customStyles : undefined}
           >
             <div
@@ -247,7 +247,11 @@ const Banner = memo((props: BannerProps) => {
           </div>
           <div
             ref={introCardsSwiperRef}
-            className="intro__cards intro-cards swiper js-intro-cards"
+            className={classNames(
+              "intro__cards intro-cards swiper js-intro-cards",
+              {},
+              []
+            )}
           >
             <div
               ref={contentCards}
@@ -264,7 +268,11 @@ const Banner = memo((props: BannerProps) => {
                   return (
                     <div
                       key={card.id}
-                      className="intro__card intro-cards__item swiper-slide"
+                      className={classNames(
+                        "intro__card intro-cards__item swiper-slide",
+                        {},
+                        []
+                      )}
                     >
                       <div className="intro-cards__content">
                         <div className="intro-cards__value">{card.title}</div>

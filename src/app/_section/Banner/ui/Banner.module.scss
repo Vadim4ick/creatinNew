@@ -25,14 +25,18 @@
 }
 
 .contentCards {
-  transform: translate3d(0px, 0px, 0px) !important;
+  // transform: translate3d(0px, 0px, 0px) !important;
   right: 0px !important;
   opacity: 1 !important;
   transition: all 2s ease 0s;
 }
 
 .contentCardsBefore {
-  transform: translate3d(0px, 0px, 0px);
+  // transform: translate3d(0px, 0px, 0px);
   right: -60px;
   opacity: 0;
+}
+
+.introRow {
+  // padding-right: 60px;
 }

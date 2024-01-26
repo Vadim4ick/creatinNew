@@ -26,9 +26,6 @@ const PromotionOffer = ({
 
   const promotionRefs = offers.map(() => useRef<HTMLDivElement | null>(null));
 
-  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
-  const router = useRouter();
-
   useLayoutEffect(() => {
     const calculateWidth = (item: any, index: number): number => {
       if (item.classList.contains("_active")) {

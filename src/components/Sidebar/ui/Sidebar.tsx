@@ -12,6 +12,7 @@ import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { BtnArrow } from "@/shared/icons/BtnArrow";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
+import { useRouter } from "next/navigation";
 
 export interface SidebarItems {
   readonly id: string;
@@ -51,6 +52,8 @@ const Sidebar = memo((props: SidebarProps) => {
     itemElement = "normal",
     setInputIds,
   } = props;
+
+  const router = useRouter();
 
   const { onClickPopup } = useContext(PopupProviderContext);
 

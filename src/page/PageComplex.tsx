@@ -28,7 +28,9 @@ const PageComplex = ({
 }) => {
   const [complexId, setComplexId] = useState(id);
 
-  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
+  const { setActiveOffers, activeOffers } = useContext(
+    ActiveOfferProviderContext
+  );
 
   const refSection = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLDivElement | null>(null);
@@ -59,6 +61,14 @@ const PageComplex = ({
     refs: [refSection],
     once: true,
   });
+
+  useEffect(() => {
+    const className = document.querySelector(".page__container");
+
+    className?.classList.add("page__container--sidebar");
+
+    return () => className?.classList.remove("page__container--sidebar");
+  }, [activeOffers]);
 
   return (
     <ServiceLayout

@@ -14,6 +14,8 @@ const Breadcrumbs = memo(() => {
     router.back();
   };
 
+  console.log(routeActive);
+
   return (
     <div className="breadcrumb">
       <ul className={`breadcrumb__list ${cls.breadcrumb__list}`}>
@@ -43,7 +45,7 @@ const Breadcrumbs = memo(() => {
         {routeActive &&
           routeActive.map((route, i) => (
             <li
-              key={route.path}
+              key={route.path + i}
               className={classNames(`breadcrumb__item`, {
                 "breadcrumb__item-link--active": i === routeActive.length - 1,
                 [cls.breadcrumb__item]: i === routeActive.length - 1,

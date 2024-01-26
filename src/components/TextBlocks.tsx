@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { classNames } from "@/shared/lib";
 import { memo, useRef } from "react";
@@ -19,20 +18,20 @@ const TextBlocks = memo((props: TextBlocksProps) => {
   const { blocks, animation = false } = props;
 
   // Создаем массив рефов для каждого блока
-  const refBlocks = blocks.map(() => useRef<HTMLDivElement | null>(null));
+  // const refBlocks = blocks.map(() => useRef<HTMLDivElement | null>(null));
 
-  if (animation) {
-    useIntersectionObserver({
-      refs: refBlocks,
-      once: true,
-    });
-  }
+  // if (animation) {
+  //   useIntersectionObserver({
+  //     refs: refBlocks,
+  //     once: true,
+  //   });
+  // }
 
   return (
     <section className="text-block" style={{ marginTop: "20px" }}>
       {blocks.map((block, index) => (
         <div
-          ref={animation ? refBlocks[index] : undefined}
+          // ref={animation ? refBlocks[index] : undefined}
           className={classNames("text-block__item", {
             "fade-up": animation,
           })}

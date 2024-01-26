@@ -3,6 +3,7 @@ import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { FooterLink } from "@/shared/icons/FooterLink";
 import Image from "next/image";
 import cls from "./Footer.module.scss";
+import { classNames } from "@/shared/lib";
 
 interface FooterProps {
   img?: MediaFragmentFragment;
@@ -17,8 +18,10 @@ const Footer = (props: FooterProps) => {
     <footer className="footer footer--service">
       <span className="footer__decor"></span>
       <div className={`footer__container ${cls.footer}`}>
-        <div className="footer__row">
-          <div className="footer__name">{title}</div>
+        <div className={classNames("footer__row", {}, [cls.row])}>
+          <div className={classNames("footer__name", {}, [cls.title])}>
+            {title}
+          </div>
 
           <button onClick={callback} className="footer__link">
             <FooterLink />

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { PromotionOffer } from "./PromotionOffer";
 import ReactMarkdown from "react-markdown";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { Portal } from "@/shared/ui/Portal";
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import { notFound, useRouter } from "next/navigation";
@@ -36,6 +36,16 @@ const Offers = ({
   if (!data) {
     return notFound();
   }
+
+  useEffect(() => {
+    const className = document.querySelector(
+      ".page__container.page__container--sidebar"
+    );
+
+    if (className) {
+      className.classList.remove("page__container--sidebar");
+    }
+  }, []);
 
   return (
     <>

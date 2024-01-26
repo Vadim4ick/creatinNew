@@ -8,10 +8,8 @@ import ReactMarkdown from "react-markdown";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { useGetOffersById } from "@/shared/services/offerById";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
-import { Video } from "@/components/Video";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
-import { BurgerServices } from "@/components/Burger/ui/BurgerServices/BurgerServices";
 import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 

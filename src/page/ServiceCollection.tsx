@@ -170,7 +170,7 @@ const ServiceCollection = memo(
 
           {serviceCollection?.textBlocks && (
             <TextBlocks
-              blocks={serviceCollection?.textBlocks}
+              blocks={serviceCollection.textBlocks}
               animation={true}
             />
           )}
