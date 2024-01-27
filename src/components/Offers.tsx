@@ -33,16 +33,6 @@ const Offers = ({
     }
   }, [data]);
 
-  useEffect(() => {
-    const className = document.querySelector(
-      ".page__container.page__container--sidebar"
-    );
-
-    if (className) {
-      className.classList.remove("page__container--sidebar");
-    }
-  }, []);
-
   if (!data) {
     return notFound();
   }

@@ -14,8 +14,6 @@ const Breadcrumbs = memo(() => {
     router.back();
   };
 
-  console.log(routeActive);
-
   return (
     <div className="breadcrumb">
       <ul className={`breadcrumb__list ${cls.breadcrumb__list}`}>

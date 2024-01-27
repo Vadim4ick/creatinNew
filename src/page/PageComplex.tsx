@@ -28,7 +28,7 @@ const PageComplex = ({
 }) => {
   const [complexId, setComplexId] = useState(id);
 
-  const { setActiveOffers, activeOffers } = useContext(
+  const { setActiveOffers, setActiveComplex } = useContext(
     ActiveOfferProviderContext
   );
 
@@ -57,18 +57,16 @@ const PageComplex = ({
     }
   }, [data]);
 
+  useEffect(() => {
+    setActiveComplex(true);
+
+    return () => setActiveComplex(false);
+  }, [data]);
+
   useIntersectionObserver({
     refs: [refSection],
     once: true,
   });
-
-  useEffect(() => {
-    const className = document.querySelector(".page__container");
-
-    className?.classList.add("page__container--sidebar");
-
-    return () => className?.classList.remove("page__container--sidebar");
-  }, [activeOffers]);
 
   return (
     <ServiceLayout
@@ -77,7 +75,7 @@ const PageComplex = ({
       serviceId={complexId}
       setId={setComplexId}
       footer={complex?.footer}
-      containerClass={"page__container--sidebar"}
+      // containerClass={"page__container--sidebar"}
       BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
     >
       <div className="page__base">

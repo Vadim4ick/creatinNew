@@ -25,6 +25,7 @@ import { useGetOffersPage } from "@/shared/services/offers";
 import { classNames } from "@/shared/lib";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
+import { usePathname } from "next/navigation";
 
 export interface IndexDateState {
   id: string;
@@ -67,13 +68,22 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 
   const isDesktop = useMedia("(max-width: 1200px)");
 
-  const { activeOffers, setActiveOffers } = useContext(
+  const { activeOffers, setActiveOffers, activeComplex } = useContext(
     ActiveOfferProviderContext
   );
 
   const ref = useRef<HTMLElement | null>(null);
 
+  // const pathname = usePathname();
+
   const onChange = (id: string) => {
+    // if (
+    //   pathname.split("/")[1] === "services" &&
+    //   pathname.split("/")[2] === "complex"
+    // ) {
+    //   setActiveComplex(true);
+    // }
+
     setId(id);
     setActiveOffers(null);
     sessionStorage.clear();
@@ -154,7 +164,15 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
       {BugerMenu && isDesktop.matches && <BugerMenu />}
 
       <main ref={ref} className={classNames("page", {}, [mainClass])}>
-        <div className={classNames("page__container", {}, [containerClass])}>
+        <div
+          className={classNames(
+            "page__container",
+            {
+              "page__container--sidebar": activeComplex,
+            },
+            [containerClass]
+          )}
+        >
           {!isDesktop.matches && (
             <Sidebar
               active={serviceId}

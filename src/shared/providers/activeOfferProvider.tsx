@@ -17,6 +17,8 @@ export type ActiveOffers = "offer" | "complex";
 interface ActiveOfferContext {
   setActiveOffers: Dispatch<SetStateAction<ActiveOffers | null>>;
   activeOffers: ActiveOffers | null;
+  setActiveComplex: Dispatch<SetStateAction<boolean>>;
+  activeComplex: boolean;
 }
 
 export const ActiveOfferProviderContext = createContext(
@@ -33,12 +35,16 @@ const ActiveOfferProvider = ({ children }: { children: ReactNode }) => {
       null
   );
 
+  const [activeComplex, setActiveComplex] = useState(false);
+
   const defaultProps = useMemo(
     () => ({
       activeOffers,
       setActiveOffers,
+      setActiveComplex,
+      activeComplex,
     }),
-    [activeOffers]
+    [activeOffers, activeComplex]
   );
 
   return (

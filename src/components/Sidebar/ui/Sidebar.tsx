@@ -2,7 +2,7 @@
 
 import { classNames } from "@/shared/lib";
 import { CustomLink } from "@/shared/ui/Link";
-import { Dispatch, SetStateAction, memo, useContext } from "react";
+import { Dispatch, SetStateAction, memo, useContext, useEffect } from "react";
 import cls from "./Sidebar.module.scss";
 import Image from "next/image";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
@@ -12,7 +12,8 @@ import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { BtnArrow } from "@/shared/icons/BtnArrow";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 
 export interface SidebarItems {
   readonly id: string;
@@ -53,9 +54,9 @@ const Sidebar = memo((props: SidebarProps) => {
     setInputIds,
   } = props;
 
-  const router = useRouter();
-
   const { onClickPopup } = useContext(PopupProviderContext);
+
+  const { setActiveComplex } = useContext(ActiveOfferProviderContext);
 
   return (
     <aside className="sidebar">
@@ -136,6 +137,8 @@ const Sidebar = memo((props: SidebarProps) => {
           <button
             onClick={() => {
               setActiveOffers("offer");
+
+              setActiveComplex(false);
 
               sessionStorage.setItem(
                 STORAGE_KEYS.ACTIVE_OFFER,
