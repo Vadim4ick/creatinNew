@@ -86,12 +86,17 @@ const Vacancies = ({
 
                     <div className="vacancies-text__btn btn btn--whte">
                       {vacancy.btnLink && (
-                        <Link href={vacancy.btnLink} className="btn__text">
+                        <a
+                          href={vacancy.btnLink}
+                          target="_blank"
+                          className="btn__text"
+                        >
                           Откликнуться
-                        </Link>
+                        </a>
                       )}
                       {vacancy.telegrammLink && (
-                        <Link
+                        <a
+                          target="_blank"
                           href={vacancy.telegrammLink}
                           className="btn__arrow"
                         >
@@ -107,7 +112,7 @@ const Vacancies = ({
                               fill="#656565"
                             />
                           </svg>
-                        </Link>
+                        </a>
                       )}
                     </div>
                   </div>
