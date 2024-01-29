@@ -5,7 +5,6 @@ import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { Spoller } from "@/shared/ui/Spoller";
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 import ReactMarkdown from "react-markdown";
 

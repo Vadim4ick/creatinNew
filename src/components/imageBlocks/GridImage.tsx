@@ -14,32 +14,37 @@ const GridImage = memo((props: { content: ComponentImageBlocksGridImage }) => {
           "project__image--big": content.selectStreech[0] === "left",
         })}
       >
-        <Image
+        {/* <Image
           alt=""
           src={getFileUrl(content.oneImage.data.attributes.url)}
           width={content.oneImage.data.attributes.width}
           height={content.oneImage.data.attributes.height}
-        />
+        /> */}
+
+        <img src={getFileUrl(content.oneImage.data.attributes.url)} />
       </div>
       <div
         className={classNames("project__image", {
           "project__image--big": content.selectStreech[0] === "right",
         })}
       >
-        <Image
+        {/* <Image
           alt=""
           src={getFileUrl(content.twoImage.data.attributes.url)}
           width={content.twoImage.data.attributes.width}
           height={content.twoImage.data.attributes.height}
-        />
+        /> */}
+        <img src={getFileUrl(content.twoImage.data.attributes.url)} />
       </div>
       <div className={classNames("project__image", {})}>
-        <Image
+        {/* <Image
           alt=""
           src={getFileUrl(content.threeImage.data.attributes.url)}
           width={content.threeImage.data.attributes.width}
           height={content.threeImage.data.attributes.height}
-        />
+        /> */}
+
+        <img src={getFileUrl(content.threeImage.data.attributes.url)} />
       </div>
     </div>
   );
