@@ -15,6 +15,7 @@ import { classNames } from "@/shared/lib";
 import { useRouter } from "next/navigation";
 import cls from "./BurgerPortfolio.module.scss";
 import { SendTaskBtn } from "../../SendTaskBtn";
+import cls2 from "./../index.module.scss";
 
 interface BurgerPortfolioProps {
   SubMenuName: string;
@@ -149,7 +150,9 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
                   }
                 }}
                 title="Вернуться на предыдущую страницу"
-                className={classNames("mobile-menu__back has-alt-icon", {}, [])}
+                className={classNames("mobile-menu__back has-alt-icon", {}, [
+                  cls2.burger,
+                ])}
                 style={{
                   // @ts-ignore
                   "--icon": "url(/img/icons/back.svg)",
@@ -168,7 +171,10 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
                 }
                 type="button"
                 title="Показать подменю услуг"
-                className={classNames("mobile-menu__link btn", {}, [cls.btn])}
+                className={classNames("mobile-menu__link btn", {}, [
+                  cls.btn,
+                  cls2.btn,
+                ])}
                 disabled={!sortingId.length && subMenuActive ? true : false}
               >
                 {subMenuActive ? "Сортировать" : SubMenuName}
@@ -179,7 +185,7 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
                 onClick={undefined}
                 type="button"
                 title="Показать подменю услуг"
-                className="mobile-menu__link btn"
+                className={classNames("mobile-menu__link btn", {}, [cls2.btn])}
               >
                 Контакты
               </button>
@@ -192,7 +198,7 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
               onClick={toggleMenu}
               type="button"
               title="Показать меню навигации"
-              className="mobile-menu__burger"
+              className={classNames("mobile-menu__burger", {}, [cls2.burger])}
               data-trigger="nav"
             >
               <span></span>

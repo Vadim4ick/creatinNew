@@ -9,7 +9,7 @@ import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvid
 import { useRouter } from "next/navigation";
 import { Menu } from "../Menu";
 import { SendTaskBtn } from "../../SendTaskBtn";
-import { Loader } from "@/shared/ui/Loader/Loader";
+import cls from "./../index.module.scss";
 
 interface BurgerServicesProps {
   SubMenuName: string;
@@ -210,7 +210,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
                 className={classNames(
                   "mobile-menu__back has-alt-icon trigger-active",
                   {},
-                  []
+                  [cls.burger]
                 )}
                 style={{
                   // @ts-ignore
@@ -226,7 +226,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
                 onClick={onToggleSubMenu}
                 type="button"
                 title="Показать подменю услуг"
-                className="mobile-menu__link btn"
+                className={classNames("mobile-menu__link btn", {}, [cls.btn])}
               >
                 {activeOffers !== null ? "Услуги" : SubMenuName}
               </button>
@@ -236,7 +236,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
                 onClick={undefined}
                 type="button"
                 title="Показать подменю услуг"
-                className="mobile-menu__link btn"
+                className={classNames("mobile-menu__link btn", {}, [cls.btn])}
               >
                 Контакты
               </button>
@@ -249,7 +249,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
               onClick={toggleMenu}
               type="button"
               title="Показать меню навигации"
-              className="mobile-menu__burger"
+              className={classNames("mobile-menu__burger", {}, [cls.burger])}
               data-trigger="nav"
             >
               <span></span>

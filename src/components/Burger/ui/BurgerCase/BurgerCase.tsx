@@ -5,6 +5,7 @@ import { Menu } from "../Menu";
 import { classNames } from "@/shared/lib";
 import { useRouter } from "next/navigation";
 import { SendTaskBtn } from "../../SendTaskBtn";
+import cls from "./../index.module.scss";
 
 interface BurgerCaseProps {
   SubMenuName: string;
@@ -114,7 +115,9 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
                   }
                 }}
                 title="Вернуться на предыдущую страницу"
-                className={classNames("mobile-menu__back has-alt-icon", {}, [])}
+                className={classNames("mobile-menu__back has-alt-icon", {}, [
+                  cls.burger,
+                ])}
                 style={{
                   // @ts-ignore
                   "--icon": "url(/img/icons/back.svg)",
@@ -129,7 +132,7 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
                 onClick={subMenuActive ? onClick : onToggleSubMenu}
                 type="button"
                 title="Показать подменю услуг"
-                className={classNames("mobile-menu__link btn", {}, [])}
+                className={classNames("mobile-menu__link btn", {}, [cls.btn])}
               >
                 {subMenuActive ? "Следующий проект" : SubMenuName}
               </button>
@@ -139,7 +142,7 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
                 onClick={undefined}
                 type="button"
                 title="Показать подменю услуг"
-                className="mobile-menu__link btn"
+                className={classNames("mobile-menu__link btn", {}, [cls.btn])}
               >
                 Контакты
               </button>
@@ -152,7 +155,7 @@ const BurgerCase = memo((props: BurgerCaseProps) => {
               onClick={toggleMenu}
               type="button"
               title="Показать меню навигации"
-              className="mobile-menu__burger"
+              className={classNames("mobile-menu__burger", {}, [cls.burger])}
               data-trigger="nav"
             >
               <span></span>

@@ -258,7 +258,10 @@ const FormSend = memo((props: FormSendProps) => {
             </Button>
 
             <div className="form__comment">
-              Нажимая кнопку, вы соглашаетесь на обработку персональных данных
+              Нажимая кнопку, вы соглашаетесь на{" "}
+              <a href="/policy.pdf" download>
+                обработку персональных данных
+              </a>
             </div>
 
             <div className="form__sended">

@@ -6,6 +6,8 @@ import { Menu } from "../Menu";
 import { useGetServicesNames } from "@/shared/services/servicesName";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 import { SendTaskBtn } from "../../SendTaskBtn";
+import cls from "./../index.module.scss";
+import { classNames } from "@/shared/lib";
 
 interface BurgerProps {
   SubMenuName?: string;
@@ -119,7 +121,9 @@ const Burger = (props: BurgerProps) => {
                   sendTaskBtnRef.current?.classList.add("trigger-active");
                 }}
                 title="Вернуться на предыдущую страницу"
-                className={"mobile-menu__back has-alt-icon"}
+                className={classNames("mobile-menu__back has-alt-icon", {}, [
+                  cls.burger,
+                ])}
                 style={{
                   // @ts-ignore
                   "--icon": "url(/img/icons/back.svg)",
@@ -133,7 +137,7 @@ const Burger = (props: BurgerProps) => {
               onClick={activeContacts ? undefined : onToggleSubMenu}
               type="button"
               title="Показать подменю услуг"
-              className="mobile-menu__link btn"
+              className={classNames("mobile-menu__link btn", {}, [cls.btn])}
             >
               {activeContacts ? "Контакты" : SubMenuName}
             </button>
@@ -145,7 +149,7 @@ const Burger = (props: BurgerProps) => {
               onClick={toggleMenu}
               type="button"
               title="Показать меню навигации"
-              className="mobile-menu__burger"
+              className={classNames("mobile-menu__burger", {}, [cls.burger])}
               data-trigger="nav"
             >
               <span></span>

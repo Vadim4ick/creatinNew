@@ -8,6 +8,7 @@ import { classNames } from "@/shared/lib";
 import { useRouter } from "next/navigation";
 import { useGetServicesNames } from "@/shared/services/servicesName";
 import { SendTaskBtn } from "../../SendTaskBtn";
+import cls from "./../index.module.scss";
 
 interface BurgerServiceCollectionProps {
   SubMenuName: string;
@@ -149,7 +150,9 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
                   }
                 }}
                 title="Вернуться на предыдущую страницу"
-                className={classNames("mobile-menu__back has-alt-icon", {}, [])}
+                className={classNames("mobile-menu__back has-alt-icon", {}, [
+                  cls.burger,
+                ])}
                 style={{
                   // @ts-ignore
                   "--icon": "url(/img/icons/back.svg)",
@@ -170,7 +173,7 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
                 className={classNames(
                   "mobile-menu__back has-alt-icon trigger-active",
                   {},
-                  []
+                  [cls.burger]
                 )}
                 style={{
                   // @ts-ignore
@@ -186,7 +189,7 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
                 onClick={onToggleSubMenu}
                 type="button"
                 title="Показать подменю услуг"
-                className="mobile-menu__link btn"
+                className={classNames("mobile-menu__link btn", {}, [cls.btn])}
               >
                 {!submenuParent ? SubMenuName : "Услуги"}
               </button>
@@ -196,7 +199,7 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
                 onClick={undefined}
                 type="button"
                 title="Показать подменю услуг"
-                className="mobile-menu__link btn"
+                className={classNames("mobile-menu__link btn", {}, [cls.btn])}
               >
                 Контакты
               </button>
@@ -209,7 +212,7 @@ const BurgerServiceCollection = (props: BurgerServiceCollectionProps) => {
               onClick={toggleMenu}
               type="button"
               title="Показать меню навигации"
-              className="mobile-menu__burger"
+              className={classNames("mobile-menu__burger", {}, [cls.burger])}
               data-trigger="nav"
             >
               <span></span>

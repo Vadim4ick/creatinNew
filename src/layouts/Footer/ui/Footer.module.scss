@@ -2,12 +2,19 @@
   overflow: visible !important;
 }
 
-// .title {
-//   // overflow-wrap: break-word;
-//   font-size: 76px !important;
-// }
+@media (min-width: 1350px) {
+  .title {
+    font-size: 76px !important;
+  }
 
-// .row {
-//   max-width: 700px !important;
-//   direction: rtl;
-// }
+  .row {
+    max-width: 700px !important;
+    direction: rtl;
+  }
+}
+
+@media (max-width: 1350px) {
+  .title {
+    overflow-wrap: break-word;
+  }
+}
