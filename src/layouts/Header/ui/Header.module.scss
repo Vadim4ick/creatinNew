@@ -1,0 +1,17 @@
+.darkItem {
+  background: #2c2c2c !important;
+}
+
+.darkList {
+  overflow: hidden;
+  background-color: black !important;
+
+  li a {
+    @media (any-hover: hover) {
+      &:hover {
+        background: #caff00 !important;
+        color: black !important;
+      }
+    }
+  }
+}

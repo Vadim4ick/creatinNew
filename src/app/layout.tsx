@@ -13,6 +13,7 @@ import { FormSendPopup } from "./_section/FormSend/ui/FormSendPopup/FormSendPopu
 import { PopupProvider } from "@/shared/providers/popupProvider";
 import { HomePreloaderContextProvider } from "@/shared/providers/homePreloader";
 import { BannerAnimationContextProvider } from "@/shared/providers/bannerAnimationProvider";
+import { DarkProviderContextProvider } from "@/shared/providers/darkProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -43,11 +44,13 @@ export default async function RootLayout({
                 <PopupProvider>
                   <HomePreloaderContextProvider>
                     <BannerAnimationContextProvider>
-                      <Header header={header.data.attributes} />
+                      <DarkProviderContextProvider>
+                        <Header header={header.data.attributes} />
 
-                      {children}
+                        {children}
 
-                      <FormSendPopup />
+                        <FormSendPopup />
+                      </DarkProviderContextProvider>
                     </BannerAnimationContextProvider>
                   </HomePreloaderContextProvider>
                 </PopupProvider>

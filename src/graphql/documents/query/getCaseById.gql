@@ -8,6 +8,8 @@ query GetCaseById($id: ID) {
 
         mobileName
 
+        backround
+
         content {
           ... on ComponentImageBlocksOneImage {
             idBlock

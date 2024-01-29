@@ -16,8 +16,9 @@ import {
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import { getRouteCase } from "@/shared/const/pages";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { DarkProviderContext } from "@/shared/providers/darkProvider";
 import { useRouter } from "next/navigation";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useContext, useEffect, useState } from "react";
 
 type DoubleImage = ComponentImageBlocksDoubleImage;
 type GridImage = ComponentImageBlocksGridImage;
@@ -28,6 +29,7 @@ type CaseContent = {
   readonly content: (DoubleImage | GridImage | OneImage | TextImage)[];
   readonly Footer: FooterFragmentFragment;
   readonly mobileName: string;
+  readonly backround: ["black"] | ["white"];
 };
 
 const PageCase = memo(
@@ -43,7 +45,24 @@ const PageCase = memo(
     const router = useRouter();
     const [currentId] = useState<number>(parseInt(id));
 
+    // const { header: headerContext } = useContext(DarkProviderContext);
+    const { setDarkTheme } = useContext(DarkProviderContext);
+
     const isDesktop = useMedia("(max-width: 1200px)");
+
+    useEffect(() => {
+      if (caseContent.backround[0] === "black") {
+        setDarkTheme(true);
+        document.body.classList.add("bodyBlack");
+        document.querySelector("header")!.classList.add("headerBlack");
+      }
+
+      return () => {
+        document.body.classList.remove("bodyBlack");
+        document.querySelector("header")!.classList.remove("headerBlack");
+        setDarkTheme(false);
+      };
+    }, []);
 
     const onClick = useCallback(() => {
       let nextId = String(currentId + 1);

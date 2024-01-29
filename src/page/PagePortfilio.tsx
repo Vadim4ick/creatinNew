@@ -48,7 +48,9 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
         items={caseNames}
         isLoading={false}
         setId={setId}
-        footer={cases && cases[0].attributes.Footer}
+        footer={
+          cases && cases?.length !== 0 ? cases[0].attributes.Footer : undefined
+        }
         BugerMenu={() => (
           <BurgerPortfolio
             title="Сортировать по направлениям"

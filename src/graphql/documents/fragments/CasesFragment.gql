@@ -16,7 +16,7 @@ fragment CaseFragment on Case {
     }
   }
 
-  case_name {
+  case_names {
     data {
       attributes {
         name

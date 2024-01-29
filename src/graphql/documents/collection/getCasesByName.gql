@@ -1,5 +1,5 @@
 query GetCasesByNameIds($ids: [ID]) {
-  cases(filters: { case_name: { id: { in: $ids } } }) {
+  cases(filters: { case_names: { id: { in: $ids } } }) {
     data {
       id
       attributes {
