@@ -2,6 +2,59 @@
   overflow: visible !important;
 }
 
+.dark {
+  background: #222222 !important;
+
+  @media (any-hover: hover) {
+    &:hover {
+      // background: #caff00 !important;
+
+      // &::before {
+      //   background: #caff00 !important;
+      // }
+
+      span {
+        &::after {
+          content: "";
+          background: #caff00 !important;
+        }
+      }
+    }
+  }
+
+  span {
+    background: #181818 !important;
+
+    &::before {
+      content: "";
+      background: #222222 !important;
+    }
+
+    &::after {
+      content: "";
+      background: #222222 !important;
+    }
+  }
+
+  button {
+    @media (any-hover: hover) {
+      &:hover {
+        background: #caff00 !important;
+
+        svg path {
+          fill: black !important;
+        }
+      }
+    }
+  }
+
+  &::before {
+    content: "";
+
+    background: #222222 !important;
+  }
+}
+
 @media (min-width: 1350px) {
   .title {
     font-size: 76px !important;

@@ -45,8 +45,7 @@ const PageCase = memo(
     const router = useRouter();
     const [currentId] = useState<number>(parseInt(id));
 
-    // const { header: headerContext } = useContext(DarkProviderContext);
-    const { setDarkTheme } = useContext(DarkProviderContext);
+    const { darkTheme, setDarkTheme } = useContext(DarkProviderContext);
 
     const isDesktop = useMedia("(max-width: 1200px)");
 
@@ -59,6 +58,7 @@ const PageCase = memo(
 
       return () => {
         document.body.classList.remove("bodyBlack");
+
         document.querySelector("header")!.classList.remove("headerBlack");
         setDarkTheme(false);
       };

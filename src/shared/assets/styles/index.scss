@@ -31,3 +31,11 @@
 .headerBlack {
   background: #1b1b1b;
 }
+
+.bodyBlack .project__head {
+  @media (any-hover: hover) {
+    &:hover {
+      background: #222222 !important;
+    }
+  }
+}

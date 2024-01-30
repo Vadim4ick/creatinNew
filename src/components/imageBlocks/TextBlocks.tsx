@@ -57,7 +57,7 @@ const TextBlock = memo((props: { content: ComponentImageBlocksTextBlock }) => {
   if (content.selectType[0] === "infoBlock") {
     return (
       <div className="project__head">
-        <SplitTypeAnimation bg="#aaaaaa" fg="#181818" refChar={infoBlockRef}>
+        <SplitTypeAnimation bg={"#aaaaaa"} fg="#181818" refChar={infoBlockRef}>
           <h2
             ref={infoBlockRef}
             className={classNames("project__title", {}, [cls.infoBlockTitle])}
@@ -113,20 +113,18 @@ const TextBlock = memo((props: { content: ComponentImageBlocksTextBlock }) => {
             components={{
               p: ({ children }) => {
                 return (
-                  <>
-                    <span>
-                      {children
-                        ?.toString()
-                        .split(",\n")
-                        .map((line, index) => (
-                          <React.Fragment key={index}>
-                            {line}
-                            {/* @ts-ignore */}
-                            {index < children.length - 1 && <br />}
-                          </React.Fragment>
-                        ))}
-                    </span>
-                  </>
+                  <span>
+                    {children
+                      ?.toString()
+                      .split(",\n")
+                      .map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          {/* @ts-ignore */}
+                          {index < children.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                  </span>
                 );
               },
             }}

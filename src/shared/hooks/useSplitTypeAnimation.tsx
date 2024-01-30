@@ -1,8 +1,9 @@
-import { MutableRefObject, useEffect } from "react";
+import { MutableRefObject, useContext, useEffect } from "react";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+import { DarkProviderContext } from "../providers/darkProvider";
 
 const SplitTypeAnimation = ({
   children,
@@ -15,6 +16,8 @@ const SplitTypeAnimation = ({
   bg: string;
   fg: string;
 }) => {
+  const { darkTheme } = useContext(DarkProviderContext);
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -41,10 +44,10 @@ const SplitTypeAnimation = ({
       gsap.fromTo(
         allChars,
         {
-          color: bg,
+          color: darkTheme ? "#181818" : bg,
         },
         {
-          color: fg,
+          color: darkTheme ? "#ffffff" : fg,
           //   duration: 0.3,
           //   stagger: 0.02,
           duration: 0.3,
@@ -62,7 +65,7 @@ const SplitTypeAnimation = ({
         }
       );
     }
-  }, [bg, fg, refChar]);
+  }, [bg, fg, refChar, darkTheme]);
 
   return children;
 };
