@@ -64,24 +64,40 @@ const PageCase = memo(
       };
     }, []);
 
+    // const onClick = useCallback(() => {
+    //   let nextId = String(currentId + 1);
+
+    //   // Предварительная сортировка массива ids по возрастанию
+    //   // @ts-ignore
+    //   // const newIds = ids.toSorted(
+    //   //   (a: { id: string }, b: { id: string }) =>
+    //   //     parseInt(a.id) - parseInt(b.id)
+    //   // );
+
+    //   // Проверка, есть ли id в отсортированном массиве ids
+    //   if (ids.some((item) => item.id === nextId)) {
+    //     router.push(getRouteCase(nextId));
+    //   } else {
+    //     // Возвращение к первому элементу в массиве, если id не найден
+    //     router.push(getRouteCase(ids[0].id));
+    //   }
+    // }, [currentId, ids, router]);
+
     const onClick = useCallback(() => {
-      let nextId = String(currentId + 1);
+      // Находим индекс текущего id в массиве
+      const currentIndex = ids.findIndex(
+        (item) => item.id === String(currentId)
+      );
 
-      // Предварительная сортировка массива ids по возрастанию
-      // @ts-ignore
-      // const newIds = ids.toSorted(
-      //   (a: { id: string }, b: { id: string }) =>
-      //     parseInt(a.id) - parseInt(b.id)
-      // );
-
-      // Проверка, есть ли id в отсортированном массиве ids
-      if (ids.some((item) => item.id === nextId)) {
+      if (currentIndex !== -1 && currentIndex < ids.length - 1) {
+        // Если текущий id найден и не является последним элементом, переключаемся на следующий id
+        const nextId = ids[currentIndex + 1].id;
         router.push(getRouteCase(nextId));
       } else {
-        // Возвращение к первому элементу в массиве, если id не найден
+        // Если текущий id последний или не найден, возвращаемся к первому элементу в массиве
         router.push(getRouteCase(ids[0].id));
       }
-    }, [currentId, ids, router]);
+    }, [currentId, ids, router, getRouteCase]);
 
     useEffect(() => {
       document.documentElement.setAttribute(
