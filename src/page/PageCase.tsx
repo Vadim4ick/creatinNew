@@ -2,11 +2,13 @@
 
 import { BurgerCase } from "@/components/Burger/ui/BurgerCase/BurgerCase";
 import { DoubleImage } from "@/components/imageBlocks/DoubleImage";
+import { DoubleTextBlocks } from "@/components/imageBlocks/DoubleTextBlocks";
 import { GridImage } from "@/components/imageBlocks/GridImage";
 import { OneImage } from "@/components/imageBlocks/OneImage";
 import { TextBlock } from "@/components/imageBlocks/TextBlocks";
 import {
   ComponentImageBlocksDoubleImage,
+  ComponentImageBlocksDoubleTextBlocks,
   ComponentImageBlocksGridImage,
   ComponentImageBlocksOneImage,
   ComponentImageBlocksTextBlock,
@@ -24,9 +26,16 @@ type DoubleImage = ComponentImageBlocksDoubleImage;
 type GridImage = ComponentImageBlocksGridImage;
 type OneImage = ComponentImageBlocksOneImage;
 type TextImage = ComponentImageBlocksTextBlock;
+type DoubleTextBlocks = ComponentImageBlocksDoubleTextBlocks;
 
 type CaseContent = {
-  readonly content: (DoubleImage | GridImage | OneImage | TextImage)[];
+  readonly content: (
+    | DoubleImage
+    | GridImage
+    | OneImage
+    | TextImage
+    | DoubleTextBlocks
+  )[];
   readonly Footer: FooterFragmentFragment;
   readonly mobileName: string;
   readonly backround: ["black"] | ["white"];
@@ -146,6 +155,13 @@ const PageCase = memo(
                     <TextBlock
                       key={el.idBlock + el.id}
                       content={el as TextImage}
+                    />
+                  );
+                } else if (el.idBlock === "doubleTextBlocks") {
+                  return (
+                    <DoubleTextBlocks
+                      key={el.idBlock + el.id}
+                      content={el as DoubleTextBlocks}
                     />
                   );
                 }

@@ -72,7 +72,7 @@ export type CaseCase_NamesArgs = {
   sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type CaseContentDynamicZone = ComponentImageBlocksDoubleImage | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | Error;
+export type CaseContentDynamicZone = ComponentImageBlocksDoubleImage | ComponentImageBlocksDoubleTextBlocks | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | Error;
 
 export type CaseEntity = {
   readonly __typename?: 'CaseEntity';
@@ -539,7 +539,6 @@ export type ComponentElementsIntroCard = {
   readonly id: Scalars['ID']['output'];
   readonly info: Maybe<Scalars['String']['output']>;
   readonly selectClass: Scalars['JSON']['output'];
-  readonly test: Maybe<Scalars['String']['output']>;
   readonly title: Scalars['String']['output'];
 };
 
@@ -549,7 +548,6 @@ export type ComponentElementsIntroCardFiltersInput = {
   readonly not: InputMaybe<ComponentElementsIntroCardFiltersInput>;
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<ComponentElementsIntroCardFiltersInput>>>;
   readonly selectClass: InputMaybe<JsonFilterInput>;
-  readonly test: InputMaybe<StringFilterInput>;
   readonly title: InputMaybe<StringFilterInput>;
 };
 
@@ -557,7 +555,6 @@ export type ComponentElementsIntroCardInput = {
   readonly id: InputMaybe<Scalars['ID']['input']>;
   readonly info: InputMaybe<Scalars['String']['input']>;
   readonly selectClass: InputMaybe<Scalars['JSON']['input']>;
-  readonly test: InputMaybe<Scalars['String']['input']>;
   readonly title: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -653,6 +650,18 @@ export type ComponentImageBlocksDoubleImage = {
   readonly idBlock: Scalars['String']['output'];
   readonly imageOne: UploadFileEntityResponse;
   readonly imageTwo: Maybe<UploadFileEntityResponse>;
+};
+
+export type ComponentImageBlocksDoubleTextBlocks = {
+  readonly __typename?: 'ComponentImageBlocksDoubleTextBlocks';
+  readonly id: Scalars['ID']['output'];
+  readonly idBlock: Scalars['String']['output'];
+  readonly newDescription: Scalars['String']['output'];
+  readonly newLogo: Maybe<UploadFileEntityResponse>;
+  readonly newTitle: Scalars['String']['output'];
+  readonly oldDescription: Scalars['String']['output'];
+  readonly oldLogo: Maybe<UploadFileEntityResponse>;
+  readonly oldTitle: Scalars['String']['output'];
 };
 
 export type ComponentImageBlocksGridImage = {
@@ -1005,14 +1014,13 @@ export type FormFeedbackInput = {
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type GenericMorph = Case | CaseName | Complex | ComplexAccompany | ComponentBlocksIncludesHover | ComponentComponentsComplexComponent | ComponentComponentsFooter | ComponentComponentsHomeBanner | ComponentComponentsOfferComponent | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIncludesContent | ComponentElementsIntroCard | ComponentElementsOffer | ComponentElementsTitle | ComponentElementsVacancy | ComponentImageBlocksDoubleImage | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ComponentUiMobileLink | FormFeedback | Header | HomePage | I18NLocale | IncludesBlock | MobileNavigation | Offer | OffersPage | Partner | PortfolioPage | SeoCollectionService | SeoComplexPage | SeoOffersPage | Service | ServiceCollection | ServiceName | ServicesPage | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Case | CaseName | Complex | ComplexAccompany | ComponentBlocksIncludesHover | ComponentComponentsComplexComponent | ComponentComponentsFooter | ComponentComponentsHomeBanner | ComponentComponentsOfferComponent | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIncludesContent | ComponentElementsIntroCard | ComponentElementsOffer | ComponentElementsTitle | ComponentElementsVacancy | ComponentImageBlocksDoubleImage | ComponentImageBlocksDoubleTextBlocks | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ComponentUiMobileLink | FormFeedback | Header | HomePage | I18NLocale | IncludesBlock | MobileNavigation | Offer | OffersPage | Partner | PortfolioPage | SeoCollectionService | SeoComplexPage | SeoOffersPage | Service | ServiceCollection | ServiceName | ServicesPage | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   readonly __typename?: 'Header';
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
   readonly links: Maybe<ReadonlyArray<Maybe<ComponentUiLink>>>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly title: Maybe<Scalars['String']['output']>;
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -1037,7 +1045,6 @@ export type HeaderEntityResponse = {
 export type HeaderInput = {
   readonly links: InputMaybe<ReadonlyArray<InputMaybe<ComponentUiLinkInput>>>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
-  readonly title: InputMaybe<Scalars['String']['input']>;
 };
 
 export type HomePage = {
@@ -1047,7 +1054,6 @@ export type HomePage = {
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
   readonly seo: Maybe<ComponentSharedSeo>;
-  readonly title: Maybe<Scalars['String']['output']>;
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -1075,7 +1081,6 @@ export type HomePageInput = {
   readonly cases: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
   readonly seo: InputMaybe<ComponentSharedSeoInput>;
-  readonly title: InputMaybe<Scalars['String']['input']>;
 };
 
 export type I18NLocale = {
@@ -2985,7 +2990,7 @@ export type GetCaseByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetCaseByIdQuery = { readonly __typename?: 'Query', readonly case: { readonly __typename?: 'CaseEntityResponse', readonly data: { readonly __typename?: 'CaseEntity', readonly attributes: { readonly __typename?: 'Case', readonly mobileName: string, readonly backround: any, readonly Footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } }, readonly content: ReadonlyArray<{ readonly __typename?: 'ComponentImageBlocksDoubleImage', readonly id: string, readonly idBlock: string, readonly imageTwo: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly imageOne: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } | { readonly __typename?: 'ComponentImageBlocksGridImage', readonly idBlock: string, readonly id: string, readonly selectStreech: any, readonly threeImage: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly twoImage: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly oneImage: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } | { readonly __typename?: 'ComponentImageBlocksOneImage', readonly idBlock: string, readonly id: string, readonly image: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } | { readonly __typename?: 'ComponentImageBlocksTextBlock', readonly id: string, readonly idBlock: string, readonly title: string, readonly description: string, readonly desctopMaxWidth: number, readonly selectType: any } | { readonly __typename?: 'Error' }> } } } };
+export type GetCaseByIdQuery = { readonly __typename?: 'Query', readonly case: { readonly __typename?: 'CaseEntityResponse', readonly data: { readonly __typename?: 'CaseEntity', readonly attributes: { readonly __typename?: 'Case', readonly mobileName: string, readonly backround: any, readonly Footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } }, readonly content: ReadonlyArray<{ readonly __typename?: 'ComponentImageBlocksDoubleImage', readonly id: string, readonly idBlock: string, readonly imageTwo: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly imageOne: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } | { readonly __typename?: 'ComponentImageBlocksDoubleTextBlocks', readonly id: string, readonly idBlock: string, readonly oldTitle: string, readonly oldDescription: string, readonly newTitle: string, readonly newDescription: string, readonly oldLogo: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly newLogo: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } | { readonly __typename?: 'ComponentImageBlocksGridImage', readonly idBlock: string, readonly id: string, readonly selectStreech: any, readonly threeImage: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly twoImage: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly oneImage: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } | { readonly __typename?: 'ComponentImageBlocksOneImage', readonly idBlock: string, readonly id: string, readonly image: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } | { readonly __typename?: 'ComponentImageBlocksTextBlock', readonly id: string, readonly idBlock: string, readonly title: string, readonly description: string, readonly desctopMaxWidth: number, readonly selectType: any } | { readonly __typename?: 'Error' }> } } } };
 
 export type GetCasesIdsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3022,7 +3027,7 @@ export type GetHeaderQuery = { readonly __typename?: 'Query', readonly header: {
 export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly title: string, readonly HomeBanner: { readonly __typename?: 'ComponentComponentsHomeBanner', readonly IntroCard: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIntroCard', readonly id: string, readonly title: string, readonly info: string, readonly selectClass: any }>, readonly bannerMasks: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly id: string, readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } }> }, readonly bannerMobile: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } }, readonly cases: { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } }> } } } } };
+export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly HomeBanner: { readonly __typename?: 'ComponentComponentsHomeBanner', readonly IntroCard: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIntroCard', readonly id: string, readonly title: string, readonly info: string, readonly selectClass: any }>, readonly bannerMasks: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly id: string, readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } }> }, readonly bannerMobile: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } }, readonly cases: { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } }> } } } } };
 
 export type GetOfferByIdQueryVariables = Exact<{
   id: InputMaybe<Scalars['ID']['input']>;
@@ -3611,6 +3616,28 @@ export const GetCaseByIdDocument = gql`
             desctopMaxWidth
             selectType
           }
+          ... on ComponentImageBlocksDoubleTextBlocks {
+            id
+            idBlock
+            oldTitle
+            oldDescription
+            newTitle
+            newDescription
+            oldLogo {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+            newLogo {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -3754,7 +3781,6 @@ export const GetHomePageDocument = gql`
   homePage {
     data {
       attributes {
-        title
         HomeBanner {
           ...GetHomeBanner
         }

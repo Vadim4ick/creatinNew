@@ -13,3 +13,139 @@
 .title {
   max-width: max-content !important;
 }
+
+// DOUBLE TEXT BLOCK
+
+.container {
+  padding: 148px 0;
+
+  @media (max-width: 767px) {
+    padding: 28px 0;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+
+  .text {
+    @media (min-width: 1250px) {
+      max-width: 700px !important;
+    }
+  }
+
+  &:first-child {
+    .image {
+      position: relative;
+
+      &::after {
+        content: "";
+        background-image: url("/img/arrowBottom.svg");
+        background-repeat: no-repeat;
+
+        height: 96px;
+        width: 57px;
+
+        @media (min-width: 1400px) {
+          transform: translate(-50%, 100%);
+        }
+
+        @media (max-width: 1400px) {
+          transform: translate(-50%, 130%);
+        }
+
+        @media (min-width: 1250px) {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+        }
+
+        @media (max-width: 1250px) {
+          display: block;
+          width: 100%;
+          transform: translate(0, 64px);
+          background-position: 50% 0;
+        }
+
+        @media (max-width: 767px) {
+          transform: translate(0, 2rem);
+        }
+      }
+    }
+  }
+
+  &:not(:first-child) {
+    @media (min-width: 1400px) {
+      padding-top: 8rem;
+    }
+
+    @media (max-width: 1400px) {
+      padding-top: 4rem;
+    }
+
+    @media (max-width: 767px) {
+      padding-top: 2rem;
+    }
+  }
+
+  &:first-child {
+    .content {
+      @media (min-width: 1400px) {
+        padding-bottom: 8rem;
+      }
+    }
+
+    .image {
+      @media (min-width: 1400px) {
+        padding-bottom: 8rem;
+      }
+
+      @media (max-width: 1400px) {
+        padding-bottom: 4rem;
+      }
+
+      @media (max-width: 767px) {
+        padding-bottom: 2rem;
+      }
+    }
+  }
+
+  .content {
+    @media (max-width: 1400px) {
+      padding-bottom: 4rem;
+    }
+    @media (max-width: 767px) {
+      padding-bottom: 2rem;
+    }
+  }
+
+  .image {
+    @media (min-width: 1250px) {
+      align-self: flex-end;
+    }
+
+    img {
+      height: 100%;
+      border-radius: 16px;
+      object-fit: cover;
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 1250px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+
+  @media (max-width: 767px) {
+    gap: 7px;
+  }
+}

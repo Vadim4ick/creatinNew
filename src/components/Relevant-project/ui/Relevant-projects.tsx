@@ -71,7 +71,7 @@ const RelevantProjects = memo((props: RelevantProjectsProps) => {
           swiper.allowSlideNext = true;
         },
 
-        reachEnd: onSwiperReachEnd,
+        reachEnd: cases.length > 1 ? onSwiperReachEnd : undefined,
       },
 
       breakpoints: {

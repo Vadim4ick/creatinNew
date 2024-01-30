@@ -2,8 +2,6 @@ query GetHomePage {
   homePage {
     data {
       attributes {
-        title
-
         HomeBanner {
           ...GetHomeBanner
         }
