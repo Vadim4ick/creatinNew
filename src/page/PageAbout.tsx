@@ -13,21 +13,34 @@ import {
   GetServicesNamesQuery,
   GetStudioQuery,
 } from "@/graphql/__generated__";
+import { gql } from "@/graphql/client";
 import { MainFooter } from "@/layouts";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { useQuery } from "@tanstack/react-query";
+import { notFound } from "next/navigation";
 import { useEffect } from "react";
 
 interface PageAboutProps {
   serviceNames: GetServicesNamesQuery["serviceNames"];
   partner: GetPartnersQuery["partner"];
   formFeedback: GetFormFeedbackQuery["formFeedback"];
-  studio: GetStudioQuery["studio"];
+  // studio: GetStudioQuery["studio"];
 }
 
+export const useGetStudio = () => {
+  return useQuery({
+    queryKey: ["Studio"],
+    queryFn: () => gql.GetStudio(),
+    refetchOnWindowFocus: false,
+  });
+};
+
 const PageAbout = (props: PageAboutProps) => {
-  const { formFeedback, serviceNames, partner, studio } = props;
+  const { formFeedback, serviceNames, partner } = props;
 
   const isDesktop = useMedia("(max-width: 1200px)");
+
+  const { data } = useGetStudio();
 
   useEffect(() => {
     document.documentElement.setAttribute(
@@ -36,22 +49,26 @@ const PageAbout = (props: PageAboutProps) => {
     );
   }, []);
 
+  if (!data?.studio.data) {
+    return notFound();
+  }
+
   return (
     <>
       {isDesktop.matches && <BurgerAbout SubMenuName="услуги" />}
 
       <main className="page">
-        {studio.data.attributes.video.data && (
+        {data.studio.data.attributes.video.data && (
           <Video
-            srcMedia={studio.data.attributes.video.data.attributes}
+            srcMedia={data.studio.data.attributes.video.data.attributes}
             className="video--about"
             container={true}
             animation={true}
           />
         )}
 
-        {studio.data.attributes.introCards && (
-          <About aboutSection={studio.data.attributes} />
+        {data.studio.data.attributes.introCards && (
+          <About aboutSection={data.studio.data.attributes} />
         )}
 
         {serviceNames.data && <Quality serviceNames={serviceNames.data} />}
@@ -60,8 +77,8 @@ const PageAbout = (props: PageAboutProps) => {
           <Partners partners={partner.data.attributes.partners} />
         )}
 
-        {studio.data.attributes.vacancies && (
-          <Vacancies vacancies={studio.data.attributes.vacancies} />
+        {data.studio.data.attributes.vacancies && (
+          <Vacancies vacancies={data.studio.data.attributes.vacancies} />
         )}
 
         {formFeedback.data.attributes.formFeedback && (
