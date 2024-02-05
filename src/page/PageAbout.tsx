@@ -13,10 +13,9 @@ import {
   GetServicesNamesQuery,
   GetStudioQuery,
 } from "@/graphql/__generated__";
-import { gql } from "@/graphql/client";
 import { MainFooter } from "@/layouts";
 import { useMedia } from "@/shared/hooks/useMedia";
-import { useQuery } from "@tanstack/react-query";
+import { useGetStudio } from "@/shared/services/getStudio";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
 
@@ -24,23 +23,13 @@ interface PageAboutProps {
   serviceNames: GetServicesNamesQuery["serviceNames"];
   partner: GetPartnersQuery["partner"];
   formFeedback: GetFormFeedbackQuery["formFeedback"];
-  // studio: GetStudioQuery["studio"];
+  studio: GetStudioQuery["studio"];
 }
 
-export const useGetStudio = () => {
-  return useQuery({
-    queryKey: ["Studio"],
-    queryFn: () => gql.GetStudio(),
-    refetchOnWindowFocus: false,
-  });
-};
-
 const PageAbout = (props: PageAboutProps) => {
-  const { formFeedback, serviceNames, partner } = props;
+  const { formFeedback, serviceNames, partner, studio } = props;
 
   const isDesktop = useMedia("(max-width: 1200px)");
-
-  const { data } = useGetStudio();
 
   useEffect(() => {
     document.documentElement.setAttribute(
@@ -48,6 +37,12 @@ const PageAbout = (props: PageAboutProps) => {
       '--font-primary: "Jeko-otf", Fallback'
     );
   }, []);
+
+  const { data, isLoading } = useGetStudio();
+
+  if (isLoading) {
+    return <div>load...</div>;
+  }
 
   if (!data?.studio.data) {
     return notFound();
@@ -58,7 +53,7 @@ const PageAbout = (props: PageAboutProps) => {
       {isDesktop.matches && <BurgerAbout SubMenuName="услуги" />}
 
       <main className="page">
-        {data.studio.data.attributes.video.data && (
+        {data?.studio.data.attributes.video.data && (
           <Video
             srcMedia={data.studio.data.attributes.video.data.attributes}
             className="video--about"
@@ -67,7 +62,7 @@ const PageAbout = (props: PageAboutProps) => {
           />
         )}
 
-        {data.studio.data.attributes.introCards && (
+        {data?.studio.data.attributes.introCards && (
           <About aboutSection={data.studio.data.attributes} />
         )}
 
@@ -77,7 +72,7 @@ const PageAbout = (props: PageAboutProps) => {
           <Partners partners={partner.data.attributes.partners} />
         )}
 
-        {data.studio.data.attributes.vacancies && (
+        {data?.studio.data.attributes.vacancies && (
           <Vacancies vacancies={data.studio.data.attributes.vacancies} />
         )}
 
