@@ -3360,7 +3360,7 @@ export const GetHomePartnersFragmentDoc = gql`
     ${MediaFragmentFragmentDoc}`;
 export const GetCasesByNameIdsDocument = gql`
     query GetCasesByNameIds($ids: [ID]) {
-  cases(filters: {case_names: {id: {in: $ids}}}) {
+  cases(filters: {case_names: {id: {in: $ids}}}, pagination: {limit: 25}) {
     data {
       id
       attributes {

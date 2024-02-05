@@ -529,8 +529,8 @@ body.popup-show::after {
 @font-face {
   font-family: "Jeko";
   src: url("/fonts/JekoMedium.eot") format("embedded-opentype"),
-    url("/fonts/JekoMedium.woff2") format("woff2"),
-    url("/fonts/JekoMedium.woff") format("woff"),
+    /* url("/fonts/JekoMedium.woff2") format("woff2"), */
+      url("/fonts/JekoMedium.woff") format("woff"),
     url("/fonts/JekoMedium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
@@ -541,8 +541,8 @@ body.popup-show::after {
 @font-face {
   font-family: "Jeko";
   src: url("/fonts/JekoRegular.eot") format("embedded-opentype"),
-    url("/fonts/JekoRegular.woff2") format("woff2"),
-    url("/fonts/JekoRegular.woff") format("woff"),
+    /* url("/fonts/JekoRegular.woff2") format("woff2"), */
+      url("/fonts/JekoRegular.woff") format("woff"),
     url("/fonts/JekoRegular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
@@ -553,8 +553,8 @@ body.popup-show::after {
 @font-face {
   font-family: "Jeko";
   src: url("/fonts/JekoSemiBold.eot") format("embedded-opentype"),
-    url("/fonts/JekoSemiBold.woff2") format("woff2"),
-    url("/fonts/JekoSemiBold.woff") format("woff"),
+    /* url("/fonts/JekoSemiBold.woff2") format("woff2"), */
+      url("/fonts/JekoSemiBold.woff") format("woff"),
     url("/fonts/JekoSemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
@@ -5173,7 +5173,8 @@ picture {
     max-width: 100%;
   }
   .video__item {
-    aspect-ratio: 350/188;width: 100%;
+    aspect-ratio: 350/188;
+    width: 100%;
     object-fit: cover;
     background: var(--color-bg) var(--icon) center center/74px 94px no-repeat;
   }
@@ -5184,7 +5185,8 @@ picture {
   .video__item picture,
   .video__item video {
     aspect-ratio: 350/188;
-    object-fit: cover;width: 100%;
+    object-fit: cover;
+    width: 100%;
   }
   .text-block__item {
     -webkit-box-orient: vertical;

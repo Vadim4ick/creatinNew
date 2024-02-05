@@ -54,24 +54,24 @@ const PageAbout = (props: PageAboutProps) => {
           <About aboutSection={studio.data.attributes} />
         )}
 
-        {serviceNames.data && <Quality serviceNames={serviceNames.data} />}
+        {/* {serviceNames.data && <Quality serviceNames={serviceNames.data} />}
 
         {partner.data.attributes.partners && (
           <Partners partners={partner.data.attributes.partners} />
-        )}
+        )} */}
 
-        {studio.data.attributes.vacancies && (
+        {/* {studio.data.attributes.vacancies && (
           <Vacancies vacancies={studio.data.attributes.vacancies} />
-        )}
+        )} */}
 
-        {formFeedback.data.attributes.formFeedback && (
+        {/* {formFeedback.data.attributes.formFeedback && (
           <FormSend
             className="callback--no-mb"
             form={formFeedback.data.attributes.formFeedback}
           />
         )}
 
-        <MainFooter className="footer--whte" />
+        <MainFooter className="footer--whte" /> */}
       </main>
     </>
   );
