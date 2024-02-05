@@ -36,14 +36,12 @@ const PageAbout = (props: PageAboutProps) => {
     );
   }, []);
 
-  console.log(JSON.stringify(studio, null, 2));
-
   return (
     <>
       {isDesktop.matches && <BurgerAbout SubMenuName="услуги" />}
 
       <main className="page">
-        {/* {studio.data.attributes.video.data && (
+        {studio.data.attributes.video.data && (
           <Video
             srcMedia={studio.data.attributes.video.data.attributes}
             className="video--about"
@@ -54,7 +52,7 @@ const PageAbout = (props: PageAboutProps) => {
 
         {studio.data.attributes.introCards && (
           <About aboutSection={studio.data.attributes} />
-        )} */}
+        )}
 
         {serviceNames.data && <Quality serviceNames={serviceNames.data} />}
 
@@ -62,18 +60,18 @@ const PageAbout = (props: PageAboutProps) => {
           <Partners partners={partner.data.attributes.partners} />
         )}
 
-        {/* {studio.data.attributes.vacancies && (
+        {studio.data.attributes.vacancies && (
           <Vacancies vacancies={studio.data.attributes.vacancies} />
-        )} */}
+        )}
 
-        {/* {formFeedback.data.attributes.formFeedback && (
+        {formFeedback.data.attributes.formFeedback && (
           <FormSend
             className="callback--no-mb"
             form={formFeedback.data.attributes.formFeedback}
           />
         )}
 
-        <MainFooter className="footer--whte" /> */}
+        <MainFooter className="footer--whte" />
       </main>
     </>
   );
