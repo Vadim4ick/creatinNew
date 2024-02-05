@@ -36,12 +36,14 @@ const PageAbout = (props: PageAboutProps) => {
     );
   }, []);
 
+  console.log(JSON.stringify(studio, null, 2));
+
   return (
     <>
       {isDesktop.matches && <BurgerAbout SubMenuName="услуги" />}
 
       <main className="page">
-        {studio.data.attributes.video.data && (
+        {/* {studio.data.attributes.video.data && (
           <Video
             srcMedia={studio.data.attributes.video.data.attributes}
             className="video--about"
@@ -52,13 +54,13 @@ const PageAbout = (props: PageAboutProps) => {
 
         {studio.data.attributes.introCards && (
           <About aboutSection={studio.data.attributes} />
-        )}
+        )} */}
 
-        {/* {serviceNames.data && <Quality serviceNames={serviceNames.data} />}
+        {serviceNames.data && <Quality serviceNames={serviceNames.data} />}
 
         {partner.data.attributes.partners && (
           <Partners partners={partner.data.attributes.partners} />
-        )} */}
+        )}
 
         {/* {studio.data.attributes.vacancies && (
           <Vacancies vacancies={studio.data.attributes.vacancies} />
