@@ -16,6 +16,7 @@ import {
 import { MainFooter } from "@/layouts";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useGetStudio } from "@/shared/services/getStudio";
+import { Loader } from "@/shared/ui/Loader/Loader";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
 
@@ -23,11 +24,11 @@ interface PageAboutProps {
   serviceNames: GetServicesNamesQuery["serviceNames"];
   partner: GetPartnersQuery["partner"];
   formFeedback: GetFormFeedbackQuery["formFeedback"];
-  studio: GetStudioQuery["studio"];
+  // studio: GetStudioQuery["studio"];
 }
 
 const PageAbout = (props: PageAboutProps) => {
-  const { formFeedback, serviceNames, partner, studio } = props;
+  const { formFeedback, serviceNames, partner } = props;
 
   const isDesktop = useMedia("(max-width: 1200px)");
 
@@ -41,7 +42,7 @@ const PageAbout = (props: PageAboutProps) => {
   const { data, isLoading } = useGetStudio();
 
   if (isLoading) {
-    return <div>load...</div>;
+    return <Loader />;
   }
 
   if (!data?.studio.data) {

@@ -34,6 +34,8 @@ export default async function RootLayout({
 }) {
   const { header } = await gql.GetHeader();
 
+  console.log(JSON.stringify(header, null, 2));
+
   return (
     <html lang="ru">
       <body>
