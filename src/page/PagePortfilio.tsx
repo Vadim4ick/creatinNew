@@ -6,10 +6,12 @@ import {
   GetCasesByNameIdsQuery,
   GetCasesNamesQuery,
 } from "@/graphql/__generated__";
+import { Footer } from "@/layouts/Footer/ui/Footer";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useGetCasesByNameId } from "@/shared/services/casesByNameId";
 import { Loader } from "@/shared/ui/Loader/Loader";
+import { useRouter } from "next/navigation";
 import { memo, useEffect, useState } from "react";
 
 interface PagePortfolioProps {
@@ -18,6 +20,8 @@ interface PagePortfolioProps {
 
 const PagePortfilio = memo((props: PagePortfolioProps) => {
   const { caseNames } = props;
+
+  const router = useRouter();
 
   const [caseIds, setCaseIds] = useState<string[]>([]);
   const [caseIdsForHook, setCaseIdsForHook] = useState<string[]>([]);
@@ -48,9 +52,9 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
         items={caseNames}
         isLoading={false}
         setId={setId}
-        footer={
-          cases && cases?.length !== 0 ? cases[0].attributes.Footer : undefined
-        }
+        // footer={
+        //   cases && cases?.length !== 0 ? cases[0].attributes.Footer : undefined
+        // }
         BugerMenu={() => (
           <BurgerPortfolio
             title="Сортировать по направлениям"
@@ -70,6 +74,14 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
           {cases && <CasesProtfolio cases={cases} />}
         </div>
       </ServiceLayout>
+
+      {cases && cases?.length !== 0 && (
+        <Footer
+          title={cases[0].attributes.title}
+          img={cases[0].attributes.imageMain.data.attributes}
+          callback={() => router.push(`portfolio/${cases[0].id}`)}
+        />
+      )}
     </>
   );
 });

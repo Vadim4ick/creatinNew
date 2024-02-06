@@ -5932,7 +5932,7 @@ picture {
   }
   .steps__item:hover {
     background: #e7e9ee;
-    padding-left: 44px;
+    transform: translate(10px, 0px);
   }
   .relevant__btn:hover {
     background: var(--color-alt);
@@ -5994,7 +5994,8 @@ picture {
   }
   .project__head:hover {
     background: var(--color-bg);
-    padding: 128px 32px 128px 56px;
+    transform: translate(25px, 0px);
+    /* padding: 128px 32px 128px 56px; */
   }
   .project__head:hover .project__title span {
     color: var(--color);

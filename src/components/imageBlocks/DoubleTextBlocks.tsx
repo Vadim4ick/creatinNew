@@ -3,7 +3,8 @@ import cls from "./Styles.module.scss";
 import { classNames } from "@/shared/lib";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import React from "react";
+import React, { useRef } from "react";
+import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 // import { useMedia } from "@/shared/hooks/useMedia";
 
 const DoubleTextBlocks = ({
@@ -12,6 +13,9 @@ const DoubleTextBlocks = ({
   content: ComponentImageBlocksDoubleTextBlocks;
 }) => {
   // const isDesktop = useMedia("(max-width: 1200px)");
+
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const titleRef2 = useRef<HTMLHeadingElement | null>(null);
 
   // {isDesktop.matches
   //   ? partnersContainerRef.current && (
@@ -27,31 +31,11 @@ const DoubleTextBlocks = ({
     >
       <div className={cls.row}>
         <div className={cls.content}>
-          <h2 className="project__title">
-            <ReactMarkdown
-              skipHtml
-              components={{
-                p: ({ children }) => {
-                  return (
-                    <span>
-                      {children
-                        ?.toString()
-                        .split(",\n")
-                        .map((line, index) => (
-                          <React.Fragment key={index}>
-                            {line}
-                            {/* @ts-ignore */}
-                            {index < children.length - 1 && <br />}
-                          </React.Fragment>
-                        ))}
-                    </span>
-                  );
-                },
-              }}
-            >
-              {content.oldTitle}
-            </ReactMarkdown>
-          </h2>
+          <SplitTypeAnimation bg="#aaaaaa" fg="#181818" refChar={titleRef}>
+            <h2 ref={titleRef} className="project__title">
+              <ReactMarkdown skipHtml>{content.oldTitle}</ReactMarkdown>
+            </h2>
+          </SplitTypeAnimation>
 
           <div className={classNames("project__text", {}, [cls.text])}>
             <ReactMarkdown>{content.oldDescription}</ReactMarkdown>
@@ -72,31 +56,11 @@ const DoubleTextBlocks = ({
 
       <div className={cls.row}>
         <div className={cls.content}>
-          <h2 className="project__title">
-            <ReactMarkdown
-              skipHtml
-              components={{
-                p: ({ children }) => {
-                  return (
-                    <span>
-                      {children
-                        ?.toString()
-                        .split(",\n")
-                        .map((line, index) => (
-                          <React.Fragment key={index}>
-                            {line}
-                            {/* @ts-ignore */}
-                            {index < children.length - 1 && <br />}
-                          </React.Fragment>
-                        ))}
-                    </span>
-                  );
-                },
-              }}
-            >
-              {content.newTitle}
-            </ReactMarkdown>
-          </h2>
+          <SplitTypeAnimation bg="#aaaaaa" fg="#181818" refChar={titleRef2}>
+            <h2 ref={titleRef2} className="project__title">
+              <ReactMarkdown skipHtml>{content.newTitle}</ReactMarkdown>
+            </h2>
+          </SplitTypeAnimation>
 
           <div className={classNames("project__text", {}, [cls.text])}>
             <ReactMarkdown>{content.newDescription}</ReactMarkdown>
