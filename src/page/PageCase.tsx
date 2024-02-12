@@ -63,8 +63,6 @@ const PageCase = memo(
         setDarkTheme(true);
         document.body.classList.add("bodyBlack");
         document.querySelector("header")!.classList.add("headerBlack");
-
-        console.log(document.querySelector("header"));
       }
 
       return () => {

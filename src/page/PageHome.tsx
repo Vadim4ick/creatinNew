@@ -71,13 +71,13 @@ const PageHome = (props: PageHomeProps) => {
           <FormSend form={formFeedback.data.attributes.formFeedback} />
         )}
 
-        <section className="smile">
+        {/* <section className="smile">
           <div className="smile__container">
             <Image src={"/img/smile.png"} width={316} height={300} alt="" />
           </div>
-        </section>
+        </section> */}
 
-        <MainFooter />
+        <MainFooter className="footer--whte home-footer" />
       </main>
     </>
   );

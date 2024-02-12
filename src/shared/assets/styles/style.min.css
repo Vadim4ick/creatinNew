@@ -2197,7 +2197,7 @@ body.popup-show::after {
 .callback {
   background: var(--color-bg);
   padding: 128px 0 126px 0;
-  margin-bottom: 172px;
+  /* margin-bottom: 172px; */
 }
 .callback.callback--no-mb {
   margin-bottom: 0;
