@@ -41,6 +41,18 @@ const PageHome = (props: PageHomeProps) => {
       '--font-primary: "Jeko-otf", Fallback'
     );
 
+    // document.addEventListener("contextmenu", (event) => event.preventDefault());
+
+    // document.addEventListener("keydown", function (event) {
+    //   // Проверяем, нажата ли клавиша Ctrl (или Cmd на Mac) и клавиша S
+    //   if ((event.ctrlKey || event.metaKey) && event.key === "s") {
+    //     // Отменяем действие по умолчанию (сохранение страницы)
+    //     event.preventDefault();
+    //     // Можно также добавить всплывающее окно с сообщением, что сохранение отключено
+    //     alert("Сохранение отключено");
+    //   }
+    // });
+
     // return () => clearTimeout(timeout);
   }, []);
 

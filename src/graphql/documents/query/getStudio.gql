@@ -15,12 +15,19 @@ query GetStudio {
           info
 
           vacancies {
-            id
-            title
-            descriptionVacancy
-            selectLevel
-            btnLink
-            telegrammLink
+            data {
+              id
+
+              attributes {
+                vacancy {
+                  title
+                  descriptionVacancy
+                  selectLevel
+                  btnLink
+                  telegrammLink
+                }
+              }
+            }
           }
 
           image {

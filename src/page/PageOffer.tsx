@@ -190,28 +190,30 @@ const PageOffer = ({
                       </div>
                     ))}
                   </div>
-                  <div className="includes__hover">
-                    <div className="includes__hover-item">
-                      <div className="includes__hover-name">
-                        {el.attributes.blockHover.title}
+                  {el.attributes.blockHover.title && (
+                    <div className="includes__hover">
+                      <div className="includes__hover-item">
+                        <div className="includes__hover-name">
+                          {el.attributes.blockHover.title}
+                        </div>
+                        <div className="includes__hover-val">
+                          <b>{el.attributes.blockHover.text}</b>
+                        </div>
                       </div>
-                      <div className="includes__hover-val">
-                        <b>{el.attributes.blockHover.text}</b>
+                      <div className="includes__hover-item">
+                        <div className="includes__hover-name">
+                          {el.attributes.blockHover.subTitle}
+                        </div>
+                        <div className="includes__hover-val">
+                          <ul>
+                            <ReactMarkdown skipHtml>
+                              {el.attributes.blockHover.list}
+                            </ReactMarkdown>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                    <div className="includes__hover-item">
-                      <div className="includes__hover-name">
-                        {el.attributes.blockHover.subTitle}
-                      </div>
-                      <div className="includes__hover-val">
-                        <ul>
-                          <ReactMarkdown skipHtml>
-                            {el.attributes.blockHover.list}
-                          </ReactMarkdown>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
               ))}
           </div>

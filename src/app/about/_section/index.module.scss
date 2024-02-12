@@ -1,0 +1,22 @@
+.row {
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1365px) {
+    gap: 68px;
+  }
+}
+
+.column {
+}
+
+.content {
+  display: flex;
+  gap: 157px;
+  justify-content: space-between;
+
+  @media (max-width: 1365px) {
+    flex-direction: column;
+    gap: 0;
+  }
+}
