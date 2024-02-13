@@ -54,43 +54,43 @@ const PageCase = memo(
     const router = useRouter();
     const [currentId] = useState<number>(parseInt(id));
 
-    const { darkTheme, setDarkTheme } = useContext(DarkProviderContext);
+    const { setDarkTheme } = useContext(DarkProviderContext);
 
     const isDesktop = useMedia("(max-width: 1200px)");
 
+    // useEffect(() => {
+    //   if (caseContent.backround[0] === "black") {
+    //     setDarkTheme(true);
+    //     document.body.classList.add("bodyBlack");
+    //     document.querySelector("header").classList.add("headerBlack");
+    //   }
+
+    //   return () => {
+    //     document.body.classList.remove("bodyBlack");
+
+    //     document.querySelector("header")!.classList.remove("headerBlack");
+    //     setDarkTheme(false);
+    //   };
+    // }, [caseContent.backround, setDarkTheme]);
+
     useEffect(() => {
-      if (caseContent.backround[0] === "black") {
+      const headerElement = document.querySelector("header");
+
+      if (headerElement && caseContent.backround[0] === "black") {
         setDarkTheme(true);
         document.body.classList.add("bodyBlack");
-        document.querySelector("header")!.classList.add("headerBlack");
+        headerElement.classList.add("headerBlack");
       }
 
       return () => {
         document.body.classList.remove("bodyBlack");
 
-        document.querySelector("header")!.classList.remove("headerBlack");
+        if (headerElement) {
+          headerElement.classList.remove("headerBlack");
+        }
         setDarkTheme(false);
       };
-    }, []);
-
-    // const onClick = useCallback(() => {
-    //   let nextId = String(currentId + 1);
-
-    //   // Предварительная сортировка массива ids по возрастанию
-    //   // @ts-ignore
-    //   // const newIds = ids.toSorted(
-    //   //   (a: { id: string }, b: { id: string }) =>
-    //   //     parseInt(a.id) - parseInt(b.id)
-    //   // );
-
-    //   // Проверка, есть ли id в отсортированном массиве ids
-    //   if (ids.some((item) => item.id === nextId)) {
-    //     router.push(getRouteCase(nextId));
-    //   } else {
-    //     // Возвращение к первому элементу в массиве, если id не найден
-    //     router.push(getRouteCase(ids[0].id));
-    //   }
-    // }, [currentId, ids, router]);
+    }, [caseContent.backround, setDarkTheme]);
 
     const onClick = useCallback(() => {
       // Находим индекс текущего id в массиве
