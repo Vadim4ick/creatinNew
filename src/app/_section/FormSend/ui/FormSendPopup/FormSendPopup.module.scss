@@ -1,0 +1,69 @@
+.container {
+  position: relative;
+  overflow: hidden;
+
+  .body,
+  .bodyNoFull {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .body {
+    gap: 130px;
+
+    @media (max-width: 767px) {
+      gap: 75px;
+      padding-bottom: 15px;
+    }
+  }
+
+  .bodyNoFull {
+    gap: 90px;
+
+    button {
+      margin-bottom: 20px;
+    }
+  }
+
+  button {
+    font-size: 16px;
+    line-height: 19;
+    background: #204ff5;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 72px;
+    border-radius: 16px;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 35px;
+    line-height: 42px;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+.content,
+.contentNoFull {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+}
+
+.content {
+  padding-top: 100px;
+
+  @media (max-width: 767px) {
+    padding-top: 35px;
+  }
+}
+
+.contentNoFull {
+  padding-top: 14px;
+}
