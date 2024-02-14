@@ -4,7 +4,7 @@ import { FormSendFragmentFragment } from "@/graphql/__generated__";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
-import React, { memo, useRef, useState } from "react";
+import React, { ChangeEvent, memo, useRef, useState } from "react";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import ReactMarkdown from "react-markdown";
 import { z } from "zod";
@@ -36,6 +36,8 @@ const SignUpSchema = z.object({
   email: z.string().email({ message: "Некорректный адрес электронной почты" }),
 
   taskDescription: z.string(),
+
+  file: z.any(),
 });
 
 type SignUpSchemaType = z.infer<typeof SignUpSchema>;
@@ -64,14 +66,27 @@ const FormSend = memo((props: FormSendProps) => {
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const callbackRef = useRef<HTMLDivElement | null>(null);
+  const [fileLoaded, setFileLoaded] = useState(false);
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFileLoaded(event.target.files?.length !== 0);
+  };
 
   const onSubmit = async (data: SignUpSchemaType) => {
+    const file = data.file[0];
+    const formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("name", data.name);
+    formData.append("company", data.company);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
+    formData.append("taskDescription", data.taskDescription);
+
     if (!executeRecaptcha) {
       return console.log("Вы бот");
     }
-
     const gRecaptchaToken = await executeRecaptcha("inquirySubmit");
-
     const response = await axios({
       method: "post",
       url: "/api/recaptcha",
@@ -83,13 +98,11 @@ const FormSend = memo((props: FormSendProps) => {
         "Content-Type": "application/json",
       },
     });
-
     if (response?.data?.success === true) {
       console.log(`Успех с оценкой: ${response?.data?.score}`);
-
       await fetch(`/api/telegramm`, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: formData,
       });
     } else {
       console.log(`Неудача с оценкой: ${response?.data?.score}`);
@@ -244,12 +257,25 @@ const FormSend = memo((props: FormSendProps) => {
                 )}
               />
               <div className="form-file">
-                <label className="form-file__label" htmlFor="file1">
+                <label
+                  className={classNames(
+                    "form-file__label",
+                    { [cls.inputFile]: fileLoaded },
+                    []
+                  )}
+                  htmlFor="file1"
+                >
                   <File />
                   Прикрепить файл
                 </label>
 
-                <input type="file" id="file1" className="visually-hidden" />
+                <input
+                  {...register("file")}
+                  type="file"
+                  id="file1"
+                  className={classNames("visually-hidden", {}, [])}
+                  onChange={handleFileChange}
+                />
               </div>
             </div>
 
