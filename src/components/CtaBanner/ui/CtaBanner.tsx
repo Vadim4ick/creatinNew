@@ -33,12 +33,14 @@ const CtaBanner = ({
       )}
       ref={animation ? refBanner : undefined}
     >
-      {/* <div className="cta__title">
-        Здесь будет CTA баннер, под него нужно оставить просто контейнер
-      </div> */}
       {src && (
         <div className={classNames("cta__image", {}, [])}>
-          <Image src={getFileUrl(src.url)} alt="" fill />
+          <Image
+            src={getFileUrl(src.url)}
+            alt=""
+            height={src.height}
+            width={src.width}
+          />
         </div>
       )}
     </div>

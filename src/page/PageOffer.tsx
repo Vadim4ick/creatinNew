@@ -12,6 +12,7 @@ import { useMedia } from "@/shared/hooks/useMedia";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
+import { classNames } from "@/shared/lib";
 
 const PageOffer = ({
   offersName,
@@ -146,10 +147,19 @@ const PageOffer = ({
             </h2>
           </SplitTypeAnimation>
 
-          <div className="includes__row includes__row--no-hover">
+          <div
+            className={`includes__row--no-hover ${
+              offer?.includes_blocks.data.some(
+                (el) => el.attributes.blockHover.title
+              ) && "includes__row"
+            }`}
+          >
             {offer?.includes_blocks.data &&
               offer.includes_blocks.data.map((el) => (
-                <div key={el.id} className="includes__inner">
+                <div
+                  key={el.id}
+                  className={classNames("includes__inner", {}, [])}
+                >
                   <div className="includes__column">
                     <div className="includes__name">{el.attributes.title}</div>
 
@@ -190,6 +200,7 @@ const PageOffer = ({
                       </div>
                     ))}
                   </div>
+
                   {el.attributes.blockHover.title && (
                     <div className="includes__hover">
                       <div className="includes__hover-item">

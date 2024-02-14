@@ -53,6 +53,10 @@ const PageHome = (props: PageHomeProps) => {
     //   }
     // });
 
+    // document.addEventListener("contextmenu", function (e) {
+    //   e.preventDefault();
+    // });
+
     // return () => clearTimeout(timeout);
   }, []);
 
