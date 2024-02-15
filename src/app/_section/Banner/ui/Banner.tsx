@@ -24,8 +24,8 @@ interface BannerProps {
 
 type PartialImages = Partial<Record<IconsType, any>>;
 
-let ANIMATION_DELAY = 19000;
-let ANIMATION_DELAY_MOBILE = 13000;
+let ANIMATION_DELAY = 27000;
+let ANIMATION_DELAY_MOBILE = 27000;
 
 const arrImages: PartialImages = {
   folders: <Folder />,
