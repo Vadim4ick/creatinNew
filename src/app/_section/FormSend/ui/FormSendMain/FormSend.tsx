@@ -4,7 +4,7 @@ import { FormSendFragmentFragment } from "@/graphql/__generated__";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
-import React, { ChangeEvent, memo, useRef, useState } from "react";
+import React, { ChangeEvent, memo, useCallback, useRef, useState } from "react";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import ReactMarkdown from "react-markdown";
 import { z } from "zod";
@@ -16,6 +16,7 @@ import { Input } from "@/shared/ui/Input/Input";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import axios from "axios";
 import { Address } from "../../lib/Address";
+import { SuccessPopup } from "../SuccessPopup/SuccessPopup";
 
 const SignUpSchema = z.object({
   name: z
@@ -56,6 +57,8 @@ const FormSend = memo((props: FormSendProps) => {
     register,
     handleSubmit,
     watch,
+    setValue,
+    reset,
     formState: { errors },
   } = useForm<SignUpSchemaType>({
     resolver: zodResolver(SignUpSchema),
@@ -65,12 +68,18 @@ const FormSend = memo((props: FormSendProps) => {
   const subTitleRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
 
+  const [send, setSend] = useState(false);
+
   const callbackRef = useRef<HTMLDivElement | null>(null);
   const [fileLoaded, setFileLoaded] = useState(false);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFileLoaded(event.target.files?.length !== 0);
   };
+
+  const resetPhone = useCallback(() => {
+    setValue("phone", "");
+  }, []);
 
   const onSubmit = async (data: SignUpSchemaType) => {
     const file = data.file[0];
@@ -103,6 +112,9 @@ const FormSend = memo((props: FormSendProps) => {
       await fetch(`/api/telegramm`, {
         method: "POST",
         body: formData,
+      }).then(() => {
+        setSend(true);
+        reset();
       });
     } else {
       console.log(`Неудача с оценкой: ${response?.data?.score}`);
@@ -289,20 +301,19 @@ const FormSend = memo((props: FormSendProps) => {
                 обработку персональных данных
               </a>
             </div>
-
-            <div className="form__sended">
-              <div className="form__sended-text">Заявка успешно отправлена</div>
-
-              <Button
-                type="button"
-                className="form__sended-btn js-remove-sended"
-              >
-                Замечательно
-              </Button>
-            </div>
           </form>
         </div>
       </div>
+
+      {send && (
+        <SuccessPopup
+          full={true}
+          setFileLoaded={setFileLoaded}
+          reset={reset}
+          setSend={setSend}
+          resetPhone={resetPhone}
+        />
+      )}
     </section>
   );
 });

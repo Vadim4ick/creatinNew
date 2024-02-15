@@ -42,8 +42,6 @@ export async function POST(req: Request) {
   const token = "5831052266:AAEBsFTI6YTzvrfnDeRYRdJfY_IlkxZfFVs";
   const chat_id = "-1001841443401";
 
-  const formData = new FormData();
-
   // Отправляем сообщение
   const messageRes = await fetch(
     `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${encodeURIComponent(

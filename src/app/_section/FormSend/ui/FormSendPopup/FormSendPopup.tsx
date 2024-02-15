@@ -3,15 +3,23 @@
 import { classNames } from "@/shared/lib";
 import { Input } from "@/shared/ui/Input/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { memo, useContext, useEffect, useMemo, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  memo,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import cls from "./../FormSendMain/FormSend.module.scss";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import axios from "axios";
-import clsSend from "./FormSendPopup.module.scss";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { File } from "@/shared/icons/File";
+import { SuccessPopup } from "../SuccessPopup/SuccessPopup";
 
 const FormPopupSchemaFull = z.object({
   name: z
@@ -32,6 +40,7 @@ const FormPopupSchemaFull = z.object({
   email: z.string().email({ message: "Некорректный адрес электронной почты" }),
 
   taskDescription: z.string(),
+  file: z.any(),
 });
 const FormPopupSchema = z.object({
   name: z
@@ -49,6 +58,7 @@ const FormPopupSchema = z.object({
   email: z.string().email({ message: "Некорректный адрес электронной почты" }),
 
   taskDescription: z.string(),
+  file: z.any(),
 });
 
 type FormPopupFullSchemaType = z.infer<typeof FormPopupSchemaFull>;
@@ -56,6 +66,7 @@ type FormPopupSchemaType = z.infer<typeof FormPopupSchema>;
 
 const FormSendPopup = memo(() => {
   const { open, setOpen } = useContext(PopupProviderContext);
+  const [fileLoaded, setFileLoaded] = useState(false);
 
   const isMobile = useMedia("(max-width: 767px)");
 
@@ -67,10 +78,15 @@ const FormSendPopup = memo(() => {
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFileLoaded(event.target.files?.length !== 0);
+  };
+
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
     reset,
   } = useForm<FormPopupFullSchemaType | FormPopupSchemaType>({
@@ -81,9 +97,11 @@ const FormSendPopup = memo(() => {
 
   const handleClickOutside = (event: MouseEvent) => {
     if (formRef.current && !formRef.current.contains(event.target as Node)) {
-      setOpen(false);
-      reset();
       setSend(false);
+      setOpen(false);
+      setFileLoaded(false);
+      reset();
+      setValue("phone", "");
     }
   };
 
@@ -101,15 +119,27 @@ const FormSendPopup = memo(() => {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   const onSubmit = async (
     data: FormPopupFullSchemaType | FormPopupSchemaType
   ) => {
+    const file = data.file[0];
+    const formData = new FormData();
+
+    if (file) {
+      formData.append("file", file);
+    }
+    formData.append("name", data.name);
+    formData.append("company", data.company);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
+    formData.append("taskDescription", data.taskDescription);
+
     if (!executeRecaptcha) {
       return console.log("Вы бот");
     }
-
     const gRecaptchaToken = await executeRecaptcha("inquirySubmit");
     const response = await axios({
       method: "post",
@@ -126,7 +156,7 @@ const FormSendPopup = memo(() => {
       console.log(`Успех с оценкой: ${response?.data?.score}`);
       await fetch(`/api/telegramm`, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: formData,
       }).then(() => {
         setSend(true);
         reset();
@@ -136,61 +166,6 @@ const FormSendPopup = memo(() => {
       reset();
     }
   };
-
-  const SuccessSendForm = useMemo(() => {
-    if (send) {
-      return (
-        <div className={clsSend.container}>
-          <div
-            className={classNames(
-              "",
-              {
-                [clsSend.body]: full,
-                [clsSend.bodyNoFull]: !full,
-              },
-              []
-            )}
-          >
-            <div
-              className={classNames(
-                "",
-                {
-                  [clsSend.content]: full,
-                  [clsSend.contentNoFull]: !full,
-                },
-                []
-              )}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="64"
-                height="64"
-                viewBox="0 0 64 64"
-                fill="none"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M0 32C0 23.5131 3.37142 15.3737 9.37258 9.37258C15.3737 3.37142 23.5131 0 32 0C40.4869 0 48.6263 3.37142 54.6274 9.37258C60.6286 15.3737 64 23.5131 64 32C64 40.4869 60.6286 48.6263 54.6274 54.6274C48.6263 60.6286 40.4869 64 32 64C23.5131 64 15.3737 60.6286 9.37258 54.6274C3.37142 48.6263 0 40.4869 0 32ZM30.1739 45.696L48.5973 22.6645L45.2693 20.0021L29.5595 39.6331L18.432 30.3616L15.7013 33.6384L30.1739 45.7003V45.696Z"
-                  fill="#204FF5"
-                />
-              </svg>
-
-              <p>Заявка успешно отправлена</p>
-            </div>
-            <button
-              onClick={() => {
-                setSend(false);
-                setOpen(false);
-              }}
-            >
-              Замечательно
-            </button>
-          </div>
-        </div>
-      );
-    }
-  }, [send]);
 
   return (
     <>
@@ -219,6 +194,7 @@ const FormSendPopup = memo(() => {
                       onClick={() => {
                         setFull(false);
                         reset();
+                        setFileLoaded(false);
                       }}
                       className={classNames("popup__tab-btn js-popup-form", {
                         "_tab-active": !full,
@@ -237,6 +213,7 @@ const FormSendPopup = memo(() => {
                       onClick={() => {
                         setFull(true);
                         reset();
+                        setFileLoaded(false);
                       }}
                       className={classNames("popup__tab-btn js-popup-form", {
                         "_tab-active": full,
@@ -362,33 +339,24 @@ const FormSendPopup = memo(() => {
                             </div>
                           </div>
                           <div className="form__item">
-                            <label className="form-file__label" htmlFor="file2">
-                              <svg
-                                width="25"
-                                height="24"
-                                viewBox="0 0 25 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  clipRule="evenodd"
-                                  d="M14.5 22H10.5C6.729 22 4.843 22 3.672 20.828C2.5 19.657 2.5 17.771 2.5 14V10C2.5 6.229 2.5 4.343 3.672 3.172C4.843 2 6.739 2 10.53 2C11.136 2 11.621 2 12.03 2.017C12.017 2.097 12.01 2.178 12.01 2.261L12 5.095C12 6.192 12 7.162 12.105 7.943C12.219 8.79 12.48 9.637 13.172 10.329C13.862 11.019 14.71 11.281 15.557 11.395C16.338 11.5 17.308 11.5 18.405 11.5H22.457C22.5 12.034 22.5 12.69 22.5 13.563V14C22.5 17.771 22.5 19.657 21.328 20.828C20.157 22 18.271 22 14.5 22Z"
-                                  fill="#7F7F7F"
-                                />
-                                <path
-                                  d="M20.1629 7.53504L16.0091 3.8495C14.8269 2.79959 14.2364 2.27411 13.5094 2L13.5 4.82803C13.5 7.2661 13.5 8.48565 14.2678 9.24282C15.0357 10 16.2724 10 18.7448 10H22.5C22.1203 9.27179 21.4385 8.6677 20.1629 7.53504Z"
-                                  fill="#7F7F7F"
-                                />
-                              </svg>
+                            <label
+                              className={classNames(
+                                "form-file__label",
+                                { [cls.inputFile]: fileLoaded },
+                                []
+                              )}
+                              htmlFor="file2"
+                            >
+                              <File />
                               Прикрепить файл
                             </label>
+
                             <input
+                              {...register("file")}
                               type="file"
-                              name="form[1]"
-                              data-error="Ошибка"
                               id="file2"
-                              className="visually-hidden"
+                              className={classNames("visually-hidden", {}, [])}
+                              onChange={handleFileChange}
                             />
                           </div>
                         </div>
@@ -419,12 +387,19 @@ const FormSendPopup = memo(() => {
                   </div>
                 </>
               )}
-
-              {SuccessSendForm}
             </div>
           </div>
         </div>
       </div>
+
+      {send && (
+        <SuccessPopup
+          setFileLoaded={setFileLoaded}
+          full={full}
+          setSend={setSend}
+          reset={reset}
+        />
+      )}
     </>
   );
 });
