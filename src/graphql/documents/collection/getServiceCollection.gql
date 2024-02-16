@@ -29,20 +29,23 @@ query GetServiceCollectionById($id: ID) {
         sliderCase {
           ...SliderFragment
         }
-        banner {
+
+        textBlocks {
+          ...TextBlocksFragment
+        }
+
+        video {
           data {
             attributes {
               ...MediaFragment
             }
           }
         }
-        textBlocks {
-          ...TextBlocksFragment
-        }
-        video {
+
+        contentBanner {
           data {
             attributes {
-              ...MediaFragment
+              ...BannerFragment
             }
           }
         }

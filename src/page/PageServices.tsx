@@ -13,6 +13,7 @@ import { Video } from "@/components/Video";
 import { CtaBanner } from "@/components/CtaBanner";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { BurgerServices } from "@/components/Burger/ui/BurgerServices/BurgerServices";
+import { ContentBanner } from "@/components/ContentBanner";
 
 const PageServices = memo(
   ({
@@ -166,8 +167,10 @@ const PageServices = memo(
                 <RelevantProjects cases={service.SliderCase.cases.data} />
               )}
 
-              {service.banner.data.length !== 0 && (
-                <CtaBanner src={service.banner.data[0].attributes} />
+              {service.contentBanner.data && (
+                <ContentBanner
+                  content={service.contentBanner.data.attributes}
+                />
               )}
             </div>
           )}

@@ -1,0 +1,27 @@
+fragment BannerFragment on Banner {
+  title
+  description
+  label
+  imgDesktop {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+  imgMobile {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+
+  button {
+    href
+    name
+  }
+
+  widthTitle
+  widthDescription
+}

@@ -186,13 +186,6 @@ const ServiceCollection = memo(
                 cases={serviceCollection?.sliderCase.cases.data}
               />
             )}
-
-          {serviceCollection?.banner.data && (
-            <CtaBanner
-              animation={true}
-              src={serviceCollection.banner.data.attributes}
-            />
-          )}
         </div>
       </ServiceLayout>
     );

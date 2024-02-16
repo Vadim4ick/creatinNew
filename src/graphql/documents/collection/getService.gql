@@ -25,13 +25,7 @@ query GetServiceById($id: ID) {
                 textBlocks {
                   ...TextBlocksFragment
                 }
-                banner {
-                  data {
-                    attributes {
-                      ...MediaFragment
-                    }
-                  }
-                }
+
                 sliderCase {
                   ...SliderFragment
                 }
@@ -65,17 +59,18 @@ query GetServiceById($id: ID) {
           }
         }
 
-        banner {
+        video {
           data {
             attributes {
               ...MediaFragment
             }
           }
         }
-        video {
+
+        contentBanner {
           data {
             attributes {
-              ...MediaFragment
+              ...BannerFragment
             }
           }
         }
