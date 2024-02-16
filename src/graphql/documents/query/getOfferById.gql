@@ -2,6 +2,32 @@ query GetOfferById($id: ID) {
   offer(id: $id) {
     data {
       attributes {
+        name
+
+        headingBanner {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
+        img {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
+        banner {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
         includes_blocks {
           data {
             id
@@ -29,31 +55,8 @@ query GetOfferById($id: ID) {
           ...FooterFragment
         }
 
-        name
         description
-        oldPrice
-        sale
-
-        banner {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
-
-        headingBanner {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
-
-        offer {
-          id
-          price
-        }
+        highlighted
       }
     }
   }

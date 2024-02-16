@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { PromotionOffer } from "./PromotionOffer";
 import ReactMarkdown from "react-markdown";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { Portal } from "@/shared/ui/Portal";
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import { notFound, useRouter } from "next/navigation";
@@ -9,6 +8,7 @@ import { GetOffersPageQuery } from "@/graphql/__generated__";
 import { CtaBanner } from "./CtaBanner";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { getRouteOffers } from "@/shared/const/pages";
+import { OfferBlock } from "./OfferBlock";
 
 const Offers = ({
   mainRef,
@@ -73,11 +73,15 @@ const Offers = ({
           </div>
         </section>
 
-        {data?.offersPage && (
+        {/* {data?.offersPage && (
           <PromotionOffer
             name="offer"
             offers={data.offersPage.data.attributes.offersBlock}
           />
+        )} */}
+
+        {data.offersPage && (
+          <OfferBlock block={data.offersPage.data.attributes.offersBlock} />
         )}
 
         {data.offersPage.data.attributes.banner.data && (

@@ -1822,15 +1822,14 @@ export type Offer = {
   readonly __typename?: 'Offer';
   readonly banner: Maybe<UploadFileEntityResponse>;
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
-  readonly description: Scalars['String']['output'];
+  readonly description: Maybe<Scalars['String']['output']>;
   readonly footer: Maybe<ComponentComponentsFooter>;
   readonly headingBanner: Maybe<UploadFileEntityResponse>;
+  readonly highlighted: Maybe<Scalars['String']['output']>;
+  readonly img: UploadFileEntityResponse;
   readonly includes_blocks: Maybe<IncludesBlockRelationResponseCollection>;
   readonly name: Scalars['String']['output'];
-  readonly offer: Maybe<ComponentElementsOffer>;
-  readonly oldPrice: Scalars['Int']['output'];
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly sale: Scalars['Int']['output'];
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -1864,15 +1863,13 @@ export type OfferFiltersInput = {
   readonly createdAt: InputMaybe<DateTimeFilterInput>;
   readonly description: InputMaybe<StringFilterInput>;
   readonly footer: InputMaybe<ComponentComponentsFooterFiltersInput>;
+  readonly highlighted: InputMaybe<StringFilterInput>;
   readonly id: InputMaybe<IdFilterInput>;
   readonly includes_blocks: InputMaybe<IncludesBlockFiltersInput>;
   readonly name: InputMaybe<StringFilterInput>;
   readonly not: InputMaybe<OfferFiltersInput>;
-  readonly offer: InputMaybe<ComponentElementsOfferFiltersInput>;
-  readonly oldPrice: InputMaybe<IntFilterInput>;
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<OfferFiltersInput>>>;
   readonly publishedAt: InputMaybe<DateTimeFilterInput>;
-  readonly sale: InputMaybe<IntFilterInput>;
   readonly updatedAt: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -1881,12 +1878,11 @@ export type OfferInput = {
   readonly description: InputMaybe<Scalars['String']['input']>;
   readonly footer: InputMaybe<ComponentComponentsFooterInput>;
   readonly headingBanner: InputMaybe<Scalars['ID']['input']>;
+  readonly highlighted: InputMaybe<Scalars['String']['input']>;
+  readonly img: InputMaybe<Scalars['ID']['input']>;
   readonly includes_blocks: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
   readonly name: InputMaybe<Scalars['String']['input']>;
-  readonly offer: InputMaybe<ComponentElementsOfferInput>;
-  readonly oldPrice: InputMaybe<Scalars['Int']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
-  readonly sale: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type OfferRelationResponseCollection = {
@@ -3138,7 +3134,7 @@ export type FormSendFragmentFragment = { readonly __typename?: 'ComponentSection
 
 export type IntroCardFragmentFragment = { readonly __typename?: 'ComponentElementsIntroCard', readonly id: string, readonly title: string, readonly info: string, readonly selectClass: any };
 
-export type OffersBlockFragment = { readonly __typename?: 'ComponentComponentsOfferComponent', readonly id: string, readonly name: string, readonly offers: { readonly __typename?: 'OfferRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'OfferEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Offer', readonly offer: { readonly __typename?: 'ComponentElementsOffer', readonly id: string, readonly price: number, readonly info: string, readonly tag: string, readonly number: string, readonly about: string, readonly titleList: string, readonly list: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } }> } };
+export type OffersBlockFragment = { readonly __typename?: 'ComponentComponentsOfferComponent', readonly id: string, readonly name: string, readonly offers: { readonly __typename?: 'OfferRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'OfferEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Offer', readonly name: string, readonly description: string, readonly highlighted: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly includes_blocks: { readonly __typename?: 'IncludesBlockRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'IncludesBlockEntity', readonly id: string, readonly attributes: { readonly __typename?: 'IncludesBlock', readonly title: string, readonly blockHover: { readonly __typename?: 'ComponentBlocksIncludesHover', readonly id: string, readonly title: string, readonly text: string, readonly subTitle: string, readonly list: string }, readonly includesContent: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIncludesContent', readonly id: string, readonly title: string, readonly content: string }> } }> }, readonly footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } }> } };
 
 export type OffersFragmentFragment = { readonly __typename?: 'ComponentElementsOffer', readonly id: string, readonly price: number, readonly info: string, readonly tag: string, readonly number: string, readonly about: string, readonly titleList: string, readonly list: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } };
 
@@ -3208,12 +3204,12 @@ export type GetOfferByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetOfferByIdQuery = { readonly __typename?: 'Query', readonly offer: { readonly __typename?: 'OfferEntityResponse', readonly data: { readonly __typename?: 'OfferEntity', readonly attributes: { readonly __typename?: 'Offer', readonly name: string, readonly description: string, readonly oldPrice: number, readonly sale: number, readonly includes_blocks: { readonly __typename?: 'IncludesBlockRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'IncludesBlockEntity', readonly id: string, readonly attributes: { readonly __typename?: 'IncludesBlock', readonly title: string, readonly blockHover: { readonly __typename?: 'ComponentBlocksIncludesHover', readonly id: string, readonly title: string, readonly text: string, readonly subTitle: string, readonly list: string }, readonly includesContent: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIncludesContent', readonly id: string, readonly title: string, readonly content: string }> } }> }, readonly footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly headingBanner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly offer: { readonly __typename?: 'ComponentElementsOffer', readonly id: string, readonly price: number } } } } };
+export type GetOfferByIdQuery = { readonly __typename?: 'Query', readonly offer: { readonly __typename?: 'OfferEntityResponse', readonly data: { readonly __typename?: 'OfferEntity', readonly attributes: { readonly __typename?: 'Offer', readonly name: string, readonly description: string, readonly highlighted: string, readonly headingBanner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly includes_blocks: { readonly __typename?: 'IncludesBlockRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'IncludesBlockEntity', readonly id: string, readonly attributes: { readonly __typename?: 'IncludesBlock', readonly title: string, readonly blockHover: { readonly __typename?: 'ComponentBlocksIncludesHover', readonly id: string, readonly title: string, readonly text: string, readonly subTitle: string, readonly list: string }, readonly includesContent: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIncludesContent', readonly id: string, readonly title: string, readonly content: string }> } }> }, readonly footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } } } };
 
 export type GetOffersPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetOffersPageQuery = { readonly __typename?: 'Query', readonly offersPage: { readonly __typename?: 'OffersPageEntityResponse', readonly data: { readonly __typename?: 'OffersPageEntity', readonly attributes: { readonly __typename?: 'OffersPage', readonly title: string, readonly description: string, readonly offersBlock: ReadonlyArray<{ readonly __typename?: 'ComponentComponentsOfferComponent', readonly id: string, readonly name: string, readonly offers: { readonly __typename?: 'OfferRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'OfferEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Offer', readonly offer: { readonly __typename?: 'ComponentElementsOffer', readonly id: string, readonly price: number, readonly info: string, readonly tag: string, readonly number: string, readonly about: string, readonly titleList: string, readonly list: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } }> } }>, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } } } };
+export type GetOffersPageQuery = { readonly __typename?: 'Query', readonly offersPage: { readonly __typename?: 'OffersPageEntityResponse', readonly data: { readonly __typename?: 'OffersPageEntity', readonly attributes: { readonly __typename?: 'OffersPage', readonly title: string, readonly description: string, readonly offersBlock: ReadonlyArray<{ readonly __typename?: 'ComponentComponentsOfferComponent', readonly id: string, readonly name: string, readonly offers: { readonly __typename?: 'OfferRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'OfferEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Offer', readonly name: string, readonly description: string, readonly highlighted: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly includes_blocks: { readonly __typename?: 'IncludesBlockRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'IncludesBlockEntity', readonly id: string, readonly attributes: { readonly __typename?: 'IncludesBlock', readonly title: string, readonly blockHover: { readonly __typename?: 'ComponentBlocksIncludesHover', readonly id: string, readonly title: string, readonly text: string, readonly subTitle: string, readonly list: string }, readonly includesContent: ReadonlyArray<{ readonly __typename?: 'ComponentElementsIncludesContent', readonly id: string, readonly title: string, readonly content: string }> } }> }, readonly footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } }> } }>, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } } } };
 
 export type GetPartnersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3426,14 +3422,45 @@ export const OffersBlockFragmentDoc = gql`
     data {
       id
       attributes {
-        offer {
-          ...OffersFragment
+        name
+        description
+        img {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+        includes_blocks {
+          data {
+            id
+            attributes {
+              title
+              blockHover {
+                id
+                title
+                text
+                subTitle
+                list
+              }
+              includesContent {
+                id
+                title
+                content
+              }
+            }
+          }
+        }
+        highlighted
+        footer {
+          ...FooterFragment
         }
       }
     }
   }
 }
-    ${OffersFragmentFragmentDoc}`;
+    ${MediaFragmentFragmentDoc}
+${FooterFragmentFragmentDoc}`;
 export const SliderFragmentFragmentDoc = gql`
     fragment SliderFragment on ComponentComponentsSliderCase {
   id
@@ -3994,6 +4021,28 @@ export const GetOfferByIdDocument = gql`
   offer(id: $id) {
     data {
       attributes {
+        name
+        headingBanner {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+        img {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+        banner {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
         includes_blocks {
           data {
             id
@@ -4017,34 +4066,14 @@ export const GetOfferByIdDocument = gql`
         footer {
           ...FooterFragment
         }
-        name
         description
-        oldPrice
-        sale
-        banner {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
-        headingBanner {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
-        offer {
-          id
-          price
-        }
+        highlighted
       }
     }
   }
 }
-    ${FooterFragmentFragmentDoc}
-${MediaFragmentFragmentDoc}`;
+    ${MediaFragmentFragmentDoc}
+${FooterFragmentFragmentDoc}`;
 export const GetOffersPageDocument = gql`
     query GetOffersPage {
   offersPage {

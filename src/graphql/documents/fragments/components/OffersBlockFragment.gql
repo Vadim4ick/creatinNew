@@ -6,8 +6,44 @@ fragment OffersBlock on ComponentComponentsOfferComponent {
     data {
       id
       attributes {
-        offer {
-          ...OffersFragment
+        name
+
+        description
+
+        img {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
+        includes_blocks {
+          data {
+            id
+            attributes {
+              title
+
+              blockHover {
+                id
+                title
+                text
+                subTitle
+                list
+              }
+
+              includesContent {
+                id
+                title
+                content
+              }
+            }
+          }
+        }
+        highlighted
+
+        footer {
+          ...FooterFragment
         }
       }
     }

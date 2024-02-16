@@ -1,24 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {
-  ComplexBlockFragment,
-  OffersBlockFragment,
-} from "@/graphql/__generated__";
+import { ComplexBlockFragment } from "@/graphql/__generated__";
 import { ActiveOffers } from "@/layouts/ServiceLayout";
 import { getRouteComplex, getRouteOffers } from "@/shared/const/pages";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { priceFormatter } from "@/shared/helpers/priceFormatter";
-import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Fragment, useContext, useLayoutEffect, useRef, useState } from "react";
+import { Fragment, useLayoutEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const PromotionOffer = ({
   offers,
   name,
 }: {
-  offers: readonly OffersBlockFragment[] | readonly ComplexBlockFragment[];
+  offers: readonly ComplexBlockFragment[];
   name: ActiveOffers;
 }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
