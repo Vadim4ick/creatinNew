@@ -10,7 +10,6 @@ import { getRouteService } from "@/shared/const/pages";
 import { TextBlocks } from "@/components/TextBlocks";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { Video } from "@/components/Video";
-import { CtaBanner } from "@/components/CtaBanner";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { BurgerServices } from "@/components/Burger/ui/BurgerServices/BurgerServices";
 import { ContentBanner } from "@/components/ContentBanner";

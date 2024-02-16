@@ -15,8 +15,8 @@ import { useGetServicesCollectionById } from "@/shared/services/serviceCollectio
 import React, { memo, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Video } from "@/components/Video";
-import { CtaBanner } from "@/components/CtaBanner";
 import { BurgerServiceCollection } from "@/components/Burger/ui/BurgerServiceCollection/BurgerServiceCollection";
+import { ContentBanner } from "@/components/ContentBanner";
 
 const ServiceCollection = memo(
   ({
@@ -186,6 +186,12 @@ const ServiceCollection = memo(
                 cases={serviceCollection?.sliderCase.cases.data}
               />
             )}
+
+          {serviceCollection?.contentBanner.data && (
+            <ContentBanner
+              content={serviceCollection.contentBanner.data.attributes}
+            />
+          )}
         </div>
       </ServiceLayout>
     );
