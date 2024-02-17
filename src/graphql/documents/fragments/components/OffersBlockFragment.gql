@@ -42,6 +42,14 @@ fragment OffersBlock on ComponentComponentsOfferComponent {
         }
         highlighted
 
+        offerBanner {
+          data {
+            attributes {
+              ...BannerFragment
+            }
+          }
+        }
+
         footer {
           ...FooterFragment
         }

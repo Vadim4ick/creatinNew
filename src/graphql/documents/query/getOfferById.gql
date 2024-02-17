@@ -55,6 +55,14 @@ query GetOfferById($id: ID) {
           ...FooterFragment
         }
 
+        offerBanner {
+          data {
+            attributes {
+              ...BannerFragment
+            }
+          }
+        }
+
         description
         highlighted
       }

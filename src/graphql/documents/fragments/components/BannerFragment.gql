@@ -24,4 +24,20 @@ fragment BannerFragment on Banner {
 
   widthTitle
   widthDescription
+
+  offerBannerMobile {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+
+  offerBannerDesktop {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
 }

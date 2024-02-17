@@ -13,6 +13,10 @@ import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { classNames } from "@/shared/lib";
+import Image from "next/image";
+import { OfferTopBanner } from "@/components/OfferTopBanner";
+import { ContentBanner } from "@/components/ContentBanner";
+import { Video } from "@/components/Video";
 
 const PageOffer = ({
   offersName,
@@ -54,14 +58,6 @@ const PageOffer = ({
     return () => setActiveOffers(null);
   }, [setActiveOffers]);
 
-  const banner = (
-    <>
-      {offer?.headingBanner.data && (
-        <CtaBanner animation={true} src={offer.headingBanner.data.attributes} />
-      )}
-    </>
-  );
-
   return (
     <ServiceLayout
       items={offersName}
@@ -73,164 +69,120 @@ const PageOffer = ({
       BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
     >
       <div className="page__base">
-        <section className="hero fade-up mb-42" ref={refSection}>
-          <div className="hero__left">
-            12321sdd
-            {/* {offer?.name && (
-            <h1 className="hero__title">Акция “{offer.name}”</h1>
+        <section className="fade-up mb-42" ref={refSection}>
+          {data?.offer && (
+            <OfferTopBanner
+              banner={data.offer.data.attributes.offerBanner.data.attributes}
+            />
           )}
-
-          <ReactMarkdown
-            skipHtml
-            components={{
-              p: ({ children }) => {
-                return (
-                  <>
-                    <div className="hero__info">
-                      {children
-                        ?.toString()
-                        .split(",\n")
-                        .map((line, index) => (
-                          <React.Fragment key={index}>
-                            {line}
-                            {index < children.length - 1 && <br />}
-                          </React.Fragment>
-                        ))}
-                    </div>
-                  </>
-                );
-              },
-            }}
-          >
-            {offer?.description}
-          </ReactMarkdown> */}
-          </div>
-
-          {isPhone.matches && banner}
-
-          {/* <div className="hero__right hero__right--one">
-            <div className="hero-sale hero-sale--baner">
-              <div className="hero-sale__name">
-                <span>Скидка</span>
-              </div>
-              {offer?.sale && (
-                <div className="hero-sale__value">
-                  <span>-{offer.sale}%</span>
-                </div>
-              )}
-            </div>
-            <div className="hero-sale">
-              <div className="hero-sale__text">
-                <span>стоимость без скидки</span>
-              </div>
-              {offer?.oldPrice && (
-                <del className="hero-sale__price">
-                  <span className="_rub">{offer.oldPrice}</span>
-                </del>
-              )}
-              <div className="hero-sale__text ">
-                <span>Стоимость со скидкой</span>
-              </div>
-              <div className="hero-sale__price ">
-                <span className="_rub">{offer?.offer.price}</span>
-              </div>
-            </div>
-          </div> */}
         </section>
 
-        {!isPhone.matches && banner}
+        {offer?.headingBanner.data && (
+          <Video
+            animation={true}
+            srcMedia={offer.headingBanner.data.attributes}
+          />
+        )}
 
-        {/* <section className="includes mb-96">
-        <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#181818">
-          <h2 ref={titleRef} className="includes__title">
-            Что входит:
-          </h2>
-        </SplitTypeAnimation>
+        {offer?.includes_blocks.data &&
+          offer?.includes_blocks.data.length > 0 && (
+            <section className="includes mb-96">
+              <SplitTypeAnimation refChar={titleRef} bg="#aaaaaa" fg="#181818">
+                <h2 ref={titleRef} className="includes__title">
+                  Что входит:
+                </h2>
+              </SplitTypeAnimation>
 
-        <div
-          className={`includes__row--no-hover ${
-            offer?.includes_blocks.data.some(
-              (el) => el.attributes.blockHover.title
-            ) && "includes__row"
-          }`}
-        >
-          {offer?.includes_blocks.data &&
-            offer.includes_blocks.data.map((el) => (
               <div
-                key={el.id}
-                className={classNames("includes__inner", {}, [])}
+                className={`includes__row--no-hover ${
+                  offer?.includes_blocks.data.some(
+                    (el) => el.attributes.blockHover.title
+                  ) && "includes__row"
+                }`}
               >
-                <div className="includes__column">
-                  <div className="includes__name">{el.attributes.title}</div>
+                {offer.includes_blocks.data.map((el) => (
+                  <div
+                    key={el.id}
+                    className={classNames("includes__inner", {}, [])}
+                  >
+                    <div className="includes__column">
+                      <div className="includes__name">
+                        {el.attributes.title}
+                      </div>
 
-                  {el.attributes.includesContent.map((content) => (
-                    <div key={content.id} className="includes__item">
-                      <Spoller
-                        className="includes__text"
-                        // @ts-ignore
-                        style={{ "--icon": "url(/img/icons/spoller.svg)" }}
-                        btn={<>{content.title}</>}
-                      >
-                        <ReactMarkdown
-                          skipHtml
-                          components={{
-                            p: ({ children }) => {
-                              return (
-                                <div className="includes__info">
-                                  {children
-                                    ?.toString()
-                                    .split(",\n")
-                                    .map((line, index) => (
-                                      <React.Fragment key={index}>
-                                        {line}
-                                        {index < children.length - 1 && (
-                                          <br />
-                                        )}
-                                      </React.Fragment>
-                                    ))}
-                                </div>
-                              );
-                            },
-                          }}
-                        >
-                          {content.content}
-                        </ReactMarkdown>
-                      </Spoller>
-                    </div>
-                  ))}
-                </div>
+                      {el.attributes.includesContent.map((content) => (
+                        <div key={content.id} className="includes__item">
+                          <Spoller
+                            className="includes__text"
+                            // @ts-ignore
+                            style={{ "--icon": "url(/img/icons/spoller.svg)" }}
+                            btn={<>{content.title}</>}
+                          >
+                            <ReactMarkdown
+                              skipHtml
+                              components={{
+                                p: ({ children }) => {
+                                  return (
+                                    <div className="includes__info">
+                                      {children
+                                        ?.toString()
+                                        .split(",\n")
+                                        .map((line, index) => (
+                                          <React.Fragment key={index}>
+                                            {line}
 
-                {el.attributes.blockHover.title && (
-                  <div className="includes__hover">
-                    <div className="includes__hover-item">
-                      <div className="includes__hover-name">
-                        {el.attributes.blockHover.title}
-                      </div>
-                      <div className="includes__hover-val">
-                        <b>{el.attributes.blockHover.text}</b>
-                      </div>
+                                            {/* @ts-ignore */}
+                                            {index < children.length - 1 && (
+                                              <br />
+                                            )}
+                                          </React.Fragment>
+                                        ))}
+                                    </div>
+                                  );
+                                },
+                              }}
+                            >
+                              {content.content}
+                            </ReactMarkdown>
+                          </Spoller>
+                        </div>
+                      ))}
                     </div>
-                    <div className="includes__hover-item">
-                      <div className="includes__hover-name">
-                        {el.attributes.blockHover.subTitle}
+
+                    {el.attributes.blockHover.title && (
+                      <div className="includes__hover">
+                        <div className="includes__hover-item">
+                          <div className="includes__hover-name">
+                            {el.attributes.blockHover.title}
+                          </div>
+                          <div className="includes__hover-val">
+                            <b>{el.attributes.blockHover.text}</b>
+                          </div>
+                        </div>
+                        <div className="includes__hover-item">
+                          <div className="includes__hover-name">
+                            {el.attributes.blockHover.subTitle}
+                          </div>
+                          <div className="includes__hover-val">
+                            <ul>
+                              <ReactMarkdown skipHtml>
+                                {el.attributes.blockHover.list}
+                              </ReactMarkdown>
+                            </ul>
+                          </div>
+                        </div>
                       </div>
-                      <div className="includes__hover-val">
-                        <ul>
-                          <ReactMarkdown skipHtml>
-                            {el.attributes.blockHover.list}
-                          </ReactMarkdown>
-                        </ul>
-                      </div>
-                    </div>
+                    )}
                   </div>
-                )}
+                ))}
               </div>
-            ))}
-        </div>
-      </section> */}
+            </section>
+          )}
 
-        {offer?.banner.data && (
-          <CtaBanner animation={true} src={offer.banner.data.attributes} />
+        {data?.offer && (
+          <ContentBanner
+            content={data.offer.data.attributes.offerBanner.data.attributes}
+          />
         )}
       </div>
     </ServiceLayout>
