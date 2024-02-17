@@ -73,13 +73,6 @@ const Offers = ({
           </div>
         </section>
 
-        {/* {data?.offersPage && (
-          <PromotionOffer
-            name="offer"
-            offers={data.offersPage.data.attributes.offersBlock}
-          />
-        )} */}
-
         {data.offersPage && (
           <OfferBlock block={data.offersPage.data.attributes.offersBlock} />
         )}
