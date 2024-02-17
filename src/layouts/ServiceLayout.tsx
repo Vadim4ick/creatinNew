@@ -50,6 +50,7 @@ interface ServiceLayoutProps {
   sidebarItemElement?: SidebarItemElement;
   setInputIds?: Dispatch<SetStateAction<string[]>>;
 
+  footerCls?: string;
   formFeedback?: GetFormFeedbackQuery["formFeedback"]["data"]["attributes"]["formFeedback"];
 }
 
@@ -68,6 +69,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   sidebarItemElement = "normal",
   setInputIds,
   formFeedback,
+  footerCls,
 }) => {
   const { data: offersPage, isLoading: isLoadingOffers } = useGetOffersPage();
 
@@ -197,10 +199,11 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
         </div>
       </main>
 
-      {formFeedback && <FormSend form={formFeedback} />}
+      {formFeedback && <FormSend className="pb-70" form={formFeedback} />}
 
       {footer && !activeOffers && (
         <Footer
+          className={footerCls ? footerCls : undefined}
           title={footer.title}
           img={footer.img?.data?.attributes}
           callback={onClickFooter}

@@ -48,3 +48,43 @@
     }
   }
 }
+
+.footer-offer {
+  margin-top: -70px;
+  border-radius: 98px 98px 0 0 !important;
+
+  .footer__decor {
+    background: var(--color-bg) !important;
+
+    &::before {
+      content: "";
+      background: var(--color-whte) !important;
+    }
+
+    &::after {
+      content: "";
+
+      background: var(--color-whte) !important;
+    }
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      .footer__decor {
+        &::before {
+          content: "";
+          background: var(--color-primary) !important;
+        }
+
+        &::after {
+          content: "";
+          background: var(--color-primary) !important;
+        }
+      }
+    }
+  }
+}
+
+.pb-70 {
+  margin-bottom: 70px;
+}

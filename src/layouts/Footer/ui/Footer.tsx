@@ -11,10 +11,11 @@ interface FooterProps {
   img?: MediaFragmentFragment;
   title: string;
   callback?: () => void;
+  className?: string;
 }
 
 const Footer = (props: FooterProps) => {
-  const { img, title, callback } = props;
+  const { img, title, callback, className } = props;
 
   const { darkTheme } = useContext(DarkProviderContext);
 
@@ -23,7 +24,7 @@ const Footer = (props: FooterProps) => {
       className={classNames(
         "footer footer--service",
         { [cls.dark]: darkTheme },
-        []
+        [className]
       )}
     >
       <span className="footer__decor"></span>

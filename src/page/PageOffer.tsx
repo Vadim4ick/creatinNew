@@ -73,6 +73,7 @@ const PageOffer = ({
       setId={setOfferId}
       serviceId={offerId}
       footer={offer?.footer}
+      footerCls={"footer--whte footer-offer"}
       mainClass={""}
       BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
       formFeedback={formFeedback.data.attributes.formFeedback}
