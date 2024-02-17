@@ -50,6 +50,8 @@ interface ServiceLayoutProps {
   sidebarItemElement?: SidebarItemElement;
   setInputIds?: Dispatch<SetStateAction<string[]>>;
 
+  viewSpecialOffers?: boolean;
+
   footerCls?: string;
   formFeedback?: GetFormFeedbackQuery["formFeedback"]["data"]["attributes"]["formFeedback"];
 }
@@ -70,6 +72,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   setInputIds,
   formFeedback,
   footerCls,
+  viewSpecialOffers = true,
 }) => {
   const { data: offersPage, isLoading: isLoadingOffers } = useGetOffersPage();
 
@@ -186,7 +189,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
               active={serviceId}
               onChange={onChange}
               items={items}
-              viewSpecialOffers={true}
+              viewSpecialOffers={viewSpecialOffers}
               setActiveOffers={setActiveOffers}
               activeOffers={activeOffers}
               imageOffers={offersPage?.offersPage.data.attributes.img}

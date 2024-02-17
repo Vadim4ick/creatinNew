@@ -37,7 +37,7 @@ const arrImages: PartialImages = {
   ],
 };
 
-const ButtonIntro = () => {
+const ButtonIntro = memo(() => {
   const { onClickPopup } = useContext(PopupProviderContext);
 
   return (
@@ -51,7 +51,7 @@ const ButtonIntro = () => {
       </button>
     </div>
   );
-};
+});
 
 const Banner = memo((props: BannerProps) => {
   const { banner } = props;
@@ -216,16 +216,8 @@ const Banner = memo((props: BannerProps) => {
                   готовых <br />к <span>изменениям</span>
                 </p>
               </div>
-              {isPhone.matches ? (
-                test.current &&
-                animation && (
-                  <Portal element={test.current}>
-                    <ButtonIntro />
-                  </Portal>
-                )
-              ) : (
-                <>{animation && <ButtonIntro />}</>
-              )}
+
+              {!isPhone.matches && animation && <ButtonIntro />}
             </div>
             <div className="intro__bg">
               {isPhone.matches ? (
@@ -245,6 +237,7 @@ const Banner = memo((props: BannerProps) => {
               )}
             </div>
           </div>
+
           <div
             ref={introCardsSwiperRef}
             className={classNames(
@@ -308,6 +301,8 @@ const Banner = memo((props: BannerProps) => {
                 })}
             </div>
           </div>
+
+          {isPhone.matches && animation && <ButtonIntro />}
         </div>
       </div>
     </section>

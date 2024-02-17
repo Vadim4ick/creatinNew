@@ -71,6 +71,7 @@ const PageOffer = ({
       items={offersName}
       isLoading={isLoading}
       setId={setOfferId}
+      viewSpecialOffers={false}
       serviceId={offerId}
       footer={offer?.footer}
       footerCls={"footer--whte footer-offer"}
