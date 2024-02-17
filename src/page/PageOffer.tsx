@@ -17,6 +17,8 @@ import Image from "next/image";
 import { OfferTopBanner } from "@/components/OfferTopBanner";
 import { ContentBanner } from "@/components/ContentBanner";
 import { Video } from "@/components/Video";
+import { TextBlocks } from "@/components/TextBlocks";
+import { RelevantProjects } from "@/components/Relevant-project";
 
 const PageOffer = ({
   offersName,
@@ -70,10 +72,8 @@ const PageOffer = ({
     >
       <div className="page__base">
         <section className="fade-up mb-42" ref={refSection}>
-          {data?.offer && (
-            <OfferTopBanner
-              banner={data.offer.data.attributes.offerBanner.data.attributes}
-            />
+          {offer?.offerBanner && (
+            <OfferTopBanner banner={offer.offerBanner.data.attributes} />
           )}
         </section>
 
@@ -83,6 +83,8 @@ const PageOffer = ({
             srcMedia={offer.headingBanner.data.attributes}
           />
         )}
+
+        {offer?.textBlocks && <TextBlocks blocks={offer.textBlocks} />}
 
         {offer?.includes_blocks.data &&
           offer?.includes_blocks.data.length > 0 && (
@@ -179,10 +181,8 @@ const PageOffer = ({
             </section>
           )}
 
-        {data?.offer && (
-          <ContentBanner
-            content={data.offer.data.attributes.offerBanner.data.attributes}
-          />
+        {offer?.sliderCase && (
+          <RelevantProjects cases={offer.sliderCase.cases.data} />
         )}
       </div>
     </ServiceLayout>

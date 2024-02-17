@@ -20,14 +20,6 @@ query GetOfferById($id: ID) {
           }
         }
 
-        banner {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
-
         includes_blocks {
           data {
             id
@@ -65,6 +57,14 @@ query GetOfferById($id: ID) {
 
         description
         highlighted
+
+        sliderCase {
+          ...SliderFragment
+        }
+
+        textBlocks {
+          ...TextBlocksFragment
+        }
       }
     }
   }

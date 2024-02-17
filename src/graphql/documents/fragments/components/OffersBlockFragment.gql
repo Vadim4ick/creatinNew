@@ -18,6 +18,14 @@ fragment OffersBlock on ComponentComponentsOfferComponent {
           }
         }
 
+        sliderCase {
+          ...SliderFragment
+        }
+
+        textBlocks {
+          ...TextBlocksFragment
+        }
+
         includes_blocks {
           data {
             id

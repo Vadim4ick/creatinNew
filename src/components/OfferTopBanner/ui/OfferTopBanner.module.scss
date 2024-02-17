@@ -20,6 +20,11 @@
 
 .banner {
   position: relative;
+  margin-bottom: 24px;
+
+  @media (max-width: 900px) {
+    margin-bottom: 12px;
+  }
 }
 
 .body {
