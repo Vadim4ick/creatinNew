@@ -1,7 +1,11 @@
 "use client";
 
 import { CtaBanner } from "@/components/CtaBanner";
-import { GetOfferByIdQuery, GetOffersNameQuery } from "@/graphql/__generated__";
+import {
+  GetFormFeedbackQuery,
+  GetOfferByIdQuery,
+  GetOffersNameQuery,
+} from "@/graphql/__generated__";
 import { Spoller } from "@/shared/ui/Spoller";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -23,9 +27,11 @@ import { RelevantProjects } from "@/components/Relevant-project";
 const PageOffer = ({
   offersName,
   id,
+  formFeedback,
 }: {
   offersName: GetOffersNameQuery["offers"]["data"];
   id: string;
+  formFeedback: GetFormFeedbackQuery["formFeedback"];
 }) => {
   const [offerId, setOfferId] = useState(id);
 
@@ -69,10 +75,11 @@ const PageOffer = ({
       footer={offer?.footer}
       mainClass={""}
       BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
+      formFeedback={formFeedback.data.attributes.formFeedback}
     >
       <div className="page__base">
         <section className="fade-up mb-42" ref={refSection}>
-          {offer?.offerBanner && (
+          {offer?.offerBanner.data && (
             <OfferTopBanner banner={offer.offerBanner.data.attributes} />
           )}
         </section>
@@ -181,9 +188,10 @@ const PageOffer = ({
             </section>
           )}
 
-        {offer?.sliderCase && (
-          <RelevantProjects cases={offer.sliderCase.cases.data} />
-        )}
+        {offer?.sliderCase.cases.data &&
+          offer?.sliderCase.cases.data.length > 0 && (
+            <RelevantProjects cases={offer.sliderCase.cases.data} />
+          )}
       </div>
     </ServiceLayout>
   );

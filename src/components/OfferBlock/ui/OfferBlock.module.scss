@@ -24,6 +24,7 @@
 
 .image {
   padding: 6px;
+  position: relative;
   img {
     height: 185px;
     border-radius: 26px;
@@ -63,4 +64,22 @@
   color: #656565;
   background: white;
   border-radius: 25px;
+}
+
+.block {
+  margin-bottom: 116px;
+}
+
+.highlighted {
+  background: #c0ff00;
+  color: #000;
+  border-radius: 100px;
+  padding: 3px 7px 1px 7px;
+  display: inline-block;
+  transform: rotate(1deg);
+  font-size: 32px;
+  line-height: 37px;
+  position: absolute;
+  right: 17px;
+  bottom: 15px;
 }

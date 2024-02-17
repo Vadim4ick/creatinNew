@@ -12,33 +12,41 @@ const OfferBlock = ({
 }) => {
   return block.map((el) => {
     return (
-      <div key={el.id} className={cls.container}>
-        {el.offers.data.map((offer) => (
-          <div key={offer.id} className={cls.content}>
-            <div className={cls.body}>
-              <div>
-                <div className={cls.image}>
-                  <Image
-                    alt=""
-                    width={offer.attributes.img.data.attributes.width}
-                    height={offer.attributes.img.data.attributes.height}
-                    src={getFileUrl(offer.attributes.img.data.attributes.url)}
-                  />
-                </div>
-                <div className={cls.text}>
-                  <div className={cls.title}>{offer.attributes.name}</div>
-                  <div className={cls.description}>
-                    {offer.attributes.description}
+      <div key={el.id} className={cls.block}>
+        <h2 className="promotion__title">{el.name}</h2>
+
+        <div className={cls.container}>
+          {el.offers.data.map((offer) => (
+            <div key={offer.id} className={cls.content}>
+              <div className={cls.body}>
+                <div>
+                  <div className={cls.image}>
+                    <Image
+                      alt=""
+                      width={offer.attributes.img.data.attributes.width}
+                      height={offer.attributes.img.data.attributes.height}
+                      src={getFileUrl(offer.attributes.img.data.attributes.url)}
+                    />
+
+                    <span className={cls.highlighted}>
+                      {offer.attributes.highlighted}
+                    </span>
+                  </div>
+                  <div className={cls.text}>
+                    <div className={cls.title}>{offer.attributes.name}</div>
+                    <div className={cls.description}>
+                      {offer.attributes.description}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <Link href={getRouteOffers(offer.id)} className={cls.btn}>
-                Подробнее
-              </Link>
+                <Link href={getRouteOffers(offer.id)} className={cls.btn}>
+                  Подробнее
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     );
   });

@@ -13,7 +13,10 @@ import { Loader } from "@/shared/ui/Loader/Loader";
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import useSmoothScrollToTop from "@/shared/hooks/useSmoothScrollToTop";
 import { Sidebar } from "@/components/Sidebar";
-import { FooterFragmentFragment } from "@/graphql/__generated__";
+import {
+  FooterFragmentFragment,
+  GetFormFeedbackQuery,
+} from "@/graphql/__generated__";
 import {
   SidebarItemElement,
   SidebarItems,
@@ -26,6 +29,7 @@ import { classNames } from "@/shared/lib";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { usePathname } from "next/navigation";
+import { FormSend } from "@/app/_section/FormSend";
 
 export interface IndexDateState {
   id: string;
@@ -45,6 +49,8 @@ interface ServiceLayoutProps {
   BugerMenu?: () => JSX.Element;
   sidebarItemElement?: SidebarItemElement;
   setInputIds?: Dispatch<SetStateAction<string[]>>;
+
+  formFeedback?: GetFormFeedbackQuery["formFeedback"]["data"]["attributes"]["formFeedback"];
 }
 
 export type ActiveOffers = "offer" | "complex";
@@ -61,6 +67,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   BugerMenu,
   sidebarItemElement = "normal",
   setInputIds,
+  formFeedback,
 }) => {
   const { data: offersPage, isLoading: isLoadingOffers } = useGetOffersPage();
 
@@ -162,7 +169,6 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   return (
     <>
       {BugerMenu && isDesktop.matches && <BugerMenu />}
-
       <main ref={ref} className={classNames("page", {}, [mainClass])}>
         <div
           className={classNames(
@@ -190,6 +196,9 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
           {activeComponent}
         </div>
       </main>
+
+      {formFeedback && <FormSend form={formFeedback} />}
+
       {footer && !activeOffers && (
         <Footer
           title={footer.title}

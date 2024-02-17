@@ -28,7 +28,9 @@ const Offers = ({
   const onClick = useCallback(() => {
     if (data?.offersPage) {
       router.push(
-        getRouteOffers(data.offersPage.data.attributes.offersBlock[0].id)
+        getRouteOffers(
+          data?.offersPage.data.attributes.offersBlock[0].offers.data[0].id
+        )
       );
     }
   }, [data]);
