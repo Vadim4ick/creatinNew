@@ -221,14 +221,21 @@ const Banner = memo((props: BannerProps) => {
             </div>
             <div className="intro__bg">
               {isPhone.matches ? (
-                <video ref={mobileVideo} autoPlay muted playsInline loop>
+                <video
+                  className={cls.banner}
+                  ref={mobileVideo}
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
+                >
                   <source
                     src={banner.bannerMobile.data.attributes.url}
                     type="video/mp4"
                   />
                 </video>
               ) : (
-                <video autoPlay muted playsInline loop>
+                <video className={cls.banner} autoPlay muted playsInline loop>
                   <source
                     src={banner.banner.data.attributes.url}
                     type="video/mp4"

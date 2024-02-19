@@ -40,3 +40,11 @@
 .introRow {
   // padding-right: 60px;
 }
+
+.banner {
+  border-radius: 48px;
+
+  @media (max-width: 767px) {
+    border-radius: 22px;
+  }
+}
