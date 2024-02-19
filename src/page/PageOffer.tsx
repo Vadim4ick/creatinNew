@@ -190,10 +190,9 @@ const PageOffer = ({
             </section>
           )}
 
-        {offer?.sliderCase.cases.data &&
-          offer?.sliderCase.cases.data.length > 0 && (
-            <RelevantProjects cases={offer.sliderCase.cases.data} />
-          )}
+        {offer?.sliderCase && offer?.sliderCase.cases.data.length > 0 && (
+          <RelevantProjects cases={offer.sliderCase.cases.data} />
+        )}
       </div>
     </ServiceLayout>
   );
