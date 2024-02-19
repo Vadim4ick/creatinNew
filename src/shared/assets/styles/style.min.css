@@ -1727,12 +1727,15 @@ body.popup-show::after {
 }
 .intro__inner {
   position: relative;
+  border-radius: 48px;
+  -webkit-border-radius: 48px; /* Safari */
 }
 .intro__row {
   position: relative;
   aspect-ratio: 1760/800;
   overflow: hidden;
   border-radius: 48px;
+  -webkit-border-radius: 48px; /* Safari */
   padding: 60px 60px 0 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4892,6 +4895,11 @@ picture {
   }
 }
 @media (max-width: 47.99875em) {
+  .intro__inner,
+  .intro__row {
+    border-radius: 22px;
+    -webkit-border-radius: 22px;
+  }
   .input {
     padding: 24px 23px 16px;
   }
