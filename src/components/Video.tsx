@@ -5,7 +5,7 @@ import { fileExistion } from "@/shared/helpers/fileExistion";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { classNames } from "@/shared/lib";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CtaBanner } from "./CtaBanner";
 
 interface VideoProps extends React.HTMLProps<HTMLDivElement> {
@@ -28,6 +28,12 @@ const Video = (props: VideoProps) => {
   const videoVideo = useRef<HTMLVideoElement | null>(null);
 
   const existion = fileExistion(srcMedia.url);
+
+  const [videoSrc, setVideoSrc] = useState(getFileUrl(srcMedia.url));
+
+  useEffect(() => {
+    setVideoSrc(getFileUrl(srcMedia.url));
+  }, [srcMedia.url]);
 
   useIntersectionObserver({
     ref: videoRef,
@@ -69,8 +75,8 @@ const Video = (props: VideoProps) => {
         frameBorder={0}
       ></iframe> */}
 
-      <video ref={videoVideo} autoPlay muted playsInline loop>
-        <source src={getFileUrl(srcMedia.url)} type="video/mp4" />
+      <video key={videoSrc} ref={videoVideo} autoPlay muted playsInline loop>
+        <source src={videoSrc} type="video/mp4" />
       </video>
     </div>
   );
