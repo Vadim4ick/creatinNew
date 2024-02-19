@@ -81,7 +81,7 @@ const PageOffer = ({
     >
       <div className="page__base">
         <section className="fade-up mb-42" ref={refSection}>
-          {offer?.offerBanner.data && (
+          {offer?.offerBanner.data.attributes && (
             <OfferTopBanner banner={offer.offerBanner.data.attributes} />
           )}
         </section>

@@ -13,11 +13,13 @@ const OfferTopBanner = ({
   return (
     <div className={cls.banner}>
       <div className={cls.image}>
-        {!isDesktop.matches ? (
-          <img src={banner.offerBannerDesktop.data.attributes.url} alt="" />
-        ) : (
-          <img src={banner.offerBannerMobile.data.attributes.url} alt="" />
-        )}
+        {banner.offerBannerDesktop.data &&
+          banner.offerBannerMobile.data &&
+          (!isDesktop.matches ? (
+            <img src={banner.offerBannerDesktop.data.attributes.url} alt="" />
+          ) : (
+            <img src={banner.offerBannerMobile.data.attributes.url} alt="" />
+          ))}
       </div>
 
       <div className={cls.body}>
