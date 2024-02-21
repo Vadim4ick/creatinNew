@@ -35,6 +35,7 @@ const PageOffer = ({
   const [activeServiceId, setActiveServicesId] = useState<string | undefined>(
     undefined
   );
+  const [routerLoading, setRouterLoading] = useState<boolean>(false);
 
   const refSection = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLDivElement | null>(null);
@@ -97,7 +98,7 @@ const PageOffer = ({
     }
   };
 
-  if (!activeServiceId && isLoading) {
+  if (!activeServiceId || isLoading) {
     return <Loader />;
   }
 

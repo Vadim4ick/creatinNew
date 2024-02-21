@@ -28,9 +28,7 @@ import { useGetOffersPage } from "@/shared/services/offers";
 import { classNames } from "@/shared/lib";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
-import { usePathname, useRouter } from "next/navigation";
 import { FormSend } from "@/app/_section/FormSend";
-import { getRouteOffers } from "@/shared/const/pages";
 
 export interface IndexDateState {
   id: string;
@@ -90,11 +88,14 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 
   const ref = useRef<HTMLElement | null>(null);
 
-  const router = useRouter();
-
   const onChange = (id: string) => {
     if (onChangeDop) {
       onChangeDop(id);
+
+      setActiveOffers(null);
+      sessionStorage.clear();
+
+      return;
     }
 
     setId(id);
