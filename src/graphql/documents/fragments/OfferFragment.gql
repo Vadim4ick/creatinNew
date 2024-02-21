@@ -1,0 +1,75 @@
+fragment OfferFragment on Offer {
+  name
+
+  headingBanner {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+
+  service_name {
+    data {
+      id
+
+      attributes {
+        name
+      }
+    }
+  }
+
+  img {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+
+  includes_blocks {
+    data {
+      id
+      attributes {
+        title
+
+        blockHover {
+          id
+          title
+          text
+          subTitle
+          list
+        }
+
+        includesContent {
+          id
+          title
+          content
+        }
+      }
+    }
+  }
+
+  footer {
+    ...FooterFragment
+  }
+
+  offerBanner {
+    data {
+      attributes {
+        ...BannerFragment
+      }
+    }
+  }
+
+  description
+  highlighted
+
+  sliderCase {
+    ...SliderFragment
+  }
+
+  textBlocks {
+    ...TextBlocksFragment
+  }
+}

@@ -1,0 +1,24 @@
+query GetServicesNamesOffer {
+  serviceNames(sort: "id:asc") {
+    data {
+      id
+      attributes {
+        name
+        nameID
+
+        footer {
+          ...FooterFragment
+        }
+
+        offers {
+          data {
+            id
+            attributes {
+              ...OfferFragment
+            }
+          }
+        }
+      }
+    }
+  }
+}

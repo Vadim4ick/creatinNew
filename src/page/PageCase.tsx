@@ -79,15 +79,15 @@ const PageCase = memo(
       if (headerElement && caseContent.backround[0] === "black") {
         setDarkTheme(true);
         document.body.classList.add("bodyBlack");
-        headerElement.classList.add("headerBlack");
+        // headerElement.classList.add("headerBlack");
       }
 
       return () => {
         document.body.classList.remove("bodyBlack");
 
-        if (headerElement) {
-          headerElement.classList.remove("headerBlack");
-        }
+        // if (headerElement) {
+        //   headerElement.classList.remove("headerBlack");
+        // }
         setDarkTheme(false);
       };
     }, [caseContent.backround, setDarkTheme]);

@@ -28,8 +28,9 @@ import { useGetOffersPage } from "@/shared/services/offers";
 import { classNames } from "@/shared/lib";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FormSend } from "@/app/_section/FormSend";
+import { getRouteOffers } from "@/shared/const/pages";
 
 export interface IndexDateState {
   id: string;
@@ -50,8 +51,9 @@ interface ServiceLayoutProps {
   sidebarItemElement?: SidebarItemElement;
   setInputIds?: Dispatch<SetStateAction<string[]>>;
 
+  onChangeDop?: (id: string) => void;
+  onChangeDopFooter?: VoidFunction;
   viewSpecialOffers?: boolean;
-
   footerCls?: string;
   formFeedback?: GetFormFeedbackQuery["formFeedback"]["data"]["attributes"]["formFeedback"];
 }
@@ -73,6 +75,8 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   formFeedback,
   footerCls,
   viewSpecialOffers = true,
+  onChangeDop,
+  onChangeDopFooter,
 }) => {
   const { data: offersPage, isLoading: isLoadingOffers } = useGetOffersPage();
 
@@ -86,15 +90,12 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
 
   const ref = useRef<HTMLElement | null>(null);
 
-  // const pathname = usePathname();
+  const router = useRouter();
 
   const onChange = (id: string) => {
-    // if (
-    //   pathname.split("/")[1] === "services" &&
-    //   pathname.split("/")[2] === "complex"
-    // ) {
-    //   setActiveComplex(true);
-    // }
+    if (onChangeDop) {
+      onChangeDop(id);
+    }
 
     setId(id);
     setActiveOffers(null);
@@ -107,6 +108,9 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   });
 
   const onClickFooter = () => {
+    if (onChangeDopFooter) {
+      return onChangeDopFooter();
+    }
     if (!indexDate) {
       return null;
     }

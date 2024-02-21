@@ -8,6 +8,16 @@ fragment OffersBlock on ComponentComponentsOfferComponent {
       attributes {
         name
 
+        service_name {
+          data {
+            id
+
+            attributes {
+              name
+            }
+          }
+        }
+
         description
 
         img {

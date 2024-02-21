@@ -2,69 +2,7 @@ query GetOfferById($id: ID) {
   offer(id: $id) {
     data {
       attributes {
-        name
-
-        headingBanner {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
-
-        img {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
-
-        includes_blocks {
-          data {
-            id
-            attributes {
-              title
-
-              blockHover {
-                id
-                title
-                text
-                subTitle
-                list
-              }
-
-              includesContent {
-                id
-                title
-                content
-              }
-            }
-          }
-        }
-
-        footer {
-          ...FooterFragment
-        }
-
-        offerBanner {
-          data {
-            attributes {
-              ...BannerFragment
-            }
-          }
-        }
-
-        description
-        highlighted
-
-        sliderCase {
-          ...SliderFragment
-        }
-
-        textBlocks {
-          ...TextBlocksFragment
-        }
+        ...OfferFragment
       }
     }
   }

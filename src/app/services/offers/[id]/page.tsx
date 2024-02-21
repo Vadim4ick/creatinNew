@@ -31,10 +31,16 @@ const OffersPage = async ({ params }: { params: { id: string } }) => {
 
   const { offers } = await gql.GetOffersName();
 
+  const { serviceNames } = await gql.GetServicesNamesOffer();
+
   const { formFeedback } = await gql.GetFormFeedback();
 
   return (
-    <PageOffer offersName={offers.data} id={id} formFeedback={formFeedback} />
+    <PageOffer
+      serviceNames={serviceNames.data}
+      id={id}
+      formFeedback={formFeedback}
+    />
   );
 };
 

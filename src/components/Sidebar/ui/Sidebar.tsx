@@ -12,7 +12,6 @@ import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { BtnArrow } from "@/shared/icons/BtnArrow";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
-import { usePathname, useRouter } from "next/navigation";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 
 export interface SidebarItems {
@@ -39,6 +38,7 @@ interface SidebarProps {
     | undefined;
   itemElement?: SidebarItemElement;
   setInputIds?: Dispatch<SetStateAction<string[]>>;
+  onChangeDop?: VoidFunction;
 }
 
 const Sidebar = memo((props: SidebarProps) => {

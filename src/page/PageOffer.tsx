@@ -1,10 +1,9 @@
 "use client";
 
-import { CtaBanner } from "@/components/CtaBanner";
 import {
   GetFormFeedbackQuery,
   GetOfferByIdQuery,
-  GetOffersNameQuery,
+  GetServicesNamesOfferQuery,
 } from "@/graphql/__generated__";
 import { Spoller } from "@/shared/ui/Spoller";
 import React, { useContext, useEffect, useRef, useState } from "react";
@@ -12,45 +11,51 @@ import ReactMarkdown from "react-markdown";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { useGetOffersById } from "@/shared/services/offerById";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
-import { useMedia } from "@/shared/hooks/useMedia";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { classNames } from "@/shared/lib";
-import Image from "next/image";
 import { OfferTopBanner } from "@/components/OfferTopBanner";
-import { ContentBanner } from "@/components/ContentBanner";
 import { Video } from "@/components/Video";
 import { TextBlocks } from "@/components/TextBlocks";
 import { RelevantProjects } from "@/components/Relevant-project";
+import { useRouter } from "next/navigation";
+import { Loader } from "@/shared/ui/Loader/Loader";
+import { getRouteOffers } from "@/shared/const/pages";
 
 const PageOffer = ({
-  offersName,
+  serviceNames,
   id,
   formFeedback,
 }: {
-  offersName: GetOffersNameQuery["offers"]["data"];
+  serviceNames: GetServicesNamesOfferQuery["serviceNames"]["data"];
   id: string;
   formFeedback: GetFormFeedbackQuery["formFeedback"];
 }) => {
-  const [offerId, setOfferId] = useState(id);
-
-  const isPhone = useMedia("(max-width: 767px)");
+  const [activeServiceId, setActiveServicesId] = useState<string | undefined>(
+    undefined
+  );
 
   const refSection = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLDivElement | null>(null);
 
   const { setActiveOffers } = useContext(ActiveOfferProviderContext);
-  const { data, isLoading } = useGetOffersById(offerId);
+  const { data, isLoading } = useGetOffersById(id);
 
   const [offer, setOffer] = useState<
     GetOfferByIdQuery["offer"]["data"]["attributes"] | undefined
   >(undefined);
 
+  const router = useRouter();
+
   useEffect(() => {
     if (data?.offer) {
-      setOffer(data.offer.data.attributes);
+      if (data.offer.data) {
+        setActiveServicesId(data.offer.data.attributes.service_name.data.id);
+        setOffer(data.offer.data.attributes);
+      }
     } else {
+      setActiveServicesId("");
       setOffer(undefined);
     }
   }, [data]);
@@ -66,18 +71,50 @@ const PageOffer = ({
     return () => setActiveOffers(null);
   }, [setActiveOffers]);
 
+  const onChangeDop = (id: string) => {
+    const offer = serviceNames.filter((el) => {
+      return el.id == id;
+    });
+
+    router.push(getRouteOffers(offer[0].attributes.offers.data[0].id));
+  };
+
+  const onChangeDopFooter = () => {
+    const initialIndexes = serviceNames.map((item, index) => ({
+      id: item.id,
+      index,
+      offers: item.attributes.offers,
+    }));
+
+    const idx = serviceNames.findIndex((el) => el.id === activeServiceId);
+
+    const nextDate = initialIndexes[idx + 1];
+
+    if (nextDate) {
+      router.push(getRouteOffers(nextDate.offers.data[0].id));
+    } else {
+      router.push(getRouteOffers(initialIndexes[0].offers.data[0].id));
+    }
+  };
+
+  if (!activeServiceId && isLoading) {
+    return <Loader />;
+  }
+
   return (
     <ServiceLayout
-      items={offersName}
+      items={serviceNames}
       isLoading={isLoading}
-      setId={setOfferId}
+      setId={setActiveServicesId}
       viewSpecialOffers={false}
-      serviceId={offerId}
+      serviceId={activeServiceId}
       footer={offer?.footer}
       footerCls={"footer--whte footer-offer"}
       mainClass={""}
       BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
       formFeedback={formFeedback.data.attributes.formFeedback}
+      onChangeDop={onChangeDop}
+      onChangeDopFooter={onChangeDopFooter}
     >
       <div className="page__base">
         <section className="fade-up mb-42" ref={refSection}>
@@ -125,7 +162,6 @@ const PageOffer = ({
                         <div key={content.id} className="includes__item">
                           <Spoller
                             className="includes__text"
-                            // @ts-ignore
                             style={{ "--icon": "url(/img/icons/spoller.svg)" }}
                             btn={<>{content.title}</>}
                           >

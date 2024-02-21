@@ -61,7 +61,16 @@ const Header = (props: HeaderProps) => {
 
   return (
     <>
-      <header ref={headerRef} className="header">
+      <header
+        ref={headerRef}
+        className={classNames(
+          "header",
+          {
+            headerBlack: darkTheme,
+          },
+          []
+        )}
+      >
         <div className="header__container">
           {darkTheme ? (
             <Link href={"/"} className="header__logo logo">
