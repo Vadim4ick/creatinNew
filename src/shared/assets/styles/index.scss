@@ -104,3 +104,41 @@
     fill: white;
   }
 }
+
+.footer-main {
+  @media (max-width: 776px) {
+    &::before {
+      content: "";
+
+      background: var(--color-alt) !important;
+    }
+
+    .footer__decor {
+      &::before {
+        content: "";
+
+        background: var(--color-alt) !important;
+      }
+
+      &::after {
+        content: "";
+
+        background: var(--color-alt) !important;
+      }
+    }
+
+    .footer__container {
+      path {
+        fill: #fff !important;
+      }
+    }
+
+    .footer__link {
+      border-color: #fff !important;
+    }
+
+    .footer__comment {
+      color: #fff !important;
+    }
+  }
+}

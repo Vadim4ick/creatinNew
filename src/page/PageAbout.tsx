@@ -84,7 +84,7 @@ const PageAbout = (props: PageAboutProps) => {
           />
         )}
 
-        <MainFooter className="footer--whte" />
+        <MainFooter className="footer--whte footer-main" />
       </main>
     </>
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const MainFooter = ({ className = "" }: { className?: string }) => {
   return (
-    <footer className={`footer ${className}`}>
+    <footer className={`footer footer-main ${className}`}>
       <span className="footer__decor"></span>
       <div className="footer__container">
         <div className="footer__title">
@@ -25,10 +25,15 @@ const MainFooter = ({ className = "" }: { className?: string }) => {
             />
           </svg>
         </Link>
-        <div className="footer__comment">
-          Практический опыт показывает, что дальнейшее развитие различных форм
-          деятельности требует определения и уточнения дальнейших
-        </div>
+        <a
+          href="https://www.instagram.com/creatin_ru/?igsh=MXZ4cHpodnZpZG8waQ%3D%3D"
+          target="_blank"
+        >
+          <div className="footer__comment">
+            онлайн-журнал, который погрузит вас в пространство бизнеса,
+            брендинга, дизайна, маркетинга и PR в современном мире
+          </div>
+        </a>
       </div>
     </footer>
   );
