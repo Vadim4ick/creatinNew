@@ -41,6 +41,10 @@
   background: #1b1b1b !important;
 }
 
+.mobile-nav__item a {
+  color: #181818 !important;
+}
+
 .bodyBlack .project__head {
   @media (any-hover: hover) {
     &:hover {
@@ -85,6 +89,18 @@
   }
 }
 
-.pb-70 {
-  margin-bottom: 70px;
+.pb-70.callback {
+  padding: 128px 0 196px 0;
+
+  @media (max-width: 75.06125em) {
+    padding: 64px 0 70px 0;
+  }
+}
+
+.footer--whte.footer-offer .footer__link {
+  background: var(--color-alt) !important;
+
+  svg path {
+    fill: white;
+  }
 }

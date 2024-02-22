@@ -11,12 +11,8 @@ import {
   GetPartnersQuery,
 } from "@/graphql/__generated__";
 import { MainFooter } from "@/layouts";
-import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { useMedia } from "@/shared/hooks/useMedia";
-import { HomePreloaderProviderContext } from "@/shared/providers/homePreloader";
-import { HomePreloader } from "@/shared/ui/HomePreloader/HomePreloader";
-import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 
 interface PageHomeProps {
   homePage: GetHomePageQuery["homePage"];
@@ -41,23 +37,29 @@ const PageHome = (props: PageHomeProps) => {
       '--font-primary: "Jeko-otf", Fallback'
     );
 
-    // document.addEventListener("contextmenu", (event) => event.preventDefault());
-
-    // document.addEventListener("keydown", function (event) {
-    //   // Проверяем, нажата ли клавиша Ctrl (или Cmd на Mac) и клавиша S
-    //   if ((event.ctrlKey || event.metaKey) && event.key === "s") {
-    //     // Отменяем действие по умолчанию (сохранение страницы)
+    // const handler = (event) => {
+    //   if (
+    //     (event.ctrlKey || event.metaKey) &&
+    //     String.fromCharCode(event.which).toLowerCase() === "c"
+    //   ) {
     //     event.preventDefault();
-    //     // Можно также добавить всплывающее окно с сообщением, что сохранение отключено
-    //     alert("Сохранение отключено");
+    //     console.log("Copy command has been disabled");
     //   }
-    // });
+    // };
 
-    // document.addEventListener("contextmenu", function (e) {
-    //   e.preventDefault();
-    // });
+    // const handler2 = (e) => {
+    //   if (e.target.tagName === "IMG") {
+    //     e.preventDefault();
+    //   }
+    // };
 
-    // return () => clearTimeout(timeout);
+    // window.addEventListener("keydown", handler);
+
+    // document.addEventListener("contextmenu", handler2);
+    // return () => {
+    //   window.removeEventListener("keydown", handler);
+    //   document.removeEventListener("contextmenu", handler2);
+    // };
   }, []);
 
   // if (preloader) {

@@ -48,3 +48,14 @@
     border-radius: 22px;
   }
 }
+
+.cards {
+  @media (max-width: 1100px) {
+    position: initial;
+    margin-top: 24px;
+    margin-left: var(--pad-neg);
+    margin-right: var(--pad-neg);
+    padding-right: var(--pad);
+    padding-left: var(--pad);
+  }
+}

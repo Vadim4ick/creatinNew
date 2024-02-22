@@ -10,9 +10,15 @@ import { Folder } from "@/shared/icons/introBanner/Folder";
 import { Spiral } from "@/shared/icons/introBanner/Spiral";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import { IconsType } from "@/shared/type/iconsType";
-import { Portal } from "@/shared/ui/Portal";
 import Image from "next/image";
-import { memo, useContext, useEffect, useMemo, useRef } from "react";
+import {
+  MouseEvent,
+  memo,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { A11y, Mousewheel } from "swiper";
 import cls from "./Banner.module.scss";
 import { classNames } from "@/shared/lib";
@@ -79,7 +85,7 @@ const Banner = memo((props: BannerProps) => {
           autoHeight: false,
           spaceBetween: 12,
         },
-        1439: {
+        1100: {
           direction: "vertical",
         },
       },
@@ -190,6 +196,10 @@ const Banner = memo((props: BannerProps) => {
     };
   }, [animation]);
 
+  const handleContextMenu = (e: MouseEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <section ref={bannerRef} className="intro">
       <div className="intro__container">
@@ -228,6 +238,7 @@ const Banner = memo((props: BannerProps) => {
                   muted
                   playsInline
                   loop
+                  onContextMenu={(e) => handleContextMenu(e)}
                 >
                   <source
                     src={banner.bannerMobile.data.attributes.url}
@@ -235,7 +246,14 @@ const Banner = memo((props: BannerProps) => {
                   />
                 </video>
               ) : (
-                <video className={cls.banner} autoPlay muted playsInline loop>
+                <video
+                  onContextMenu={(e) => handleContextMenu(e)}
+                  className={cls.banner}
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
+                >
                   <source
                     src={banner.banner.data.attributes.url}
                     type="video/mp4"
@@ -250,7 +268,7 @@ const Banner = memo((props: BannerProps) => {
             className={classNames(
               "intro__cards intro-cards swiper js-intro-cards",
               {},
-              []
+              [cls.cards]
             )}
           >
             <div
@@ -290,6 +308,7 @@ const Banner = memo((props: BannerProps) => {
                                   className="intro-cards__image-item"
                                 >
                                   <Image
+                                    onContextMenu={(e) => handleContextMenu(e)}
                                     src={el}
                                     width={57}
                                     height={57}

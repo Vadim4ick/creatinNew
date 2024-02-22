@@ -1853,6 +1853,7 @@ body.popup-show::after {
     rgba(255, 255, 255, 0.8) 0,
     rgba(255, 255, 255, 0.77) 90.97%
   );
+
   padding: 23px 28px 23px 24px;
   overflow: hidden;
 }
@@ -4584,7 +4585,7 @@ picture {
     transform: translateX(-16px);
   }
 }
-@media (max-width: 1439px) {
+@media (max-width: 1100px) {
   .intro__cards .intro-cards__item {
     width: clamp(276px, 32.5%, 32.5%);
   }
@@ -4599,14 +4600,14 @@ picture {
   }
 }
 @media (max-width: 1438px) {
-  .intro__cards {
+  /* .intro__cards {
     position: initial;
     margin-top: 24px;
     margin-left: var(--pad-neg);
     margin-right: var(--pad-neg);
     padding-right: var(--pad);
     padding-left: var(--pad);
-  }
+  } */
   .about__row {
     -webkit-box-orient: vertical;
     -webkit-box-direction: reverse;
