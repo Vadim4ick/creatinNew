@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
 import { getRouteServices } from "@/shared/const/pages";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
@@ -8,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useContext } from "react";
+import Lottie, { Options } from "react-lottie";
+import animationData from "@/shared/assets/animation/data.json";
 
 interface MenuProps {
   active: boolean;
@@ -33,6 +33,18 @@ const Menu = (props: MenuProps) => {
       // @ts-ignore
       router.refresh(getRouteServices());
     }
+  };
+
+  const defaultOptions: Options = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+      clearCanvas: true,
+      className: "lottie",
+    },
   };
 
   return (
@@ -128,26 +140,11 @@ const Menu = (props: MenuProps) => {
                 background: "linear-gradient(180deg, #489DEB 0%, #82C3FF 100%)",
               }}
             >
-              <div className="mobile-nav__name">Спецпредложения</div>
               <div className="mobile-nav__image">
-                {/* <img src="/img/header/01.png" alt="" /> */}
-                {burgerLinks?.mobileNavigation.data && (
-                  <Image
-                    alt=""
-                    height={
-                      burgerLinks.mobileNavigation.data.attributes.offersImg
-                        .data.attributes.height
-                    }
-                    width={
-                      burgerLinks.mobileNavigation.data.attributes.offersImg
-                        .data.attributes.width
-                    }
-                    src={getFileUrl(
-                      burgerLinks.mobileNavigation.data.attributes.offersImg
-                        .data.attributes.url
-                    )}
-                  />
-                )}
+                <Lottie
+                  isClickToPauseDisabled={true}
+                  options={defaultOptions}
+                />
               </div>
             </a>
 
