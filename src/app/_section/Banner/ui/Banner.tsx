@@ -112,53 +112,6 @@ const Banner = memo((props: BannerProps) => {
     BannerAnimationProviderContext
   );
 
-  // useGSAP(() => {
-  //   const tl = gsap.timeline({
-  //     // onComplete: () => {
-  //     //   console.log("finish");
-  //     //   setAnimation(true);
-  //     // },
-  //   });
-
-  //   if (isPhone.matches) {
-  //     tl.from(contentInfo.current, {
-  //       opacity: 0,
-  //       ease: "power1.out",
-  //       delay: ANIMATION_DELAY_MOBILE,
-  //       position: "relative",
-  //       left: "-150px",
-
-  //       duration: 3,
-  //     });
-
-  //     gsap.to(contentCards.current, {
-  //       opacity: 1,
-  //       ease: "power1.out",
-  //       delay: ANIMATION_DELAY_MOBILE,
-  //       right: 0,
-  //       duration: 3,
-  //     });
-  //   } else {
-  //     tl.from(contentInfo.current, {
-  //       opacity: 0,
-  //       ease: "power1.out",
-  //       delay: ANIMATION_DELAY,
-  //       position: "relative",
-  //       left: "-150px",
-  //       bottom: "-150px",
-  //       duration: 3,
-  //     });
-
-  //     gsap.to(contentCards.current, {
-  //       opacity: 1,
-  //       ease: "power1.out",
-  //       delay: ANIMATION_DELAY,
-  //       right: 0,
-  //       duration: 3,
-  //     });
-  //   }
-  // }, [{ scope: contentInfo }, { scope: contentCards }]);
-
   const mobileVideo = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -219,14 +172,6 @@ const Banner = memo((props: BannerProps) => {
                 [cls.content]
               )}
             >
-              <div className="intro__title">
-                <p>Стратегии, брендинг</p>
-                <p>и digital-решения для компаний,</p>
-                <p>
-                  готовых <br />к <span>изменениям</span>
-                </p>
-              </div>
-
               {!isPhone.matches && animation && <ButtonIntro />}
             </div>
             <div className="intro__bg">

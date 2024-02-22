@@ -142,3 +142,14 @@
     }
   }
 }
+
+.intro__content {
+  @media (min-width: 776px) {
+    width: 416px;
+    display: flex;
+    justify-content: center;
+    height: 120px;
+    align-items: center;
+    background: white;
+  }
+}
