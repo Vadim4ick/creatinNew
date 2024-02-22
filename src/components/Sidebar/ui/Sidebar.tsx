@@ -1,18 +1,17 @@
 "use client";
 
 import { classNames } from "@/shared/lib";
-import { CustomLink } from "@/shared/ui/Link";
-import { Dispatch, SetStateAction, memo, useContext, useEffect } from "react";
+import { Dispatch, SetStateAction, memo, useContext } from "react";
 import cls from "./Sidebar.module.scss";
-import Image from "next/image";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
 import { ActiveOffers } from "@/layouts/ServiceLayout";
 import { GetOffersPageQuery } from "@/graphql/__generated__";
-import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { BtnArrow } from "@/shared/icons/BtnArrow";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
+import Lottie, { Options } from "react-lottie";
+import animationData from "@/shared/assets/animation/data.json";
 
 export interface SidebarItems {
   readonly id: string;
@@ -57,6 +56,18 @@ const Sidebar = memo((props: SidebarProps) => {
   const { onClickPopup } = useContext(PopupProviderContext);
 
   const { setActiveComplex } = useContext(ActiveOfferProviderContext);
+
+  const defaultOptions: Options = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+      clearCanvas: true,
+      className: "lottie",
+    },
+  };
 
   return (
     <aside className="sidebar">
@@ -133,33 +144,23 @@ const Sidebar = memo((props: SidebarProps) => {
             })}
         </ul>
 
-        {viewSpecialOffers && (
-          <button
-            onClick={() => {
-              setActiveOffers("offer");
+        {viewSpecialOffers && imageOffers?.data && (
+          <div className="sidebar__image">
+            <button
+              onClick={() => {
+                setActiveOffers("offer");
 
-              setActiveComplex(false);
+                setActiveComplex(false);
 
-              sessionStorage.setItem(
-                STORAGE_KEYS.ACTIVE_OFFER,
-                "offer" as ActiveOffers
-              );
-            }}
-            className="sidebar__baner"
-            style={{ background: "#d1e791" }}
-          >
-            <div className="sidebar__name">Спецпредложения</div>
-            {imageOffers?.data && (
-              <div className="sidebar__image">
-                <Image
-                  src={getFileUrl(imageOffers.data.attributes.url)}
-                  alt=""
-                  width={imageOffers.data.attributes.width}
-                  height={imageOffers.data.attributes.height}
-                />
-              </div>
-            )}
-          </button>
+                sessionStorage.setItem(
+                  STORAGE_KEYS.ACTIVE_OFFER,
+                  "offer" as ActiveOffers
+                );
+              }}
+            >
+              <Lottie isClickToPauseDisabled={true} options={defaultOptions} />
+            </button>
+          </div>
         )}
 
         <button onClick={onClickPopup} className={"btn btn--hasarrow"}>
