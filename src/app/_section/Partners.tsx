@@ -58,7 +58,7 @@ const Partners = (props: PartnersProps) => {
       spaceBetween: 8,
       // slidesPerColumn: 4,
       grid: {
-        rows: 4,
+        rows: 2,
         fill: "column",
       },
       slidesPerGroup: 3,
@@ -73,7 +73,7 @@ const Partners = (props: PartnersProps) => {
       breakpoints: {
         320: {
           grid: {
-            rows: 4,
+            rows: 2,
             fill: "column",
           },
         },
@@ -82,8 +82,6 @@ const Partners = (props: PartnersProps) => {
             rows: 1,
             fill: "column",
           },
-
-          // slidesPerColumn: 1,
         },
       },
     },

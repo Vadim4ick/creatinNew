@@ -4698,6 +4698,8 @@ picture {
     display: grid;
     -ms-grid-columns: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-auto-flow: column;
   }
 }
 @media (max-width: 75.06125em) {
