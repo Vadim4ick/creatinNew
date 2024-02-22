@@ -72,6 +72,14 @@
     }
   }
 
+  &.footer__link {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    border-radius: 36px 36px 0 0 !important;
+  }
+
   @media (any-hover: hover) {
     &:hover {
       .footer__decor {

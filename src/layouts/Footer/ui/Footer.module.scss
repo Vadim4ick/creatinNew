@@ -2,17 +2,18 @@
   overflow: visible !important;
 }
 
+.footerDop {
+  @media (min-width: 767px) {
+    max-height: 423px;
+    overflow: hidden;
+  }
+}
+
 .dark {
   background: #222222 !important;
 
   @media (any-hover: hover) {
     &:hover {
-      // background: #caff00 !important;
-
-      // &::before {
-      //   background: #caff00 !important;
-      // }
-
       span {
         &::after {
           content: "";
@@ -52,17 +53,6 @@
     content: "";
 
     background: #222222 !important;
-  }
-}
-
-@media (min-width: 1350px) {
-  .title {
-    font-size: 76px !important;
-  }
-
-  .row {
-    max-width: 700px !important;
-    direction: rtl;
   }
 }
 

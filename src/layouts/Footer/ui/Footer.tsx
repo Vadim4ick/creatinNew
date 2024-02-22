@@ -24,7 +24,7 @@ const Footer = (props: FooterProps) => {
       className={classNames(
         "footer footer--service",
         { [cls.dark]: darkTheme },
-        [className]
+        [className, cls.footerDop]
       )}
     >
       <span className="footer__decor"></span>

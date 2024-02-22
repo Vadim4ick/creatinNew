@@ -12,7 +12,7 @@
       "id": "image_0",
       "w": 126,
       "h": 214,
-      "u": "images/",
+      "u": "/images/",
       "p": "img_0@2x.png",
       "e": 0
     },
@@ -20,7 +20,7 @@
       "id": "image_1",
       "w": 126,
       "h": 214,
-      "u": "images/",
+      "u": "/images/",
       "p": "img_1@2x.png",
       "e": 0
     },
@@ -28,7 +28,7 @@
       "id": "image_2",
       "w": 126,
       "h": 214,
-      "u": "images/",
+      "u": "/images/",
       "p": "img_2@2x.png",
       "e": 0
     },
@@ -36,7 +36,7 @@
       "id": "image_3",
       "w": 126,
       "h": 214,
-      "u": "images/",
+      "u": "/images/",
       "p": "img_3@2x.png",
       "e": 0
     },
@@ -44,7 +44,7 @@
       "id": "image_4",
       "w": 126,
       "h": 215,
-      "u": "images/",
+      "u": "/images/",
       "p": "img_4@2x.png",
       "e": 0
     },
@@ -52,7 +52,7 @@
       "id": "image_5",
       "w": 126,
       "h": 214,
-      "u": "images/",
+      "u": "/images/",
       "p": "img_5@2x.png",
       "e": 0
     },
@@ -60,7 +60,7 @@
       "id": "image_6",
       "w": 126,
       "h": 214,
-      "u": "images/",
+      "u": "/images/",
       "p": "img_6@2x.png",
       "e": 0
     },
@@ -68,7 +68,7 @@
       "id": "image_7",
       "w": 126,
       "h": 214,
-      "u": "images/",
+      "u": "/images/",
       "p": "img_7@2x.png",
       "e": 0
     },
@@ -76,7 +76,7 @@
       "id": "image_8",
       "w": 126,
       "h": 214,
-      "u": "images/",
+      "u": "/images/",
       "p": "img_8@2x.png",
       "e": 0
     },
@@ -84,7 +84,7 @@
       "id": "image_9",
       "w": 270,
       "h": 210,
-      "u": "images/",
+      "u": "/images/",
       "p": "img_9@2x.png",
       "e": 0
     }
