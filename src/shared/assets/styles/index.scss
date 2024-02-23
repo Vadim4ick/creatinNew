@@ -153,12 +153,18 @@
 
 .intro__content {
   @media (min-width: 776px) {
-    width: 416px;
+    width: 464px;
     display: flex;
     justify-content: center;
-    height: 120px;
-    align-items: center;
+    height: 166px;
+    align-items: flex-end;
+    padding-bottom: 28px;
     background: white;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.8) 0,
+      rgba(255, 255, 255, 0.77) 90.97%
+    );
   }
 }
 
