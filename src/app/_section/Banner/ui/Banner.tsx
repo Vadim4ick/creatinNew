@@ -161,6 +161,22 @@ const Banner = memo((props: BannerProps) => {
             className={classNames("intro__row", {}, [cls.introRow])}
             style={banner.bannerMasks ? customStyles : undefined}
           >
+            {isPhone.matches && (
+              <video
+                className={cls.banner}
+                ref={mobileVideo}
+                autoPlay
+                muted
+                playsInline
+                loop
+                onContextMenu={(e) => handleContextMenu(e)}
+              >
+                <source
+                  src={banner.bannerMobile.data.attributes.url}
+                  type="video/mp4"
+                />
+              </video>
+            )}
             <div
               ref={contentInfo}
               className={classNames(
@@ -175,22 +191,7 @@ const Banner = memo((props: BannerProps) => {
               {!isPhone.matches && animation && <ButtonIntro />}
             </div>
             <div className="intro__bg">
-              {isPhone.matches ? (
-                <video
-                  className={cls.banner}
-                  ref={mobileVideo}
-                  autoPlay
-                  muted
-                  playsInline
-                  loop
-                  onContextMenu={(e) => handleContextMenu(e)}
-                >
-                  <source
-                    src={banner.bannerMobile.data.attributes.url}
-                    type="video/mp4"
-                  />
-                </video>
-              ) : (
+              {!isPhone.matches && (
                 <video
                   onContextMenu={(e) => handleContextMenu(e)}
                   className={cls.banner}
