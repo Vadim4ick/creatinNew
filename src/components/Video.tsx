@@ -69,16 +69,6 @@ const Video = (props: VideoProps) => {
       // @ts-ignore
       style={{ "--icon": "url(/img/icons/video-icon-gray.svg)" }}
     >
-      {/* <iframe
-        src={getFileUrl(srcMedia.url)}
-        title="Video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-        width="100%"
-        height="100%"
-        frameBorder={0}
-      ></iframe> */}
-
       <video
         onContextMenu={(e) => handleContextMenu(e)}
         key={videoSrc}

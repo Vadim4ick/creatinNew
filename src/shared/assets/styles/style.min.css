@@ -1569,6 +1569,8 @@ body.popup-show::after {
   height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 .footer.footer--service .footer__container {
   -webkit-box-align: start;

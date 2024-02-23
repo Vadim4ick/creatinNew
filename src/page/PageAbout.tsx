@@ -1,6 +1,7 @@
 "use client";
 
 import { About } from "@/app/_section/About";
+import { VideoAbout } from "@/app/_section/About/ui/VideoAbout/VideoAbout";
 import { FormSend } from "@/app/_section/FormSend";
 import { Partners } from "@/app/_section/Partners";
 import { Quality } from "@/app/about/_section/Quality";
@@ -55,11 +56,16 @@ const PageAbout = (props: PageAboutProps) => {
 
       <main className="page">
         {data?.studio.data.attributes.video.data && (
-          <Video
-            srcMedia={data.studio.data.attributes.video.data.attributes}
+          // <Video
+          //   srcMedia={data.studio.data.attributes.video.data.attributes}
+          //   className="video--about"
+          //   container={true}
+          //   animation={true}
+          // />
+
+          <VideoAbout
             className="video--about"
-            container={true}
-            animation={true}
+            src={data.studio.data.attributes.video.data.attributes}
           />
         )}
 
