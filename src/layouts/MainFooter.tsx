@@ -12,7 +12,11 @@ const MainFooter = ({ className = "" }: { className?: string }) => {
           <div className="footer__title">
             <Inblog />
           </div>
-          <Link href={"/"} className="footer__link">
+          <a
+            target="_blank"
+            href="https://www.instagram.com/creatin_ru/?igsh=MXZ4cHpodnZpZG8waQ%3D%3D"
+            className="footer__link"
+          >
             <svg
               width="15"
               height="18"
@@ -27,16 +31,12 @@ const MainFooter = ({ className = "" }: { className?: string }) => {
                 fill="#181818"
               />
             </svg>
-          </Link>
-          <a
-            href="https://www.instagram.com/creatin_ru/?igsh=MXZ4cHpodnZpZG8waQ%3D%3D"
-            target="_blank"
-          >
-            <div className="footer__comment">
-              онлайн-журнал, который погрузит вас в пространство бизнеса,
-              брендинга, дизайна, маркетинга и PR в современном мире
-            </div>
           </a>
+
+          <div className="footer__comment">
+            онлайн-журнал, который погрузит вас в пространство бизнеса,
+            брендинга, дизайна, маркетинга и PR в современном мире
+          </div>
         </div>
       </footer>
     </>

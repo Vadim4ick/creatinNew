@@ -4016,7 +4016,7 @@ export const GetCaseByIdDocument = gql`
 ${MediaFragmentFragmentDoc}`;
 export const GetCasesIdsDocument = gql`
     query GetCasesIds {
-  cases(sort: "id:asc") {
+  cases(sort: "id:asc", pagination: {limit: 100}) {
     data {
       id
     }

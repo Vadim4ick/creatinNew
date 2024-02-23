@@ -58,36 +58,17 @@ const PageCase = memo(
 
     const isDesktop = useMedia("(max-width: 1200px)");
 
-    // useEffect(() => {
-    //   if (caseContent.backround[0] === "black") {
-    //     setDarkTheme(true);
-    //     document.body.classList.add("bodyBlack");
-    //     document.querySelector("header").classList.add("headerBlack");
-    //   }
-
-    //   return () => {
-    //     document.body.classList.remove("bodyBlack");
-
-    //     document.querySelector("header")!.classList.remove("headerBlack");
-    //     setDarkTheme(false);
-    //   };
-    // }, [caseContent.backround, setDarkTheme]);
-
     useEffect(() => {
       const headerElement = document.querySelector("header");
 
       if (headerElement && caseContent.backround[0] === "black") {
         setDarkTheme(true);
         document.body.classList.add("bodyBlack");
-        // headerElement.classList.add("headerBlack");
       }
 
       return () => {
         document.body.classList.remove("bodyBlack");
 
-        // if (headerElement) {
-        //   headerElement.classList.remove("headerBlack");
-        // }
         setDarkTheme(false);
       };
     }, [caseContent.backround, setDarkTheme]);
