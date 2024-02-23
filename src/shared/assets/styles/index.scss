@@ -49,9 +49,35 @@
   @media (any-hover: hover) {
     &:hover {
       background: #222222 !important;
+
+      @media (min-width: 1400px) {
+        .project__text {
+          -webkit-transform: translateX(-35px);
+          -ms-transform: translateX(-35px);
+          transform: translateX(-35px);
+        }
+
+        .project__title {
+          -webkit-transform: translateX(15px);
+          -ms-transform: translateX(15px);
+          transform: translateX(15px);
+        }
+      }
     }
   }
 }
+
+// .project__head--big:hover .project__text {
+//   -webkit-transform: translateX(-35px);
+//   -ms-transform: translateX(-35px);
+//   transform: translateX(-35px);
+// }
+
+// .project__head--big:hover .project__title {
+//   -webkit-transform: translateX(15px);
+//   -ms-transform: translateX(15px);
+//   transform: translateX(15px);
+// }
 
 .footer-offer {
   margin-top: -70px;
