@@ -13,6 +13,10 @@
   @media (max-width: 1515px) {
     grid-template-columns: repeat(auto-fit, minmax(289px, 1fr));
   }
+
+  @media (max-width: 767px) {
+    justify-items: center;
+  }
 }
 
 .body {

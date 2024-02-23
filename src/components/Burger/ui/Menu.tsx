@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useContext } from "react";
 import Lottie, { Options } from "react-lottie";
-import animationData from "@/shared/assets/animation/data.json";
+import animationData from "@/shared/assets/animation/data-mobile.json";
 
 interface MenuProps {
   active: boolean;
@@ -43,7 +43,7 @@ const Menu = (props: MenuProps) => {
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
       clearCanvas: true,
-      className: "lottie",
+      className: "lottie-mobile",
     },
   };
 
