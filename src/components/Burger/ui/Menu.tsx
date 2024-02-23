@@ -1,8 +1,6 @@
 import { getRouteServices } from "@/shared/const/pages";
-import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { useGetMobileBurgerLinks } from "@/shared/services/mobileBurgerLinks";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useContext } from "react";
@@ -77,25 +75,11 @@ const Menu = (props: MenuProps) => {
                 background: "linear-gradient(180deg, #489DEB 0%, #82C3FF 100%)",
               }}
             >
-              <div className="mobile-nav__name">Спецпредложения</div>
               <div className="mobile-nav__image">
-                {burgerLinks?.mobileNavigation.data && (
-                  <Image
-                    alt=""
-                    height={
-                      burgerLinks.mobileNavigation.data.attributes.offersImg
-                        .data.attributes.height
-                    }
-                    width={
-                      burgerLinks.mobileNavigation.data.attributes.offersImg
-                        .data.attributes.width
-                    }
-                    src={getFileUrl(
-                      burgerLinks.mobileNavigation.data.attributes.offersImg
-                        .data.attributes.url
-                    )}
-                  />
-                )}
+                <Lottie
+                  isClickToPauseDisabled={true}
+                  options={defaultOptions}
+                />
               </div>
             </a>
             <ul className="mobile-nav__list">
