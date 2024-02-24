@@ -1,5 +1,5 @@
-query GetSeoServicesPage {
-  servicesPage {
+query GetSeoServicesPage($id: ID) {
+  service(id: $id) {
     data {
       attributes {
         seo {

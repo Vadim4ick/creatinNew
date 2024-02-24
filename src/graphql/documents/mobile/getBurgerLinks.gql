@@ -7,14 +7,6 @@ query GetBurgerLinks {
           name
           href
         }
-
-        offersImg {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
       }
     }
   }

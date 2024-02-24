@@ -9,14 +9,6 @@ query GetOffersPage {
           ...OffersBlock
         }
 
-        img {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
-
         banner {
           data {
             attributes {
