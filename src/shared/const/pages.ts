@@ -14,6 +14,7 @@ export const getRoutePortfolio = () => "/portfolio";
 export const getRouteServices = () => "/services";
 export const getRouteAbout = () => "/about";
 export const getRouteOffersPage = () => "/offers";
+export const getRouteComplexPage = () => "/complex";
 
 export const getRouteCase = (id: string) => `${getRoutePortfolio()}/${id}`;
 
@@ -22,8 +23,7 @@ export const getRouteService = (service: string, id: string) =>
 
 export const getRouteOffers = (id: string) => `/offers/${id}`;
 
-export const getRouteComplex = (id: string) =>
-  `${getRouteServices()}/complex/${id}`;
+export const getRouteComplex = (id: string) => `${getRouteComplexPage()}/${id}`;
 
 export const Router: Record<string, AppRoutes> = {
   [getRouteHome()]: AppRoutes.HOME,
@@ -33,6 +33,7 @@ export const Router: Record<string, AppRoutes> = {
   [getRouteService(":service", ":id")]: AppRoutes.SERVICES_DISCLOSURE,
   [getRouteOffers(":id")]: AppRoutes.OFFERS,
   [getRouteComplex(":id")]: AppRoutes.COMPLEX,
+  [getRouteComplexPage()]: AppRoutes.COMPLEX,
   [getRouteCase(":id")]: AppRoutes.CASE,
 };
 

@@ -35,7 +35,9 @@ export async function generateMetadata({
 const AllServicePage = async ({ params }: { params: { service: string } }) => {
   const { serviceNames } = await gql.GetServicesNames();
 
-  if (!serviceNames.data.length || !params.service) {
+  const index = serviceNames.data.findIndex((el) => el.id === params.service);
+
+  if (!serviceNames.data.length || !params.service || index === -1) {
     return notFound();
   }
 

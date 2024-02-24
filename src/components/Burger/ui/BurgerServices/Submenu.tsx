@@ -1,5 +1,10 @@
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
-import { getRouteService, getRouteServices } from "@/shared/const/pages";
+import { GetComplexSidebarTitleQuery } from "@/graphql/__generated__";
+import {
+  getRouteComplexPage,
+  getRouteService,
+  getRouteServices,
+} from "@/shared/const/pages";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -8,10 +13,12 @@ interface SubmenuProps {
   subMenuContent: readonly SidebarItems[];
   name: string;
   submenuParent: boolean;
+  complexTitle?: GetComplexSidebarTitleQuery["complexAccompany"];
 }
 
 const Submenu = (props: SubmenuProps) => {
-  const { subMenuActive, subMenuContent, name, submenuParent } = props;
+  const { subMenuActive, subMenuContent, name, submenuParent, complexTitle } =
+    props;
 
   const router = useRouter();
 
@@ -47,6 +54,17 @@ const Submenu = (props: SubmenuProps) => {
               );
             }
           })}
+
+          {submenuParent &&
+            complexTitle?.data &&
+            complexTitle.data.attributes.title && (
+              <li
+                className={"mobile-services__item"}
+                onClick={() => router.push(getRouteComplexPage())}
+              >
+                <a>{complexTitle.data.attributes.title}</a>
+              </li>
+            )}
         </ul>
       </div>
     </div>

@@ -77,8 +77,9 @@ const ServiceCollection = memo(
         serviceId={id}
         urlPathname={`${getRouteServices()}/${title}`}
         items={titleServices[0].attributes.Services.service_collections.data}
-        BugerMenu={() => (
+        BugerMenu={({ complexTitle }: { complexTitle: any }) => (
           <BurgerServiceCollection
+            complexTitle={complexTitle}
             SubMenuName={serviceCollection?.name || ""}
             items={
               titleServices[0]?.attributes.Services.service_collections.data

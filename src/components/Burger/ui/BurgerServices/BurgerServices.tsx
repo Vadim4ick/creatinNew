@@ -9,14 +9,16 @@ import { useRouter } from "next/navigation";
 import { Menu } from "../Menu";
 import { SendTaskBtn } from "../../SendTaskBtn";
 import cls from "./../index.module.scss";
+import { GetComplexSidebarTitleQuery } from "@/graphql/__generated__";
 
 interface BurgerServicesProps {
   SubMenuName: string;
   items?: readonly SidebarItems[];
+  complexTitle?: GetComplexSidebarTitleQuery;
 }
 
 const BurgerServices = (props: BurgerServicesProps) => {
-  const { SubMenuName, items } = props;
+  const { SubMenuName, items, complexTitle } = props;
 
   const [activeContacts, setActiveContacts] = useState<boolean>(false);
 
@@ -238,6 +240,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
           <div className="mobile-menu__subs">
             {subMenuContent && (
               <Submenu
+                complexTitle={complexTitle?.complexAccompany}
                 subMenuContent={subMenuContent}
                 subMenuActive={subMenuActive}
                 name={SubMenuName}

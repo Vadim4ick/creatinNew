@@ -9,7 +9,8 @@ import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import Lottie, { Options } from "react-lottie";
 import animationData from "@/shared/assets/animation/data.json";
 import { usePathname, useRouter } from "next/navigation";
-import { getRouteOffersPage } from "@/shared/const/pages";
+import { getRouteComplexPage, getRouteOffersPage } from "@/shared/const/pages";
+import { GetComplexSidebarTitleQuery } from "@/graphql/__generated__";
 
 export interface SidebarItems {
   readonly id: string;
@@ -30,6 +31,7 @@ interface SidebarProps {
   itemElement?: SidebarItemElement;
   setInputIds?: Dispatch<SetStateAction<string[]>>;
   onChangeDop?: VoidFunction;
+  complexTitle?: GetComplexSidebarTitleQuery["complexAccompany"];
 }
 
 const Sidebar = memo((props: SidebarProps) => {
@@ -39,6 +41,7 @@ const Sidebar = memo((props: SidebarProps) => {
     active,
     itemElement = "normal",
     setInputIds,
+    complexTitle,
   } = props;
 
   const { onClickPopup } = useContext(PopupProviderContext);
@@ -116,6 +119,25 @@ const Sidebar = memo((props: SidebarProps) => {
                 );
               }
             })}
+
+          {complexTitle?.data && complexTitle.data.attributes.title && (
+            <li
+              className={"sidebar__item"}
+              onClick={() => router.push(getRouteComplexPage())}
+            >
+              <a
+                className={classNames(
+                  `sidebar__link ${cls.link}`,
+                  {
+                    [cls.active]: pathname === getRouteComplexPage(),
+                  },
+                  []
+                )}
+              >
+                {complexTitle.data.attributes.title}
+              </a>
+            </li>
+          )}
         </ul>
 
         <div className="sidebar__image">

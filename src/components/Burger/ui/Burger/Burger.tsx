@@ -8,13 +8,15 @@ import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 import { SendTaskBtn } from "../../SendTaskBtn";
 import cls from "./../index.module.scss";
 import { classNames } from "@/shared/lib";
+import { GetComplexSidebarTitleQuery } from "@/graphql/__generated__";
 
 interface BurgerProps {
   SubMenuName?: string;
+  complexTitle?: GetComplexSidebarTitleQuery;
 }
 
 const Burger = (props: BurgerProps) => {
-  const { SubMenuName } = props;
+  const { SubMenuName, complexTitle } = props;
 
   const [activeContacts, setActiveContacts] = useState<boolean>(false);
 
@@ -159,6 +161,7 @@ const Burger = (props: BurgerProps) => {
           <div className="mobile-menu__subs">
             {subMenuContent && (
               <Submenu
+                complexTitle={complexTitle?.complexAccompany}
                 subMenuContent={subMenuContent}
                 subMenuActive={subMenuActive}
               />

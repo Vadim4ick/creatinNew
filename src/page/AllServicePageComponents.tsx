@@ -49,9 +49,6 @@ const AllServicePageComponents = memo(
       return serviceNames[index].attributes.name;
     }, [index, serviceNames]);
 
-    if (index === -1) {
-      return null;
-    }
     return (
       <ServiceLayout
         footer={serviceNames[index].attributes.footer}
@@ -59,8 +56,12 @@ const AllServicePageComponents = memo(
         items={serviceNames}
         serviceId={id}
         urlPathname={getRouteServices()}
-        BugerMenu={() => (
-          <BurgerServices SubMenuName={nameBurger} items={serviceNames} />
+        BugerMenu={({ complexTitle }: { complexTitle: any }) => (
+          <BurgerServices
+            complexTitle={complexTitle}
+            SubMenuName={nameBurger}
+            items={serviceNames}
+          />
         )}
       >
         {service && (

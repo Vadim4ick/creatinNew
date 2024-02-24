@@ -264,6 +264,7 @@ export type Complex = {
   readonly name: Scalars['String']['output'];
   readonly offer: Maybe<ComponentElementsOffer>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly seo: Maybe<ComponentSharedSeo>;
   readonly totalHours: Maybe<Scalars['Int']['output']>;
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
   readonly videoMobile: Maybe<UploadFileEntityResponse>;
@@ -346,6 +347,7 @@ export type ComplexFiltersInput = {
   readonly offer: InputMaybe<ComponentElementsOfferFiltersInput>;
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<ComplexFiltersInput>>>;
   readonly publishedAt: InputMaybe<DateTimeFilterInput>;
+  readonly seo: InputMaybe<ComponentSharedSeoFiltersInput>;
   readonly totalHours: InputMaybe<IntFilterInput>;
   readonly updatedAt: InputMaybe<DateTimeFilterInput>;
 };
@@ -359,6 +361,7 @@ export type ComplexInput = {
   readonly name: InputMaybe<Scalars['String']['input']>;
   readonly offer: InputMaybe<ComponentElementsOfferInput>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly seo: InputMaybe<ComponentSharedSeoInput>;
   readonly totalHours: InputMaybe<Scalars['Int']['input']>;
   readonly videoMobile: InputMaybe<Scalars['ID']['input']>;
 };
@@ -3149,6 +3152,11 @@ export type GetComplexPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetComplexPageQuery = { readonly __typename?: 'Query', readonly complexAccompany: { readonly __typename?: 'ComplexAccompanyEntityResponse', readonly data: { readonly __typename?: 'ComplexAccompanyEntity', readonly attributes: { readonly __typename?: 'ComplexAccompany', readonly title: string, readonly description: string, readonly complexBlocks: ReadonlyArray<{ readonly __typename?: 'ComponentComponentsComplexComponent', readonly id: string, readonly name: string, readonly offers: { readonly __typename?: 'ComplexRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'ComplexEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Complex', readonly offer: { readonly __typename?: 'ComponentElementsOffer', readonly id: string, readonly price: number, readonly info: string, readonly tag: string, readonly number: string, readonly about: string, readonly titleList: string, readonly list: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } }> } }>, readonly banner: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly footer: { readonly __typename?: 'ComponentComponentsFooter', readonly title: string, readonly img: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } } } } } } };
 
+export type GetComplexSidebarTitleQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetComplexSidebarTitleQuery = { readonly __typename?: 'Query', readonly complexAccompany: { readonly __typename?: 'ComplexAccompanyEntityResponse', readonly data: { readonly __typename?: 'ComplexAccompanyEntity', readonly attributes: { readonly __typename?: 'ComplexAccompany', readonly title: string } } } };
+
 export type GetFormFeedbackQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3219,6 +3227,13 @@ export type GetSeoComplexQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetSeoComplexQuery = { readonly __typename?: 'Query', readonly seoComplexPage: { readonly __typename?: 'SeoComplexPageEntityResponse', readonly data: { readonly __typename?: 'SeoComplexPageEntity', readonly attributes: { readonly __typename?: 'SeoComplexPage', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
+
+export type GetSeoComplexPageQueryVariables = Exact<{
+  id: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type GetSeoComplexPageQuery = { readonly __typename?: 'Query', readonly complex: { readonly __typename?: 'ComplexEntityResponse', readonly data: { readonly __typename?: 'ComplexEntity', readonly attributes: { readonly __typename?: 'Complex', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
 
 export type GetSeoHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4054,6 +4069,17 @@ export const GetComplexPageDocument = gql`
     ${ComplexBlockFragmentDoc}
 ${MediaFragmentFragmentDoc}
 ${FooterFragmentFragmentDoc}`;
+export const GetComplexSidebarTitleDocument = gql`
+    query GetComplexSidebarTitle {
+  complexAccompany {
+    data {
+      attributes {
+        title
+      }
+    }
+  }
+}
+    `;
 export const GetFormFeedbackDocument = gql`
     query GetFormFeedback {
   formFeedback {
@@ -4306,6 +4332,19 @@ export const GetSeoComplexDocument = gql`
   }
 }
     ${SeoFragmentFragmentDoc}`;
+export const GetSeoComplexPageDocument = gql`
+    query GetSeoComplexPage($id: ID) {
+  complex(id: $id) {
+    data {
+      attributes {
+        seo {
+          ...SeoFragment
+        }
+      }
+    }
+  }
+}
+    ${SeoFragmentFragmentDoc}`;
 export const GetSeoHomePageDocument = gql`
     query GetSeoHomePage {
   homePage {
@@ -4425,6 +4464,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     GetComplexPage(variables?: GetComplexPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetComplexPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetComplexPageQuery>(GetComplexPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetComplexPage', 'query', variables);
     },
+    GetComplexSidebarTitle(variables?: GetComplexSidebarTitleQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetComplexSidebarTitleQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetComplexSidebarTitleQuery>(GetComplexSidebarTitleDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetComplexSidebarTitle', 'query', variables);
+    },
     GetFormFeedback(variables?: GetFormFeedbackQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetFormFeedbackQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetFormFeedbackQuery>(GetFormFeedbackDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetFormFeedback', 'query', variables);
     },
@@ -4463,6 +4505,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetSeoComplex(variables?: GetSeoComplexQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoComplexQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSeoComplexQuery>(GetSeoComplexDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoComplex', 'query', variables);
+    },
+    GetSeoComplexPage(variables?: GetSeoComplexPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoComplexPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetSeoComplexPageQuery>(GetSeoComplexPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoComplexPage', 'query', variables);
     },
     GetSeoHomePage(variables?: GetSeoHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoHomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSeoHomePageQuery>(GetSeoHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoHomePage', 'query', variables);

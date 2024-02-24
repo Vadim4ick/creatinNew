@@ -2,14 +2,13 @@
 
 import { GetServicesNamesQuery } from "@/graphql/__generated__";
 import ServiceLayout from "@/layouts/ServiceLayout";
-import { useMemo, useRef } from "react";
-import { BurgerServices } from "../components/Burger/ui/BurgerServices/BurgerServices";
+import { useRef } from "react";
 import { Offers } from "../components/Offers";
 import { useGetOffersPage } from "@/shared/services/offers";
-import { Loader } from "@/shared/ui/Loader/Loader";
 import { getRouteOffers, getRouteServices } from "@/shared/const/pages";
 import { Footer } from "@/layouts/Footer/ui/Footer";
 import { useRouter } from "next/navigation";
+import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
 
 const AllOffersPageComponent = ({
   serviceNames,
@@ -22,21 +21,6 @@ const AllOffersPageComponent = ({
 
   const router = useRouter();
 
-  const index = useMemo(
-    () => serviceNames.findIndex((el) => el.id === serviceNames[0].id),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [serviceNames[0].id, serviceNames]
-  );
-
-  // Mobile
-  const nameBurger = useMemo(() => {
-    return serviceNames[index].attributes.name;
-  }, [index, serviceNames]);
-
-  if (isLoadingOffers) {
-    return <Loader />;
-  }
-
   return (
     <>
       <ServiceLayout
@@ -44,9 +28,11 @@ const AllOffersPageComponent = ({
         items={serviceNames}
         urlPathname={getRouteServices()}
         serviceId={serviceNames[0].id}
-        BugerMenu={() => (
-          <BurgerServices SubMenuName={nameBurger} items={serviceNames} />
-        )}
+        BugerMenu={({ complexTitle }: { complexTitle: any }) => {
+          return (
+            <BurgerAbout complexTitle={complexTitle} SubMenuName="услуги" />
+          );
+        }}
       >
         <Offers mainRef={ref} data={offersPage} />
       </ServiceLayout>

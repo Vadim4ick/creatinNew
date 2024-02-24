@@ -6,7 +6,7 @@ import {
   GetServicesNamesOfferQuery,
 } from "@/graphql/__generated__";
 import { Spoller } from "@/shared/ui/Spoller";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { useGetOffersById } from "@/shared/services/offerById";

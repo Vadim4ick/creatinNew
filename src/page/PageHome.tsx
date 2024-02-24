@@ -12,6 +12,7 @@ import {
 } from "@/graphql/__generated__";
 import { MainFooter } from "@/layouts";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { useGetComplexSidebarTitle } from "@/shared/services/complexSidebarTitle";
 import { useEffect } from "react";
 
 interface PageHomeProps {
@@ -22,53 +23,20 @@ interface PageHomeProps {
 
 const PageHome = (props: PageHomeProps) => {
   const { formFeedback, homePage, partner } = props;
-
-  // const { preloader, setPreloader } = useContext(HomePreloaderProviderContext);
+  const { data } = useGetComplexSidebarTitle();
 
   const isDesktop = useMedia("(max-width: 1200px)");
 
   useEffect(() => {
-    // const timeout = setTimeout(() => {
-    //   setPreloader(false);
-    // }, 6000);
-
     document.documentElement.setAttribute(
       "style",
       '--font-primary: "Jeko-otf", Fallback'
     );
-
-    // const handler = (event) => {
-    //   if (
-    //     (event.ctrlKey || event.metaKey) &&
-    //     String.fromCharCode(event.which).toLowerCase() === "c"
-    //   ) {
-    //     event.preventDefault();
-    //     console.log("Copy command has been disabled");
-    //   }
-    // };
-
-    // const handler2 = (e) => {
-    //   if (e.target.tagName === "IMG") {
-    //     e.preventDefault();
-    //   }
-    // };
-
-    // window.addEventListener("keydown", handler);
-
-    // document.addEventListener("contextmenu", handler2);
-    // return () => {
-    //   window.removeEventListener("keydown", handler);
-    //   document.removeEventListener("contextmenu", handler2);
-    // };
   }, []);
-
-  // if (preloader) {
-  //   return <HomePreloader />;
-  // }
 
   return (
     <>
-      {isDesktop.matches && <Burger SubMenuName="Услуги" />}
+      {isDesktop.matches && <Burger complexTitle={data} SubMenuName="Услуги" />}
 
       <h1 className="visually-hidden">Студия разработки и брендинга creatin</h1>
 

@@ -1,5 +1,6 @@
 import { gql } from "@/graphql/client";
-import { PageComplex } from "@/page/PageComplex";
+import { AllComplexPageComponent } from "@/page/AllComplexPageComponent";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata() {
   const seo = await gql.GetSeoComplex();
@@ -26,12 +27,14 @@ export async function generateMetadata() {
   return metadata;
 }
 
-const ComplexPage = async ({ params }: { params: { id: string } }) => {
-  const id = params.id;
+const AllComplexPage = async () => {
+  const { serviceNames } = await gql.GetServicesNamesOffer();
 
-  const { complexes } = await gql.GetComplexNames();
+  if (!serviceNames.data.length) {
+    return notFound();
+  }
 
-  return <PageComplex complexesNames={complexes.data} id={id} />;
+  return <AllComplexPageComponent serviceNames={serviceNames.data} />;
 };
 
-export default ComplexPage;
+export default AllComplexPage;

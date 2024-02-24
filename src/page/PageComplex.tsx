@@ -1,22 +1,23 @@
 "use client";
 
 import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
-import { CtaBanner } from "@/components/CtaBanner";
-import { Video } from "@/components/Video";
 import {
   GetComplexByIdQuery,
   GetComplexNamesQuery,
 } from "@/graphql/__generated__";
 import ServiceLayout from "@/layouts/ServiceLayout";
-import { priceFormatter } from "@/shared/helpers/priceFormatter";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
-import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { useGetComplexById } from "@/shared/services/complexById";
-import { Spoller } from "@/shared/ui/Spoller";
-import React, { useEffect, useRef, useState } from "react";
-
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import React from "react";
+import { Video } from "@/components/Video";
+import { priceFormatter } from "@/shared/helpers/priceFormatter";
+import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
+import { Spoller } from "@/shared/ui/Spoller";
+import { CtaBanner } from "@/components/CtaBanner";
+import { getRouteComplexPage } from "@/shared/const/pages";
 
 const PageComplex = ({
   complexesNames,
@@ -54,8 +55,9 @@ const PageComplex = ({
       isLoading={isLoading}
       items={complexesNames}
       serviceId={id}
+      urlPathname={getRouteComplexPage()}
       footer={complex?.footer}
-      // containerClass={"page__container--sidebar"}
+      containerClass={"page__container--sidebar"}
       BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
     >
       <div className="page__base">

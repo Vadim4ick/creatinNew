@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ComplexBlockFragment } from "@/graphql/__generated__";
-import { ActiveOffers } from "@/layouts/ServiceLayout";
-import { getRouteComplex, getRouteOffers } from "@/shared/const/pages";
+import { getRouteComplex } from "@/shared/const/pages";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { priceFormatter } from "@/shared/helpers/priceFormatter";
 import Image from "next/image";
@@ -11,10 +10,8 @@ import ReactMarkdown from "react-markdown";
 
 const PromotionOffer = ({
   offers,
-  name,
 }: {
   offers: readonly ComplexBlockFragment[];
-  name: ActiveOffers;
 }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [activeIndexRow, setActiveIndexRow] = useState<number | null>(null);
@@ -118,11 +115,7 @@ const PromotionOffer = ({
                     </button>
 
                     <Link
-                      href={
-                        name === "offer"
-                          ? getRouteOffers(offer.id)
-                          : getRouteComplex(offer.id)
-                      }
+                      href={getRouteComplex(offer.id)}
                       className="promotion__btn btn "
                     >
                       <span className="btn__text">Подробнее</span>

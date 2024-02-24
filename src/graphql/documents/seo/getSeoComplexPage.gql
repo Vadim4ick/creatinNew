@@ -1,0 +1,11 @@
+query GetSeoComplexPage($id: ID) {
+  complex(id: $id) {
+    data {
+      attributes {
+        seo {
+          ...SeoFragment
+        }
+      }
+    }
+  }
+}

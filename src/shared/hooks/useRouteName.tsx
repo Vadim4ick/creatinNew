@@ -1,6 +1,6 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { AppRoutes, Router } from "../const/pages";
+import { AppRoutes, Router, getRouteServices } from "../const/pages";
 
 const useRouteName = () => {
   const pathname = usePathname();
@@ -37,13 +37,21 @@ const useRouteName = () => {
         setRouteActive([
           ...routeActive,
           {
+            name: `${AppRoutes["SERVICES"]}`,
+            path: `${getRouteServices()}`,
+          },
+          {
             name: `${AppRoutes["OFFERS"]}`,
             path: `/${pathParts[0]}`,
           },
         ]);
-      } else if (pathParts.length > 2 && pathParts[1] === "complex") {
+      } else if (pathParts.length === 2 && pathParts[0] === "complex") {
         setRouteActive([
           ...routeActive,
+          {
+            name: `${AppRoutes["SERVICES"]}`,
+            path: `${getRouteServices()}`,
+          },
           {
             name: `${AppRoutes["COMPLEX"]}`,
             path: `/${pathParts[0]}`,

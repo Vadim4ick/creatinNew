@@ -23,6 +23,7 @@ import { classNames } from "@/shared/lib";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { FormSend } from "@/app/_section/FormSend";
 import { useRouter } from "next/navigation";
+import { useGetComplexSidebarTitle } from "@/shared/services/complexSidebarTitle";
 
 export interface IndexDateState {
   id: string;
@@ -39,7 +40,7 @@ interface ServiceLayoutProps {
   noReddirect?: boolean;
   containerClass?: string;
   mainClass?: string;
-  BugerMenu?: () => JSX.Element;
+  BugerMenu?: (arg1: any) => JSX.Element;
   sidebarItemElement?: SidebarItemElement;
   setInputIds?: Dispatch<SetStateAction<string[]>>;
 
@@ -49,8 +50,6 @@ interface ServiceLayoutProps {
   footerCls?: string;
   formFeedback?: GetFormFeedbackQuery["formFeedback"]["data"]["attributes"]["formFeedback"];
 }
-
-export type ActiveOffers = "offer" | "complex";
 
 const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   serviceId,
@@ -71,6 +70,8 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   urlPathname = "",
 }) => {
   const [indexDate, setIndexDate] = useState<IndexDateState[] | null>(null);
+
+  const { data, isLoading: loadingComplex } = useGetComplexSidebarTitle();
 
   const router = useRouter();
 
@@ -137,13 +138,13 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
     );
   }, []);
 
-  if (isLoading) {
+  if (isLoading || loadingComplex) {
     return <Loader />;
   }
 
   return (
     <>
-      {BugerMenu && isDesktop.matches && <BugerMenu />}
+      {BugerMenu && isDesktop.matches && <BugerMenu complexTitle={data} />}
 
       <main
         onCopy={(event: React.ClipboardEvent<HTMLElement>) => {
@@ -153,16 +154,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
         ref={ref}
         className={classNames("page", {}, [mainClass])}
       >
-        <div
-          className={classNames(
-            "page__container",
-            {},
-            // {
-            //   "page__container--sidebar": activeComplex,
-            // },
-            [containerClass]
-          )}
-        >
+        <div className={classNames("page__container", {}, [containerClass])}>
           {!isDesktop.matches && (
             <Sidebar
               active={serviceId}
@@ -170,6 +162,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
               items={items}
               itemElement={sidebarItemElement}
               setInputIds={setInputIds}
+              complexTitle={data?.complexAccompany}
             />
           )}
 
