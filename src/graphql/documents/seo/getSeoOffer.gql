@@ -1,0 +1,11 @@
+query GetSeoOffer($id: ID) {
+  offer(id: $id) {
+    data {
+      attributes {
+        seo {
+          ...SeoFragment
+        }
+      }
+    }
+  }
+}

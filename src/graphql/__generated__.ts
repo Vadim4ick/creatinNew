@@ -1818,6 +1818,7 @@ export type Offer = {
   readonly name: Scalars['String']['output'];
   readonly offerBanner: Maybe<BannerEntityResponse>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly seo: Maybe<ComponentSharedSeo>;
   readonly service_name: Maybe<ServiceNameEntityResponse>;
   readonly sliderCase: Maybe<ComponentComponentsSliderCase>;
   readonly textBlocks: Maybe<ReadonlyArray<Maybe<ComponentComponentsTextBlock>>>;
@@ -1869,6 +1870,7 @@ export type OfferFiltersInput = {
   readonly offerBanner: InputMaybe<BannerFiltersInput>;
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<OfferFiltersInput>>>;
   readonly publishedAt: InputMaybe<DateTimeFilterInput>;
+  readonly seo: InputMaybe<ComponentSharedSeoFiltersInput>;
   readonly service_name: InputMaybe<ServiceNameFiltersInput>;
   readonly sliderCase: InputMaybe<ComponentComponentsSliderCaseFiltersInput>;
   readonly textBlocks: InputMaybe<ComponentComponentsTextBlockFiltersInput>;
@@ -1885,6 +1887,7 @@ export type OfferInput = {
   readonly name: InputMaybe<Scalars['String']['input']>;
   readonly offerBanner: InputMaybe<Scalars['ID']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly seo: InputMaybe<ComponentSharedSeoInput>;
   readonly service_name: InputMaybe<Scalars['ID']['input']>;
   readonly sliderCase: InputMaybe<ComponentComponentsSliderCaseInput>;
   readonly textBlocks: InputMaybe<ReadonlyArray<InputMaybe<ComponentComponentsTextBlockInput>>>;
@@ -3222,6 +3225,13 @@ export type GetSeoHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetSeoHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
 
+export type GetSeoOfferQueryVariables = Exact<{
+  id: InputMaybe<Scalars['ID']['input']>;
+}>;
+
+
+export type GetSeoOfferQuery = { readonly __typename?: 'Query', readonly offer: { readonly __typename?: 'OfferEntityResponse', readonly data: { readonly __typename?: 'OfferEntity', readonly attributes: { readonly __typename?: 'Offer', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
+
 export type GetSeoOffersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4309,6 +4319,19 @@ export const GetSeoHomePageDocument = gql`
   }
 }
     ${SeoFragmentFragmentDoc}`;
+export const GetSeoOfferDocument = gql`
+    query GetSeoOffer($id: ID) {
+  offer(id: $id) {
+    data {
+      attributes {
+        seo {
+          ...SeoFragment
+        }
+      }
+    }
+  }
+}
+    ${SeoFragmentFragmentDoc}`;
 export const GetSeoOffersDocument = gql`
     query GetSeoOffers {
   seoOffersPage {
@@ -4443,6 +4466,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetSeoHomePage(variables?: GetSeoHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoHomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSeoHomePageQuery>(GetSeoHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoHomePage', 'query', variables);
+    },
+    GetSeoOffer(variables?: GetSeoOfferQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoOfferQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetSeoOfferQuery>(GetSeoOfferDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoOffer', 'query', variables);
     },
     GetSeoOffers(variables?: GetSeoOffersQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoOffersQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSeoOffersQuery>(GetSeoOffersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoOffers', 'query', variables);

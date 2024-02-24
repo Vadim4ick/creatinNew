@@ -1,5 +1,4 @@
 import { gql } from "@/graphql/client";
-import { notFound } from "next/navigation";
 import { PageAbout } from "@/page/PageAbout";
 
 export async function generateMetadata() {
@@ -32,15 +31,10 @@ const AboutPage = async () => {
 
   const { formFeedback } = await gql.GetFormFeedback();
 
-  // if (!studio.data) {
-  //   return notFound();
-  // }
-
   return (
     <>
       <PageAbout
         serviceNames={serviceNames}
-        // studio={studio}
         partner={partner}
         formFeedback={formFeedback}
       />

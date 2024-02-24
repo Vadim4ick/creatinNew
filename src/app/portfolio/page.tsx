@@ -1,7 +1,6 @@
 import { PagePortfilio } from "@/page/PagePortfilio";
 import { gql } from "@/graphql/client";
 import { notFound } from "next/navigation";
-import { getRoutePortfolio } from "@/shared/const/pages";
 
 export async function generateMetadata() {
   const { portfolioPage } = await gql.GetSeoPortfolioPage();
