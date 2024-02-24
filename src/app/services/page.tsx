@@ -1,9 +1,5 @@
 import { gql } from "@/graphql/client";
-import { PageServices } from "@/page/PageServices";
-import { getRouteServices } from "@/shared/const/pages";
-import { notFound } from "next/navigation";
-
-// const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import { notFound, redirect } from "next/navigation";
 
 export async function generateMetadata() {
   const { servicesPage } = await gql.GetSeoServicesPage();
@@ -13,7 +9,6 @@ export async function generateMetadata() {
     !servicesPage.data.attributes ||
     !servicesPage.data.attributes.seo
   ) {
-    // Добавьте проверку на существование нужных свойств
     return null;
   }
 
@@ -37,7 +32,7 @@ const ServicesPage = async () => {
     return notFound();
   }
 
-  return <PageServices serviceNames={serviceNames.data} />;
+  return redirect(`/services/${serviceNames.data[0].id}`);
 };
 
 export default ServicesPage;

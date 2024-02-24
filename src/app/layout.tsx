@@ -7,7 +7,6 @@ import "@/shared/assets/styles/index.scss";
 
 import { QueryProviders } from "@/shared/providers/queryProviders";
 import { gql } from "@/graphql/client";
-import { ActiveOfferProvider } from "@/shared/providers/activeOfferProvider";
 import GoogleCaptchaWrapper from "@/shared/providers/googleRecaptcha";
 import { FormSendPopup } from "./_section/FormSend/ui/FormSendPopup/FormSendPopup";
 import { PopupProvider } from "@/shared/providers/popupProvider";
@@ -39,23 +38,21 @@ export default async function RootLayout({
       <body>
         <div className="wrapper">
           <QueryProviders>
-            <ActiveOfferProvider>
-              <GoogleCaptchaWrapper>
-                <PopupProvider>
-                  <HomePreloaderContextProvider>
-                    <BannerAnimationContextProvider>
-                      <DarkProviderContextProvider>
-                        <Header header={header.data.attributes} />
+            <GoogleCaptchaWrapper>
+              <PopupProvider>
+                <HomePreloaderContextProvider>
+                  <BannerAnimationContextProvider>
+                    <DarkProviderContextProvider>
+                      <Header header={header.data.attributes} />
 
-                        {children}
+                      {children}
 
-                        <FormSendPopup />
-                      </DarkProviderContextProvider>
-                    </BannerAnimationContextProvider>
-                  </HomePreloaderContextProvider>
-                </PopupProvider>
-              </GoogleCaptchaWrapper>
-            </ActiveOfferProvider>
+                      <FormSendPopup />
+                    </DarkProviderContextProvider>
+                  </BannerAnimationContextProvider>
+                </HomePreloaderContextProvider>
+              </PopupProvider>
+            </GoogleCaptchaWrapper>
           </QueryProviders>
         </div>
       </body>

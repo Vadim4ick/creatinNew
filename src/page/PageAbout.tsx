@@ -7,12 +7,10 @@ import { Partners } from "@/app/_section/Partners";
 import { Quality } from "@/app/about/_section/Quality";
 import { Vacancies } from "@/app/about/_section/Vacancies";
 import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
-import { Video } from "@/components/Video";
 import {
   GetFormFeedbackQuery,
   GetPartnersQuery,
   GetServicesNamesQuery,
-  GetStudioQuery,
 } from "@/graphql/__generated__";
 import { MainFooter } from "@/layouts";
 import { useMedia } from "@/shared/hooks/useMedia";
@@ -25,7 +23,6 @@ interface PageAboutProps {
   serviceNames: GetServicesNamesQuery["serviceNames"];
   partner: GetPartnersQuery["partner"];
   formFeedback: GetFormFeedbackQuery["formFeedback"];
-  // studio: GetStudioQuery["studio"];
 }
 
 const PageAbout = (props: PageAboutProps) => {
@@ -62,13 +59,6 @@ const PageAbout = (props: PageAboutProps) => {
         className="page"
       >
         {data?.studio.data.attributes.video.data && (
-          // <Video
-          //   srcMedia={data.studio.data.attributes.video.data.attributes}
-          //   className="video--about"
-          //   container={true}
-          //   animation={true}
-          // />
-
           <VideoAbout
             className="video--about"
             src={data.studio.data.attributes.video.data.attributes}

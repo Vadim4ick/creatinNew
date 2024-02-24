@@ -4,14 +4,12 @@ import { classNames } from "@/shared/lib";
 import { Dispatch, SetStateAction, memo, useContext } from "react";
 import cls from "./Sidebar.module.scss";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
-import { ActiveOffers } from "@/layouts/ServiceLayout";
-import { GetOffersPageQuery } from "@/graphql/__generated__";
-import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { BtnArrow } from "@/shared/icons/BtnArrow";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
-import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import Lottie, { Options } from "react-lottie";
 import animationData from "@/shared/assets/animation/data.json";
+import { usePathname, useRouter } from "next/navigation";
+import { getRouteOffersPage } from "@/shared/const/pages";
 
 export interface SidebarItems {
   readonly id: string;
@@ -27,14 +25,8 @@ export type SidebarItemElement = "normal" | "input";
 interface SidebarProps {
   items: readonly SidebarItems[];
 
-  viewSpecialOffers: boolean;
   onChange: (id: string) => void;
   active?: string;
-  setActiveOffers: React.Dispatch<React.SetStateAction<ActiveOffers | null>>;
-  activeOffers: ActiveOffers | null;
-  imageOffers:
-    | GetOffersPageQuery["offersPage"]["data"]["attributes"]["img"]
-    | undefined;
   itemElement?: SidebarItemElement;
   setInputIds?: Dispatch<SetStateAction<string[]>>;
   onChangeDop?: VoidFunction;
@@ -43,19 +35,16 @@ interface SidebarProps {
 const Sidebar = memo((props: SidebarProps) => {
   const {
     items,
-    viewSpecialOffers,
     onChange,
     active,
-    setActiveOffers,
-    activeOffers,
-    imageOffers,
     itemElement = "normal",
     setInputIds,
   } = props;
 
   const { onClickPopup } = useContext(PopupProviderContext);
 
-  const { setActiveComplex } = useContext(ActiveOfferProviderContext);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const defaultOptions: Options = {
     loop: true,
@@ -82,14 +71,6 @@ const Sidebar = memo((props: SidebarProps) => {
                   <li
                     onClick={() => {
                       onChange(item.id);
-
-                      if (item.attributes?.nameID === STORAGE_KEYS.COMPLEX) {
-                        sessionStorage.setItem(
-                          STORAGE_KEYS.ACTIVE_OFFER,
-                          "complex" as ActiveOffers
-                        );
-                        return setActiveOffers("complex");
-                      }
                     }}
                     key={item.id}
                     className={"sidebar__item"}
@@ -97,7 +78,8 @@ const Sidebar = memo((props: SidebarProps) => {
                     <a
                       className={classNames(`sidebar__link ${cls.link}`, {
                         [cls.active]:
-                          item.id === active && activeOffers !== "offer",
+                          item.id === active &&
+                          pathname !== getRouteOffersPage(),
                       })}
                     >
                       {item.attributes.name}
@@ -109,14 +91,6 @@ const Sidebar = memo((props: SidebarProps) => {
                   <li
                     onClick={() => {
                       onChange(item.id);
-
-                      if (item.attributes?.nameID === STORAGE_KEYS.COMPLEX) {
-                        sessionStorage.setItem(
-                          STORAGE_KEYS.ACTIVE_OFFER,
-                          "complex" as ActiveOffers
-                        );
-                        return setActiveOffers("complex");
-                      }
                     }}
                     key={item.id}
                     className={"sidebar__item"}
@@ -144,24 +118,15 @@ const Sidebar = memo((props: SidebarProps) => {
             })}
         </ul>
 
-        {viewSpecialOffers && imageOffers?.data && (
-          <div className="sidebar__image">
-            <button
-              onClick={() => {
-                setActiveOffers("offer");
-
-                setActiveComplex(false);
-
-                sessionStorage.setItem(
-                  STORAGE_KEYS.ACTIVE_OFFER,
-                  "offer" as ActiveOffers
-                );
-              }}
-            >
-              <Lottie isClickToPauseDisabled={true} options={defaultOptions} />
-            </button>
-          </div>
-        )}
+        <div className="sidebar__image">
+          <button
+            onClick={() => {
+              router.push(getRouteOffersPage());
+            }}
+          >
+            <Lottie isClickToPauseDisabled={true} options={defaultOptions} />
+          </button>
+        </div>
 
         <button onClick={onClickPopup} className={"btn btn--hasarrow"}>
           <span className="btn__text">Оставить заявку</span>

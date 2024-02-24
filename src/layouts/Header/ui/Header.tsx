@@ -2,7 +2,6 @@
 
 import { GetHeaderQuery } from "@/graphql/client";
 import { classNames } from "@/shared/lib";
-import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { DarkProviderContext } from "@/shared/providers/darkProvider";
 // import { HomePreloaderProviderContext } from "@/shared/providers/homePreloader";
 import Link from "next/link";
@@ -19,7 +18,6 @@ const Header = (props: HeaderProps) => {
 
   const headerRef = useRef<HTMLDivElement | null>(null);
 
-  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
   const { darkTheme } = useContext(DarkProviderContext);
 
   // const { preloader } = useContext(HomePreloaderProviderContext);
@@ -120,11 +118,7 @@ const Header = (props: HeaderProps) => {
                         []
                       )}
                     >
-                      <Link
-                        onClick={() => setActiveOffers(null)}
-                        className="menu__link"
-                        href={link.href}
-                      >
+                      <Link className="menu__link" href={link.href}>
                         {link.name}
                       </Link>
                     </li>

@@ -12,10 +12,9 @@ import { priceFormatter } from "@/shared/helpers/priceFormatter";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
-import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { useGetComplexById } from "@/shared/services/complexById";
 import { Spoller } from "@/shared/ui/Spoller";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import ReactMarkdown from "react-markdown";
 
@@ -26,24 +25,12 @@ const PageComplex = ({
   complexesNames: GetComplexNamesQuery["complexes"]["data"];
   id: string;
 }) => {
-  const [complexId, setComplexId] = useState(id);
-
-  const { setActiveOffers, setActiveComplex } = useContext(
-    ActiveOfferProviderContext
-  );
-
   const refSection = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLDivElement | null>(null);
 
-  const { data, isLoading } = useGetComplexById(complexId);
+  const { data, isLoading } = useGetComplexById(id);
 
   const isPhone = useMedia("(max-width: 767px)");
-
-  useEffect(() => {
-    setActiveOffers(null);
-
-    return () => setActiveOffers(null);
-  }, [setActiveOffers]);
 
   const [complex, setComplex] = useState<
     GetComplexByIdQuery["complex"]["data"]["attributes"] | undefined
@@ -57,12 +44,6 @@ const PageComplex = ({
     }
   }, [data]);
 
-  useEffect(() => {
-    setActiveComplex(true);
-
-    return () => setActiveComplex(false);
-  }, [data]);
-
   useIntersectionObserver({
     refs: [refSection],
     once: true,
@@ -72,8 +53,7 @@ const PageComplex = ({
     <ServiceLayout
       isLoading={isLoading}
       items={complexesNames}
-      serviceId={complexId}
-      setId={setComplexId}
+      serviceId={id}
       footer={complex?.footer}
       // containerClass={"page__container--sidebar"}
       BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}

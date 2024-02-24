@@ -2,7 +2,6 @@
 
 import { GetServicesNamesQuery } from "@/graphql/__generated__";
 import { getRouteServices } from "@/shared/const/pages";
-import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { useRouter } from "next/navigation";
 import cls from "./Quality.module.scss";
 
@@ -25,21 +24,7 @@ const Quality = ({
           {serviceNames.map((service) => (
             <a
               onClick={() => {
-                // service.attributes.nameID === 'complex'
-                // sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, service.id);
-
-                if (service.attributes.nameID === STORAGE_KEYS.COMPLEX) {
-                  // sessionStorage.removeItem(STORAGE_KEYS.SERVICE_ID);
-                  sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, service.id);
-                  sessionStorage.setItem(
-                    STORAGE_KEYS.COMPLEX,
-                    STORAGE_KEYS.COMPLEX
-                  );
-                } else {
-                  sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, service.id);
-                }
-
-                router.push(getRouteServices());
+                router.push(`${getRouteServices()}/${service.id}`);
               }}
               key={service.id}
               className={`quality__item ${cls.item}`}

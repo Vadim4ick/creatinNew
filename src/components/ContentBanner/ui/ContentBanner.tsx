@@ -4,7 +4,6 @@ import { BannerFragmentFragment } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { classNames } from "@/shared/lib";
 import cls from "./ContentBanner.module.scss";
-import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import Link from "next/link";
 import React, { useContext } from "react";
@@ -30,19 +29,9 @@ const ContentBanner = (props: ContentBannerProps) => {
       className={classNames("cta__image", {}, [cls.container])}
     >
       {!isDesktop.matches ? (
-        <img
-          src={getFileUrl(content.imgDesktop.data.attributes.url)}
-          alt=""
-          // height={content.imgDesktop.data.attributes.height}
-          // width={content.imgDesktop.data.attributes.width}
-        />
+        <img src={getFileUrl(content.imgDesktop.data.attributes.url)} />
       ) : (
-        <img
-          src={getFileUrl(content.imgMobile.data.attributes.url)}
-          // alt=""
-          // height={content.imgMobile.data.attributes.height}
-          // width={content.imgMobile.data.attributes.width}
-        />
+        <img src={getFileUrl(content.imgMobile.data.attributes.url)} />
       )}
 
       <div className={cls.content}>

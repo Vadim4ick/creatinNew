@@ -1,6 +1,5 @@
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 import { getRouteServices } from "@/shared/const/pages";
-import { STORAGE_KEYS } from "@/shared/const/storageKey";
 import { usePathname, useRouter } from "next/navigation";
 
 interface SubmenuProps {
@@ -13,14 +12,7 @@ const Submenu = (props: SubmenuProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const onClick = (el: SidebarItems) => {
-    if (el.attributes.nameID === STORAGE_KEYS.COMPLEX) {
-      sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, el.id);
-      sessionStorage.setItem(STORAGE_KEYS.COMPLEX, STORAGE_KEYS.COMPLEX);
-    } else {
-      sessionStorage.setItem(STORAGE_KEYS.SERVICE_ID, el.id);
-    }
-
+  const onClick = () => {
     router.push(getRouteServices());
   };
 
@@ -36,7 +28,7 @@ const Submenu = (props: SubmenuProps) => {
             if (pathname === "/") {
               return (
                 <li key={el.id} className="mobile-services__item">
-                  <a onClick={() => onClick(el)}>{el.attributes.name}</a>
+                  <a onClick={onClick}>{el.attributes.name}</a>
                 </li>
               );
             } else {

@@ -1,9 +1,7 @@
-import { getRouteServices } from "@/shared/const/pages";
-import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
+import { getRouteOffersPage } from "@/shared/const/pages";
 import { useGetMobileBurgerLinks } from "@/shared/services/mobileBurgerLinks";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useRouter } from "next/navigation";
 import Lottie, { Options } from "react-lottie";
 import animationData from "@/shared/assets/animation/data-mobile.json";
 
@@ -17,20 +15,11 @@ const Menu = (props: MenuProps) => {
   const { active, activeContacts, onClickContacts } = props;
 
   const { data: burgerLinks } = useGetMobileBurgerLinks();
-  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
 
   const router = useRouter();
-  const pathname = usePathname();
 
   const onClick = () => {
-    setActiveOffers("offer");
-
-    if (pathname !== getRouteServices()) {
-      router.push(getRouteServices());
-    } else {
-      // @ts-ignore
-      router.refresh(getRouteServices());
-    }
+    router.push(getRouteOffersPage());
   };
 
   const defaultOptions: Options = {
@@ -138,12 +127,7 @@ const Menu = (props: MenuProps) => {
                   return (
                     <li key={el.id} className="mobile-nav__item">
                       {el.href ? (
-                        <Link
-                          onClick={() => setActiveOffers(null)}
-                          href={el.href}
-                        >
-                          {el.name}
-                        </Link>
+                        <Link href={el.href}>{el.name}</Link>
                       ) : (
                         <a onClick={onClickContacts}>{el.name}</a>
                       )}

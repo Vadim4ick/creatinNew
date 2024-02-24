@@ -12,7 +12,6 @@ import { PromotionOffer } from "./PromotionOffer";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { CtaBanner } from "./CtaBanner";
 import { getRouteComplex } from "@/shared/const/pages";
-import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 
 const Complex = ({
   mainRef,

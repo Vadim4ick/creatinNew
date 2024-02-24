@@ -13,7 +13,6 @@ import { useGetOffersById } from "@/shared/services/offerById";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { BurgerAbout } from "@/components/Burger/ui/BurgerAbout/Burger";
-import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { classNames } from "@/shared/lib";
 import { OfferTopBanner } from "@/components/OfferTopBanner";
 import { Video } from "@/components/Video";
@@ -35,12 +34,10 @@ const PageOffer = ({
   const [activeServiceId, setActiveServicesId] = useState<string | undefined>(
     undefined
   );
-  const [routerLoading, setRouterLoading] = useState<boolean>(false);
 
   const refSection = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLDivElement | null>(null);
 
-  const { setActiveOffers } = useContext(ActiveOfferProviderContext);
   const { data, isLoading } = useGetOffersById(id);
 
   const [offer, setOffer] = useState<
@@ -65,12 +62,6 @@ const PageOffer = ({
     refs: [refSection],
     once: true,
   });
-
-  useEffect(() => {
-    setActiveOffers(null);
-
-    return () => setActiveOffers(null);
-  }, [setActiveOffers]);
 
   const onChangeDop = (id: string) => {
     const offer = serviceNames.filter((el) => {
@@ -106,8 +97,6 @@ const PageOffer = ({
     <ServiceLayout
       items={serviceNames}
       isLoading={isLoading}
-      setId={setActiveServicesId}
-      viewSpecialOffers={false}
       serviceId={activeServiceId}
       footer={offer?.footer}
       footerCls={"footer--whte footer-offer"}

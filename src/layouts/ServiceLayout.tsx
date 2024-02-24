@@ -3,9 +3,7 @@ import React, {
   ReactNode,
   SetStateAction,
   memo,
-  useContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -21,14 +19,10 @@ import {
   SidebarItemElement,
   SidebarItems,
 } from "@/components/Sidebar/ui/Sidebar";
-import { Offers } from "@/components/Offers";
-import { Complex } from "@/components/Complex";
-import { STORAGE_KEYS } from "@/shared/const/storageKey";
-import { useGetOffersPage } from "@/shared/services/offers";
 import { classNames } from "@/shared/lib";
 import { useMedia } from "@/shared/hooks/useMedia";
-import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { FormSend } from "@/app/_section/FormSend";
+import { useRouter } from "next/navigation";
 
 export interface IndexDateState {
   id: string;
@@ -42,16 +36,16 @@ interface ServiceLayoutProps {
   isLoading: boolean;
   children: ReactNode;
   footer?: FooterFragmentFragment | undefined;
-  setId: (id: string) => void | React.Dispatch<React.SetStateAction<string>>;
+  noReddirect?: boolean;
   containerClass?: string;
   mainClass?: string;
   BugerMenu?: () => JSX.Element;
   sidebarItemElement?: SidebarItemElement;
   setInputIds?: Dispatch<SetStateAction<string[]>>;
 
+  urlPathname?: string;
   onChangeDop?: (id: string) => void;
   onChangeDopFooter?: VoidFunction;
-  viewSpecialOffers?: boolean;
   footerCls?: string;
   formFeedback?: GetFormFeedbackQuery["formFeedback"]["data"]["attributes"]["formFeedback"];
 }
@@ -64,7 +58,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   isLoading,
   children,
   footer,
-  setId,
+  noReddirect,
   containerClass,
   mainClass = "page--hassidebar",
   BugerMenu,
@@ -72,35 +66,28 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   setInputIds,
   formFeedback,
   footerCls,
-  viewSpecialOffers = true,
   onChangeDop,
   onChangeDopFooter,
+  urlPathname = "",
 }) => {
-  const { data: offersPage, isLoading: isLoadingOffers } = useGetOffersPage();
-
   const [indexDate, setIndexDate] = useState<IndexDateState[] | null>(null);
 
-  const isDesktop = useMedia("(max-width: 1200px)");
+  const router = useRouter();
 
-  const { activeOffers, setActiveOffers, activeComplex } = useContext(
-    ActiveOfferProviderContext
-  );
+  const isDesktop = useMedia("(max-width: 1200px)");
 
   const ref = useRef<HTMLElement | null>(null);
 
   const onChange = (id: string) => {
     if (onChangeDop) {
-      onChangeDop(id);
+      return onChangeDop(id);
+    }
 
-      setActiveOffers(null);
-      sessionStorage.clear();
-
+    if (noReddirect) {
       return;
     }
 
-    setId(id);
-    setActiveOffers(null);
-    sessionStorage.clear();
+    router.push(`${urlPathname}/${id}`);
   };
 
   useSmoothScrollToTop({
@@ -121,15 +108,15 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
     const idx = indexDate.findIndex((el) => el.id === serviceId);
 
     if (indexDate[idx + 1]?.nameID === "complex") {
-      return setId(indexDate[0].id);
+      return router.push(`${urlPathname}/${indexDate[0].id}`);
     }
 
     const nextDate = currentDate[0].index + 1;
 
     if (nextDate >= items.length) {
-      setId(indexDate[0].id);
+      return router.push(`${urlPathname}/${indexDate[0].id}`);
     } else {
-      setId(indexDate[nextDate].id);
+      return router.push(`${urlPathname}/${indexDate[nextDate].id}`);
     }
   };
 
@@ -144,41 +131,20 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   }, [items]);
 
   useEffect(() => {
-    if (sessionStorage.getItem(STORAGE_KEYS.COMPLEX) === STORAGE_KEYS.COMPLEX) {
-      setActiveOffers("complex");
-    }
-
-    return () => {
-      sessionStorage.clear();
-    };
-  }, [setActiveOffers]);
-
-  useEffect(() => {
     document.documentElement.setAttribute(
       "style",
       '--font-primary: "Jeko-otf", Fallback'
     );
   }, []);
 
-  const activeComponent = useMemo(() => {
-    switch (activeOffers) {
-      case "offer":
-        return <Offers mainRef={ref} data={offersPage} />;
-      case "complex":
-        return <Complex mainRef={ref} />;
-
-      default:
-        return children;
-    }
-  }, [activeOffers, children, offersPage]);
-
-  if (isLoading || isLoadingOffers) {
+  if (isLoading) {
     return <Loader />;
   }
 
   return (
     <>
       {BugerMenu && isDesktop.matches && <BugerMenu />}
+
       <main
         onCopy={(event: React.ClipboardEvent<HTMLElement>) => {
           event.preventDefault();
@@ -190,9 +156,10 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
         <div
           className={classNames(
             "page__container",
-            {
-              "page__container--sidebar": activeComplex,
-            },
+            {},
+            // {
+            //   "page__container--sidebar": activeComplex,
+            // },
             [containerClass]
           )}
         >
@@ -201,22 +168,18 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
               active={serviceId}
               onChange={onChange}
               items={items}
-              viewSpecialOffers={viewSpecialOffers}
-              setActiveOffers={setActiveOffers}
-              activeOffers={activeOffers}
-              imageOffers={offersPage?.offersPage.data.attributes.img}
               itemElement={sidebarItemElement}
               setInputIds={setInputIds}
             />
           )}
 
-          {activeComponent}
+          {children}
         </div>
       </main>
 
       {formFeedback && <FormSend className="pb-70" form={formFeedback} />}
 
-      {footer && !activeOffers && (
+      {footer && (
         <Footer
           className={footerCls ? footerCls : undefined}
           title={footer.title}

@@ -33,7 +33,7 @@ const useRouteName = () => {
             path: `/${pathParts}`,
           },
         ]);
-      } else if (pathParts.length > 2 && pathParts[1] === "offers") {
+      } else if (pathParts.length === 2 && pathParts[0] === "offers") {
         setRouteActive([
           ...routeActive,
           {
@@ -46,6 +46,17 @@ const useRouteName = () => {
           ...routeActive,
           {
             name: `${AppRoutes["COMPLEX"]}`,
+            path: `/${pathParts[0]}`,
+          },
+        ]);
+      } else if (
+        (pathParts.length === 2 && pathParts[0] === "services") ||
+        (pathParts.length === 1 && pathParts[0] === "offers")
+      ) {
+        setRouteActive([
+          ...routeActive,
+          {
+            name: `${AppRoutes["SERVICES"]}`,
             path: `/${pathParts[0]}`,
           },
         ]);

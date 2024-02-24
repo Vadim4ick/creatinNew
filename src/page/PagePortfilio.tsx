@@ -44,17 +44,12 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
     }
   }, [data]);
 
-  const setId = (id: string) => {};
-
   return (
     <>
       <ServiceLayout
         items={caseNames}
         isLoading={false}
-        setId={setId}
-        // footer={
-        //   cases && cases?.length !== 0 ? cases[0].attributes.Footer : undefined
-        // }
+        noReddirect={true}
         BugerMenu={() => (
           <BurgerPortfolio
             title="Сортировать по направлениям"

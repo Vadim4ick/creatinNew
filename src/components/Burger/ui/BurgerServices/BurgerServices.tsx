@@ -1,11 +1,10 @@
 "use client";
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 import { Submenu } from "./Submenu";
 import { useGetServicesTitleById } from "@/shared/services/mobileGetServicesTitleById";
 import { classNames } from "@/shared/lib";
-import { ActiveOfferProviderContext } from "@/shared/providers/activeOfferProvider";
 import { useRouter } from "next/navigation";
 import { Menu } from "../Menu";
 import { SendTaskBtn } from "../../SendTaskBtn";
@@ -30,7 +29,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
     readonly SidebarItems[] | undefined
   >(undefined);
 
-  const { data, isLoading } = useGetServicesTitleById(SubMenuName);
+  const { data } = useGetServicesTitleById(SubMenuName);
 
   const router = useRouter();
 
@@ -38,10 +37,6 @@ const BurgerServices = (props: BurgerServicesProps) => {
   const btnSubMenuRef = useRef<HTMLButtonElement | null>(null);
   const sendTaskBtnRef = useRef<HTMLAnchorElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
-
-  const { activeOffers, setActiveOffers } = useContext(
-    ActiveOfferProviderContext
-  );
 
   // Если я кликнул на бургер
   const toggleMenu = () => {
@@ -130,17 +125,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
         data.services.data[0].attributes.Services.service_collections.data
       );
     }
-
-    if (activeOffers === "complex") {
-      setSubMenuContent(items);
-      setSubmenuParent(true);
-    }
-
-    if (activeOffers === "offer") {
-      setSubMenuContent(items);
-      setSubmenuParent(true);
-    }
-  }, [activeOffers, data, items]);
+  }, [data, items]);
 
   const onClickContacts = () => {
     setActiveContacts(true);
@@ -155,10 +140,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
       <div className="mobile-menu">
         <nav className="mobile-menu__row js-menu">
           <div className="mobile-menu__base">
-            {(!subMenuActive ||
-              submenuParent ||
-              activeOffers ||
-              activeContacts) && (
+            {(!subMenuActive || submenuParent || activeContacts) && (
               <a
                 onClick={() => {
                   if (activeContacts) {
@@ -166,25 +148,22 @@ const BurgerServices = (props: BurgerServicesProps) => {
                     sendTaskBtnRef.current?.classList.add("trigger-active");
                   } else {
                     if (!subMenuActive) {
-                      setActiveOffers(null);
                       return router.back();
                     }
 
-                    if (!activeOffers) {
-                      if (items) {
-                        setSubMenuContent(items);
+                    if (items) {
+                      setSubMenuContent(items);
+                    }
+
+                    if (submenuParent) {
+                      if (data?.services.data[0]) {
+                        setSubMenuContent(
+                          data.services.data[0].attributes.Services
+                            .service_collections.data
+                        );
                       }
 
-                      if (submenuParent) {
-                        if (data?.services.data[0]) {
-                          setSubMenuContent(
-                            data.services.data[0].attributes.Services
-                              .service_collections.data
-                          );
-                        }
-
-                        setSubmenuParent(false);
-                      }
+                      setSubmenuParent(false);
                     }
                   }
                 }}
@@ -198,7 +177,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
               ></a>
             )}
 
-            {subMenuActive && !submenuParent && !activeOffers && (
+            {subMenuActive && !submenuParent && (
               <a
                 onClick={() => {
                   if (items) {
@@ -228,7 +207,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
                 title="Показать подменю услуг"
                 className={classNames("mobile-menu__link btn", {}, [cls.btn])}
               >
-                {activeOffers !== null ? "Услуги" : SubMenuName}
+                {"Услуги"}
               </button>
             ) : (
               <button

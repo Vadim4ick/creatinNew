@@ -13,14 +13,14 @@ export const getRouteHome = () => "/";
 export const getRoutePortfolio = () => "/portfolio";
 export const getRouteServices = () => "/services";
 export const getRouteAbout = () => "/about";
+export const getRouteOffersPage = () => "/offers";
 
 export const getRouteCase = (id: string) => `${getRoutePortfolio()}/${id}`;
 
 export const getRouteService = (service: string, id: string) =>
   `${getRouteServices()}/${service}/${id}`;
 
-export const getRouteOffers = (id: string) =>
-  `${getRouteServices()}/offers/${id}`;
+export const getRouteOffers = (id: string) => `/offers/${id}`;
 
 export const getRouteComplex = (id: string) =>
   `${getRouteServices()}/complex/${id}`;

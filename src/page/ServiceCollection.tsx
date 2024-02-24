@@ -17,6 +17,7 @@ import ReactMarkdown from "react-markdown";
 import { Video } from "@/components/Video";
 import { BurgerServiceCollection } from "@/components/Burger/ui/BurgerServiceCollection/BurgerServiceCollection";
 import { ContentBanner } from "@/components/ContentBanner";
+import { getRouteServices } from "@/shared/const/pages";
 
 const ServiceCollection = memo(
   ({
@@ -28,14 +29,12 @@ const ServiceCollection = memo(
     titleServices: GetServicesTitleByIdQuery["services"]["data"];
     title: string;
   }) => {
-    const [serviceNameActive, setServiceNameActive] = useState(id);
-
     const isPhone = useMedia("(max-width: 767px)");
 
     const refSection = useRef<HTMLElement | null>(null);
     const refVideo = useRef<HTMLDivElement | null>(null);
 
-    const { data, isLoading } = useGetServicesCollectionById(serviceNameActive);
+    const { data, isLoading } = useGetServicesCollectionById(id);
 
     const [serviceCollection, setServiceCollection] = useState<
       | GetServiceCollectionByIdQuery["serviceCollection"]["data"]["attributes"]
@@ -75,8 +74,8 @@ const ServiceCollection = memo(
       <ServiceLayout
         isLoading={isLoading}
         footer={serviceCollection?.Footer}
-        serviceId={serviceNameActive}
-        setId={setServiceNameActive}
+        serviceId={id}
+        urlPathname={`${getRouteServices()}/${title}`}
         items={titleServices[0].attributes.Services.service_collections.data}
         BugerMenu={() => (
           <BurgerServiceCollection
