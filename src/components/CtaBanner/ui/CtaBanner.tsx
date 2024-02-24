@@ -5,6 +5,7 @@ import { classNames } from "@/shared/lib";
 import Image from "next/image";
 import { useRef } from "react";
 import cls from "./CtaBanner.module.scss";
+import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
 
 const CtaBanner = ({
   className = "",
@@ -24,6 +25,7 @@ const CtaBanner = ({
 
   return (
     <div
+      onContextMenu={(e) => handleContextMenu(e)}
       className={classNames(
         "cta",
         {

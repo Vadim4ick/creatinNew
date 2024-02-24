@@ -10,6 +10,7 @@ import Link from "next/link";
 import React, { useContext } from "react";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
+import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
 
 interface ContentBannerProps {
   className?: string;
@@ -24,7 +25,10 @@ const ContentBanner = (props: ContentBannerProps) => {
   const { setOpen } = useContext(PopupProviderContext);
 
   return (
-    <div className={classNames("cta__image", {}, [cls.container])}>
+    <div
+      onContextMenu={(e) => handleContextMenu(e)}
+      className={classNames("cta__image", {}, [cls.container])}
+    >
       {!isDesktop.matches ? (
         <img
           src={getFileUrl(content.imgDesktop.data.attributes.url)}

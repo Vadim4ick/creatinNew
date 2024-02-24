@@ -6,7 +6,6 @@ import { getRoutePortfolio } from "@/shared/const/pages";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 import { BtnArrow } from "@/shared/icons/BtnArrow";
-import { CustomLink } from "@/shared/ui/Link";
 import Link from "next/link";
 import { useRef } from "react";
 

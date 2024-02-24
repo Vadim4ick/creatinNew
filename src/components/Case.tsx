@@ -3,6 +3,7 @@
 import { CaseEntity } from "@/graphql/__generated__";
 import { getRouteCase } from "@/shared/const/pages";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
+import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { CustomLink } from "@/shared/ui/Link";
@@ -28,7 +29,11 @@ const Case = memo((props: CaseProps) => {
   });
 
   return (
-    <div ref={caseRef} className="cases__column case-card fade-up">
+    <div
+      onContextMenu={(e) => handleContextMenu(e)}
+      ref={caseRef}
+      className="cases__column case-card fade-up"
+    >
       <div className="case-card__item case-card__item--text">
         <div className="case-card__title">
           {project.attributes.title && project.attributes.title}

@@ -2,6 +2,7 @@ import { GetOfferByIdQuery } from "@/graphql/__generated__";
 import cls from "./OfferTopBanner.module.scss";
 import { useMedia } from "@/shared/hooks/useMedia";
 import ReactMarkdown from "react-markdown";
+import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
 
 const OfferTopBanner = ({
   banner,
@@ -12,7 +13,7 @@ const OfferTopBanner = ({
 
   return (
     <div className={cls.banner}>
-      <div className={cls.image}>
+      <div onContextMenu={(e) => handleContextMenu(e)} className={cls.image}>
         {banner.offerBannerDesktop.data &&
           banner.offerBannerMobile.data &&
           (!isDesktop.matches ? (

@@ -11,18 +11,12 @@ import { Spiral } from "@/shared/icons/introBanner/Spiral";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import { IconsType } from "@/shared/type/iconsType";
 import Image from "next/image";
-import {
-  MouseEvent,
-  memo,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import { memo, useContext, useEffect, useMemo, useRef } from "react";
 import { A11y, Mousewheel } from "swiper";
 import cls from "./Banner.module.scss";
 import { classNames } from "@/shared/lib";
 import { BannerAnimationProviderContext } from "@/shared/providers/bannerAnimationProvider";
+import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
 
 interface BannerProps {
   banner: GetHomePageQuery["homePage"]["data"]["attributes"]["HomeBanner"];
@@ -149,15 +143,12 @@ const Banner = memo((props: BannerProps) => {
     };
   }, [animation]);
 
-  const handleContextMenu = (e: MouseEvent) => {
-    e.preventDefault();
-  };
-
   return (
     <section ref={bannerRef} className="intro">
       <div className="intro__container">
         <div ref={test} className="intro__inner">
           <div
+            onContextMenu={(e) => handleContextMenu(e)}
             className={classNames("intro__row", {}, [cls.introRow])}
             style={banner.bannerMasks ? customStyles : undefined}
           >
@@ -169,7 +160,6 @@ const Banner = memo((props: BannerProps) => {
                 muted
                 playsInline
                 loop
-                onContextMenu={(e) => handleContextMenu(e)}
               >
                 <source
                   src={banner.bannerMobile.data.attributes.url}
@@ -192,14 +182,7 @@ const Banner = memo((props: BannerProps) => {
             </div>
             <div className="intro__bg">
               {!isPhone.matches && (
-                <video
-                  onContextMenu={(e) => handleContextMenu(e)}
-                  className={cls.banner}
-                  autoPlay
-                  muted
-                  playsInline
-                  loop
-                >
+                <video className={cls.banner} autoPlay muted playsInline loop>
                   <source
                     src={banner.banner.data.attributes.url}
                     type="video/mp4"
