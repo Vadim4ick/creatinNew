@@ -1581,6 +1581,8 @@ body.popup-show::after {
 }
 .footer.footer--service .footer__link {
   width: 111px;
+  max-height: 111px;
+  flex: 0 0 auto;
   border: none;
   margin-left: auto;
   background: var(--color-whte);
@@ -4341,9 +4343,7 @@ picture {
     -webkit-transition: all 0.3s ease-out 0s;
     transition: all 0.3s ease-out 0s;
   }
-  .footer.footer--service .footer__name {
-    text-align: right;
-  }
+
   .cases.cases--portfolio .case-card__item--main {
     border-radius: 24px;
   }
@@ -5974,7 +5974,6 @@ picture {
   .project__head:hover .project__title span {
     color: var(--color);
   }
-
 
   .about__item--logo:hover {
     background: var(--color-alt);
