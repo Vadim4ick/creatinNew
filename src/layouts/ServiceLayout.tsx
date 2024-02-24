@@ -179,7 +179,14 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   return (
     <>
       {BugerMenu && isDesktop.matches && <BugerMenu />}
-      <main ref={ref} className={classNames("page", {}, [mainClass])}>
+      <main
+        onCopy={(event: React.ClipboardEvent<HTMLElement>) => {
+          event.preventDefault();
+          return false;
+        }}
+        ref={ref}
+        className={classNames("page", {}, [mainClass])}
+      >
         <div
           className={classNames(
             "page__container",

@@ -54,7 +54,13 @@ const PageAbout = (props: PageAboutProps) => {
     <>
       {isDesktop.matches && <BurgerAbout SubMenuName="услуги" />}
 
-      <main className="page">
+      <main
+        onCopy={(event: React.ClipboardEvent<HTMLElement>) => {
+          event.preventDefault();
+          return false;
+        }}
+        className="page"
+      >
         {data?.studio.data.attributes.video.data && (
           // <Video
           //   srcMedia={data.studio.data.attributes.video.data.attributes}

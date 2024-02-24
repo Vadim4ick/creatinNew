@@ -102,7 +102,13 @@ const PageCase = memo(
           <BurgerCase SubMenuName={caseContent.mobileName} onClick={onClick} />
         )}
 
-        <main className="page">
+        <main
+          onCopy={(event: React.ClipboardEvent<HTMLElement>) => {
+            event.preventDefault();
+            return false;
+          }}
+          className="page"
+        >
           {!caseContent.content.length && (
             <div>Эта страница пока не заполнена</div>
           )}

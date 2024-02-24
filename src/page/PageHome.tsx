@@ -72,7 +72,13 @@ const PageHome = (props: PageHomeProps) => {
 
       <h1 className="visually-hidden">Студия разработки и брендинга creatin</h1>
 
-      <main className="page">
+      <main
+        onCopy={(event: React.ClipboardEvent<HTMLElement>) => {
+          event.preventDefault();
+          return false;
+        }}
+        className="page"
+      >
         {homePage.data.attributes.HomeBanner && (
           <Banner banner={homePage.data.attributes.HomeBanner} />
         )}
