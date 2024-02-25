@@ -12,7 +12,8 @@ export async function POST(req: Request) {
   const company = data.get("company") as string | null;
 
   let textFile = "См. ниже ↓";
-  if (!file.type) {
+
+  if (!file) {
     textFile = "Нет прикрепленного файла";
   }
 
@@ -54,7 +55,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: false, error });
   }
 
-  if (file.type) {
+  if (file && file.type) {
     const formData = new FormData();
 
     let method;
