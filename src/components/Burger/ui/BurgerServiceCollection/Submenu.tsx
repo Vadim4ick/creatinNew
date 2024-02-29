@@ -30,8 +30,8 @@ const Submenu = (props: SubmenuProps) => {
 
   const router = useRouter();
 
-  const onClick = () => {
-    router.push(getRouteServices());
+  const onClick = (id: string) => {
+    router.push(`${getRouteServices()}/${id}`);
   };
 
   return (
@@ -48,7 +48,7 @@ const Submenu = (props: SubmenuProps) => {
             if (submenuParent) {
               return (
                 <li key={el.id} className="mobile-services__item">
-                  <a onClick={onClick}>{el.attributes.name}</a>
+                  <a onClick={() => onClick(el.id)}>{el.attributes.name}</a>
                 </li>
               );
             } else {
