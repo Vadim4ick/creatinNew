@@ -3672,6 +3672,8 @@ body.popup-show::after {
 }
 .project__text {
   font-size: 1.5rem;
+
+  transition: all 0.3s ease 0s;
   line-height: normal;
   text-transform: lowercase;
   max-width: 872px;
@@ -5968,7 +5970,7 @@ picture {
   }
   .project__head:hover {
     background: var(--color-bg);
-    transform: translate(25px, 0px);
+    /* transform: translate(25px, 0px); */
     /* padding: 128px 32px 128px 56px; */
   }
   .project__head:hover .project__title span {

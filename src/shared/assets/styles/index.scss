@@ -54,6 +54,12 @@
 }
 
 .project__head {
+  h1 {
+    margin-top: -25px;
+  }
+}
+
+.project__head {
   @media (any-hover: hover) {
     &:hover {
       @media (min-width: 1400px) {

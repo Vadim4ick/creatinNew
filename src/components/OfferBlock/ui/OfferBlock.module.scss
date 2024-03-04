@@ -68,6 +68,15 @@
   color: #656565;
   background: white;
   border-radius: 25px;
+
+  transition: all 0.3s ease 0s;
+
+  @media (any-hover: hover) {
+    &:hover {
+      background: var(--color-alt);
+      color: white;
+    }
+  }
 }
 
 .block {
