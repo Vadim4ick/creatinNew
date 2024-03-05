@@ -6,7 +6,7 @@ import { Achievement } from "@/shared/icons/introBanner/Achievement";
 import { Graph } from "@/shared/icons/introBanner/Graph";
 import { Trust } from "@/shared/icons/introBanner/Trust";
 import Image from "next/image";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { A11y, Mousewheel } from "swiper";
 import cls from "./About.module.scss";
 import { AboutLogo } from "@/shared/icons/AboutLogo";
@@ -123,10 +123,54 @@ const About = ({
             </ReactMarkdown>
             <div className="about__item about__item--text ">
               <h3 className="about__item-title">
-                {aboutSection.aboutSection.aboutTitle}
+                <ReactMarkdown
+                  skipHtml
+                  components={{
+                    p: ({ children }) => {
+                      return (
+                        <span>
+                          {children
+                            ?.toString()
+                            .split(",\n")
+                            .map((line, index) => (
+                              <React.Fragment key={index}>
+                                {line}
+                                {/* @ts-ignore */}
+                                {index < children.length - 1 && <br />}
+                              </React.Fragment>
+                            ))}
+                        </span>
+                      );
+                    },
+                  }}
+                >
+                  {aboutSection.aboutSection.aboutTitle}
+                </ReactMarkdown>
               </h3>
               <div className="about__item-info">
-                {aboutSection.aboutSection.aboutDescription}
+                <ReactMarkdown
+                  skipHtml
+                  components={{
+                    p: ({ children }) => {
+                      return (
+                        <span>
+                          {children
+                            ?.toString()
+                            .split(",\n")
+                            .map((line, index) => (
+                              <React.Fragment key={index}>
+                                {line}
+                                {/* @ts-ignore */}
+                                {index < children.length - 1 && <br />}
+                              </React.Fragment>
+                            ))}
+                        </span>
+                      );
+                    },
+                  }}
+                >
+                  {aboutSection.aboutSection.aboutDescription}
+                </ReactMarkdown>
               </div>
             </div>
             <div className="about__item about__item--logo">
