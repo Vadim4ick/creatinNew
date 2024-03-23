@@ -26,6 +26,8 @@ export async function generateMetadata() {
   return metadata;
 }
 
+export const revalidate = 0;
+
 const Home = async () => {
   const { homePage } = await gql.GetHomePage();
   const { partner } = await gql.GetPartners();
