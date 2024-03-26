@@ -3,8 +3,9 @@
 }
 
 .footerDop {
+  height: 430px;
+
   @media (min-width: 767px) {
-    max-height: 423px;
     overflow: hidden;
   }
 }
