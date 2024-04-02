@@ -102,6 +102,19 @@ query GetCaseById($id: ID) {
               }
             }
           }
+
+          ... on ComponentImageBlocksVideo {
+            id
+            idBlock
+
+            video {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+          }
         }
       }
     }

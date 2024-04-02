@@ -6,12 +6,14 @@ import { DoubleTextBlocks } from "@/components/imageBlocks/DoubleTextBlocks";
 import { GridImage } from "@/components/imageBlocks/GridImage";
 import { OneImage } from "@/components/imageBlocks/OneImage";
 import { TextBlock } from "@/components/imageBlocks/TextBlocks";
+import { VideoBlock } from "@/components/imageBlocks/VideoBlock";
 import {
   ComponentImageBlocksDoubleImage,
   ComponentImageBlocksDoubleTextBlocks,
   ComponentImageBlocksGridImage,
   ComponentImageBlocksOneImage,
   ComponentImageBlocksTextBlock,
+  ComponentImageBlocksVideo,
   FooterFragmentFragment,
   GetCasesIdsQuery,
 } from "@/graphql/__generated__";
@@ -27,6 +29,7 @@ type GridImage = ComponentImageBlocksGridImage;
 type OneImage = ComponentImageBlocksOneImage;
 type TextImage = ComponentImageBlocksTextBlock;
 type DoubleTextBlocks = ComponentImageBlocksDoubleTextBlocks;
+type VideoBlock = ComponentImageBlocksVideo;
 
 type CaseContent = {
   readonly content: (
@@ -35,6 +38,7 @@ type CaseContent = {
     | OneImage
     | TextImage
     | DoubleTextBlocks
+    | VideoBlock
   )[];
   readonly Footer: FooterFragmentFragment;
   readonly mobileName: string;
@@ -149,6 +153,13 @@ const PageCase = memo(
                     <DoubleTextBlocks
                       key={el.idBlock + el.id}
                       content={el as DoubleTextBlocks}
+                    />
+                  );
+                } else if (el.idBlock === "videoBlock") {
+                  return (
+                    <VideoBlock
+                      key={el.idBlock + el.id}
+                      content={el as VideoBlock}
                     />
                   );
                 }
