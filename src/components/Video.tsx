@@ -12,6 +12,7 @@ interface VideoProps extends React.HTMLProps<HTMLDivElement> {
   animation?: boolean;
   container?: boolean;
   className?: string;
+  noStyle?: boolean;
   srcMedia: MediaFragmentFragment;
 }
 
@@ -21,6 +22,7 @@ const Video = (props: VideoProps) => {
     className = "",
     container = false,
     srcMedia,
+    noStyle,
     ...otherProps
   } = props;
 
@@ -66,8 +68,12 @@ const Video = (props: VideoProps) => {
   const video = (
     <div
       className="video__item"
-      // @ts-ignore
-      style={{ "--icon": "url(/img/icons/video-icon-gray.svg)" }}
+      style={
+        noStyle
+          ? undefined
+          : // @ts-ignore
+            { "--icon": "url(/img/icons/video-icon-gray.svg)" }
+      }
     >
       <video
         onContextMenu={(e) => handleContextMenu(e)}
