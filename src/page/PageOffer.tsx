@@ -21,6 +21,7 @@ import { RelevantProjects } from "@/components/Relevant-project";
 import { useRouter } from "next/navigation";
 import { Loader } from "@/shared/ui/Loader/Loader";
 import { getRouteOffers } from "@/shared/const/pages";
+import { SectionTitle } from "@/app/services/_sections/SectionTitle";
 
 const PageOffer = ({
   serviceNames,
@@ -50,6 +51,7 @@ const PageOffer = ({
     if (data?.offer) {
       if (data.offer.data) {
         setActiveServicesId(data.offer.data.attributes.service_name.data.id);
+
         setOffer(data.offer.data.attributes);
       }
     } else {
@@ -121,6 +123,8 @@ const PageOffer = ({
         )}
 
         {offer?.textBlocks && <TextBlocks blocks={offer.textBlocks} />}
+
+        {offer?.Title && <SectionTitle title={offer.Title} />}
 
         {offer?.includes_blocks.data &&
           offer?.includes_blocks.data.length > 0 && (

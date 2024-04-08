@@ -65,6 +65,16 @@ fragment OfferFragment on Offer {
   description
   highlighted
 
+  Title {
+    id
+    title
+
+    titles {
+      id
+      title
+    }
+  }
+
   sliderCase {
     ...SliderFragment
   }

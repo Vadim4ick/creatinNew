@@ -24,6 +24,7 @@ fragment BannerFragment on Banner {
 
   widthTitle
   widthDescription
+  widthDescriptionBannerOfferPage
 
   offerBannerMobile {
     data {

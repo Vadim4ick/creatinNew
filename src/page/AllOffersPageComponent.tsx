@@ -36,7 +36,6 @@ const AllOffersPageComponent = ({
       >
         <Offers mainRef={ref} data={offersPage} />
       </ServiceLayout>
-
       {offersPage?.offersPage.data.attributes.footer && (
         <Footer
           title={offersPage.offersPage.data.attributes.footer.title}
