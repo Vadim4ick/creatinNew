@@ -1,5 +1,6 @@
 import { GetServiceCollectionByIdQuery } from "@/graphql/__generated__";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
+import { classNames } from "@/shared/lib";
 import { useRef } from "react";
 
 interface SectionTitleProps {
@@ -23,7 +24,12 @@ const SectionTitle = (props: SectionTitleProps) => {
 
         <ul className="steps__list">
           {title.titles.map((el) => (
-            <li key={el.id} className="steps__item">
+            <li
+              key={el.id}
+              className={classNames("steps__item", {
+                greenTitle: el.activeTitle,
+              })}
+            >
               {el.title}
             </li>
           ))}

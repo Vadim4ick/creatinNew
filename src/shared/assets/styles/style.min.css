@@ -3652,6 +3652,7 @@ body.popup-show::after {
 .project__head--big .project__title {
   font-size: 8.75rem;
   letter-spacing: -2.8px;
+  width: 100%;
   line-height: 1;
   -webkit-transition: -webkit-transform 0.3s ease-out 0s;
   transition: -webkit-transform 0.3s ease-out 0s;

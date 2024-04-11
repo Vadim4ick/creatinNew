@@ -19,6 +19,7 @@ query GetServiceCollectionById($id: ID) {
           titles {
             id
             title
+            activeTitle
           }
         }
 

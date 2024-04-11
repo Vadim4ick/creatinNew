@@ -72,6 +72,7 @@ fragment OfferFragment on Offer {
     titles {
       id
       title
+      activeTitle
     }
   }
 
