@@ -5,6 +5,10 @@ import { classNames } from "@/shared/lib";
 import React, { memo, useRef } from "react";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
 
+function fixhyphens(text: string) {
+  return text.replace(/(\S+)-(\S+)/g, "$1&#8288;-&#8288;$2");
+}
+
 const TextBlock = memo((props: { content: ComponentImageBlocksTextBlock }) => {
   const { content } = props;
 
@@ -36,7 +40,7 @@ const TextBlock = memo((props: { content: ComponentImageBlocksTextBlock }) => {
               },
             }}
           >
-            {content.title}
+            {fixhyphens(content.title)}
           </ReactMarkdown>
         </h1>
         <div
