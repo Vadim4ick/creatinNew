@@ -188,6 +188,10 @@ export function Banner() {
   const refsThreeBlockText = useRef<{ current: HTMLDivElement }[] | []>([]);
   const refsBlocksThreeBlock = useRef<{ current: HTMLDivElement }[] | []>([]);
 
+  const refsBlocksThreeBlockMobile = useRef<{ current: HTMLDivElement }[] | []>(
+    []
+  );
+
   const isMobile = useMedia("(max-width: 600px)");
 
   useEffect(() => {
@@ -210,6 +214,10 @@ export function Banner() {
     refsBlocksThreeBlock.current = Array(bannerContent.length)
       .fill(0)
       .map((_, i) => refsBlocksThreeBlock.current[i] || createRef());
+
+    refsBlocksThreeBlockMobile.current = Array(bannerContent.length)
+      .fill(0)
+      .map((_, i) => refsBlocksThreeBlockMobile.current[i] || createRef());
   }, []);
 
   function animate() {
@@ -321,36 +329,42 @@ export function Banner() {
     }
   }
 
-  function animateBlocksThreeBlock() {
-    if (refsBlocksThreeBlock.current.length > 0) {
+  function animateBlocksThreeBlock(
+    refs: React.MutableRefObject<
+      | []
+      | {
+          current: HTMLDivElement;
+        }[]
+    >
+  ) {
+    if (refs.current.length > 0) {
       bannerContent.map((_, i) => {
-        if (
-          refsBlocksThreeBlock.current[i] &&
-          refsBlocksThreeBlock.current[i].current
-        ) {
+        if (refs.current[i] && refs.current[i].current) {
           gsap.from(
-            refsBlocksThreeBlock.current[i].current,
+            refs.current[i].current,
 
             {
-              y: "150%",
+              y: isMobile.matches ? "0%" : "150%",
+              x: isMobile.matches ? "150%" : "0",
               delay: i === 0 ? 0 : i * TIME_ANIMATION,
               duration: DURATION_ANIMATION,
               ease: "power1.out",
 
               onComplete() {
-                gsap.to(refsBlocksThreeBlock.current[i].current, {
+                gsap.to(refs.current[i].current, {
                   opacity: 0,
-                  y: "-150%",
+                  y: isMobile.matches ? "0%" : "-150%",
+                  x: isMobile.matches ? "-150%" : "0%",
                   delay: DELAY_ANIMATION,
                   duration: DURATION_ANIMATION,
                   ease: "power1.in",
 
                   onComplete: function () {
-                    if (i === refsBlocksThreeBlock.current.length - 1) {
+                    if (i === refs.current.length - 1) {
                       // если это последний блок
                       // перемещаем предыдущие блоки обратно вниз
                       for (let j = 0; j <= i; j++) {
-                        gsap.to(refsBlocksThreeBlock.current[j].current, {
+                        gsap.to(refs.current[j].current, {
                           y: "0%",
                           x: "0%",
                           opacity: 1,
@@ -360,7 +374,7 @@ export function Banner() {
                             if (j === i) {
                               // если это последний блок, который был перемещен вниз
                               // запускаем анимацию снова
-                              animateBlocksThreeBlock();
+                              animateBlocksThreeBlock(refs);
                             }
                           },
                         });
@@ -438,11 +452,15 @@ export function Banner() {
   }
 
   useGSAP(() => {
-    // animate();
-    // animateText(refsTwoBlockText, metrics);
-    // animateImageTwoBlock();
-    // animateText(refsThreeBlockText, bannerContent);
-    // animateBlocksThreeBlock();
+    animate();
+    animateText(refsTwoBlockText, metrics);
+    animateImageTwoBlock();
+    animateText(refsThreeBlockText, bannerContent);
+    animateBlocksThreeBlock(
+      isMobile.matches ? refsBlocksThreeBlockMobile : refsBlocksThreeBlock
+    );
+
+    // animateBlocksThreeBlockMobile();
   }, [refs.current]);
 
   return (
@@ -505,39 +523,57 @@ export function Banner() {
             ))}
           </div>
 
-          {!isMobile.matches && (
-            <div className={`${cls.block} ${cls.three}`}>
-              <div className={cls.threeBody}>
-                {bannerContent.map((el, i) => (
-                  <p
+          {/* {!isMobile.matches && ( */}
+          <div className={`${cls.block} ${cls.three}`}>
+            <div className={cls.threeBody}>
+              {bannerContent.map((el, i) => (
+                <p
+                  key={i}
+                  ref={refsThreeBlockText.current[i]}
+                  className={cls.threeTitle}
+                >
+                  {el.three.title}
+                </p>
+              ))}
+
+              {isMobile.matches &&
+                bannerContent.map((el, i) => (
+                  <div
                     key={i}
-                    ref={refsThreeBlockText.current[i]}
-                    className={cls.threeTitle}
+                    ref={refsBlocksThreeBlockMobile.current[i]}
+                    className={cls.threeBlock}
                   >
-                    {el.three.title}
-                  </p>
+                    {el.three.blocks.map((el) => (
+                      <div key={el.title} className={cls.threeBlockSection}>
+                        <div className={cls.threeBlockTitle}>{el.title}</div>
+                        <div className={cls.threeBlockPrice}>{el.price}</div>
+                        <div className={cls.threeBlockTotal}>{el.total}</div>
+                      </div>
+                    ))}
+                  </div>
                 ))}
 
-                <button className={cls.threeBottom}>
-                  <p>Оставить заявку</p>
+              <button className={cls.threeBottom}>
+                <p>Оставить заявку</p>
 
-                  <span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="15"
-                      height="15"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                    >
-                      <path
-                        d="M0.699218 8.40208L0.699218 6.69753L10.9265 6.69753L6.23899 2.01003L7.44922 0.799805L14.1992 7.5498L7.44922 14.2998L6.23899 13.0896L10.9265 8.40208L0.699218 8.40208Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                  >
+                    <path
+                      d="M0.699218 8.40208L0.699218 6.69753L10.9265 6.69753L6.23899 2.01003L7.44922 0.799805L14.1992 7.5498L7.44922 14.2998L6.23899 13.0896L10.9265 8.40208L0.699218 8.40208Z"
+                      fill="white"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
 
+            {!isMobile.matches && (
               <div className={cls.threeBlockBlocks}>
                 {bannerContent.map((el, i) => (
                   <div
@@ -555,8 +591,9 @@ export function Banner() {
                   </div>
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
+          {/* )} */}
 
           {/* {isMobile.matches && (
             <div className={`${cls.block} ${cls.three}`}>
