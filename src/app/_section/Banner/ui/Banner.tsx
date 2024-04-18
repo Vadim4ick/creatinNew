@@ -1,12 +1,19 @@
 "use client";
 
 import cls from "./Banner.module.scss";
-import React, { createRef, useContext, useEffect, useRef } from "react";
+import React, {
+  createRef,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useRouter } from "next/navigation";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
+import { Loader } from "@/shared/ui/Loader/Loader";
 
 const bannerContent = [
   {
@@ -201,6 +208,12 @@ export function Banner() {
   const refsBlocksThreeBlockMobile = useRef<{ current: HTMLDivElement }[] | []>(
     []
   );
+
+  const [pageLoaded, setPageLoaded] = useState(true);
+
+  useEffect(() => {
+    setPageLoaded(false);
+  }, []);
 
   const isMobile = useMedia("(max-width: 600px)");
 
@@ -482,6 +495,10 @@ export function Banner() {
   const clickPopup = () => {
     onClickPopup();
   };
+
+  if (pageLoaded) {
+    return <Loader />;
+  }
 
   return (
     <section className={cls.banner}>
