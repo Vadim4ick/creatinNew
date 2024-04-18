@@ -427,6 +427,44 @@
   right: 0;
   top: 0;
 
+  > div:first-child {
+    position: relative;
+
+    @media (min-width: 600px) {
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -25px;
+        left: 0;
+        height: 2px;
+        background: #9d9d9d;
+        opacity: 0.5;
+        width: 100%;
+
+        @media (max-width: 1450px) {
+          bottom: -17.5px;
+        }
+
+        @media (max-width: 1250px) {
+          bottom: -30px;
+        }
+      }
+    }
+
+    @media (max-width: 600px) {
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -30px;
+        height: 100%;
+        background: #9d9d9d;
+        opacity: 0.5;
+        width: 2px;
+      }
+    }
+  }
+
   @media (min-width: 600px) {
     flex-direction: column;
   }

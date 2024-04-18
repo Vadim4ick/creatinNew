@@ -1,10 +1,12 @@
 "use client";
 
 import cls from "./Banner.module.scss";
-import React, { createRef, useEffect, useRef } from "react";
+import React, { createRef, useContext, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { useRouter } from "next/navigation";
+import { PopupProviderContext } from "@/shared/providers/popupProvider";
 
 const bannerContent = [
   {
@@ -16,6 +18,8 @@ const bannerContent = [
         description:
           "Качественные и количественные исследования для всех типов продуктов",
       },
+
+      link: "/services/1",
     },
 
     three: {
@@ -43,6 +47,8 @@ const bannerContent = [
         description:
           "Формирование уникальной бренд-идентичности, чтобы установить прочное и запоминающееся впечатление у потребителей",
       },
+
+      link: "/services/2",
     },
 
     three: {
@@ -70,6 +76,7 @@ const bannerContent = [
         description:
           "Визуальное воплощение и профессиональное исполнение ваших идей",
       },
+      link: "/services/3",
     },
 
     three: {
@@ -96,6 +103,7 @@ const bannerContent = [
         title: "Web-разработка",
         description: "Создаем уникальные веб-проекты  для вашего бизнеса",
       },
+      link: "/services/6",
     },
 
     three: {
@@ -122,6 +130,8 @@ const bannerContent = [
         title: "Мобильные приложения",
         description: "Инновационные решения для современного бизнеса",
       },
+
+      link: "/services/7",
     },
 
     three: {
@@ -193,6 +203,8 @@ export function Banner() {
   );
 
   const isMobile = useMedia("(max-width: 600px)");
+
+  const router = useRouter();
 
   useEffect(() => {
     refs.current = Array(bannerContent.length)
@@ -463,6 +475,14 @@ export function Banner() {
     // animateBlocksThreeBlockMobile();
   }, [refs.current]);
 
+  const onClick = (str: string) => router.push(str);
+
+  const { onClickPopup } = useContext(PopupProviderContext);
+
+  const clickPopup = () => {
+    onClickPopup();
+  };
+
   return (
     <section className={cls.banner}>
       <div className={cls.container}>
@@ -488,7 +508,7 @@ export function Banner() {
                     <p>{el.one.content.description}</p>
                   </div>
 
-                  <button>
+                  <button onClick={() => onClick(el.one.link)}>
                     <p>Все услуги</p>
 
                     <span>
@@ -553,7 +573,7 @@ export function Banner() {
                   </div>
                 ))}
 
-              <button className={cls.threeBottom}>
+              <button onClick={clickPopup} className={cls.threeBottom}>
                 <p>Оставить заявку</p>
 
                 <span>
@@ -593,60 +613,6 @@ export function Banner() {
               </div>
             )}
           </div>
-          {/* )} */}
-
-          {/* {isMobile.matches && (
-            <div className={`${cls.block} ${cls.three}`}>
-              <div className={cls.threeBody}>
-                {bannerContent.map((el, i) => (
-                  <p
-                    key={i}
-                    ref={refsThreeBlockText.current[i]}
-                    className={cls.threeTitle}
-                  >
-                    {el.three.title}
-                  </p>
-                ))}
-
-                <button className={cls.threeBottom}>
-                  <p>Оставить заявку</p>
-
-                  <span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="15"
-                      height="15"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                    >
-                      <path
-                        d="M0.699218 8.40208L0.699218 6.69753L10.9265 6.69753L6.23899 2.01003L7.44922 0.799805L14.1992 7.5498L7.44922 14.2998L6.23899 13.0896L10.9265 8.40208L0.699218 8.40208Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
-
-              <div className={cls.threeBlockBlocks}>
-                {bannerContent.map((el, i) => (
-                  <div
-                    key={i}
-                    ref={refsBlocksThreeBlock.current[i]}
-                    className={cls.threeBlock}
-                  >
-                    {el.three.blocks.map((el) => (
-                      <div key={el.title} className={cls.threeBlockSection}>
-                        <div className={cls.threeBlockTitle}>{el.title}</div>
-                        <div className={cls.threeBlockPrice}>{el.price}</div>
-                        <div className={cls.threeBlockTotal}>{el.total}</div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )} */}
         </div>
       </div>
     </section>
