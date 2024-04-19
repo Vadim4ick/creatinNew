@@ -47,7 +47,7 @@ const PageHome = (props: PageHomeProps) => {
         }}
         className="page"
       >
-        <Banner />
+        {/* <Banner /> */}
 
         {homePage.data.attributes.cases && (
           <Cases cases={homePage.data.attributes.cases} />
