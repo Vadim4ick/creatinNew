@@ -1,0 +1,12 @@
+fragment BannerMetricsFragment on ComponentHomeBannerMetrics {
+  id
+  title
+
+  img {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+}

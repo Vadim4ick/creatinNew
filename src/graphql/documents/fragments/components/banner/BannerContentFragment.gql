@@ -1,0 +1,20 @@
+fragment BannerContentFragment on ComponentHomeBannerBannerContent {
+  id
+  title
+  description
+  link
+  video {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+  videoMobile {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+}

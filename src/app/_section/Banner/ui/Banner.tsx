@@ -18,7 +18,8 @@ import { Loader } from "@/shared/ui/Loader/Loader";
 const bannerContent = [
   {
     one: {
-      video: "/videos/Issled.mp4",
+      video: "/videos/desktop/Issled.mp4",
+      videoMobil: "/videos/mobil/Issled.mp4",
 
       content: {
         title: "Предпроектные исследования",
@@ -48,7 +49,8 @@ const bannerContent = [
   },
   {
     one: {
-      video: "/videos/Brending.mp4",
+      video: "/videos/desktop/Brending.mp4",
+      videoMobil: "/videos/mobil/Brending.mp4",
       content: {
         title: "Брендинг",
         description:
@@ -77,7 +79,8 @@ const bannerContent = [
   },
   {
     one: {
-      video: "/videos/Design.mp4",
+      video: "/videos/desktop/Design.mp4",
+      videoMobil: "/videos/mobil/Design.mp4",
       content: {
         title: "Графический дизайн",
         description:
@@ -105,7 +108,8 @@ const bannerContent = [
   },
   {
     one: {
-      video: "/videos/WEB.mp4",
+      video: "/videos/desktop/WEB.mp4",
+      videoMobil: "/videos/mobil/WEB.mp4",
       content: {
         title: "Web-разработка",
         description: "Создаем уникальные веб-проекты  для вашего бизнеса",
@@ -132,7 +136,8 @@ const bannerContent = [
   },
   {
     one: {
-      video: "/videos/Mobil.mp4",
+      video: "/videos/desktop/Mobil.mp4",
+      videoMobil: "/videos/mobil/Mobil.mp4",
       content: {
         title: "Мобильные приложения",
         description: "Инновационные решения для современного бизнеса",
@@ -193,7 +198,7 @@ const metrics = [
 
 gsap.registerPlugin(useGSAP);
 
-const TIME_ANIMATION = 6;
+const TIME_ANIMATION = 5.95;
 const DELAY_ANIMATION = 4.5;
 const DURATION_ANIMATION = 1;
 
@@ -257,6 +262,17 @@ export function Banner() {
               y: "100%",
             },
             {
+              onStart: function () {
+                // Обнуляем видео перед началом анимации
+                const video = refs.current[i].current.querySelector("video");
+                console.log(video);
+
+                if (video) {
+                  video.currentTime = 0;
+
+                  video.play();
+                }
+              },
               y: `0%`,
               scale: 1,
               delay: i * TIME_ANIMATION,
@@ -314,7 +330,7 @@ export function Banner() {
               duration: DURATION_ANIMATION,
               zIndex: -1,
               ease: "power1.in",
-              y: "100%",
+              y: "170%",
 
               onComplete() {
                 gsap.to(refsTwoBlockImage.current[i].current, {
@@ -509,13 +525,24 @@ export function Banner() {
               <div key={i} ref={refs.current[i]} className={cls.blockVideo}>
                 <video
                   className={cls.video}
-                  key={el.one.video + i}
-                  autoPlay
+                  key={isMobile ? el.one.videoMobil + i : el.one.video + i}
+                  // autoPlay
                   muted
                   playsInline
                   loop
+                  // onEnded={(
+                  //   e: React.SyntheticEvent<HTMLVideoElement, Event>
+                  // ) => {
+                  //   console.log(e);
+
+                  //   e.target.currentTime = 0; // Сбрасываем видео на начало при завершении
+                  //   e.target.play(); // Запускаем воспроизведение с начала
+                  // }}
                 >
-                  <source src={el.one.video} type="video/mp4" />
+                  <source
+                    src={isMobile.matches ? el.one.videoMobil : el.one.video}
+                    type="video/mp4"
+                  />
                 </video>
 
                 <div className={cls.videoContent}>

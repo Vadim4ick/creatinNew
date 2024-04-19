@@ -1,30 +1,13 @@
 fragment GetHomeBanner on ComponentComponentsHomeBanner {
-  IntroCard {
-    ...IntroCardFragment
+  bannerContent {
+    ...BannerContentFragment
   }
 
-  bannerMasks {
-    data {
-      id
-      attributes {
-        ...MediaFragment
-      }
-    }
+  bannerMetrics {
+    ...BannerMetricsFragment
   }
 
-  bannerMobile {
-    data {
-      attributes {
-        ...MediaFragment
-      }
-    }
-  }
-
-  banner {
-    data {
-      attributes {
-        ...MediaFragment
-      }
-    }
+  bannerBottomBlocks {
+    ...BannerBottomFragment
   }
 }
