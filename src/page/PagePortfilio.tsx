@@ -37,8 +37,8 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
   >(undefined);
 
   useEffect(() => {
-    if (data?.cases.data) {
-      setCases(data.cases.data);
+    if (data?.portfolio.data.attributes.cases.data) {
+      setCases(data.portfolio.data.attributes.cases.data);
     } else {
       setCases(undefined);
     }

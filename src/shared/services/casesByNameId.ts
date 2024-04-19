@@ -6,9 +6,10 @@ export const useGetCasesByNameId = (ids: string[]) => {
   return useQuery({
     queryKey: [KEYS.CASES_BY_NAME_ID, ids],
     queryFn: () =>
-      gql.GetCasesByNameIds({
+      gql.GetPortfolio({
         ids: ids,
       }),
+
     refetchOnWindowFocus: false,
   });
 };

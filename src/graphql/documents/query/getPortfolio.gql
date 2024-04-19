@@ -1,8 +1,11 @@
-query GetPortfolio {
+query GetPortfolio($ids: [ID]) {
   portfolio {
     data {
       attributes {
-        cases {
+        cases(
+          filters: { case_names: { id: { in: $ids } } }
+          pagination: { limit: 70 }
+        ) {
           data {
             id
             attributes {

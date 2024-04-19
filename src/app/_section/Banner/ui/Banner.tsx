@@ -14,187 +14,189 @@ import { useMedia } from "@/shared/hooks/useMedia";
 import { useRouter } from "next/navigation";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import { Loader } from "@/shared/ui/Loader/Loader";
+import { GetHomeBannerFragment } from "@/graphql/__generated__";
+import { getFileUrl } from "@/shared/helpers/getFileUrl";
 
-const bannerContent = [
-  {
-    one: {
-      video: "/videos/desktop/Issled.mp4",
-      videoMobil: "/videos/mobil/Issled.mp4",
+// const bannerContent = [
+//   {
+//     one: {
+//       video: "/videos/desktop/Issled.mp4",
+//       videoMobil: "/videos/mobil/Issled.mp4",
 
-      content: {
-        title: "Предпроектные исследования",
-        description:
-          "Качественные и количественные исследования для всех типов продуктов",
-      },
+//       content: {
+//         title: "Предпроектные исследования",
+//         description:
+//           "Качественные и количественные исследования для всех типов продуктов",
+//       },
 
-      link: "/services/1",
-    },
+//       link: "/services/1",
+//     },
 
-    three: {
-      title: "Cоздание фирменного стиля компании",
+//     three: {
+//       title: "Cоздание фирменного стиля компании",
 
-      blocks: [
-        {
-          title: "срок реализации",
-          price: "20",
-          total: "рабочих дней",
-        },
-        {
-          title: "cтоимость от:",
-          price: "180 000",
-          total: "рублей",
-        },
-      ],
-    },
-  },
-  {
-    one: {
-      video: "/videos/desktop/Brending.mp4",
-      videoMobil: "/videos/mobil/Brending.mp4",
-      content: {
-        title: "Брендинг",
-        description:
-          "Формирование уникальной бренд-идентичности, чтобы установить прочное и запоминающееся впечатление у потребителей",
-      },
+//       blocks: [
+//         {
+//           title: "срок реализации",
+//           price: "20",
+//           total: "рабочих дней",
+//         },
+//         {
+//           title: "cтоимость от:",
+//           price: "180 000",
+//           total: "рублей",
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     one: {
+//       video: "/videos/desktop/Brending.mp4",
+//       videoMobil: "/videos/mobil/Brending.mp4",
+//       content: {
+//         title: "Брендинг",
+//         description:
+//           "Формирование уникальной бренд-идентичности, чтобы установить прочное и запоминающееся впечатление у потребителей",
+//       },
 
-      link: "/services/2",
-    },
+//       link: "/services/2",
+//     },
 
-    three: {
-      title: "руководство по использованию фирменного стиля",
+//     three: {
+//       title: "руководство по использованию фирменного стиля",
 
-      blocks: [
-        {
-          title: "срок реализации:",
-          price: "30",
-          total: "рабочих дней",
-        },
-        {
-          title: "cтоимость от:",
-          price: "350 000",
-          total: "рублей",
-        },
-      ],
-    },
-  },
-  {
-    one: {
-      video: "/videos/desktop/Design.mp4",
-      videoMobil: "/videos/mobil/Design.mp4",
-      content: {
-        title: "Графический дизайн",
-        description:
-          "Визуальное воплощение и профессиональное исполнение ваших идей",
-      },
-      link: "/services/3",
-    },
+//       blocks: [
+//         {
+//           title: "срок реализации:",
+//           price: "30",
+//           total: "рабочих дней",
+//         },
+//         {
+//           title: "cтоимость от:",
+//           price: "350 000",
+//           total: "рублей",
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     one: {
+//       video: "/videos/desktop/Design.mp4",
+//       videoMobil: "/videos/mobil/Design.mp4",
+//       content: {
+//         title: "Графический дизайн",
+//         description:
+//           "Визуальное воплощение и профессиональное исполнение ваших идей",
+//       },
+//       link: "/services/3",
+//     },
 
-    three: {
-      title: "Разработка бизнес плана",
+//     three: {
+//       title: "Разработка бизнес плана",
 
-      blocks: [
-        {
-          title: "срок реализации:",
-          price: "50",
-          total: "рабочих дней",
-        },
-        {
-          title: "cтоимость от:",
-          price: "240 000",
-          total: "рублей",
-        },
-      ],
-    },
-  },
-  {
-    one: {
-      video: "/videos/desktop/WEB.mp4",
-      videoMobil: "/videos/mobil/WEB.mp4",
-      content: {
-        title: "Web-разработка",
-        description: "Создаем уникальные веб-проекты  для вашего бизнеса",
-      },
-      link: "/services/6",
-    },
+//       blocks: [
+//         {
+//           title: "срок реализации:",
+//           price: "50",
+//           total: "рабочих дней",
+//         },
+//         {
+//           title: "cтоимость от:",
+//           price: "240 000",
+//           total: "рублей",
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     one: {
+//       video: "/videos/desktop/WEB.mp4",
+//       videoMobil: "/videos/mobil/WEB.mp4",
+//       content: {
+//         title: "Web-разработка",
+//         description: "Создаем уникальные веб-проекты  для вашего бизнеса",
+//       },
+//       link: "/services/6",
+//     },
 
-    three: {
-      title: "Рекламный лендинг",
+//     three: {
+//       title: "Рекламный лендинг",
 
-      blocks: [
-        {
-          title: "срок реализации:",
-          price: "30",
-          total: "рабочих дней",
-        },
-        {
-          title: "cтоимость от:",
-          price: "150 000",
-          total: "рублей",
-        },
-      ],
-    },
-  },
-  {
-    one: {
-      video: "/videos/desktop/Mobil.mp4",
-      videoMobil: "/videos/mobil/Mobil.mp4",
-      content: {
-        title: "Мобильные приложения",
-        description: "Инновационные решения для современного бизнеса",
-      },
+//       blocks: [
+//         {
+//           title: "срок реализации:",
+//           price: "30",
+//           total: "рабочих дней",
+//         },
+//         {
+//           title: "cтоимость от:",
+//           price: "150 000",
+//           total: "рублей",
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     one: {
+//       video: "/videos/desktop/Mobil.mp4",
+//       videoMobil: "/videos/mobil/Mobil.mp4",
+//       content: {
+//         title: "Мобильные приложения",
+//         description: "Инновационные решения для современного бизнеса",
+//       },
 
-      link: "/services/7",
-    },
+//       link: "/services/7",
+//     },
 
-    three: {
-      title: "Создание motion-ролика",
+//     three: {
+//       title: "Создание motion-ролика",
 
-      blocks: [
-        {
-          title: "срок реализации:",
-          price: "10",
-          total: "рабочих дней",
-        },
-        {
-          title: "cтоимость от:",
-          price: "15 000",
-          total: "рублей",
-        },
-      ],
-    },
-  },
-];
+//       blocks: [
+//         {
+//           title: "срок реализации:",
+//           price: "10",
+//           total: "рабочих дней",
+//         },
+//         {
+//           title: "cтоимость от:",
+//           price: "15 000",
+//           total: "рублей",
+//         },
+//       ],
+//     },
+//   },
+// ];
 
-const metrics = [
-  {
-    title: "Реализованных проектов",
-    img: "/img/baner/100@2x.png",
-  },
-  {
-    title: "проведенных исследований",
-    img: "/img/baner/50@2x.png",
-  },
-  {
-    title: "долгосрочных партнеров",
-    img: "/img/baner/15@2x.png",
-  },
-  {
-    title: "лет на диджитал рынке",
-    img: "/img/baner/5+@2x.png",
-  },
-  {
-    title: "международные награды",
-    img: "/img/baner/3@2x.png",
-  },
-  {
-    title: "доверия",
-    img: "/img/baner/percent100@2x.png",
-  },
-  {
-    title: "высококласных специалистов",
-    img: "/img/baner/50@2x.png",
-  },
-];
+// const metrics = [
+//   {
+//     title: "Реализованных проектов",
+//     img: "/img/baner/100@2x.png",
+//   },
+//   {
+//     title: "проведенных исследований",
+//     img: "/img/baner/50@2x.png",
+//   },
+//   {
+//     title: "долгосрочных партнеров",
+//     img: "/img/baner/15@2x.png",
+//   },
+//   {
+//     title: "лет на диджитал рынке",
+//     img: "/img/baner/5+@2x.png",
+//   },
+//   {
+//     title: "международные награды",
+//     img: "/img/baner/3@2x.png",
+//   },
+//   {
+//     title: "доверия",
+//     img: "/img/baner/percent100@2x.png",
+//   },
+//   {
+//     title: "высококласных специалистов",
+//     img: "/img/baner/50@2x.png",
+//   },
+// ];
 
 gsap.registerPlugin(useGSAP);
 
@@ -202,7 +204,13 @@ const TIME_ANIMATION = 5.95;
 const DELAY_ANIMATION = 4.5;
 const DURATION_ANIMATION = 1;
 
-export function Banner() {
+interface BannerProps {
+  banner: GetHomeBannerFragment;
+}
+
+export function Banner(props: BannerProps) {
+  const { banner } = props;
+
   // Создаем массив для хранения useRef
   const refs = useRef<{ current: HTMLDivElement }[] | []>([]);
   const refsTwoBlockText = useRef<{ current: HTMLDivElement }[] | []>([]);
@@ -216,43 +224,41 @@ export function Banner() {
 
   const [pageLoaded, setPageLoaded] = useState(true);
 
-  useEffect(() => {
-    setPageLoaded(false);
-  }, []);
-
   const isMobile = useMedia("(max-width: 600px)");
 
   const router = useRouter();
 
   useEffect(() => {
-    refs.current = Array(bannerContent.length)
+    refs.current = Array(banner.bannerContent.length)
       .fill(0)
       .map((_, i) => refs.current[i] || createRef());
 
-    refsTwoBlockText.current = Array(metrics.length)
+    refsTwoBlockText.current = Array(banner.bannerMetrics.length)
       .fill(0)
       .map((_, i) => refsTwoBlockText.current[i] || createRef());
 
-    refsTwoBlockImage.current = Array(metrics.length)
+    refsTwoBlockImage.current = Array(banner.bannerMetrics.length)
       .fill(0)
       .map((_, i) => refsTwoBlockImage.current[i] || createRef());
 
-    refsThreeBlockText.current = Array(bannerContent.length)
+    refsThreeBlockText.current = Array(banner.bannerBottomBlocks.length)
       .fill(0)
       .map((_, i) => refsThreeBlockText.current[i] || createRef());
 
-    refsBlocksThreeBlock.current = Array(bannerContent.length)
+    refsBlocksThreeBlock.current = Array(banner.bannerBottomBlocks.length)
       .fill(0)
       .map((_, i) => refsBlocksThreeBlock.current[i] || createRef());
 
-    refsBlocksThreeBlockMobile.current = Array(bannerContent.length)
+    refsBlocksThreeBlockMobile.current = Array(banner.bannerBottomBlocks.length)
       .fill(0)
       .map((_, i) => refsBlocksThreeBlockMobile.current[i] || createRef());
+
+    setPageLoaded(false);
   }, []);
 
   function animate() {
     if (refs.current.length > 0) {
-      bannerContent.map((_, i) => {
+      banner.bannerContent.map((_, i) => {
         if (refs.current[i] && refs.current[i].current) {
           // One block
           gsap.fromTo(
@@ -264,8 +270,7 @@ export function Banner() {
             {
               onStart: function () {
                 // Обнуляем видео перед началом анимации
-                const video = refs.current[i].current.querySelector("video");
-                console.log(video);
+                const video = refs.current[i].current?.querySelector("video");
 
                 if (video) {
                   video.currentTime = 0;
@@ -317,7 +322,7 @@ export function Banner() {
 
   function animateImageTwoBlock() {
     if (refsTwoBlockImage.current.length > 0) {
-      metrics.map((_, i) => {
+      banner.bannerMetrics.map((_, i) => {
         if (
           refsTwoBlockImage.current[i] &&
           refsTwoBlockImage.current[i].current
@@ -379,7 +384,7 @@ export function Banner() {
     >
   ) {
     if (refs.current.length > 0) {
-      bannerContent.map((_, i) => {
+      banner.bannerBottomBlocks.map((_, i) => {
         if (refs.current[i] && refs.current[i].current) {
           gsap.from(
             refs.current[i].current,
@@ -438,7 +443,7 @@ export function Banner() {
           current: HTMLDivElement;
         }[]
     >,
-    arr: T[]
+    arr: readonly T[]
   ) {
     if (refs.current.length > 0) {
       arr.map((_, i) => {
@@ -494,14 +499,34 @@ export function Banner() {
 
   useGSAP(() => {
     animate();
-    animateText(refsTwoBlockText, metrics);
+    animateText(refsTwoBlockText, banner.bannerMetrics);
     animateImageTwoBlock();
-    animateText(refsThreeBlockText, bannerContent);
+    animateText(refsThreeBlockText, banner.bannerContent);
     animateBlocksThreeBlock(
       isMobile.matches ? refsBlocksThreeBlockMobile : refsBlocksThreeBlock
     );
 
-    // animateBlocksThreeBlockMobile();
+    // refs.current.forEach((ref) => {
+    //   gsap.killTweensOf(ref.current); // Отменить все анимации для данного элемента
+    // });
+    // refsTwoBlockText.current.forEach((ref) => {
+    //   gsap.killTweensOf(ref.current); // Отменить все анимации для данного элемента
+    // });
+    // refsTwoBlockImage.current.forEach((ref) => {
+    //   gsap.killTweensOf(ref.current); // Отменить все анимации для данного элемента
+    // });
+    // refsThreeBlockText.current.forEach((ref) => {
+    //   gsap.killTweensOf(ref.current); // Отменить все анимации для данного элемента
+    // });
+    // refsBlocksThreeBlockMobile.current.forEach((ref) => {
+    //   gsap.killTweensOf(ref.current); // Отменить все анимации для данного элемента
+    // });
+
+    // refs.current = [];
+    // refsTwoBlockText.current = [];
+    // refsTwoBlockImage.current = [];
+    // refsThreeBlockText.current = [];
+    // refsBlocksThreeBlockMobile.current = [];
   }, [refs.current]);
 
   const onClick = (str: string) => router.push(str);
@@ -521,39 +546,38 @@ export function Banner() {
       <div className={cls.container}>
         <div className={cls.body}>
           <div className={`${cls.block} ${cls.one}`}>
-            {bannerContent.map((el, i) => (
+            {banner.bannerContent.map((el, i) => (
               <div key={i} ref={refs.current[i]} className={cls.blockVideo}>
                 <video
                   className={cls.video}
-                  key={isMobile ? el.one.videoMobil + i : el.one.video + i}
-                  // autoPlay
+                  key={
+                    isMobile
+                      ? el.videoMobile.data.attributes.url + i
+                      : el.video.data.attributes.url + i
+                  }
                   muted
                   playsInline
                   loop
-                  // onEnded={(
-                  //   e: React.SyntheticEvent<HTMLVideoElement, Event>
-                  // ) => {
-                  //   console.log(e);
-
-                  //   e.target.currentTime = 0; // Сбрасываем видео на начало при завершении
-                  //   e.target.play(); // Запускаем воспроизведение с начала
-                  // }}
                 >
                   <source
-                    src={isMobile.matches ? el.one.videoMobil : el.one.video}
+                    src={
+                      isMobile.matches
+                        ? getFileUrl(el.videoMobile.data.attributes.url)
+                        : getFileUrl(el.video.data.attributes.url)
+                    }
                     type="video/mp4"
                   />
                 </video>
 
                 <div className={cls.videoContent}>
                   <div className={cls.videoTitles}>
-                    <h3>{el.one.content.title}</h3>
+                    <h3>{el.title}</h3>
 
-                    <p>{el.one.content.description}</p>
+                    <p>{el.description}</p>
                   </div>
 
-                  <button onClick={() => onClick(el.one.link)}>
-                    <p>Все услуги</p>
+                  <button onClick={() => onClick(el.link)}>
+                    <p>Подробнее</p>
 
                     <span>
                       <svg
@@ -576,42 +600,41 @@ export function Banner() {
           </div>
 
           <div className={`${cls.block} ${cls.two}`}>
-            {metrics.map((el, i) => (
+            {banner.bannerMetrics.map((el, i) => (
               <React.Fragment key={i}>
                 <p ref={refsTwoBlockText.current[i]}>{el.title}</p>
 
                 <div ref={refsTwoBlockImage.current[i]} className={cls.image}>
-                  <img src={el.img} alt="" />
+                  <img src={el.img.data.attributes.url} alt="" />
                 </div>
               </React.Fragment>
             ))}
           </div>
 
-          {/* {!isMobile.matches && ( */}
           <div className={`${cls.block} ${cls.three}`}>
             <div className={cls.threeBody}>
-              {bannerContent.map((el, i) => (
+              {banner.bannerBottomBlocks.map((el, i) => (
                 <p
                   key={i}
                   ref={refsThreeBlockText.current[i]}
                   className={cls.threeTitle}
                 >
-                  {el.three.title}
+                  {el.title}
                 </p>
               ))}
 
               {isMobile.matches &&
-                bannerContent.map((el, i) => (
+                banner.bannerBottomBlocks.map((el, i) => (
                   <div
                     key={i}
                     ref={refsBlocksThreeBlockMobile.current[i]}
                     className={cls.threeBlock}
                   >
-                    {el.three.blocks.map((el) => (
+                    {el.blocks.map((el) => (
                       <div key={el.title} className={cls.threeBlockSection}>
                         <div className={cls.threeBlockTitle}>{el.title}</div>
-                        <div className={cls.threeBlockPrice}>{el.price}</div>
-                        <div className={cls.threeBlockTotal}>{el.total}</div>
+                        <div className={cls.threeBlockPrice}>{el.total}</div>
+                        <div className={cls.threeBlockTotal}>{el.term}</div>
                       </div>
                     ))}
                   </div>
@@ -639,17 +662,17 @@ export function Banner() {
 
             {!isMobile.matches && (
               <div className={cls.threeBlockBlocks}>
-                {bannerContent.map((el, i) => (
+                {banner.bannerBottomBlocks.map((el, i) => (
                   <div
                     key={i}
                     ref={refsBlocksThreeBlock.current[i]}
                     className={cls.threeBlock}
                   >
-                    {el.three.blocks.map((el) => (
+                    {el.blocks.map((el) => (
                       <div key={el.title} className={cls.threeBlockSection}>
                         <div className={cls.threeBlockTitle}>{el.title}</div>
-                        <div className={cls.threeBlockPrice}>{el.price}</div>
-                        <div className={cls.threeBlockTotal}>{el.total}</div>
+                        <div className={cls.threeBlockPrice}>{el.total}</div>
+                        <div className={cls.threeBlockTotal}>{el.term}</div>
                       </div>
                     ))}
                   </div>
