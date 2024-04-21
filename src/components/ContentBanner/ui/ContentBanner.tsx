@@ -34,45 +34,63 @@ const ContentBanner = (props: ContentBannerProps) => {
         <img src={getFileUrl(content.imgMobile.data.attributes.url)} />
       )}
 
-      <div className={cls.content}>
-        <ReactMarkdown
-          skipHtml
-          components={{
-            p: ({ children }) => (
-              <h3
-                style={{
-                  maxWidth: !isDesktop.matches ? content.widthTitle : undefined,
-                }}
-              >
-                {children}
-              </h3>
-            ),
-            strong: ({ children }) => <b>{children}</b>,
-          }}
-        >
-          {content.title}
-        </ReactMarkdown>
+      <div className={cls.blur}>
+        <div className={cls.content}>
+          <ReactMarkdown
+            skipHtml
+            components={{
+              p: ({ children }) => (
+                <h3
+                  style={{
+                    maxWidth: !isDesktop.matches
+                      ? content.widthTitle
+                      : undefined,
+                  }}
+                >
+                  {children}
+                </h3>
+              ),
+              strong: ({ children }) => <b>{children}</b>,
+            }}
+          >
+            {content.title}
+          </ReactMarkdown>
 
-        <ReactMarkdown
-          skipHtml
-          components={{
-            p: ({ children }) => (
-              <p
-                style={{
-                  maxWidth: !isDesktop.matches
-                    ? content.widthDescription
-                    : undefined,
-                }}
-              >
-                {children}
-              </p>
-            ),
-          }}
-        >
-          {content.description}
-        </ReactMarkdown>
+          <ReactMarkdown
+            skipHtml
+            components={{
+              p: ({ children }) => (
+                <p
+                  style={{
+                    maxWidth: !isDesktop.matches
+                      ? content.widthDescription
+                      : undefined,
+                  }}
+                >
+                  {children}
+                </p>
+              ),
+            }}
+          >
+            {content.description}
+          </ReactMarkdown>
 
-        {isDesktop.matches && (
+          {isDesktop.matches && (
+            <div className={cls.buttons}>
+              <a className={cls.blue} onClick={() => setOpen(true)}>
+                Получить сейчас
+              </a>
+
+              {content.button && (
+                <Link className={cls.none} href={content.button.href}>
+                  {content.button.name}
+                </Link>
+              )}
+            </div>
+          )}
+        </div>
+
+        {!isDesktop.matches && (
           <div className={cls.buttons}>
             <a className={cls.blue} onClick={() => setOpen(true)}>
               Получить сейчас
@@ -85,21 +103,16 @@ const ContentBanner = (props: ContentBannerProps) => {
             )}
           </div>
         )}
+
+        <div
+          style={
+            !isDesktop.matches
+              ? { height: "100%", width: content.widthBlur, top: 0 }
+              : { width: "100%", height: content.widthBlurMobile, bottom: 0 }
+          }
+          className={cls.blurEffect}
+        />
       </div>
-
-      {!isDesktop.matches && (
-        <div className={cls.buttons}>
-          <a className={cls.blue} onClick={() => setOpen(true)}>
-            Получить сейчас
-          </a>
-
-          {content.button && (
-            <Link className={cls.none} href={content.button.href}>
-              {content.button.name}
-            </Link>
-          )}
-        </div>
-      )}
 
       <ReactMarkdown
         skipHtml

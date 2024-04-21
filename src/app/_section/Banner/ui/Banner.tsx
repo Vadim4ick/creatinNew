@@ -254,12 +254,16 @@ export function Banner(props: BannerProps) {
       .map((_, i) => refsBlocksThreeBlockMobile.current[i] || createRef());
 
     setPageLoaded(false);
-  }, []);
+  }, [
+    banner.bannerBottomBlocks.length,
+    banner.bannerContent.length,
+    banner.bannerMetrics.length,
+  ]);
 
   function animate() {
     if (refs.current.length > 0) {
       banner.bannerContent.map((_, i) => {
-        if (refs.current[i] && refs.current[i].current) {
+        if (refs.current[i] && Boolean(refs.current[i].current)) {
           // One block
           gsap.fromTo(
             refs.current[i].current,
@@ -270,6 +274,7 @@ export function Banner(props: BannerProps) {
             {
               onStart: function () {
                 // Обнуляем видео перед началом анимации
+
                 const video = refs.current[i].current?.querySelector("video");
 
                 if (video) {
@@ -284,33 +289,35 @@ export function Banner(props: BannerProps) {
               duration: DURATION_ANIMATION,
               ease: "power1.out",
               onComplete: function () {
-                gsap.to(refs.current[i].current, {
-                  y: "-100%",
-                  delay: DELAY_ANIMATION,
-                  duration: DURATION_ANIMATION,
-                  ease: "power1.in",
+                if (Boolean(refs.current[i].current)) {
+                  gsap.to(refs.current[i].current, {
+                    y: "-100%",
+                    delay: DELAY_ANIMATION,
+                    duration: DURATION_ANIMATION,
+                    ease: "power1.in",
 
-                  onComplete: function () {
-                    if (i === refs.current.length - 1) {
-                      // если это последний блок
-                      // перемещаем предыдущие блоки обратно вниз
-                      for (let j = 0; j < i; j++) {
-                        gsap.to(refs.current[j].current, {
-                          y: "0%",
-                          duration: 0,
+                    onComplete: function () {
+                      if (i === refs.current.length - 1) {
+                        // если это последний блок
+                        // перемещаем предыдущие блоки обратно вниз
+                        for (let j = 0; j < i; j++) {
+                          gsap.to(refs.current[j].current, {
+                            y: "0%",
+                            duration: 0,
 
-                          onComplete: function () {
-                            if (j === i - 1) {
-                              // если это последний блок, который был перемещен вниз
-                              // запускаем анимацию снова
-                              animate();
-                            }
-                          },
-                        });
+                            onComplete: function () {
+                              if (j === i - 1) {
+                                // если это последний блок, который был перемещен вниз
+                                // запускаем анимацию снова
+                                animate();
+                              }
+                            },
+                          });
+                        }
                       }
-                    }
-                  },
-                });
+                    },
+                  });
+                }
               },
             }
           );
@@ -325,7 +332,7 @@ export function Banner(props: BannerProps) {
       banner.bannerMetrics.map((_, i) => {
         if (
           refsTwoBlockImage.current[i] &&
-          refsTwoBlockImage.current[i].current
+          Boolean(refsTwoBlockImage.current[i].current)
         ) {
           gsap.from(
             refsTwoBlockImage.current[i].current,
@@ -338,35 +345,37 @@ export function Banner(props: BannerProps) {
               y: "170%",
 
               onComplete() {
-                gsap.to(refsTwoBlockImage.current[i].current, {
-                  y: "100%",
-                  zIndex: 0,
-                  delay: DELAY_ANIMATION,
-                  duration: DURATION_ANIMATION,
-                  ease: "power1.in",
+                if (refsTwoBlockImage.current[i].current) {
+                  gsap.to(refsTwoBlockImage.current[i].current, {
+                    y: "100%",
+                    zIndex: 0,
+                    delay: DELAY_ANIMATION,
+                    duration: DURATION_ANIMATION,
+                    ease: "power1.in",
 
-                  onComplete: function () {
-                    if (i === refsTwoBlockImage.current.length - 1) {
-                      // если это последний блок
-                      // перемещаем предыдущие блоки обратно вниз
-                      for (let j = 0; j <= i; j++) {
-                        gsap.to(refsTwoBlockImage.current[j].current, {
-                          y: "0%",
-                          x: "0%",
-                          duration: 0,
+                    onComplete: function () {
+                      if (i === refsTwoBlockImage.current.length - 1) {
+                        // если это последний блок
+                        // перемещаем предыдущие блоки обратно вниз
+                        for (let j = 0; j <= i; j++) {
+                          gsap.to(refsTwoBlockImage.current[j].current, {
+                            y: "0%",
+                            x: "0%",
+                            duration: 0,
 
-                          onComplete: function () {
-                            if (j === i) {
-                              // если это последний блок, который был перемещен вниз
-                              // запускаем анимацию снова
-                              animateImageTwoBlock();
-                            }
-                          },
-                        });
+                            onComplete: function () {
+                              if (j === i) {
+                                // если это последний блок, который был перемещен вниз
+                                // запускаем анимацию снова
+                                animateImageTwoBlock();
+                              }
+                            },
+                          });
+                        }
                       }
-                    }
-                  },
-                });
+                    },
+                  });
+                }
               },
             }
           );
@@ -385,7 +394,7 @@ export function Banner(props: BannerProps) {
   ) {
     if (refs.current.length > 0) {
       banner.bannerBottomBlocks.map((_, i) => {
-        if (refs.current[i] && refs.current[i].current) {
+        if (refs.current[i] && Boolean(refs.current[i].current)) {
           gsap.from(
             refs.current[i].current,
 
@@ -397,37 +406,39 @@ export function Banner(props: BannerProps) {
               ease: "power1.out",
 
               onComplete() {
-                gsap.to(refs.current[i].current, {
-                  opacity: 0,
-                  y: isMobile.matches ? "0%" : "-150%",
-                  x: isMobile.matches ? "-150%" : "0%",
-                  delay: DELAY_ANIMATION,
-                  duration: DURATION_ANIMATION,
-                  ease: "power1.in",
+                if (Boolean(refs.current[i].current)) {
+                  gsap.to(refs.current[i].current, {
+                    opacity: 0,
+                    y: isMobile.matches ? "0%" : "-150%",
+                    x: isMobile.matches ? "-150%" : "0%",
+                    delay: DELAY_ANIMATION,
+                    duration: DURATION_ANIMATION,
+                    ease: "power1.in",
 
-                  onComplete: function () {
-                    if (i === refs.current.length - 1) {
-                      // если это последний блок
-                      // перемещаем предыдущие блоки обратно вниз
-                      for (let j = 0; j <= i; j++) {
-                        gsap.to(refs.current[j].current, {
-                          y: "0%",
-                          x: "0%",
-                          opacity: 1,
-                          duration: 0,
+                    onComplete: function () {
+                      if (i === refs.current.length - 1) {
+                        // если это последний блок
+                        // перемещаем предыдущие блоки обратно вниз
+                        for (let j = 0; j <= i; j++) {
+                          gsap.to(refs.current[j].current, {
+                            y: "0%",
+                            x: "0%",
+                            opacity: 1,
+                            duration: 0,
 
-                          onComplete: function () {
-                            if (j === i) {
-                              // если это последний блок, который был перемещен вниз
-                              // запускаем анимацию снова
-                              animateBlocksThreeBlock(refs);
-                            }
-                          },
-                        });
+                            onComplete: function () {
+                              if (j === i) {
+                                // если это последний блок, который был перемещен вниз
+                                // запускаем анимацию снова
+                                animateBlocksThreeBlock(refs);
+                              }
+                            },
+                          });
+                        }
                       }
-                    }
-                  },
-                });
+                    },
+                  });
+                }
               },
             }
           );
@@ -447,7 +458,7 @@ export function Banner(props: BannerProps) {
   ) {
     if (refs.current.length > 0) {
       arr.map((_, i) => {
-        if (refs.current[i] && refs.current[i].current) {
+        if (refs.current[i] && Boolean(refs.current[i].current)) {
           gsap.from(
             refs.current[i].current,
 
@@ -459,36 +470,38 @@ export function Banner(props: BannerProps) {
               ease: "power1.out",
 
               onComplete() {
-                gsap.to(refs.current[i].current, {
-                  opacity: 0,
-                  y: "-150%",
-                  delay: DELAY_ANIMATION,
-                  duration: DURATION_ANIMATION,
-                  ease: "power1.in",
+                if (Boolean(refs.current[i].current)) {
+                  gsap.to(refs.current[i].current, {
+                    opacity: 0,
+                    y: "-150%",
+                    delay: DELAY_ANIMATION,
+                    duration: DURATION_ANIMATION,
+                    ease: "power1.in",
 
-                  onComplete: function () {
-                    if (i === refs.current.length - 1) {
-                      // если это последний блок
-                      // перемещаем предыдущие блоки обратно вниз
-                      for (let j = 0; j <= i; j++) {
-                        gsap.to(refs.current[j].current, {
-                          y: "0%",
-                          x: "0%",
-                          opacity: 1,
-                          duration: 0,
+                    onComplete: function () {
+                      if (i === refs.current.length - 1) {
+                        // если это последний блок
+                        // перемещаем предыдущие блоки обратно вниз
+                        for (let j = 0; j <= i; j++) {
+                          gsap.to(refs.current[j].current, {
+                            y: "0%",
+                            x: "0%",
+                            opacity: 1,
+                            duration: 0,
 
-                          onComplete: function () {
-                            if (j === i) {
-                              // если это последний блок, который был перемещен вниз
-                              // запускаем анимацию снова
-                              animateText(refs, arr);
-                            }
-                          },
-                        });
+                            onComplete: function () {
+                              if (j === i) {
+                                // если это последний блок, который был перемещен вниз
+                                // запускаем анимацию снова
+                                animateText(refs, arr);
+                              }
+                            },
+                          });
+                        }
                       }
-                    }
-                  },
-                });
+                    },
+                  });
+                }
               },
             }
           );
@@ -527,7 +540,13 @@ export function Banner(props: BannerProps) {
     // refsTwoBlockImage.current = [];
     // refsThreeBlockText.current = [];
     // refsBlocksThreeBlockMobile.current = [];
-  }, [refs.current]);
+  }, [
+    refs.current,
+    refsTwoBlockText.current,
+    refsTwoBlockImage.current,
+    refsThreeBlockText.current,
+    refsBlocksThreeBlockMobile.current,
+  ]);
 
   const onClick = (str: string) => router.push(str);
 

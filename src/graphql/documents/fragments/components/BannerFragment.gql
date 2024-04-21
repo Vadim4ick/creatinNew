@@ -26,6 +26,9 @@ fragment BannerFragment on Banner {
   widthDescription
   widthDescriptionBannerOfferPage
 
+  widthBlur
+  widthBlurMobile
+
   offerBannerMobile {
     data {
       attributes {
