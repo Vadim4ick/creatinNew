@@ -107,8 +107,8 @@ const ContentBanner = (props: ContentBannerProps) => {
         <div
           style={
             !isDesktop.matches
-              ? { height: "100%", width: content.widthBlur, top: 0 }
-              : { width: "100%", height: content.widthBlurMobile, bottom: 0 }
+              ? { height: "100%", width: content.widthBlur }
+              : { width: "100%", height: content.widthBlurMobile }
           }
           className={cls.blurEffect}
         />

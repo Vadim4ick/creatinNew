@@ -17,187 +17,6 @@ import { Loader } from "@/shared/ui/Loader/Loader";
 import { GetHomeBannerFragment } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
 
-// const bannerContent = [
-//   {
-//     one: {
-//       video: "/videos/desktop/Issled.mp4",
-//       videoMobil: "/videos/mobil/Issled.mp4",
-
-//       content: {
-//         title: "Предпроектные исследования",
-//         description:
-//           "Качественные и количественные исследования для всех типов продуктов",
-//       },
-
-//       link: "/services/1",
-//     },
-
-//     three: {
-//       title: "Cоздание фирменного стиля компании",
-
-//       blocks: [
-//         {
-//           title: "срок реализации",
-//           price: "20",
-//           total: "рабочих дней",
-//         },
-//         {
-//           title: "cтоимость от:",
-//           price: "180 000",
-//           total: "рублей",
-//         },
-//       ],
-//     },
-//   },
-//   {
-//     one: {
-//       video: "/videos/desktop/Brending.mp4",
-//       videoMobil: "/videos/mobil/Brending.mp4",
-//       content: {
-//         title: "Брендинг",
-//         description:
-//           "Формирование уникальной бренд-идентичности, чтобы установить прочное и запоминающееся впечатление у потребителей",
-//       },
-
-//       link: "/services/2",
-//     },
-
-//     three: {
-//       title: "руководство по использованию фирменного стиля",
-
-//       blocks: [
-//         {
-//           title: "срок реализации:",
-//           price: "30",
-//           total: "рабочих дней",
-//         },
-//         {
-//           title: "cтоимость от:",
-//           price: "350 000",
-//           total: "рублей",
-//         },
-//       ],
-//     },
-//   },
-//   {
-//     one: {
-//       video: "/videos/desktop/Design.mp4",
-//       videoMobil: "/videos/mobil/Design.mp4",
-//       content: {
-//         title: "Графический дизайн",
-//         description:
-//           "Визуальное воплощение и профессиональное исполнение ваших идей",
-//       },
-//       link: "/services/3",
-//     },
-
-//     three: {
-//       title: "Разработка бизнес плана",
-
-//       blocks: [
-//         {
-//           title: "срок реализации:",
-//           price: "50",
-//           total: "рабочих дней",
-//         },
-//         {
-//           title: "cтоимость от:",
-//           price: "240 000",
-//           total: "рублей",
-//         },
-//       ],
-//     },
-//   },
-//   {
-//     one: {
-//       video: "/videos/desktop/WEB.mp4",
-//       videoMobil: "/videos/mobil/WEB.mp4",
-//       content: {
-//         title: "Web-разработка",
-//         description: "Создаем уникальные веб-проекты  для вашего бизнеса",
-//       },
-//       link: "/services/6",
-//     },
-
-//     three: {
-//       title: "Рекламный лендинг",
-
-//       blocks: [
-//         {
-//           title: "срок реализации:",
-//           price: "30",
-//           total: "рабочих дней",
-//         },
-//         {
-//           title: "cтоимость от:",
-//           price: "150 000",
-//           total: "рублей",
-//         },
-//       ],
-//     },
-//   },
-//   {
-//     one: {
-//       video: "/videos/desktop/Mobil.mp4",
-//       videoMobil: "/videos/mobil/Mobil.mp4",
-//       content: {
-//         title: "Мобильные приложения",
-//         description: "Инновационные решения для современного бизнеса",
-//       },
-
-//       link: "/services/7",
-//     },
-
-//     three: {
-//       title: "Создание motion-ролика",
-
-//       blocks: [
-//         {
-//           title: "срок реализации:",
-//           price: "10",
-//           total: "рабочих дней",
-//         },
-//         {
-//           title: "cтоимость от:",
-//           price: "15 000",
-//           total: "рублей",
-//         },
-//       ],
-//     },
-//   },
-// ];
-
-// const metrics = [
-//   {
-//     title: "Реализованных проектов",
-//     img: "/img/baner/100@2x.png",
-//   },
-//   {
-//     title: "проведенных исследований",
-//     img: "/img/baner/50@2x.png",
-//   },
-//   {
-//     title: "долгосрочных партнеров",
-//     img: "/img/baner/15@2x.png",
-//   },
-//   {
-//     title: "лет на диджитал рынке",
-//     img: "/img/baner/5+@2x.png",
-//   },
-//   {
-//     title: "международные награды",
-//     img: "/img/baner/3@2x.png",
-//   },
-//   {
-//     title: "доверия",
-//     img: "/img/baner/percent100@2x.png",
-//   },
-//   {
-//     title: "высококласных специалистов",
-//     img: "/img/baner/50@2x.png",
-//   },
-// ];
-
 gsap.registerPlugin(useGSAP);
 
 const TIME_ANIMATION = 5.95;
@@ -221,6 +40,8 @@ export function Banner(props: BannerProps) {
   const refsBlocksThreeBlockMobile = useRef<{ current: HTMLDivElement }[] | []>(
     []
   );
+
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const [pageLoaded, setPageLoaded] = useState(true);
 
@@ -339,7 +160,7 @@ export function Banner(props: BannerProps) {
 
             {
               delay: i * TIME_ANIMATION,
-              duration: DURATION_ANIMATION,
+              duration: 1,
               zIndex: -1,
               ease: "power1.in",
               y: "170%",
@@ -350,7 +171,7 @@ export function Banner(props: BannerProps) {
                     y: "100%",
                     zIndex: 0,
                     delay: DELAY_ANIMATION,
-                    duration: DURATION_ANIMATION,
+                    duration: 0.85,
                     ease: "power1.in",
 
                     onComplete: function () {
@@ -518,28 +339,6 @@ export function Banner(props: BannerProps) {
     animateBlocksThreeBlock(
       isMobile.matches ? refsBlocksThreeBlockMobile : refsBlocksThreeBlock
     );
-
-    // refs.current.forEach((ref) => {
-    //   gsap.killTweensOf(ref.current); // Отменить все анимации для данного элемента
-    // });
-    // refsTwoBlockText.current.forEach((ref) => {
-    //   gsap.killTweensOf(ref.current); // Отменить все анимации для данного элемента
-    // });
-    // refsTwoBlockImage.current.forEach((ref) => {
-    //   gsap.killTweensOf(ref.current); // Отменить все анимации для данного элемента
-    // });
-    // refsThreeBlockText.current.forEach((ref) => {
-    //   gsap.killTweensOf(ref.current); // Отменить все анимации для данного элемента
-    // });
-    // refsBlocksThreeBlockMobile.current.forEach((ref) => {
-    //   gsap.killTweensOf(ref.current); // Отменить все анимации для данного элемента
-    // });
-
-    // refs.current = [];
-    // refsTwoBlockText.current = [];
-    // refsTwoBlockImage.current = [];
-    // refsThreeBlockText.current = [];
-    // refsBlocksThreeBlockMobile.current = [];
   }, [
     refs.current,
     refsTwoBlockText.current,
@@ -560,6 +359,28 @@ export function Banner(props: BannerProps) {
     return <Loader />;
   }
 
+  // Обработчик события для кнопки, вызывающий приостановку анимаций
+  const handlePauseAnimations = (i: number) => {
+    gsap.globalTimeline.pause();
+
+    const video = document.querySelector(`#video-${i}`) as HTMLVideoElement;
+
+    if (video) {
+      video.pause();
+    }
+  };
+
+  // Обработчик события для кнопки, вызывающий возобновление анимаций
+  const handleResumeAnimations = (i: number) => {
+    gsap.globalTimeline.resume(); // Вызов функции для возобновления анимаций
+
+    const video = document.querySelector(`#video-${i}`) as HTMLVideoElement;
+
+    if (video) {
+      video.play();
+    }
+  };
+
   return (
     <section className={cls.banner}>
       <div className={cls.container}>
@@ -568,6 +389,7 @@ export function Banner(props: BannerProps) {
             {banner.bannerContent.map((el, i) => (
               <div key={i} ref={refs.current[i]} className={cls.blockVideo}>
                 <video
+                  id={`video-${i}`}
                   className={cls.video}
                   key={
                     isMobile
@@ -595,7 +417,11 @@ export function Banner(props: BannerProps) {
                     <p>{el.description}</p>
                   </div>
 
-                  <button onClick={() => onClick(el.link)}>
+                  <button
+                    onMouseLeave={() => handleResumeAnimations(i)}
+                    onMouseEnter={() => handlePauseAnimations(i)}
+                    onClick={() => onClick(el.link)}
+                  >
                     <p>Подробнее</p>
 
                     <span>
