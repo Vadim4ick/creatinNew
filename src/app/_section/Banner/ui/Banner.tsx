@@ -41,8 +41,6 @@ export function Banner(props: BannerProps) {
     []
   );
 
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
   const [pageLoaded, setPageLoaded] = useState(true);
 
   const isMobile = useMedia("(max-width: 600px)");
@@ -360,25 +358,25 @@ export function Banner(props: BannerProps) {
   }
 
   // Обработчик события для кнопки, вызывающий приостановку анимаций
-  const handlePauseAnimations = (i: number) => {
+  const handlePauseAnimations = () => {
     gsap.globalTimeline.pause();
 
-    const video = document.querySelector(`#video-${i}`) as HTMLVideoElement;
+    // const video = document.querySelector(`#video-${i}`) as HTMLVideoElement;
 
-    if (video) {
-      video.pause();
-    }
+    // if (video) {
+    //   video.pause();
+    // }
   };
 
   // Обработчик события для кнопки, вызывающий возобновление анимаций
-  const handleResumeAnimations = (i: number) => {
+  const handleResumeAnimations = () => {
     gsap.globalTimeline.resume(); // Вызов функции для возобновления анимаций
 
-    const video = document.querySelector(`#video-${i}`) as HTMLVideoElement;
+    // const video = document.querySelector(`#video-${i}`) as HTMLVideoElement;
 
-    if (video) {
-      video.play();
-    }
+    // if (video) {
+    //   video.play();
+    // }
   };
 
   return (
@@ -389,7 +387,7 @@ export function Banner(props: BannerProps) {
             {banner.bannerContent.map((el, i) => (
               <div key={i} ref={refs.current[i]} className={cls.blockVideo}>
                 <video
-                  id={`video-${i}`}
+                  // id={`video-${i}`}
                   className={cls.video}
                   key={
                     isMobile
@@ -418,8 +416,8 @@ export function Banner(props: BannerProps) {
                   </div>
 
                   <button
-                    onMouseLeave={() => handleResumeAnimations(i)}
-                    onMouseEnter={() => handlePauseAnimations(i)}
+                    onMouseLeave={() => handleResumeAnimations()}
+                    onMouseEnter={() => handlePauseAnimations()}
                     onClick={() => onClick(el.link)}
                   >
                     <p>Подробнее</p>
