@@ -1,6 +1,7 @@
 fragment BannerFragment on Banner {
   title
   description
+  descriptionOffers
   label
   imgDesktop {
     data {

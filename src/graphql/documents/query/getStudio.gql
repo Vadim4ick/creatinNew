@@ -54,6 +54,14 @@ query GetStudio {
             }
           }
         }
+
+        videoMobile {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
       }
     }
   }

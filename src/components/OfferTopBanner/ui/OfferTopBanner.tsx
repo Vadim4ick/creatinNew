@@ -51,7 +51,7 @@ const OfferTopBanner = ({
             ),
           }}
         >
-          {banner.description}
+          {banner.descriptionOffers}
         </ReactMarkdown>
       </div>
     </div>

@@ -62,6 +62,9 @@ const PageAbout = (props: PageAboutProps) => {
           <VideoAbout
             className="video--about"
             src={data.studio.data.attributes.video.data.attributes}
+            srcMobile={
+              data.studio.data.attributes.videoMobile?.data?.attributes
+            }
           />
         )}
 
