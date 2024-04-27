@@ -19,8 +19,8 @@ import { getFileUrl } from "@/shared/helpers/getFileUrl";
 
 gsap.registerPlugin(useGSAP);
 
-const TIME_ANIMATION = 5.95;
-const DELAY_ANIMATION = 4.5;
+const TIME_ANIMATION = 7.9;
+const DELAY_ANIMATION = 6.5;
 const DURATION_ANIMATION = 1;
 
 interface BannerProps {
