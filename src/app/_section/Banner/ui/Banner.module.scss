@@ -93,6 +93,10 @@
     left: 40px;
     z-index: 1;
 
+    @media (max-width: 1650px) {
+      font-size: 22px;
+    }
+
     @media (max-width: 1450px) {
       font-size: 22px;
 
