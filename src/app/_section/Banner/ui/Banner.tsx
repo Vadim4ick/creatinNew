@@ -1,23 +1,15 @@
 "use client";
 
 import cls from "./Banner.module.scss";
-import React, {
-  createRef,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useRouter } from "next/navigation";
-import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import { Loader } from "@/shared/ui/Loader/Loader";
 import { GetHomeBannerFragment } from "@/graphql/__generated__";
 import { getFileUrl } from "@/shared/helpers/getFileUrl";
-
-gsap.registerPlugin(useGSAP);
+import { PopupProviderContext } from "@/shared/providers/popupProvider";
 
 const TIME_ANIMATION = 7.9;
 const DELAY_ANIMATION = 6.5;
@@ -27,19 +19,10 @@ interface BannerProps {
   banner: GetHomeBannerFragment;
 }
 
+gsap.registerPlugin(useGSAP);
+
 export function Banner(props: BannerProps) {
   const { banner } = props;
-
-  // Создаем массив для хранения useRef
-  const refs = useRef<{ current: HTMLDivElement }[] | []>([]);
-  const refsTwoBlockText = useRef<{ current: HTMLDivElement }[] | []>([]);
-  const refsTwoBlockImage = useRef<{ current: HTMLDivElement }[] | []>([]);
-  const refsThreeBlockText = useRef<{ current: HTMLDivElement }[] | []>([]);
-  const refsBlocksThreeBlock = useRef<{ current: HTMLDivElement }[] | []>([]);
-
-  const refsBlocksThreeBlockMobile = useRef<{ current: HTMLDivElement }[] | []>(
-    []
-  );
 
   const [pageLoaded, setPageLoaded] = useState(true);
 
@@ -48,238 +31,206 @@ export function Banner(props: BannerProps) {
   const router = useRouter();
 
   useEffect(() => {
-    refs.current = Array(banner.bannerContent.length)
-      .fill(0)
-      .map((_, i) => refs.current[i] || createRef());
-
-    refsTwoBlockText.current = Array(banner.bannerMetrics.length)
-      .fill(0)
-      .map((_, i) => refsTwoBlockText.current[i] || createRef());
-
-    refsTwoBlockImage.current = Array(banner.bannerMetrics.length)
-      .fill(0)
-      .map((_, i) => refsTwoBlockImage.current[i] || createRef());
-
-    refsThreeBlockText.current = Array(banner.bannerBottomBlocks.length)
-      .fill(0)
-      .map((_, i) => refsThreeBlockText.current[i] || createRef());
-
-    refsBlocksThreeBlock.current = Array(banner.bannerBottomBlocks.length)
-      .fill(0)
-      .map((_, i) => refsBlocksThreeBlock.current[i] || createRef());
-
-    refsBlocksThreeBlockMobile.current = Array(banner.bannerBottomBlocks.length)
-      .fill(0)
-      .map((_, i) => refsBlocksThreeBlockMobile.current[i] || createRef());
-
     setPageLoaded(false);
-  }, [
-    banner.bannerBottomBlocks.length,
-    banner.bannerContent.length,
-    banner.bannerMetrics.length,
-  ]);
 
-  function animate() {
-    if (refs.current.length > 0) {
-      banner.bannerContent.map((_, i) => {
-        if (refs.current[i] && Boolean(refs.current[i].current)) {
-          // One block
-          gsap.fromTo(
-            refs.current[i].current,
-            {
-              scale: 0.75,
-              y: "100%",
-            },
-            {
-              onStart: function () {
-                // Обнуляем видео перед началом анимации
+    return () => {
+      setPageLoaded(true);
+      handleResumeAnimations();
+    };
+  }, []);
 
-                const video = refs.current[i].current?.querySelector("video");
-
-                if (video) {
-                  video.currentTime = 0;
-
-                  video.play();
-                }
+  const animate = useCallback(
+    (videos: NodeListOf<Element>) => {
+      if (videos.length > 0) {
+        banner.bannerContent.map((_, i) => {
+          if (videos[i] && Boolean(videos[i])) {
+            // One block
+            gsap.fromTo(
+              videos[i],
+              {
+                scale: 0.75,
+                y: "100%",
               },
-              y: `0%`,
-              scale: 1,
-              delay: i * TIME_ANIMATION,
-              duration: DURATION_ANIMATION,
-              ease: "power1.out",
-              onComplete: function () {
-                if (Boolean(refs.current[i].current)) {
-                  gsap.to(refs.current[i].current, {
-                    y: "-100%",
-                    delay: DELAY_ANIMATION,
-                    duration: DURATION_ANIMATION,
-                    ease: "power1.in",
+              {
+                onStart: function () {
+                  // Обнуляем видео перед началом анимации
 
-                    onComplete: function () {
-                      if (i === refs.current.length - 1) {
-                        // если это последний блок
-                        // перемещаем предыдущие блоки обратно вниз
-                        for (let j = 0; j < i; j++) {
-                          gsap.to(refs.current[j].current, {
-                            y: "0%",
-                            duration: 0,
+                  const video = videos[i]?.querySelector("video");
 
-                            onComplete: function () {
-                              if (j === i - 1) {
-                                // если это последний блок, который был перемещен вниз
-                                // запускаем анимацию снова
-                                animate();
-                              }
-                            },
-                          });
+                  if (video) {
+                    video.currentTime = 0;
+
+                    video.play();
+                  }
+                },
+                y: `0%`,
+                scale: 1,
+                delay: i * TIME_ANIMATION,
+                duration: DURATION_ANIMATION,
+                ease: "power1.out",
+                onComplete: function () {
+                  if (Boolean(videos[i])) {
+                    gsap.to(videos[i], {
+                      y: "-100%",
+                      delay: DELAY_ANIMATION,
+                      duration: DURATION_ANIMATION,
+                      ease: "power1.in",
+
+                      onComplete: function () {
+                        if (i === videos.length - 1) {
+                          // если это последний блок
+                          // перемещаем предыдущие блоки обратно вниз
+                          for (let j = 0; j < i; j++) {
+                            gsap.to(videos[j], {
+                              y: "0%",
+                              duration: 0,
+
+                              onComplete: function () {
+                                if (j === i - 1) {
+                                  // если это последний блок, который был перемещен вниз
+                                  // запускаем анимацию снова
+                                  animate(videos);
+                                }
+                              },
+                            });
+                          }
                         }
-                      }
-                    },
-                  });
-                }
-              },
-            }
-          );
-          // /One block
-        }
-      });
-    }
-  }
+                      },
+                    });
+                  }
+                },
+              }
+            );
+            // /One block
+          }
+        });
+      }
+    },
+    [banner.bannerContent]
+  );
 
-  function animateImageTwoBlock() {
-    if (refsTwoBlockImage.current.length > 0) {
-      banner.bannerMetrics.map((_, i) => {
-        if (
-          refsTwoBlockImage.current[i] &&
-          Boolean(refsTwoBlockImage.current[i].current)
-        ) {
-          gsap.from(
-            refsTwoBlockImage.current[i].current,
+  const animateImageTwoBlock = useCallback(
+    (imagesTwoBlock: NodeListOf<Element>) => {
+      if (imagesTwoBlock.length > 0) {
+        banner.bannerMetrics.map((_, i) => {
+          if (imagesTwoBlock[i] && Boolean(imagesTwoBlock[i])) {
+            gsap.from(
+              imagesTwoBlock[i],
 
-            {
-              delay: i * TIME_ANIMATION,
-              duration: 1,
-              zIndex: -1,
-              ease: "power1.in",
-              y: "170%",
+              {
+                delay: i * TIME_ANIMATION,
+                duration: 1,
+                zIndex: -1,
+                ease: "power1.in",
+                y: "170%",
 
-              onComplete() {
-                if (refsTwoBlockImage.current[i].current) {
-                  gsap.to(refsTwoBlockImage.current[i].current, {
-                    y: "100%",
-                    zIndex: 0,
-                    delay: DELAY_ANIMATION,
-                    duration: 0.85,
-                    ease: "power1.in",
+                onComplete() {
+                  if (imagesTwoBlock[i]) {
+                    gsap.to(imagesTwoBlock[i], {
+                      y: "100%",
+                      zIndex: 0,
+                      delay: DELAY_ANIMATION,
+                      duration: 0.85,
+                      ease: "power1.in",
 
-                    onComplete: function () {
-                      if (i === refsTwoBlockImage.current.length - 1) {
-                        // если это последний блок
-                        // перемещаем предыдущие блоки обратно вниз
-                        for (let j = 0; j <= i; j++) {
-                          gsap.to(refsTwoBlockImage.current[j].current, {
-                            y: "0%",
-                            x: "0%",
-                            duration: 0,
+                      onComplete: function () {
+                        if (i === imagesTwoBlock.length - 1) {
+                          // если это последний блок
+                          // перемещаем предыдущие блоки обратно вниз
+                          for (let j = 0; j <= i; j++) {
+                            gsap.to(imagesTwoBlock[j], {
+                              y: "0%",
+                              x: "0%",
+                              duration: 0,
 
-                            onComplete: function () {
-                              if (j === i) {
-                                // если это последний блок, который был перемещен вниз
-                                // запускаем анимацию снова
-                                animateImageTwoBlock();
-                              }
-                            },
-                          });
+                              onComplete: function () {
+                                if (j === i) {
+                                  // если это последний блок, который был перемещен вниз
+                                  // запускаем анимацию снова
+                                  animateImageTwoBlock(imagesTwoBlock);
+                                }
+                              },
+                            });
+                          }
                         }
-                      }
-                    },
-                  });
-                }
-              },
-            }
-          );
-        }
-      });
-    }
-  }
+                      },
+                    });
+                  }
+                },
+              }
+            );
+          }
+        });
+      }
+    },
+    [banner.bannerMetrics]
+  );
 
-  function animateBlocksThreeBlock(
-    refs: React.MutableRefObject<
-      | []
-      | {
-          current: HTMLDivElement;
-        }[]
-    >
-  ) {
-    if (refs.current.length > 0) {
-      banner.bannerBottomBlocks.map((_, i) => {
-        if (refs.current[i] && Boolean(refs.current[i].current)) {
-          gsap.from(
-            refs.current[i].current,
+  const animateBlocksThreeBlock = useCallback(
+    (block: NodeListOf<Element>) => {
+      if (block.length > 0) {
+        banner.bannerBottomBlocks.map((_, i) => {
+          if (block[i] && Boolean(block[i])) {
+            gsap.from(
+              block[i],
 
-            {
-              y: isMobile.matches ? "0%" : "150%",
-              x: isMobile.matches ? "150%" : "0",
-              delay: i === 0 ? 0 : i * TIME_ANIMATION,
-              duration: DURATION_ANIMATION,
-              ease: "power1.out",
+              {
+                y: isMobile.matches ? "0%" : "150%",
+                x: isMobile.matches ? "150%" : "0",
+                delay: i === 0 ? 0 : i * TIME_ANIMATION,
+                duration: DURATION_ANIMATION,
+                ease: "power1.out",
 
-              onComplete() {
-                if (Boolean(refs.current[i].current)) {
-                  gsap.to(refs.current[i].current, {
-                    opacity: 0,
-                    y: isMobile.matches ? "0%" : "-150%",
-                    x: isMobile.matches ? "-150%" : "0%",
-                    delay: DELAY_ANIMATION,
-                    duration: DURATION_ANIMATION,
-                    ease: "power1.in",
+                onComplete() {
+                  if (Boolean(block[i])) {
+                    gsap.to(block[i], {
+                      opacity: 0,
+                      y: isMobile.matches ? "0%" : "-150%",
+                      x: isMobile.matches ? "-150%" : "0%",
+                      delay: DELAY_ANIMATION,
+                      duration: DURATION_ANIMATION,
+                      ease: "power1.in",
 
-                    onComplete: function () {
-                      if (i === refs.current.length - 1) {
-                        // если это последний блок
-                        // перемещаем предыдущие блоки обратно вниз
-                        for (let j = 0; j <= i; j++) {
-                          gsap.to(refs.current[j].current, {
-                            y: "0%",
-                            x: "0%",
-                            opacity: 1,
-                            duration: 0,
+                      onComplete: function () {
+                        if (i === block.length - 1) {
+                          // если это последний блок
+                          // перемещаем предыдущие блоки обратно вниз
+                          for (let j = 0; j <= i; j++) {
+                            gsap.to(block[j], {
+                              y: "0%",
+                              x: "0%",
+                              opacity: 1,
+                              duration: 0,
 
-                            onComplete: function () {
-                              if (j === i) {
-                                // если это последний блок, который был перемещен вниз
-                                // запускаем анимацию снова
-                                animateBlocksThreeBlock(refs);
-                              }
-                            },
-                          });
+                              onComplete: function () {
+                                if (j === i) {
+                                  // если это последний блок, который был перемещен вниз
+                                  // запускаем анимацию снова
+                                  animateBlocksThreeBlock(block);
+                                }
+                              },
+                            });
+                          }
                         }
-                      }
-                    },
-                  });
-                }
-              },
-            }
-          );
-        }
-      });
-    }
-  }
+                      },
+                    });
+                  }
+                },
+              }
+            );
+          }
+        });
+      }
+    },
+    [banner.bannerBottomBlocks, isMobile.matches]
+  );
 
-  function animateText<T>(
-    refs: React.MutableRefObject<
-      | []
-      | {
-          current: HTMLDivElement;
-        }[]
-    >,
-    arr: readonly T[]
-  ) {
-    if (refs.current.length > 0) {
-      arr.map((_, i) => {
-        if (refs.current[i] && Boolean(refs.current[i].current)) {
+  const animateText = useCallback((block: NodeListOf<Element>) => {
+    if (block.length > 0) {
+      Array.from(block).map((_, i) => {
+        if (block[i] && Boolean(block[i])) {
           gsap.from(
-            refs.current[i].current,
+            block[i],
 
             {
               x: "-150%",
@@ -289,8 +240,8 @@ export function Banner(props: BannerProps) {
               ease: "power1.out",
 
               onComplete() {
-                if (Boolean(refs.current[i].current)) {
-                  gsap.to(refs.current[i].current, {
+                if (Boolean(block[i])) {
+                  gsap.to(block[i], {
                     opacity: 0,
                     y: "-150%",
                     delay: DELAY_ANIMATION,
@@ -298,11 +249,11 @@ export function Banner(props: BannerProps) {
                     ease: "power1.in",
 
                     onComplete: function () {
-                      if (i === refs.current.length - 1) {
+                      if (i === block.length - 1) {
                         // если это последний блок
                         // перемещаем предыдущие блоки обратно вниз
                         for (let j = 0; j <= i; j++) {
-                          gsap.to(refs.current[j].current, {
+                          gsap.to(block[j], {
                             y: "0%",
                             x: "0%",
                             opacity: 1,
@@ -312,7 +263,7 @@ export function Banner(props: BannerProps) {
                               if (j === i) {
                                 // если это последний блок, который был перемещен вниз
                                 // запускаем анимацию снова
-                                animateText(refs, arr);
+                                animateText(block);
                               }
                             },
                           });
@@ -327,25 +278,37 @@ export function Banner(props: BannerProps) {
         }
       });
     }
-  }
+  }, []);
 
   useGSAP(() => {
-    animate();
-    animateText(refsTwoBlockText, banner.bannerMetrics);
-    animateImageTwoBlock();
-    animateText(refsThreeBlockText, banner.bannerContent);
-    animateBlocksThreeBlock(
-      isMobile.matches ? refsBlocksThreeBlockMobile : refsBlocksThreeBlock
+    const videos = document.querySelectorAll('[data-video="true"]');
+    const imagesTwoBlock = document.querySelectorAll('[data-blockTwo="image"]');
+
+    const threeBlockInfo = isMobile.matches
+      ? document.querySelectorAll('[data-blockThree="info"]')
+      : document.querySelectorAll('[data-blockThreeMobile="info"]');
+
+    const twoBlockText = document.querySelectorAll('[data-blockTwo="title"]');
+    const threeBlockText = document.querySelectorAll(
+      '[data-blockThree="title"]'
     );
-  }, [
-    refs.current,
-    refsTwoBlockText.current,
-    refsTwoBlockImage.current,
-    refsThreeBlockText.current,
-    refsBlocksThreeBlockMobile.current,
-  ]);
+
+    animate(videos);
+    animateText(twoBlockText);
+    animateImageTwoBlock(imagesTwoBlock);
+    animateText(threeBlockText);
+    animateBlocksThreeBlock(threeBlockInfo);
+  }, [pageLoaded]);
 
   const onClick = (str: string) => router.push(str);
+
+  const handlePauseAnimations = () => {
+    gsap.globalTimeline.pause();
+  };
+
+  const handleResumeAnimations = () => {
+    gsap.globalTimeline.resume();
+  };
 
   const { onClickPopup } = useContext(PopupProviderContext);
 
@@ -357,37 +320,14 @@ export function Banner(props: BannerProps) {
     return <Loader />;
   }
 
-  // Обработчик события для кнопки, вызывающий приостановку анимаций
-  const handlePauseAnimations = () => {
-    gsap.globalTimeline.pause();
-
-    // const video = document.querySelector(`#video-${i}`) as HTMLVideoElement;
-
-    // if (video) {
-    //   video.pause();
-    // }
-  };
-
-  // Обработчик события для кнопки, вызывающий возобновление анимаций
-  const handleResumeAnimations = () => {
-    gsap.globalTimeline.resume(); // Вызов функции для возобновления анимаций
-
-    // const video = document.querySelector(`#video-${i}`) as HTMLVideoElement;
-
-    // if (video) {
-    //   video.play();
-    // }
-  };
-
   return (
     <section className={cls.banner}>
       <div className={cls.container}>
         <div className={cls.body}>
           <div className={`${cls.block} ${cls.one}`}>
             {banner.bannerContent.map((el, i) => (
-              <div key={i} ref={refs.current[i]} className={cls.blockVideo}>
+              <div key={i} data-video="true" className={cls.blockVideo}>
                 <video
-                  // id={`video-${i}`}
                   className={cls.video}
                   key={
                     isMobile
@@ -445,9 +385,9 @@ export function Banner(props: BannerProps) {
           <div className={`${cls.block} ${cls.two}`}>
             {banner.bannerMetrics.map((el, i) => (
               <React.Fragment key={i}>
-                <p ref={refsTwoBlockText.current[i]}>{el.title}</p>
+                <p data-blockTwo="title">{el.title}</p>
 
-                <div ref={refsTwoBlockImage.current[i]} className={cls.image}>
+                <div data-blockTwo="image" className={cls.image}>
                   <img src={el.img.data.attributes.url} alt="" />
                 </div>
               </React.Fragment>
@@ -457,11 +397,7 @@ export function Banner(props: BannerProps) {
           <div className={`${cls.block} ${cls.three}`}>
             <div className={cls.threeBody}>
               {banner.bannerBottomBlocks.map((el, i) => (
-                <p
-                  key={i}
-                  ref={refsThreeBlockText.current[i]}
-                  className={cls.threeTitle}
-                >
+                <p key={i} data-blockThree="title" className={cls.threeTitle}>
                   {el.title}
                 </p>
               ))}
@@ -470,7 +406,7 @@ export function Banner(props: BannerProps) {
                 banner.bannerBottomBlocks.map((el, i) => (
                   <div
                     key={i}
-                    ref={refsBlocksThreeBlockMobile.current[i]}
+                    data-blockThree="info"
                     className={cls.threeBlock}
                   >
                     {el.blocks.map((el) => (
@@ -508,7 +444,7 @@ export function Banner(props: BannerProps) {
                 {banner.bannerBottomBlocks.map((el, i) => (
                   <div
                     key={i}
-                    ref={refsBlocksThreeBlock.current[i]}
+                    data-blockThreeMobile="info"
                     className={cls.threeBlock}
                   >
                     {el.blocks.map((el) => (
