@@ -2251,6 +2251,11 @@ body.popup-show::after {
   padding-bottom: 30px;
   margin-top: auto;
 }
+
+.callback__contancs small {
+  opacity: 1 !important;
+}
+
 .callback__contancs-item {
   padding: 26px 50px;
   border-radius: 16px;
