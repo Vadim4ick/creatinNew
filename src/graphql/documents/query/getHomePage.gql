@@ -2,11 +2,16 @@ query GetHomePage {
   homePage {
     data {
       attributes {
-        banner {
-          ...GetHomeBanner
-        }
         cases {
           ...GetHomeCases
+        }
+
+        bannerMedia {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
         }
       }
     }
