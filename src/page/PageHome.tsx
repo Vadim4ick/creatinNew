@@ -1,6 +1,5 @@
 "use client";
 
-import { Banner } from "@/app/_section/Banner";
 import { BannerSlider } from "@/app/_section/Banner/ui/BannerSlider";
 import { Cases } from "@/app/_section/Cases";
 import { FormSend } from "@/app/_section/FormSend";
@@ -33,6 +32,12 @@ const PageHome = (props: PageHomeProps) => {
       "style",
       '--font-primary: "Jeko-otf", Fallback'
     );
+
+    document.body.style.marginTop = "0px";
+
+    return () => {
+      document.body.style.marginTop = "var(--header)";
+    };
   }, []);
 
   return (
@@ -48,26 +53,10 @@ const PageHome = (props: PageHomeProps) => {
         }}
         className="page"
       >
-        <BannerSlider
-          slides={[
-            {
-              image: "/img/banner/1.png",
-            },
-            {
-              image: "/img/banner/2.png",
-            },
-            {
-              image: "/img/banner/3.png",
-            },
-            {
-              image: "/img/banner/4.png",
-            },
-          ]}
-        />
-
-        {/* {homePage.data.attributes.banner && (
-          <Banner banner={homePage.data.attributes.banner} />
-        )} */}
+        {homePage.data.attributes.bannerMedia.data &&
+          homePage.data.attributes.bannerMedia.data?.length > 0 && (
+            <BannerSlider slides={homePage.data.attributes.bannerMedia.data} />
+          )}
 
         {homePage.data.attributes.cases && (
           <Cases cases={homePage.data.attributes.cases} />

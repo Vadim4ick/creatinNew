@@ -2,80 +2,45 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./style.module.scss";
 import { SearchIcon } from "@/shared/icons/SearchIcon";
+import { useMedia } from "@/shared/hooks/useMedia";
 
-type SearchLink = {
-  title?: string;
-  url: string;
-  keywords: string[];
-};
-
-const MOCK_DATA: SearchLink[] = [
-  {
-    title: "Брендинг",
-    url: "/services/branding",
-    keywords: ["брендинг", "бренд", "айдентика", "фирстиль"],
-  },
-  {
-    title: "Веб-разработка",
-    url: "/services/web",
-    keywords: ["web", "сайты", "лендинг", "frontend", "backend"],
-  },
-  {
-    title: "Логотип",
-    url: "/services/logo",
-    keywords: ["логотип", "лого", "знак", "эмблема"],
-  },
-  {
-    title: "SMM",
-    url: "/services/smm",
-    keywords: ["smm", "соцсети", "таргет", "контент-план"],
-  },
-  {
-    title: "Реклама",
-    url: "/services/ads",
-    keywords: ["реклама", "контекст", "ads", "баннеры"],
-  },
-  {
-    title: "Дизайн",
-    url: "/services/design",
-    keywords: ["дизайн", "ui", "ux", "макеты"],
-  },
-];
-
-const POPULAR = [
-  "Брендинг",
-  "Web",
-  "Логотип",
-  "SMM",
-  "Сайты",
-  "Реклама",
-  "Дизайн",
-];
-
+type SearchLink = { title?: string; url: string; keywords: string[] };
 type FlatEntry = { keyword: string; url: string; title?: string };
 
-function flatten(data: SearchLink[]): FlatEntry[] {
-  const set = new Map<string, FlatEntry>();
-  data.forEach((item) => {
-    item.keywords.forEach((kw) => {
-      const key = kw.toLowerCase();
-      if (!set.has(key)) {
-        set.set(key, { keyword: kw, url: item.url, title: item.title });
-      }
-    });
-  });
-  return Array.from(set.values());
-}
-
-const allEntries = flatten(MOCK_DATA);
+// const POPULAR = [
+//   "Брендинг",
+//   "Web",
+//   "Логотип",
+//   "SMM",
+//   "Сайты",
+//   "Реклама",
+//   "Дизайн",
+// ];
 
 export const SearchInp: React.FC<{
   onNavigate?: (url: string, keyword: string) => void;
-}> = ({ onNavigate }) => {
+  links: SearchLink[];
+  popularLinks: SearchLink[];
+}> = ({ onNavigate, links, popularLinks }) => {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMedia("(max-width: 768px)");
+
+  const allEntries = useMemo<FlatEntry[]>(() => {
+    const map = new Map<string, FlatEntry>();
+    links.forEach((item) =>
+      (item.keywords ?? []).forEach((kw) => {
+        const k = String(kw).trim();
+        if (!k) return;
+        const key = k.toLowerCase();
+        if (!map.has(key))
+          map.set(key, { keyword: k, url: item.url, title: item.title });
+      })
+    );
+    return Array.from(map.values());
+  }, [links]);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -83,12 +48,12 @@ export const SearchInp: React.FC<{
     return allEntries
       .filter((e) => e.keyword.toLowerCase().includes(q))
       .slice(0, 8);
-  }, [query]);
+  }, [allEntries, query]);
 
+  // не закрываем по результатам — только сбрасываем выделение
   useEffect(() => {
     setActiveIdx(0);
-    setOpen(results.length > 0);
-  }, [results]);
+  }, [results.length, query]);
 
   useEffect(() => {
     const onClickAway = (e: MouseEvent) => {
@@ -118,6 +83,9 @@ export const SearchInp: React.FC<{
     );
   };
 
+  const hasQuery = query.trim().length > 0;
+  const showEmpty = hasQuery && results.length === 0;
+
   return (
     <div className={styles.search}>
       <div ref={wrapRef} className={styles.wrap}>
@@ -125,8 +93,12 @@ export const SearchInp: React.FC<{
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onFocus={() => results.length && setOpen(true)}
-            placeholder="Введите название услуги, сферы деятельности или проекта"
+            onFocus={() => setOpen(true)}
+            placeholder={
+              isMobile.matches
+                ? "Что вы хотите найти?"
+                : "Введите название услуги, сферы деятельности или проекта"
+            }
             className={styles.input}
           />
 
@@ -152,31 +124,40 @@ export const SearchInp: React.FC<{
                 {r.title && <span className={styles.title}>{r.title}</span>}
               </li>
             ))}
+
+            {showEmpty && (
+              <li className={`${styles.item} ${styles.empty}`}>
+                По вашему запросу ничего не найдено
+              </li>
+            )}
           </ul>
         )}
       </div>
 
-      <div className={styles.popular}>
-        <div className={styles.popularTitle}>Популярные запросы:</div>
-        <div className={styles.tags}>
-          {POPULAR.map((tag) => (
-            <button
-              key={tag}
-              type="button"
-              onClick={() => {
-                setQuery(tag);
-                const match = allEntries.find(
-                  (e) => e.keyword.toLowerCase() === tag.toLowerCase()
-                );
-                if (match) commit(match);
-              }}
-              className={styles.tag}
-            >
-              {tag}
-            </button>
-          ))}
+      {popularLinks.length > 0 && (
+        <div className={styles.popular}>
+          <div className={styles.popularTitle}>Популярные запросы:</div>
+          <div className={styles.tags}>
+            {popularLinks.map((tag) => (
+              <button
+                key={tag.url}
+                type="button"
+                onClick={() => {
+                  setQuery(tag.title ?? "");
+                  setOpen(true);
+                  const match = allEntries.find(
+                    (e) => e.keyword.toLowerCase() === tag.title?.toLowerCase()
+                  );
+                  if (match) commit(match);
+                }}
+                className={styles.tag}
+              >
+                {tag.title}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

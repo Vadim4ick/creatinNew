@@ -3,6 +3,12 @@
   width: 100%;
   height: 100vh; // во весь экран
   overflow: hidden;
+
+  margin-bottom: 160px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 12px;
+  }
 }
 
 .swiper {
@@ -47,8 +53,9 @@
   justify-content: center;
   cursor: pointer;
 
-  transition: all 0.3s ease-out 0s;
-
+  svg path {
+    transition: all 0.3s ease-out 0s;
+  }
   &:hover {
     svg path {
       fill: var(--Primary-color-Ultramarin, #204ff5);

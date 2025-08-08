@@ -6,7 +6,6 @@ import "@/shared/assets/styles/style.min.css";
 import "@/shared/assets/styles/index.scss";
 
 import { QueryProviders } from "@/shared/providers/queryProviders";
-import { gql } from "@/graphql/client";
 import GoogleCaptchaWrapper from "@/shared/providers/googleRecaptcha";
 import { FormSendPopup } from "./_section/FormSend/ui/FormSendPopup/FormSendPopup";
 import { PopupProvider } from "@/shared/providers/popupProvider";
@@ -31,8 +30,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { header } = await gql.GetHeader();
-
   return (
     <html lang="ru">
       <body>
@@ -43,7 +40,7 @@ export default async function RootLayout({
                 <HomePreloaderContextProvider>
                   <BannerAnimationContextProvider>
                     <DarkProviderContextProvider>
-                      <Header header={header.data.attributes} />
+                      <Header />
 
                       {children}
 

@@ -1,0 +1,12 @@
+query GetSearchLinks {
+  searchLinks {
+    data {
+      attributes {
+        title
+        url
+        keywords
+        isPopular
+      }
+    }
+  }
+}
