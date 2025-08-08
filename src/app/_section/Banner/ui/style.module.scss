@@ -1,0 +1,147 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh; // во весь экран
+  overflow: hidden;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.bg {
+  object-fit: cover;
+}
+
+.overlayWrap {
+  position: relative;
+  z-index: 2;
+  width: min(960px, 92vw);
+  margin: 0 auto;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.navPrev,
+.navNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  backdrop-filter: blur(40px);
+  box-shadow: 0px 1px 20px 0px #24344426;
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  transition: all 0.3s ease-out 0s;
+
+  &:hover {
+    svg path {
+      fill: var(--Primary-color-Ultramarin, #204ff5);
+    }
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.98);
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.navPrev {
+  left: 24px;
+}
+.navNext {
+  right: 24px;
+
+  svg {
+    transform: rotate(180deg);
+  }
+}
+
+.paginationWrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  width: 100%;
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination {
+  width: fit-content !important;
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: #f2f3f766;
+  backdrop-filter: blur(40px);
+  padding: 4px;
+  border-radius: 100px;
+}
+
+.bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #b4b5b8;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.overlayInner {
+  pointer-events: auto;
+  width: 100%;
+
+  max-width: 680px;
+
+  @media (max-width: 768px) {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+.bulletActive {
+  background: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .navPrev {
+    left: 12px;
+  }
+  .navNext {
+    right: 12px;
+  }
+  .pagination {
+    bottom: 14px;
+  }
+}

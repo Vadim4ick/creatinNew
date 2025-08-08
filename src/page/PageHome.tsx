@@ -1,6 +1,7 @@
 "use client";
 
 import { Banner } from "@/app/_section/Banner";
+import { BannerSlider } from "@/app/_section/Banner/ui/BannerSlider";
 import { Cases } from "@/app/_section/Cases";
 import { FormSend } from "@/app/_section/FormSend";
 import { Partners } from "@/app/_section/Partners";
@@ -47,9 +48,26 @@ const PageHome = (props: PageHomeProps) => {
         }}
         className="page"
       >
-        {homePage.data.attributes.banner && (
+        <BannerSlider
+          slides={[
+            {
+              image: "/img/banner/1.png",
+            },
+            {
+              image: "/img/banner/2.png",
+            },
+            {
+              image: "/img/banner/3.png",
+            },
+            {
+              image: "/img/banner/4.png",
+            },
+          ]}
+        />
+
+        {/* {homePage.data.attributes.banner && (
           <Banner banner={homePage.data.attributes.banner} />
-        )}
+        )} */}
 
         {homePage.data.attributes.cases && (
           <Cases cases={homePage.data.attributes.cases} />
