@@ -12,7 +12,6 @@ import {
   GetPartnersQuery,
   GetServicesNamesQuery,
 } from "@/graphql/__generated__";
-import { MainFooter } from "@/layouts";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useGetStudio } from "@/shared/services/getStudio";
 import { Loader } from "@/shared/ui/Loader/Loader";
@@ -88,8 +87,6 @@ const PageAbout = (props: PageAboutProps) => {
             form={formFeedback.data.attributes.formFeedback}
           />
         )}
-
-        <MainFooter className="footer--whte footer-main" />
       </main>
     </>
   );

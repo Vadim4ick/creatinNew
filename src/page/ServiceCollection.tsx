@@ -73,7 +73,6 @@ const ServiceCollection = memo(
     return (
       <ServiceLayout
         isLoading={isLoading}
-        footer={serviceCollection?.Footer}
         serviceId={id}
         urlPathname={`${getRouteServices()}/${title}`}
         items={titleServices[0].attributes.Services.service_collections.data}

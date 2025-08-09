@@ -10,7 +10,6 @@ import {
   GetHomePageQuery,
   GetPartnersQuery,
 } from "@/graphql/__generated__";
-import { MainFooter } from "@/layouts";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useGetComplexSidebarTitle } from "@/shared/services/complexSidebarTitle";
 import { useEffect } from "react";
@@ -69,14 +68,6 @@ const PageHome = (props: PageHomeProps) => {
         {formFeedback.data && (
           <FormSend form={formFeedback.data.attributes.formFeedback} />
         )}
-
-        {/* <section className="smile">
-          <div className="smile__container">
-            <Image src={"/img/smile.png"} width={316} height={300} alt="" />
-          </div>
-        </section> */}
-
-        <MainFooter className="footer--whte home-footer" />
       </main>
     </>
   );

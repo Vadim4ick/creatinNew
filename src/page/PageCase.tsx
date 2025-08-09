@@ -17,7 +17,6 @@ import {
   FooterFragmentFragment,
   GetCasesIdsQuery,
 } from "@/graphql/__generated__";
-import { Footer } from "@/layouts/Footer/ui/Footer";
 import { getRouteCase } from "@/shared/const/pages";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { DarkProviderContext } from "@/shared/providers/darkProvider";
@@ -167,14 +166,6 @@ const PageCase = memo(
             </article>
           </section>
         </main>
-
-        {caseContent.Footer && (
-          <Footer
-            title={caseContent.Footer.title}
-            img={caseContent.Footer.img?.data?.attributes}
-            callback={onClick}
-          />
-        )}
       </>
     );
   }
