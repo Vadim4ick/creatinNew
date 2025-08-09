@@ -82,10 +82,7 @@ const PageAbout = (props: PageAboutProps) => {
         )}
 
         {formFeedback.data.attributes.formFeedback && (
-          <FormSend
-            className="callback--no-mb"
-            form={formFeedback.data.attributes.formFeedback}
-          />
+          <FormSend form={formFeedback.data.attributes.formFeedback} />
         )}
       </main>
     </>

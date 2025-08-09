@@ -1,85 +1,90 @@
 "use client";
 
 import { FormSendFragmentFragment } from "@/graphql/__generated__";
-import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
-import { File } from "@/shared/icons/File";
-import { Button } from "@/shared/ui/Button";
-import React, { ChangeEvent, memo, useCallback, useRef, useState } from "react";
-import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
-import ReactMarkdown from "react-markdown";
+import React, { ChangeEvent, memo, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { classNames } from "@/shared/lib";
 import cls from "./FormSend.module.scss";
-import { Input } from "@/shared/ui/Input/Input";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import axios from "axios";
-import { Address } from "../../lib/Address";
-import { SuccessPopup } from "../SuccessPopup/SuccessPopup";
+import { Address } from "../Address/Address";
+import { classNames } from "@/shared/lib";
+import { File } from "@/shared/icons/File";
+import { Button } from "@/shared/ui/Button";
+import MaskedInput from "react-input-mask";
+import { motion } from "framer-motion";
+import { fieldMotionInp } from "../../model/fieldMotionInp";
 
-const SignUpSchema = z.object({
-  name: z
-    .string()
-    .min(3, { message: "Имя слишком короткое" })
-    .max(20, { message: "Имя слишком длинное" }),
+const SignUpSchema = z
+  .object({
+    name: z
+      .string()
+      .min(3, { message: "Имя слишком короткое" })
+      .max(20, { message: "Имя слишком длинное" }),
 
-  phone: z
-    .string()
-    .min(7, { message: "Телефонный номер слишком короткий" })
-    .max(25, { message: "Телефонный номер слишком длинный" }),
+    phone: z.union([
+      z
+        .string()
+        .min(7, { message: "Телефонный номер слишком короткий" })
+        .max(25, { message: "Телефонный номер слишком длинный" }),
+      z.literal(""),
+    ]),
 
-  company: z
-    .string()
-    .min(3, { message: "Название компании слишком короткое" })
-    .max(35, { message: "Название компании слишком длинное" }),
+    email: z.union([
+      z.string().email({ message: "Некорректный адрес электронной почты" }),
+      z.literal(""),
+    ]),
 
-  email: z.string().email({ message: "Некорректный адрес электронной почты" }),
+    taskDescription: z.string(),
+    file: z.any(),
+  })
+  .superRefine((data, ctx) => {
+    const hasEmail = data.email && data.email.trim() !== "";
+    const hasPhone = data.phone && data.phone.trim() !== "";
 
-  taskDescription: z.string(),
-
-  file: z.any(),
-});
+    if (!hasEmail && !hasPhone) {
+      const msg = "Укажите e-mail или телефон";
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: msg,
+        path: ["email"],
+      });
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: msg,
+        path: ["phone"],
+      });
+    }
+  });
 
 type SignUpSchemaType = z.infer<typeof SignUpSchema>;
 
 interface FormSendProps {
   form: FormSendFragmentFragment;
-  className?: string;
 }
 
 const FormSend = memo((props: FormSendProps) => {
-  const { form, className = "" } = props;
+  const { form } = props;
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   const {
     register,
     handleSubmit,
-    watch,
-    setValue,
     reset,
     formState: { errors },
   } = useForm<SignUpSchemaType>({
     resolver: zodResolver(SignUpSchema),
   });
 
-  const titleRef = useRef<HTMLDivElement | null>(null);
-  const subTitleRef = useRef<HTMLDivElement | null>(null);
-  const formRef = useRef<HTMLFormElement | null>(null);
-
   const [send, setSend] = useState(false);
 
-  const callbackRef = useRef<HTMLDivElement | null>(null);
   const [fileLoaded, setFileLoaded] = useState(false);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFileLoaded(event.target.files?.length !== 0);
   };
-
-  const resetPhone = useCallback(() => {
-    setValue("phone", "");
-  }, []);
 
   const onSubmit = async (data: SignUpSchemaType) => {
     const file = data.file[0];
@@ -87,7 +92,6 @@ const FormSend = memo((props: FormSendProps) => {
 
     formData.append("file", file);
     formData.append("name", data.name);
-    formData.append("company", data.company);
     formData.append("email", data.email);
     formData.append("phone", data.phone);
     formData.append("taskDescription", data.taskDescription);
@@ -121,112 +125,40 @@ const FormSend = memo((props: FormSendProps) => {
     }
   };
 
-  useIntersectionObserver({
-    ref: titleRef,
-    removeClass: true,
-  });
-
-  useIntersectionObserver({
-    ref: subTitleRef,
-    removeClass: true,
-  });
-
-  useIntersectionObserver({
-    ref: formRef,
-    removeClass: true,
-
-    threshold: 0.07,
-  });
+  const MotionMaskedInput = MaskedInput;
 
   return (
-    <section className={`callback animate-block ${className}`} id="callback">
-      <div className="callback__container">
-        <div ref={callbackRef} className="callback__row">
-          <div className="callback__left">
-            <SplitTypeAnimation bg="#aaaaaa" fg="#181818" refChar={titleRef}>
-              <h2
-                className="callback__title text-decorated fade-up"
-                ref={titleRef}
-              >
-                Оставьте <b>заявку,</b> <br />
-                чтобы обсудить проект
-              </h2>
-            </SplitTypeAnimation>
+    <section className={cls.sendForm}>
+      <div className={cls.container}>
+        <div className={cls.mainInfo}>
+          <h2>
+            Оставьте <span>заявку</span> чтобы обсудить проект
+          </h2>
 
-            <ReactMarkdown
-              skipHtml
-              components={{
-                p: ({ children }) => {
-                  return (
-                    <>
-                      <h3
-                        ref={subTitleRef}
-                        className="callback__subtitle fade-up"
-                      >
-                        {children
-                          ?.toString()
-                          .split(",\n")
-                          .map((line, index) => (
-                            <React.Fragment key={index}>
-                              {line}
-                              {/* @ts-ignore */}
-                              {index < children.length - 1 && <br />}
-                            </React.Fragment>
-                          ))}
-                      </h3>
-                    </>
-                  );
-                },
-              }}
-            >
-              {form.description}
-            </ReactMarkdown>
-
-            <Address form={form} callbackRef={callbackRef} />
+          <div className={cls.contactBlocks}>
+            <Address form={form} />
           </div>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="callback__form callback-form form fade-up"
-            ref={formRef}
-          >
-            <fieldset className="callback-form__group form__group">
-              <Input
-                id="inp1"
-                register={register("name")}
-                label="Имя"
-                type="text"
-                watch={watch("name")}
-                className={classNames(
-                  "",
-                  {
-                    [cls.error]: errors.name?.message,
-                  },
-                  []
-                )}
-              />
+        </div>
 
-              <Input
-                id="inp2"
-                register={register("company")}
-                label="Компания"
-                type="text"
-                watch={watch("company")}
-                className={classNames(
-                  "",
-                  {
-                    [cls.error]: errors.company?.message,
-                  },
-                  []
-                )}
-              />
-            </fieldset>
-            <fieldset className="callback-form__group form__group">
-              <Input
-                id="inp3"
-                register={register("email")}
-                label="E-mail"
+        <div className={cls.feedBackForm}>
+          <div className={cls.text}>
+            <span>Cвяжитесь с нами любым удобным способом</span>
+            <span>Мы всегда рады новым идеям и ответим на ваши вопросы</span>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className={cls.form}>
+            <motion.input
+              type="text"
+              placeholder="Ваше имя"
+              className={classNames("", { [cls.error]: !!errors.name }, [])}
+              {...register("name")}
+              {...fieldMotionInp(!!errors.name)}
+            />
+
+            <div className={cls.block}>
+              <motion.input
                 type="email"
-                watch={watch("email")}
+                placeholder="E-mail"
                 className={classNames(
                   "",
                   {
@@ -234,86 +166,70 @@ const FormSend = memo((props: FormSendProps) => {
                   },
                   []
                 )}
+                {...register("email")}
+                {...fieldMotionInp(!!errors.email)}
               />
 
-              <Input
-                id="inp4"
-                register={register("phone")}
-                label="Телефон"
-                type="tel"
-                watch={watch("phone")}
+              <span>или</span>
+
+              <MotionMaskedInput
                 mask="+7 (999) 999-9999"
+                type="tel"
+                placeholder="Телефон"
                 className={classNames(
-                  "",
+                  cls.tel,
                   {
                     [cls.error]: errors.phone?.message,
                   },
                   []
                 )}
+                {...register("phone")}
               />
-            </fieldset>
-            <div className="callback-form__item form__textarea-item">
-              <Input
-                id="txta1"
-                register={register("taskDescription")}
-                label="Описание задачи (тезисно)"
-                type="text"
-                watch={watch("taskDescription")}
-                inpType="textarea"
-                className={classNames(
-                  "",
-                  {
-                    [cls.error]: errors.taskDescription?.message,
-                  },
-                  []
-                )}
-              />
-              <div className="form-file">
-                <label
-                  className={classNames(
-                    "form-file__label",
-                    { [cls.inputFile]: fileLoaded },
-                    []
-                  )}
-                  htmlFor="file1"
-                >
-                  <File />
-                  Прикрепить файл
-                </label>
-
-                <input
-                  {...register("file")}
-                  type="file"
-                  id="file1"
-                  className={classNames("visually-hidden", {}, [])}
-                  onChange={handleFileChange}
-                />
-              </div>
             </div>
 
-            <Button type="submit" className="form__btn">
-              Отправить
-            </Button>
+            <motion.textarea
+              placeholder="Описание задачи (тезисно)"
+              {...register("taskDescription")}
+              className={classNames(
+                "",
+                {
+                  [cls.error]: errors.taskDescription?.message,
+                },
+                []
+              )}
+              {...fieldMotionInp(!!errors.taskDescription)}
+            />
 
-            <div className="form__comment">
-              Нажимая кнопку, вы соглашаетесь на{" "}
-              <a href="/policy.pdf" download>
-                обработку персональных данных
-              </a>
+            <div className={cls.footer}>
+              <motion.label
+                className={classNames(
+                  cls.file,
+                  { [cls.inputFile]: fileLoaded },
+                  []
+                )}
+                htmlFor="file1"
+                {...fieldMotionInp(!!errors.file)}
+              >
+                <File />
+
+                <span> Прикрепить файл</span>
+              </motion.label>
+
+              <Button variant="form-send" type="submit">
+                Отправить
+              </Button>
             </div>
           </form>
         </div>
       </div>
 
-      {send && (
-        <SuccessPopup
-          full={true}
-          setFileLoaded={setFileLoaded}
-          reset={reset}
-          setSend={setSend}
-          resetPhone={resetPhone}
-        />
-      )}
+      <input
+        {...register("file")}
+        type="file"
+        id="file1"
+        className={classNames("visually-hidden", {}, [])}
+        onChange={handleFileChange}
+      />
     </section>
   );
 });

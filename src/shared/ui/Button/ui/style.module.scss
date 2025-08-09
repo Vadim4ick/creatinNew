@@ -1,0 +1,17 @@
+.formSend {
+  background: var(--Tones-Black-tones-Black-900, #303032);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 120%;
+  font-family: "SuisseIntl", sans-serif;
+  color: #bec0c6;
+
+  transition: all 0.45s ease-out 0s;
+
+  @media (any-hover: hover) {
+    &:hover {
+      color: white;
+      background: #0a3ae1;
+    }
+  }
+}
