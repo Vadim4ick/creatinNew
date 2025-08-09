@@ -1,63 +1,175 @@
 .footer {
-  overflow: visible !important;
-}
+  padding: 48px 0;
 
-.footerDop {
-  @media (min-width: 767px) {
-    overflow: hidden;
-    height: 430px;
+  @media (max-width: 1200px) {
+    padding-bottom: 160px;
   }
-}
 
-.dark {
-  background: #222222 !important;
+  @media (max-width: 768px) {
+    padding-top: 32px;
+  }
 
-  @media (any-hover: hover) {
-    &:hover {
-      span {
-        &::after {
-          content: "";
-          background: #caff00 !important;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 24px;
+
+    @media (max-width: 991px) {
+      padding: 0 16px;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 72px;
+    }
+  }
+
+  .companyInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+
+    @media (max-width: 768px) {
+      align-items: center;
+      justify-content: center;
+      gap: 64px;
+    }
+
+    .logo {
+      svg {
+        @media (max-width: 991px) {
+          max-width: 450px;
+        }
+
+        @media (max-width: 768px) {
+          max-width: 100%;
         }
       }
     }
   }
 
-  span {
-    background: #181818 !important;
+  .info {
+    display: grid;
+    column-gap: 24px;
+    row-gap: 10px;
 
-    &::before {
-      content: "";
-      background: #222222 !important;
+    @media (min-width: 768px) {
+      padding-top: 11px;
+      grid-template-columns: repeat(2, max-content);
     }
 
-    &::after {
-      content: "";
-      background: #222222 !important;
+    @media (max-width: 768px) {
+      justify-items: center;
+      gap: 8px;
     }
-  }
 
-  button {
-    @media (any-hover: hover) {
-      &:hover {
-        background: #caff00 !important;
+    a {
+      color: #616265;
+      font-weight: 400;
+      font-size: 14px;
+      width: fit-content;
+      font-family: "SuisseIntl", sans-serif;
 
-        svg path {
-          fill: black !important;
-        }
+      @media (max-width: 768px) {
+        line-height: 18px;
       }
     }
   }
 
-  &::before {
-    content: "";
+  .company {
+    display: flex;
+    align-items: center;
+    gap: 24px;
 
-    background: #222222 !important;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    span {
+      color: #616265;
+      font-size: 14px;
+      font-weight: 400;
+      font-family: "SuisseIntl", sans-serif;
+
+      @media (max-width: 768px) {
+        line-height: 18px;
+      }
+    }
   }
-}
 
-@media (max-width: 1350px) {
-  .title {
-    overflow-wrap: break-word;
+  .services {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    justify-content: space-between;
+    height: 100%;
+
+    @media (max-width: 768px) {
+      align-items: center;
+      justify-content: center;
+      gap: 72px;
+    }
+
+    > span {
+      font-size: 14px;
+      color: #616265;
+      font-weight: 400;
+      font-family: "SuisseIntl", sans-serif;
+    }
+  }
+
+  .titles {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    h3 {
+      color: #292929;
+      font-size: 22px;
+      line-height: 130%;
+      font-weight: 600;
+      font-family: "SuisseIntl", sans-serif;
+
+      @media (max-width: 768px) {
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      align-items: center;
+      justify-content: center;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      @media (max-width: 768px) {
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      li {
+        font-size: 14px;
+        line-height: 130%;
+        color: #292929;
+        font-weight: 450;
+        font-family: "SuisseIntl", sans-serif;
+
+        @media (max-width: 768px) {
+          font-size: 16px;
+        }
+
+        text-transform: capitalize;
+      }
+    }
   }
 }

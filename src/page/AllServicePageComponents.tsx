@@ -51,7 +51,6 @@ const AllServicePageComponents = memo(
 
     return (
       <ServiceLayout
-        footer={serviceNames[index].attributes.footer}
         isLoading={isLoadingService}
         items={serviceNames}
         serviceId={id}

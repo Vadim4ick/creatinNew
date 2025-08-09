@@ -13,6 +13,7 @@ import { useMedia } from "@/shared/hooks/useMedia";
 import { useGetSearchLinks } from "@/shared/services/useGetSearchLinks";
 import { useRouter } from "next/navigation";
 import { GetHomePageQuery } from "@/graphql/__generated__";
+import { ImagePreloader } from "@/shared/ui/ImagePreloader";
 
 type Props = {
   slides: GetHomePageQuery["homePage"]["data"]["attributes"]["bannerMedia"]["data"];
@@ -97,7 +98,14 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
         <div className="swiper-wrapper">
           {slides.map((s, i) => (
             <div key={i} className={`swiper-slide ${styles.slide}`}>
-              <Image src={s.attributes.url} alt="" fill className={styles.bg} />
+              {/* <Image src={s.attributes.url} alt="" fill className={styles.bg} /> */}
+
+              <ImagePreloader
+                src={s.attributes.url}
+                alt=""
+                className={styles.bg}
+                fill={true}
+              />
             </div>
           ))}
         </div>

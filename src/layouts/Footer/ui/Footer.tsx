@@ -1,57 +1,96 @@
-import { MediaFragmentFragment } from "@/graphql/__generated__";
-import { getFileUrl } from "@/shared/helpers/getFileUrl";
-import { FooterLink } from "@/shared/icons/FooterLink";
-import Image from "next/image";
+"use client";
+
+import { LogoFooter } from "@/shared/icons/LogoFooter";
 import cls from "./Footer.module.scss";
-import { classNames } from "@/shared/lib";
-import { DarkProviderContext } from "@/shared/providers/darkProvider";
-import { useContext } from "react";
+import { useMedia } from "@/shared/hooks/useMedia";
+import { memo } from "react";
+import { useGetServicesNames } from "@/shared/services/servicesName";
+import { GetServicesNamesQuery } from "@/graphql/__generated__";
+import { Skeleton } from "@/shared/ui/Skeleton";
 
-interface FooterProps {
-  img?: MediaFragmentFragment;
-  title: string;
-  callback?: () => void;
-  className?: string;
-}
+const Services = memo(
+  ({
+    data,
+    isLoading,
+  }: {
+    data?: GetServicesNamesQuery["serviceNames"]["data"];
+    isLoading?: boolean;
+  }) => {
+    return (
+      <div className={cls.titles}>
+        <h3>Услуги</h3>
 
-const Footer = (props: FooterProps) => {
-  const { img, title, callback, className } = props;
+        <ul>
+          {isLoading
+            ? Array.from({ length: 5 }).map((_, i) => (
+                <li key={i}>
+                  <Skeleton width="100px" height="16px" />
+                </li>
+              ))
+            : data?.map((el) => {
+                return (
+                  <li key={el.id}>
+                    <a href={`/services/${el.id}`}>{el.attributes.name}</a>
+                  </li>
+                );
+              })}
+        </ul>
+      </div>
+    );
+  }
+);
 
-  const { darkTheme } = useContext(DarkProviderContext);
+const CompanyInfo = memo(() => {
+  return (
+    <>
+      <div className={cls.info}>
+        <a href="#!">Публичная оферта</a>
+        <a href="#!">Пользовательское соглашение</a>
+        <a href="#!">Карта сайта</a>
+        <a href="#!">Cookies</a>
+      </div>
+
+      <div className={cls.company}>
+        <span>ИП Оганян А.А.</span>
+        <span>КПП 3562563723</span>
+        <span>ИНН 832873872878</span>
+      </div>
+    </>
+  );
+});
+
+const Footer = memo(() => {
+  const isMobile = useMedia("(max-width: 760px)");
+
+  const { data, isLoading } = useGetServicesNames();
 
   return (
-    <footer
-      className={classNames(
-        "footer footer--service",
-        { [cls.dark]: darkTheme },
-        [className, cls.footerDop]
-      )}
-    >
-      <span className="footer__decor"></span>
-      <div className={`footer__container ${cls.footer}`}>
-        <div className={classNames("footer__row", {}, [cls.row])}>
-          <div className={classNames("footer__name", {}, [cls.title])}>
-            {title}
-          </div>
+    <footer className={cls.footer}>
+      <div className={cls.container}>
+        <div className={cls.companyInfo}>
+          <a className={cls.logo} href="/">
+            <LogoFooter />
+          </a>
 
-          <button onClick={callback} className="footer__link">
-            <FooterLink />
-          </button>
+          {isMobile.matches && (
+            <Services data={data?.serviceNames.data} isLoading={isLoading} />
+          )}
+
+          {!isMobile.matches && <CompanyInfo />}
         </div>
 
-        <div className="footer__image">
-          {img?.url && (
-            <Image
-              width={img.width}
-              height={img.height}
-              src={getFileUrl(img.url)}
-              alt=""
-            />
+        <div className={cls.services}>
+          {!isMobile.matches && (
+            <Services data={data?.serviceNames.data} isLoading={isLoading} />
           )}
+
+          {isMobile.matches && <CompanyInfo />}
+
+          <span>© {new Date().getFullYear()}</span>
         </div>
       </div>
     </footer>
   );
-};
+});
 
 export { Footer };

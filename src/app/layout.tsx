@@ -12,6 +12,7 @@ import { PopupProvider } from "@/shared/providers/popupProvider";
 import { HomePreloaderContextProvider } from "@/shared/providers/homePreloader";
 import { BannerAnimationContextProvider } from "@/shared/providers/bannerAnimationProvider";
 import { DarkProviderContextProvider } from "@/shared/providers/darkProvider";
+import { Footer } from "@/layouts/Footer/ui/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -43,6 +44,8 @@ export default async function RootLayout({
                       <Header />
 
                       {children}
+
+                      <Footer />
 
                       <FormSendPopup />
                     </DarkProviderContextProvider>

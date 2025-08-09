@@ -56,7 +56,6 @@ const PageComplex = ({
       items={complexesNames}
       serviceId={id}
       urlPathname={getRouteComplexPage()}
-      footer={complex?.footer}
       containerClass={"page__container--sidebar"}
       BugerMenu={() => <BurgerAbout SubMenuName="услуги" />}
     >

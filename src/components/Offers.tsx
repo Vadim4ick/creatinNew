@@ -1,39 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import ReactMarkdown from "react-markdown";
-import React, { useCallback, useRef } from "react";
-import { Portal } from "@/shared/ui/Portal";
-import { Footer } from "@/layouts/Footer/ui/Footer";
-import { notFound, useRouter } from "next/navigation";
+import React, { useRef } from "react";
+import { notFound } from "next/navigation";
 import { GetOffersPageQuery } from "@/graphql/__generated__";
 import { CtaBanner } from "./CtaBanner";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
-import { getRouteOffers } from "@/shared/const/pages";
 import { OfferBlock } from "./OfferBlock";
 
-const Offers = ({
-  mainRef,
-  data,
-}: {
-  mainRef: React.MutableRefObject<HTMLElement | null>;
-  data: GetOffersPageQuery | undefined;
-}) => {
+const Offers = ({ data }: { data: GetOffersPageQuery | undefined }) => {
   const heroSection = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
 
   useIntersectionObserver({
     ref: heroSection,
     once: true,
   });
-
-  const onClick = useCallback(() => {
-    if (data?.offersPage) {
-      router.push(
-        getRouteOffers(
-          data?.offersPage.data.attributes.offersBlock[0].offers.data[0].id
-        )
-      );
-    }
-  }, [data]);
 
   if (!data) {
     return notFound();
@@ -86,16 +65,6 @@ const Offers = ({
           />
         )}
       </div>
-
-      {mainRef.current && (
-        <Portal element={mainRef.current}>
-          <Footer
-            title={data?.offersPage.data.attributes.footer.title}
-            img={data?.offersPage.data.attributes.footer.img.data.attributes}
-            callback={onClick}
-          />
-        </Portal>
-      )}
     </>
   );
 };

@@ -8,13 +8,9 @@ import React, {
   useState,
 } from "react";
 import { Loader } from "@/shared/ui/Loader/Loader";
-import { Footer } from "@/layouts/Footer/ui/Footer";
 import useSmoothScrollToTop from "@/shared/hooks/useSmoothScrollToTop";
 import { Sidebar } from "@/components/Sidebar";
-import {
-  FooterFragmentFragment,
-  GetFormFeedbackQuery,
-} from "@/graphql/__generated__";
+import { GetFormFeedbackQuery } from "@/graphql/__generated__";
 import {
   SidebarItemElement,
   SidebarItems,
@@ -36,7 +32,6 @@ interface ServiceLayoutProps {
   items: readonly SidebarItems[];
   isLoading: boolean;
   children: ReactNode;
-  footer?: FooterFragmentFragment | undefined;
   noReddirect?: boolean;
   containerClass?: string;
   mainClass?: string;
@@ -47,7 +42,6 @@ interface ServiceLayoutProps {
   urlPathname?: string;
   onChangeDop?: (id: string) => void;
   onChangeDopFooter?: VoidFunction;
-  footerCls?: string;
   formFeedback?: GetFormFeedbackQuery["formFeedback"]["data"]["attributes"]["formFeedback"];
 }
 
@@ -56,7 +50,6 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   items,
   isLoading,
   children,
-  footer,
   noReddirect,
   containerClass,
   mainClass = "page--hassidebar",
@@ -64,7 +57,6 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   sidebarItemElement = "normal",
   setInputIds,
   formFeedback,
-  footerCls,
   onChangeDop,
   onChangeDopFooter,
   urlPathname = "",
@@ -171,15 +163,6 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
       </main>
 
       {formFeedback && <FormSend className="pb-70" form={formFeedback} />}
-
-      {footer && (
-        <Footer
-          className={footerCls ? footerCls : undefined}
-          title={footer.title}
-          img={footer.img?.data?.attributes}
-          callback={onClickFooter}
-        />
-      )}
     </>
   );
 };
