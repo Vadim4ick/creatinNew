@@ -2,10 +2,6 @@ query GetCaseById($id: ID) {
   case(id: $id) {
     data {
       attributes {
-        Footer {
-          ...FooterFragment
-        }
-
         mobileName
 
         backround

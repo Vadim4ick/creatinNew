@@ -16,10 +16,6 @@ query GetComplexPage {
             }
           }
         }
-
-        footer {
-          ...FooterFragment
-        }
       }
     }
   }

@@ -6,10 +6,6 @@ query GetServicesNamesOffer {
         name
         nameID
 
-        footer {
-          ...FooterFragment
-        }
-
         offers {
           data {
             id

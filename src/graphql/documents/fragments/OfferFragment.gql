@@ -50,10 +50,6 @@ fragment OfferFragment on Offer {
     }
   }
 
-  footer {
-    ...FooterFragment
-  }
-
   offerBanner {
     data {
       attributes {
