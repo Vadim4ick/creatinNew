@@ -131,7 +131,7 @@ const FormSend = memo((props: FormSendProps) => {
     <section className={cls.sendForm}>
       <div className={cls.container}>
         <div className={cls.mainInfo}>
-          <h2>
+          <h2 className={cls.titleDesk}>
             Оставьте <span>заявку</span> чтобы обсудить проект
           </h2>
 
@@ -141,8 +141,12 @@ const FormSend = memo((props: FormSendProps) => {
         </div>
 
         <div className={cls.feedBackForm}>
+          <h2 className={cls.titleMobile}>
+            Оставьте <span>заявку</span> чтобы обсудить проект
+          </h2>
+
           <div className={cls.text}>
-            <span>Cвяжитесь с нами любым удобным способом</span>
+            <span>Cвяжитесь с нами любым удобным способом.</span>{" "}
             <span>Мы всегда рады новым идеям и ответим на ваши вопросы</span>
           </div>
 

@@ -9,6 +9,10 @@
     background: #181818;
     max-width: 350px;
 
+    @media (max-width: 991px) {
+      max-width: 100%;
+    }
+
     font-weight: 400;
     font-family: "SuisseIntl", sans-serif;
 

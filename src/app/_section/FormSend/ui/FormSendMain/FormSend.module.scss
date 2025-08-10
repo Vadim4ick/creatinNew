@@ -19,6 +19,11 @@
 
   @media (max-width: 768px) {
     margin-top: 100px;
+    margin-bottom: 36px;
+  }
+
+  @media (max-width: 991px) {
+    padding: 64px 16px;
   }
 
   .container {
@@ -26,6 +31,12 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    gap: 16px;
+
+    @media (max-width: 991px) {
+      flex-direction: column-reverse;
+      gap: 64px;
+    }
   }
 
   .mainInfo {
@@ -36,11 +47,52 @@
 
     max-width: 556px;
 
-    h2 {
-      font-size: 48px;
-      line-height: 58px;
-      font-family: "SuisseIntl", sans-serif;
-      font-weight: 500;
+    @media (max-width: 991px) {
+      max-width: 100%;
+    }
+  }
+
+  .titleDesk {
+    @media (max-width: 991px) {
+      display: none;
+    }
+  }
+
+  .titleDesk,
+  .titleMobile {
+    font-size: 48px;
+    line-height: 58px;
+    font-family: "SuisseIntl", sans-serif;
+    font-weight: 500;
+
+    span {
+      position: relative;
+      padding: 0 10px;
+      z-index: 2;
+      color: white;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -2;
+        width: 182px;
+        height: 66px;
+        background-image: url("/img/decorBox.svg");
+      }
+    }
+  }
+
+  .titleMobile {
+    display: none;
+    @media (max-width: 991px) {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 38px;
+      line-height: 46px;
 
       span {
         position: relative;
@@ -54,8 +106,8 @@
           top: 0;
           left: 0;
           z-index: -2;
-          width: 182px;
-          height: 66px;
+          width: 145px;
+          height: 47px;
           background-image: url("/img/decorBox.svg");
         }
       }
@@ -70,11 +122,19 @@
 
     max-width: 465px;
 
+    @media (max-width: 991px) {
+      max-width: 100%;
+      padding-top: 0;
+      gap: 24px;
+    }
+
     .text {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: flex-end;
+      @media (min-width: 500px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
 
       span {
         color: #abacb2;
@@ -91,6 +151,10 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  @media (max-width: 991px) {
+    padding-top: 24px;
+  }
 
   input,
   textarea {
@@ -145,6 +209,10 @@
     gap: 3px;
     width: 100%;
 
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
     span {
       color: #abacb2;
       font-family: "SuisseIntl", sans-serif;
@@ -160,6 +228,10 @@
   align-items: center;
   gap: 12px;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
   button {
     width: 100%;
     height: 52px;
@@ -173,6 +245,11 @@
     cursor: pointer;
     border-radius: 8px;
     background: #292929;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      justify-content: center;
+    }
 
     span {
       font-family: "SuisseIntl", sans-serif;
