@@ -23,8 +23,4 @@ fragment CaseFragment on Case {
       }
     }
   }
-
-  Footer {
-    ...FooterFragment
-  }
 }

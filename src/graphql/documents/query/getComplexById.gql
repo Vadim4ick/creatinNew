@@ -4,9 +4,6 @@ query GetComplexById($id: ID) {
       attributes {
         name
 
-        footer {
-          ...FooterFragment
-        }
         totalHours
 
         videoMobile {

@@ -67,10 +67,6 @@ fragment OffersBlock on ComponentComponentsOfferComponent {
             }
           }
         }
-
-        footer {
-          ...FooterFragment
-        }
       }
     }
   }
