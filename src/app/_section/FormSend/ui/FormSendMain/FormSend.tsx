@@ -251,6 +251,7 @@ const FormSend = memo((props: FormSendProps) => {
                       []
                     )}
                     {...register("email")}
+                    {...fieldMotionInp(!!errors.taskDescription)}
                     {...field}
                   />
                 )}
