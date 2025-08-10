@@ -20,6 +20,7 @@ import axios from "axios";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { File } from "@/shared/icons/File";
 import { SuccessPopup } from "../SuccessPopup/SuccessPopup";
+import { Close } from "@/shared/icons/Close";
 
 const FormPopupSchemaFull = z.object({
   name: z
@@ -31,11 +32,6 @@ const FormPopupSchemaFull = z.object({
     .string()
     .min(7, { message: "Телефонный номер слишком короткий" })
     .max(25, { message: "Телефонный номер слишком длинный" }),
-
-  company: z
-    .string()
-    .min(3, { message: "Название компании слишком короткое" })
-    .max(35, { message: "Название компании слишком длинное" }),
 
   email: z.string().email({ message: "Некорректный адрес электронной почты" }),
 
@@ -52,8 +48,6 @@ const FormPopupSchema = z.object({
     .string()
     .min(7, { message: "Телефонный номер слишком короткий" })
     .max(25, { message: "Телефонный номер слишком длинный" }),
-
-  company: z.string(),
 
   email: z.string().email({ message: "Некорректный адрес электронной почты" }),
 
@@ -78,8 +72,42 @@ const FormSendPopup = memo(() => {
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFileLoaded(event.target.files?.length !== 0);
+  const [files, setFiles] = useState<File[]>([]);
+
+  console.log(files);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const picked = Array.from(e.target.files ?? []);
+
+    setFiles((prev) => {
+      // мердж + дедупликация
+      const merged = [...prev];
+      for (const f of picked) {
+        if (
+          !merged.some(
+            (p) =>
+              p.name === f.name &&
+              p.size === f.size &&
+              p.lastModified === f.lastModified
+          )
+        ) {
+          merged.push(f);
+        }
+      }
+
+      setFileLoaded(merged.length > 2);
+
+      // прокидываем в RHF как массив файлов
+      setValue("file", merged as any, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      return merged;
+    });
+
+    // чтобы можно было выбрать тот же файл повторно
+    e.currentTarget.value = "";
   };
 
   const {
@@ -125,14 +153,12 @@ const FormSendPopup = memo(() => {
   const onSubmit = async (
     data: FormPopupFullSchemaType | FormPopupSchemaType
   ) => {
-    const file = data.file[0];
     const formData = new FormData();
 
-    if (file) {
-      formData.append("file", file);
-    }
+    // вместо data.file берём накопленные файлы из state
+    for (const f of files) formData.append("file", f);
+
     formData.append("name", data.name);
-    formData.append("company", data.company);
     formData.append("email", data.email);
     formData.append("phone", data.phone);
     formData.append("taskDescription", data.taskDescription);
@@ -167,6 +193,17 @@ const FormSendPopup = memo(() => {
     }
   };
 
+  const removeFile = (idx: number) => {
+    setFiles((prev) => {
+      const next = prev.filter((_, i) => i !== idx);
+      setValue("file", next as any, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+      return next;
+    });
+  };
+
   return (
     <>
       <div
@@ -185,6 +222,13 @@ const FormSendPopup = memo(() => {
             }
             className="popup__content"
           >
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="popup__close"
+            >
+              <Close />
+            </button>
             <div className="popup__tabs">
               {!send && (
                 <>
@@ -249,9 +293,8 @@ const FormSendPopup = memo(() => {
                         >
                           <div className="form__item">
                             <Input
-                              id="inp11"
                               type="text"
-                              label="Имя"
+                              label="Имя/Компания"
                               register={register("name")}
                               watch={watch("name")}
                               className={classNames(
@@ -263,28 +306,11 @@ const FormSendPopup = memo(() => {
                               )}
                             />
                           </div>
-                          <div className="form__item js-popup-input">
-                            <Input
-                              id="inp12"
-                              type="text"
-                              label="Компания"
-                              register={register("company")}
-                              watch={watch("company")}
-                              className={classNames(
-                                "",
-                                {
-                                  [cls.error]: errors.company?.message,
-                                },
-                                []
-                              )}
-                            />
-                          </div>
                         </fieldset>
 
                         <fieldset className="callback-form__group form__group">
                           <div className="form__item">
                             <Input
-                              id="inp13"
                               type="email"
                               label="E-mail"
                               register={register("email")}
@@ -300,7 +326,6 @@ const FormSendPopup = memo(() => {
                           </div>
                           <div className="form__item">
                             <Input
-                              id="inp14"
                               register={register("phone")}
                               label="Телефон"
                               type="tel"
@@ -321,7 +346,6 @@ const FormSendPopup = memo(() => {
                           <div className="callback-form__item form__textarea-item">
                             <div className=" form__item">
                               <Input
-                                id="txta15"
                                 register={register("taskDescription")}
                                 label="Описание задачи (тезисно)"
                                 type="text"
@@ -352,14 +376,45 @@ const FormSendPopup = memo(() => {
                             </label>
 
                             <input
-                              {...register("file")}
-                              type="file"
                               id="file2"
+                              type="file"
+                              multiple
                               className={classNames("visually-hidden", {}, [])}
+                              {...register("file")}
                               onChange={handleFileChange}
                             />
                           </div>
                         </div>
+
+                        {files.length > 0 && (
+                          <div className="form-file__list">
+                            {files.map((f, i) => (
+                              <div
+                                key={`${f.name}-${f.lastModified}-${f.size}`}
+                                className="form-file__item"
+                              >
+                                <span className="form-file__icon">
+                                  <File />
+                                </span>
+                                <span
+                                  className="form-file__name"
+                                  title={f.name}
+                                >
+                                  {f.name}
+                                </span>
+
+                                <button
+                                  type="button"
+                                  className="form-file__remove"
+                                  aria-label="Удалить файл"
+                                  onClick={() => removeFile(i)}
+                                >
+                                  <Close />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
 
                         <button type="submit" className="btn popup__btn">
                           <span className="btn__text">Отправить</span>
@@ -392,14 +447,7 @@ const FormSendPopup = memo(() => {
         </div>
       </div>
 
-      {send && (
-        <SuccessPopup
-          setFileLoaded={setFileLoaded}
-          full={full}
-          setSend={setSend}
-          reset={reset}
-        />
-      )}
+      {send && <SuccessPopup full={full} setSend={setSend} />}
     </>
   );
 });

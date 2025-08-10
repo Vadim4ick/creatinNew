@@ -1,17 +1,19 @@
 import { ReactNode } from "react";
-import { classNames } from "../lib";
+import { classNames } from "../../../lib";
+import cls from "./style.module.scss";
 
 interface ButtonProps extends ReactTagProps<"button"> {
   className?: string;
   children: ReactNode;
+  variant?: "default";
 }
 
 const Button = (props: ButtonProps) => {
-  const { className, children, ...othersProps } = props;
+  const { className, children, variant = "default", ...othersProps } = props;
 
   return (
     <button {...othersProps} className={classNames("btn", {}, [className])}>
-      <span className="btn__text">{children}</span>
+      {variant === "default" && <span className="btn__text">{children}</span>}
     </button>
   );
 };

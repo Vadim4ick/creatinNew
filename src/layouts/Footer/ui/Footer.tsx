@@ -1,12 +1,12 @@
 "use client";
 
-import { LogoFooter } from "@/shared/icons/LogoFooter";
 import cls from "./Footer.module.scss";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { memo } from "react";
 import { useGetServicesNames } from "@/shared/services/servicesName";
 import { GetServicesNamesQuery } from "@/graphql/__generated__";
 import { Skeleton } from "@/shared/ui/Skeleton";
+import { LogoLink } from "./LogoLink";
 
 const Services = memo(
   ({
@@ -69,7 +69,7 @@ const Footer = memo(() => {
       <div className={cls.container}>
         <div className={cls.companyInfo}>
           <a className={cls.logo} href="/">
-            <LogoFooter />
+            <LogoLink />
           </a>
 
           {isMobile.matches && (

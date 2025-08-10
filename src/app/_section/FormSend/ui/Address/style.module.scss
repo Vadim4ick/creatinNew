@@ -1,0 +1,67 @@
+.contancs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .item {
+    padding: 16px 22px;
+    border-radius: 8px;
+    background: #181818;
+    max-width: 350px;
+
+    @media (max-width: 991px) {
+      max-width: 100%;
+    }
+
+    font-weight: 400;
+    font-family: "SuisseIntl", sans-serif;
+
+    > a {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-decoration: none; /* на всякий случай */
+    }
+
+    /* Кнопка-стрелка: вращение через CSS var (управляет framer) */
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      background: transparent;
+      padding: 0;
+
+      transform: rotate(var(--rot, 0deg));
+    }
+
+    button svg path {
+      stroke: var(--arrow-stroke, currentColor);
+    }
+
+    small {
+      opacity: 1 !important;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      span {
+        color: #7a7b7f;
+        font-size: 16px;
+        line-height: 120%;
+      }
+    }
+
+    span {
+      font-size: 20px;
+      line-height: 114%;
+    }
+
+    a > span {
+      color: var(--accent, #ffffff);
+    }
+  }
+}

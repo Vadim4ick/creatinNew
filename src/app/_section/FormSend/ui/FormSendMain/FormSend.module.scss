@@ -6,3 +6,367 @@
   opacity: 0.5;
   pointer-events: none;
 }
+
+.sendForm {
+  max-width: 1700px;
+  background: #202020;
+  margin: 0 auto;
+  padding: 84px 16px;
+  color: white;
+  border-radius: 20px;
+  margin-top: 160px;
+
+  @media (max-width: 768px) {
+    margin-top: 100px;
+    margin-bottom: 36px;
+  }
+
+  @media (max-width: 991px) {
+    padding: 64px 16px;
+  }
+
+  .container {
+    max-width: 1375px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+    @media (max-width: 991px) {
+      flex-direction: column-reverse;
+      gap: 64px;
+    }
+  }
+
+  .mainInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+
+    max-width: 556px;
+
+    @media (max-width: 991px) {
+      max-width: 100%;
+    }
+  }
+
+  .titleDesk {
+    @media (max-width: 991px) {
+      display: none;
+    }
+  }
+
+  .titleDesk,
+  .titleMobile {
+    font-size: 48px;
+    line-height: 58px;
+    font-family: "SuisseIntl", sans-serif;
+    font-weight: 500;
+
+    span {
+      position: relative;
+      padding: 0 10px;
+      z-index: 2;
+      color: white;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -2;
+        width: 182px;
+        height: 66px;
+        background-image: url("/img/decorBox.svg");
+      }
+    }
+  }
+
+  .titleMobile {
+    display: none;
+    @media (max-width: 991px) {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 38px;
+      line-height: 46px;
+
+      span {
+        position: relative;
+        padding: 0 10px;
+        z-index: 2;
+        color: white;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -2;
+          width: 145px;
+          height: 47px;
+          background-image: url("/img/decorBox.svg");
+        }
+      }
+    }
+  }
+
+  .feedBackForm {
+    display: flex;
+    flex-direction: column;
+    gap: 54px;
+    padding-top: 78px;
+
+    max-width: 465px;
+
+    @media (max-width: 991px) {
+      max-width: 100%;
+      padding-top: 0;
+      gap: 24px;
+    }
+
+    .text {
+      @media (min-width: 500px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
+
+      span {
+        color: #abacb2;
+        font-size: 16px;
+        line-height: 22px;
+        font-family: "SuisseIntl", sans-serif;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (max-width: 991px) {
+    padding-top: 24px;
+  }
+
+  input,
+  textarea {
+    background: #292929;
+    border: 1px solid transparent;
+    outline: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 120%;
+    font-family: "SuisseIntl", sans-serif;
+    font-weight: 400;
+
+    width: 100%;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-text-fill-color: var(--field-fg);
+      caret-color: var(--field-fg);
+
+      /* перекрашиваем «жёлтую заливку» автозаполнения в наш фон */
+      -webkit-box-shadow: 0 0 0 1000px var(--field-bg) inset;
+      box-shadow: 0 0 0 1000px var(--field-bg) inset;
+
+      /* фикс мерцаний: говорим браузеру не анимировать свой фон */
+      transition: background-color 9999s ease-out, color 9999s ease-out;
+    }
+
+    &.tel {
+      transition: border 0.45s ease-out 0s;
+
+      &.error {
+        border-color: #ea3939;
+      }
+      @media (any-hover: hover) {
+        &:hover {
+          border-color: #7f7f7f;
+        }
+      }
+
+      &:focus {
+        border-color: #204ff5;
+      }
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        -webkit-text-fill-color: var(--field-fg);
+        caret-color: var(--field-fg);
+
+        -webkit-box-shadow: 0 0 0 1000px var(--field-bg) inset;
+        box-shadow: 0 0 0 1000px var(--field-bg) inset;
+
+        transition: background-color 9999s ease-out, color 9999s ease-out;
+      }
+    }
+
+    &::placeholder {
+      color: #7a7b7f;
+    }
+  }
+
+  input {
+    text-align: center;
+    height: 54px;
+  }
+
+  textarea {
+    padding: 18px 20px;
+    min-height: 248px;
+    resize: none;
+  }
+
+  .block {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    span {
+      color: #abacb2;
+      font-family: "SuisseIntl", sans-serif;
+      font-weight: 400;
+      line-height: 120%;
+      font-size: 14px;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+    height: 52px;
+    border-radius: 8px;
+  }
+
+  .icon {
+    position: relative;
+    color: #7a7b7f;
+
+    &.active {
+      color: #204ff5;
+    }
+
+    .count {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+  }
+
+  .file {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    background: #292929;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      justify-content: center;
+    }
+
+    span {
+      font-family: "SuisseIntl", sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 115%;
+      color: #7a7b7f;
+      white-space: nowrap;
+    }
+
+    padding: 15px 19.5px 15px 17.5px;
+  }
+}
+
+.btn {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 120%;
+  font-family: "SuisseIntl", sans-serif;
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.attachList {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.attachItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.attachIcon svg {
+  width: 15px;
+  height: 15px;
+  color: #7a7b7f;
+}
+
+.attachName {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #abacb2;
+  font-size: 12px;
+  font-family: "SuisseIntl", sans-serif;
+  font-weight: 500;
+
+  margin-right: 17px;
+}
+
+.attachSize {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-left: 6px;
+}
+
+.attachRemove {
+  padding: 8px;
+  border-radius: 6px;
+  background: #292929;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

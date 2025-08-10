@@ -1,88 +1,108 @@
 import { NextResponse } from "next/server";
 
+function escapeHtml(s = "") {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 export async function POST(req: Request) {
   const data = await req.formData();
 
-  const file = data.get("file") as File;
+  const name = (data.get("name") as string | null)?.trim() || "—";
+  const email = (data.get("email") as string | null)?.trim() || "—";
+  const phone = (data.get("phone") as string | null)?.trim() || "—";
+  const taskDescription =
+    (data.get("taskDescription") as string | null)?.trim() || "";
 
-  const name = data.get("name");
-  const email = data.get("email");
-  const phone = data.get("phone");
-  const taskDescription = data.get("taskDescription") as string | null;
-  const company = data.get("company") as string | null;
+  const files = data
+    .getAll("file")
+    .filter((v): v is File => v instanceof File && typeof v.type === "string");
 
-  let textFile = "См. ниже ↓";
+  const hasText = taskDescription.length > 0;
+  const textFile = files.length
+    ? `файлов: ${files.length}`
+    : "Нет прикрепленных файлов";
 
-  if (!file) {
-    textFile = "Нет прикрепленного файла";
-  }
+  const msg = hasText
+    ? `
+<b>ТИП ЗАПОЛНЕНИЯ - Фулл:</b>
 
-  let message;
+<b>Имя/Компания:</b> ${escapeHtml(name)}
+<b>E-mail:</b> ${escapeHtml(email)}
+<b>Телефон:</b> ${escapeHtml(phone)}
+<b>Комментарий:</b> ${escapeHtml(taskDescription)}
+<b>Прикрепления:</b> ${textFile}
+`
+    : `
+<b>ТИП ЗАПОЛНЕНИЯ - Шорт:</b>
 
-  if (company?.trim().length === 0 && taskDescription?.trim().length === 0) {
-    message = `
-  <b>ТИП ЗАПОЛНЕНИЯ - Шорт:</b>
-
-  <b>Ваше имя:</b> ${name}
-  <b>E-mail:</b> ${email}
-  <b>Телефон:</b> ${phone}
-      `;
-  } else {
-    message = `
-  <b>ТИП ЗАПОЛНЕНИЯ - Фулл:</b>
-
-  <b>Ваше имя:</b> ${name}
-  <b>Компания:</b> ${company}
-  <b>E-mail:</b> ${email}
-  <b>Телефон:</b> ${phone}
-  <b>Комментарий:</b> ${taskDescription}
-  <b>Прикрепленный файл: ${textFile}</b>
-      `;
-  }
+<b>Имя/Компания:</b> ${escapeHtml(name)}
+<b>E-mail:</b> ${escapeHtml(email)}
+<b>Телефон:</b> ${escapeHtml(phone)}
+<b>Прикрепления:</b> ${textFile}
+`;
 
   const token = "5831052266:AAEBsFTI6YTzvrfnDeRYRdJfY_IlkxZfFVs";
   const chat_id = "-1001841443401";
 
-  // Отправляем сообщение
-  const messageRes = await fetch(
-    `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${encodeURIComponent(
-      message
-    )}`
-  );
-
-  if (!messageRes.ok) {
-    const error = await messageRes.text();
-    return NextResponse.json({ success: false, error });
+  if (!token || !chat_id) {
+    return NextResponse.json(
+      { success: false, error: "TG credentials are not configured" },
+      { status: 500 }
+    );
   }
 
-  if (file && file.type) {
-    const formData = new FormData();
-
-    let method;
-    // Проверяем MIME-тип файла
-    if (file.type.startsWith("image/")) {
-      formData.append("photo", file);
-      method = "sendPhoto";
-    } else {
-      formData.append("document", file);
-      method = "sendDocument";
+  // Отправляем сообщение
+  const msgRes = await fetch(
+    `https://api.telegram.org/bot${token}/sendMessage`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id,
+        parse_mode: "HTML",
+        text: msg,
+        // при желании можно добавить reply_markup
+      }),
     }
+  );
 
-    // Отправляем файл
+  if (!msgRes.ok) {
+    const error = await msgRes.text();
+    return NextResponse.json({ success: false, error }, { status: 500 });
+  }
+
+  const fileErrors: string[] = [];
+  for (const file of files) {
+    const form = new FormData();
+    const isImage = file.type?.startsWith("image/");
+    const method = isImage ? "sendPhoto" : "sendDocument";
+
+    // важно добавить chat_id в тело формы
+    form.append("chat_id", chat_id);
+    form.append(isImage ? "photo" : "document", file, file.name);
+
     const fileRes = await fetch(
-      `https://api.telegram.org/bot${token}/${method}?chat_id=${chat_id}`,
+      `https://api.telegram.org/bot${token}/${method}`,
       {
         method: "POST",
-        body: formData,
+        body: form,
       }
     );
 
     if (!fileRes.ok) {
-      const error = await fileRes.text();
-      return NextResponse.json({ success: false, error });
+      fileErrors.push(`${file.name}: ${await fileRes.text()}`);
     }
   }
 
-  // Возвращаем успешный ответ, если все прошло хорошо
+  if (fileErrors.length) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: `Ошибки при отправке файлов:\n${fileErrors.join("\n")}`,
+      },
+      { status: 207 }
+    );
+  }
+
   return NextResponse.json({ success: true });
 }
