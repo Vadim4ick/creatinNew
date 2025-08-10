@@ -57,8 +57,13 @@ const PageHome = (props: PageHomeProps) => {
             <BannerSlider slides={homePage.data.attributes.bannerMedia.data} />
           )}
 
+        {/* <ServicesBlock /> */}
+
         {homePage.data.attributes.cases && (
-          <Cases cases={homePage.data.attributes.cases} />
+          <Cases
+            className="cases__block"
+            cases={homePage.data.attributes.cases}
+          />
         )}
 
         {partner.data && (

@@ -10,6 +10,11 @@ import { Burger } from "./Burger";
 import { AnimatePresence, motion } from "framer-motion";
 import { Arrow } from "@/shared/icons/Arrow";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
+import {
+  getRouteAbout,
+  getRoutePortfolio,
+  getRouteServices,
+} from "@/shared/const/pages";
 
 const panelVariants = {
   closed: {
@@ -68,9 +73,9 @@ const sideVariants = {
 };
 
 const MENU = [
-  { label: "Услуги", href: "/services" },
-  { label: "Портфолио", href: "/portfolio" },
-  { label: "Студия", href: "/about" },
+  { label: "Услуги", href: `${getRouteServices()}/1` },
+  { label: "Портфолио", href: getRoutePortfolio() },
+  { label: "Студия", href: getRouteAbout() },
   { label: "Контакты", href: "#!" },
 ];
 

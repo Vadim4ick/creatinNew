@@ -1676,6 +1676,10 @@ body.popup-show::after {
 .cases__container {
   overflow: hidden;
 }
+
+.cases__block {
+  margin-bottom: 160px;
+}
 .cases__title {
   margin-bottom: 66px;
   margin-left: 24px;
@@ -2222,7 +2226,7 @@ body.popup-show::after {
 }
 .sidebar__row {
   position: sticky;
-  top: 0;
+  top: 20px;
   -webkit-transition: all 0.3s ease-out 0s;
   transition: all 0.3s ease-out 0s;
   left: 0;
@@ -4524,6 +4528,9 @@ picture {
   }
 }
 @media (max-width: 47.99875em) {
+  .cases__block {
+    margin-bottom: 100px;
+  }
   .intro__inner,
   .intro__row {
     border-radius: 22px;

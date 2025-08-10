@@ -11,10 +11,11 @@ import { useRef } from "react";
 
 interface CasesProps {
   cases: GetHomePageQuery["homePage"]["data"]["attributes"]["cases"];
+  className?: string;
 }
 
 const Cases = (props: CasesProps) => {
-  const { cases } = props;
+  const { cases, className = "" } = props;
 
   const titleRef = useRef(null);
 
@@ -23,7 +24,7 @@ const Cases = (props: CasesProps) => {
   });
 
   return (
-    <section className="cases">
+    <section className={`cases ${className}`}>
       <div className="cases__container">
         <SplitTypeAnimation bg="#aaaaaa" fg="#181818" refChar={titleRef}>
           <h2 ref={titleRef} className="cases__title _title" data-observe>

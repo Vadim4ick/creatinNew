@@ -2558,6 +2558,7 @@ export type ServiceInput = {
 export type ServiceName = {
   readonly __typename?: 'ServiceName';
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
+  readonly image_service: Maybe<UploadFileEntityResponse>;
   readonly name: Maybe<Scalars['String']['output']>;
   readonly nameID: Maybe<Scalars['String']['output']>;
   readonly offers: Maybe<OfferRelationResponseCollection>;
@@ -2606,6 +2607,7 @@ export type ServiceNameFiltersInput = {
 };
 
 export type ServiceNameInput = {
+  readonly image_service: InputMaybe<Scalars['ID']['input']>;
   readonly name: InputMaybe<Scalars['String']['input']>;
   readonly nameID: InputMaybe<Scalars['String']['input']>;
   readonly offers: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
@@ -3251,7 +3253,7 @@ export type GetServicesTitleByIdQuery = { readonly __typename?: 'Query', readonl
 export type GetServicesNamesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetServicesNamesQuery = { readonly __typename?: 'Query', readonly serviceNames: { readonly __typename?: 'ServiceNameEntityResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'ServiceNameEntity', readonly id: string, readonly attributes: { readonly __typename?: 'ServiceName', readonly name: string, readonly nameID: string } }> } };
+export type GetServicesNamesQuery = { readonly __typename?: 'Query', readonly serviceNames: { readonly __typename?: 'ServiceNameEntityResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'ServiceNameEntity', readonly id: string, readonly attributes: { readonly __typename?: 'ServiceName', readonly name: string, readonly nameID: string, readonly image_service: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number } } }, readonly service: { readonly __typename?: 'ServiceEntityResponse', readonly data: { readonly __typename?: 'ServiceEntity', readonly attributes: { readonly __typename?: 'Service', readonly title: string } } } } }> } };
 
 export type GetServicesNamesOfferQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4228,13 +4230,27 @@ export const GetServicesNamesDocument = gql`
     data {
       id
       attributes {
+        image_service {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
         name
         nameID
+        service {
+          data {
+            attributes {
+              title
+            }
+          }
+        }
       }
     }
   }
 }
-    `;
+    ${MediaFragmentFragmentDoc}`;
 export const GetServicesNamesOfferDocument = gql`
     query GetServicesNamesOffer {
   serviceNames(sort: "id:asc") {

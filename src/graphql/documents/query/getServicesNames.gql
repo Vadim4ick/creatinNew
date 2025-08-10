@@ -2,9 +2,26 @@ query GetServicesNames {
   serviceNames(sort: "id:asc") {
     data {
       id
+
       attributes {
+        image_service {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
         name
         nameID
+
+        service {
+          data {
+            attributes {
+              title
+            }
+          }
+        }
       }
     }
   }
