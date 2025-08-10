@@ -17,7 +17,7 @@ const Complex = ({ data }: { data: GetComplexPageQuery | undefined }) => {
     once: true,
   });
 
-  if (!data) {
+  if (!data?.complexAccompany || !data.complexAccompany.data) {
     return notFound();
   }
 
