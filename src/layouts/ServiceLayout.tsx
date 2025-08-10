@@ -162,7 +162,7 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
         </div>
       </main>
 
-      {formFeedback && <FormSend className="pb-70" form={formFeedback} />}
+      {formFeedback && <FormSend form={formFeedback} />}
     </>
   );
 };
