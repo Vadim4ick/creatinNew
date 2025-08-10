@@ -9,7 +9,7 @@ import cls from "./FormSend.module.scss";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import axios from "axios";
 import { Address } from "../Address/Address";
-import { classNames } from "@/shared/lib";
+import { classNames, springTransition } from "@/shared/lib";
 import { File } from "@/shared/icons/File";
 import { Button } from "@/shared/ui/Button";
 import MaskedInput from "react-input-mask";
@@ -72,8 +72,9 @@ const FormSend = memo((props: FormSendProps) => {
   const {
     register,
     handleSubmit,
+
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignUpSchemaType>({
     resolver: zodResolver(SignUpSchema),
   });
@@ -219,9 +220,19 @@ const FormSend = memo((props: FormSendProps) => {
                 <span> Прикрепить файл</span>
               </motion.label>
 
-              <Button variant="form-send" type="submit">
+              <motion.button
+                initial={{ background: "#303032", color: "#bec0c6" }}
+                animate={{
+                  background: isValid ? "#204FF5" : "#303032",
+                  color: isValid ? "#fff" : "#bec0c6",
+                }}
+                whileHover={{ background: "#0A3AE1", color: "#fff" }}
+                transition={springTransition}
+                className={cls.btn}
+                type="submit"
+              >
                 Отправить
-              </Button>
+              </motion.button>
             </div>
           </form>
         </div>

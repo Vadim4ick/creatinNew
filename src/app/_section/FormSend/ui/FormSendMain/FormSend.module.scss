@@ -169,6 +169,21 @@
 
     width: 100%;
 
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-text-fill-color: var(--field-fg);
+      caret-color: var(--field-fg);
+
+      /* перекрашиваем «жёлтую заливку» автозаполнения в наш фон */
+      -webkit-box-shadow: 0 0 0 1000px var(--field-bg) inset;
+      box-shadow: 0 0 0 1000px var(--field-bg) inset;
+
+      /* фикс мерцаний: говорим браузеру не анимировать свой фон */
+      transition: background-color 9999s ease-out, color 9999s ease-out;
+    }
+
     &.tel {
       transition: border 0.45s ease-out 0s;
 
@@ -183,6 +198,19 @@
 
       &:focus {
         border-color: #204ff5;
+      }
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        -webkit-text-fill-color: var(--field-fg);
+        caret-color: var(--field-fg);
+
+        -webkit-box-shadow: 0 0 0 1000px var(--field-bg) inset;
+        box-shadow: 0 0 0 1000px var(--field-bg) inset;
+
+        transition: background-color 9999s ease-out, color 9999s ease-out;
       }
     }
 
@@ -261,4 +289,11 @@
 
     padding: 15px 19.5px 15px 17.5px;
   }
+}
+
+.btn {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 120%;
+  font-family: "SuisseIntl", sans-serif;
 }
