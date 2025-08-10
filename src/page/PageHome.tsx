@@ -1,6 +1,6 @@
 "use client";
 
-import { BannerSlider } from "@/app/_section/Banner/ui/BannerSlider";
+import { BannerSlider } from "@/app/_section/Banner";
 import { Cases } from "@/app/_section/Cases";
 import { FormSend } from "@/app/_section/FormSend";
 import { Partners } from "@/app/_section/Partners";

@@ -14,7 +14,6 @@ import {
   ComponentImageBlocksOneImage,
   ComponentImageBlocksTextBlock,
   ComponentImageBlocksVideo,
-  FooterFragmentFragment,
   GetCasesIdsQuery,
 } from "@/graphql/__generated__";
 import { getRouteCase } from "@/shared/const/pages";
@@ -39,7 +38,6 @@ type CaseContent = {
     | DoubleTextBlocks
     | VideoBlock
   )[];
-  readonly Footer: FooterFragmentFragment;
   readonly mobileName: string;
   readonly backround: ["black"] | ["white"];
 };
@@ -90,7 +88,7 @@ const PageCase = memo(
         // Если текущий id последний или не найден, возвращаемся к первому элементу в массиве
         router.push(getRouteCase(ids[0].id));
       }
-    }, [currentId, ids, router, getRouteCase]);
+    }, [currentId, ids, router]);
 
     useEffect(() => {
       document.documentElement.setAttribute(

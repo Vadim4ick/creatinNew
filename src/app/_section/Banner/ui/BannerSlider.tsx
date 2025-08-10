@@ -8,7 +8,6 @@ import { useSwiper } from "@/shared/hooks/useSwiper";
 import { Arrow } from "@/shared/icons/Arrow";
 import { classNames } from "@/shared/lib";
 import { SearchInp } from "../../Search";
-import Image from "next/image";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useGetSearchLinks } from "@/shared/services/useGetSearchLinks";
 import { useRouter } from "next/navigation";
