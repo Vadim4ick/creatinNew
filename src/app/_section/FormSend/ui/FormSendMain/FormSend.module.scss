@@ -265,6 +265,26 @@
     border-radius: 8px;
   }
 
+  .icon {
+    position: relative;
+    color: #7a7b7f;
+
+    &.active {
+      color: #204ff5;
+    }
+
+    .count {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+  }
+
   .file {
     display: flex;
     align-items: center;
@@ -296,4 +316,8 @@
   font-size: 15px;
   line-height: 120%;
   font-family: "SuisseIntl", sans-serif;
+
+  &:disabled {
+    cursor: default;
+  }
 }

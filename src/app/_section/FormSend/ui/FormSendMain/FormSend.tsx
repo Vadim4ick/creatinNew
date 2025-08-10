@@ -15,6 +15,7 @@ import { Button } from "@/shared/ui/Button";
 import MaskedInput from "react-input-mask";
 import { motion } from "framer-motion";
 import { fieldMotionInp } from "../../model/fieldMotionInp";
+import { SendBtn } from "./SendBtn";
 
 const SignUpSchema = z
   .object({
@@ -69,10 +70,12 @@ const FormSend = memo((props: FormSendProps) => {
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
+  const [fileCount, setFileCount] = useState(0);
+
   const {
     register,
     handleSubmit,
-
+    setValue,
     reset,
     formState: { errors, isValid },
   } = useForm<SignUpSchemaType>({
@@ -81,21 +84,56 @@ const FormSend = memo((props: FormSendProps) => {
 
   const [send, setSend] = useState(false);
 
+  const [files, setFiles] = useState<File[]>([]);
   const [fileLoaded, setFileLoaded] = useState(false);
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFileLoaded(event.target.files?.length !== 0);
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const picked = Array.from(e.target.files ?? []);
+
+    setFiles((prev) => {
+      // мердж + дедупликация
+      const merged = [...prev];
+      for (const f of picked) {
+        if (
+          !merged.some(
+            (p) =>
+              p.name === f.name &&
+              p.size === f.size &&
+              p.lastModified === f.lastModified
+          )
+        ) {
+          merged.push(f);
+        }
+      }
+
+      setFileCount(merged.length);
+      setFileLoaded(merged.length > 2);
+
+      // прокидываем в RHF как массив файлов
+      setValue("file", merged as any, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      return merged;
+    });
+
+    // чтобы можно было выбрать тот же файл повторно
+    e.currentTarget.value = "";
   };
 
   const onSubmit = async (data: SignUpSchemaType) => {
-    const file = data.file[0];
     const formData = new FormData();
 
-    formData.append("file", file);
+    const filesToSend: File[] = (
+      Array.isArray(data.file) ? data.file : Array.from(data.file ?? [])
+    ) as File[];
+    for (const f of filesToSend) formData.append("file", f);
+
     formData.append("name", data.name);
     formData.append("email", data.email);
     formData.append("phone", data.phone);
-    formData.append("taskDescription", data.taskDescription);
+    formData.append("taskDescription", data.taskDescription || "");
 
     if (!executeRecaptcha) {
       return console.log("Вы бот");
@@ -215,24 +253,26 @@ const FormSend = memo((props: FormSendProps) => {
                 htmlFor="file1"
                 {...fieldMotionInp(!!errors.file)}
               >
-                <File />
+                <div
+                  className={classNames(
+                    cls.icon,
+                    {
+                      [cls.active]: fileCount > 0,
+                    },
+                    []
+                  )}
+                >
+                  <File />
+
+                  {fileCount > 0 && (
+                    <span className={cls.count}>{fileCount}</span>
+                  )}
+                </div>
 
                 <span> Прикрепить файл</span>
               </motion.label>
 
-              <motion.button
-                initial={{ background: "#303032", color: "#bec0c6" }}
-                animate={{
-                  background: isValid ? "#204FF5" : "#303032",
-                  color: isValid ? "#fff" : "#bec0c6",
-                }}
-                whileHover={{ background: "#0A3AE1", color: "#fff" }}
-                transition={springTransition}
-                className={cls.btn}
-                type="submit"
-              >
-                Отправить
-              </motion.button>
+              <SendBtn isValid={isValid} />
             </div>
           </form>
         </div>
@@ -242,6 +282,7 @@ const FormSend = memo((props: FormSendProps) => {
         {...register("file")}
         type="file"
         id="file1"
+        multiple
         className={classNames("visually-hidden", {}, [])}
         onChange={handleFileChange}
       />
