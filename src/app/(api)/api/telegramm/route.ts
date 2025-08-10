@@ -7,8 +7,6 @@ function escapeHtml(s = "") {
 export async function POST(req: Request) {
   const data = await req.formData();
 
-  const file = data.get("file") as File;
-
   const name = (data.get("name") as string | null)?.trim() || "—";
   const email = (data.get("email") as string | null)?.trim() || "—";
   const phone = (data.get("phone") as string | null)?.trim() || "—";

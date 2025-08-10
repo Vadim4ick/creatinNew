@@ -1,36 +1,15 @@
 import { Dispatch, SetStateAction, memo, useEffect, useRef } from "react";
 import clsSend from "./SuccessPopup.module.scss";
 import { classNames } from "@/shared/lib";
-import { UseFormReset } from "react-hook-form";
 import { useMedia } from "@/shared/hooks/useMedia";
 
 interface SuccessPopupProps {
   full: boolean;
   setSend: Dispatch<SetStateAction<boolean>>;
-  setFileLoaded: Dispatch<SetStateAction<boolean>>;
-  reset: UseFormReset<
-    | {
-        name: string;
-        phone: string;
-        company: string;
-        email: string;
-        taskDescription: string;
-        file?: any;
-      }
-    | {
-        name: string;
-        phone: string;
-        company: string;
-        email: string;
-        taskDescription: string;
-        file?: any;
-      }
-  >;
-  resetPhone?: () => void;
 }
 
 const SuccessPopup = memo((props: SuccessPopupProps) => {
-  const { full, setSend, reset, resetPhone, setFileLoaded } = props;
+  const { full, setSend } = props;
 
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -38,10 +17,7 @@ const SuccessPopup = memo((props: SuccessPopupProps) => {
 
   const handleClickOutside = (event: MouseEvent) => {
     if (ref.current && !ref.current.contains(event.target as Node)) {
-      reset();
       setSend(false);
-      setFileLoaded(false);
-      resetPhone && resetPhone();
     }
   };
 
@@ -87,7 +63,7 @@ const SuccessPopup = memo((props: SuccessPopupProps) => {
               >
                 <div
                   className={classNames(
-                    "",
+                    clsSend.title,
                     {
                       [clsSend.content]: full,
                       [clsSend.contentNoFull]: !full,
@@ -115,9 +91,6 @@ const SuccessPopup = memo((props: SuccessPopupProps) => {
                 <button
                   onClick={() => {
                     setSend(false);
-                    reset();
-                    setFileLoaded(false);
-                    resetPhone && resetPhone();
                   }}
                 >
                   Замечательно

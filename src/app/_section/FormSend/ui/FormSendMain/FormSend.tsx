@@ -1,21 +1,22 @@
 "use client";
 
 import { FormSendFragmentFragment } from "@/graphql/__generated__";
-import React, { ChangeEvent, memo, useState } from "react";
+import React, { ChangeEvent, memo, useCallback, useRef, useState } from "react";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import cls from "./FormSend.module.scss";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import axios from "axios";
 import { Address } from "../Address/Address";
-import { classNames, springTransition } from "@/shared/lib";
+import { classNames } from "@/shared/lib";
 import { File } from "@/shared/icons/File";
-import { Button } from "@/shared/ui/Button";
 import MaskedInput from "react-input-mask";
 import { motion } from "framer-motion";
 import { fieldMotionInp } from "../../model/fieldMotionInp";
 import { SendBtn } from "./SendBtn";
+import { Close } from "@/shared/icons/Close";
+import { SuccessPopup } from "../SuccessPopup/SuccessPopup";
 
 const SignUpSchema = z
   .object({
@@ -72,14 +73,25 @@ const FormSend = memo((props: FormSendProps) => {
 
   const [fileCount, setFileCount] = useState(0);
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const {
     register,
     handleSubmit,
     setValue,
     reset,
+    control,
     formState: { errors, isValid },
   } = useForm<SignUpSchemaType>({
+    mode: "onChange",
     resolver: zodResolver(SignUpSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      taskDescription: "",
+      file: [] as any,
+    },
   });
 
   const [send, setSend] = useState(false);
@@ -122,6 +134,19 @@ const FormSend = memo((props: FormSendProps) => {
     e.currentTarget.value = "";
   };
 
+  const removeFile = (idx: number) => {
+    setFiles((prev) => {
+      const next = prev.filter((_, i) => i !== idx);
+      setValue("file", next as any, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      setFileCount(next.length);
+      return next;
+    });
+  };
+
   const onSubmit = async (data: SignUpSchemaType) => {
     const formData = new FormData();
 
@@ -158,13 +183,18 @@ const FormSend = memo((props: FormSendProps) => {
       }).then(() => {
         setSend(true);
         reset();
+
+        setFiles([]);
+        setFileCount(0);
+        setFileLoaded(false);
+
+        // очистка физического file-инпута
+        if (fileInputRef.current) fileInputRef.current.value = "";
       });
     } else {
       console.log(`Неудача с оценкой: ${response?.data?.score}`);
     }
   };
-
-  const MotionMaskedInput = MaskedInput;
 
   return (
     <section className={cls.sendForm}>
@@ -190,57 +220,82 @@ const FormSend = memo((props: FormSendProps) => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className={cls.form}>
-            <motion.input
-              type="text"
-              placeholder="Ваше имя"
-              className={classNames("", { [cls.error]: !!errors.name }, [])}
-              {...register("name")}
-              {...fieldMotionInp(!!errors.name)}
+            <Controller
+              control={control}
+              name="name"
+              render={({ field }) => (
+                <motion.input
+                  type="text"
+                  placeholder="Ваше имя"
+                  className={classNames("", { [cls.error]: !!errors.name }, [])}
+                  {...register("name")}
+                  {...fieldMotionInp(!!errors.name)}
+                  {...field}
+                />
+              )}
             />
 
             <div className={cls.block}>
-              <motion.input
-                type="email"
-                placeholder="E-mail"
-                className={classNames(
-                  "",
-                  {
-                    [cls.error]: errors.email?.message,
-                  },
-                  []
+              <Controller
+                control={control}
+                name="email"
+                render={({ field }) => (
+                  <motion.input
+                    type="email"
+                    placeholder="E-mail"
+                    className={classNames(
+                      "",
+                      {
+                        [cls.error]: errors.email?.message,
+                      },
+                      []
+                    )}
+                    {...register("email")}
+                    {...field}
+                  />
                 )}
-                {...register("email")}
-                {...fieldMotionInp(!!errors.email)}
               />
 
               <span>или</span>
 
-              <MotionMaskedInput
-                mask="+7 (999) 999-9999"
-                type="tel"
-                placeholder="Телефон"
-                className={classNames(
-                  cls.tel,
-                  {
-                    [cls.error]: errors.phone?.message,
-                  },
-                  []
+              <Controller
+                control={control}
+                name="phone"
+                render={({ field }) => (
+                  <MaskedInput
+                    mask="+7 (999) 999-9999"
+                    type="tel"
+                    placeholder="Телефон"
+                    className={classNames(
+                      cls.tel,
+                      {
+                        [cls.error]: errors.phone?.message,
+                      },
+                      []
+                    )}
+                    {...field}
+                  />
                 )}
-                {...register("phone")}
               />
             </div>
 
-            <motion.textarea
-              placeholder="Описание задачи (тезисно)"
-              {...register("taskDescription")}
-              className={classNames(
-                "",
-                {
-                  [cls.error]: errors.taskDescription?.message,
-                },
-                []
+            <Controller
+              control={control}
+              name="taskDescription"
+              render={({ field }) => (
+                <motion.textarea
+                  placeholder="Описание задачи (тезисно)"
+                  className={classNames(
+                    "",
+                    {
+                      [cls.error]: errors.taskDescription?.message,
+                    },
+                    []
+                  )}
+                  {...fieldMotionInp(!!errors.taskDescription)}
+                  {...field}
+                />
               )}
-              {...fieldMotionInp(!!errors.taskDescription)}
             />
 
             <div className={cls.footer}>
@@ -274,18 +329,52 @@ const FormSend = memo((props: FormSendProps) => {
 
               <SendBtn isValid={isValid} />
             </div>
+
+            {files.length > 0 && (
+              <div className={cls.attachList}>
+                {files.map((f, i) => (
+                  <motion.div
+                    key={`${f.name}-${f.lastModified}-${f.size}`}
+                    className={cls.attachItem}
+                    initial={{ opacity: 0, y: 3 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -3 }}
+                    layout
+                  >
+                    <span className={cls.attachIcon}>
+                      <File />
+                    </span>
+                    <span className={cls.attachName} title={f.name}>
+                      {f.name}
+                    </span>
+
+                    <button
+                      type="button"
+                      className={cls.attachRemove}
+                      aria-label="Удалить"
+                      onClick={() => removeFile(i)}
+                    >
+                      <Close />
+                    </button>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </form>
         </div>
       </div>
 
       <input
         {...register("file")}
+        ref={fileInputRef}
         type="file"
         id="file1"
         multiple
         className={classNames("visually-hidden", {}, [])}
         onChange={handleFileChange}
       />
+
+      {send && <SuccessPopup full={true} setSend={setSend} />}
     </section>
   );
 });

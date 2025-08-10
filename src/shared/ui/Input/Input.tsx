@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import MaskedInput from "react-input-mask";
 
 interface InputProps {
-  id: string;
+  id?: string;
   label: string;
   type: "text" | "tel" | "email";
   register?: any;

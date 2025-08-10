@@ -407,7 +407,17 @@ body.popup-show::after {
   width: 100%;
   max-width: 472px;
   border-radius: 20px;
+  position: relative;
   overflow: auto;
+}
+.popup__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.popup__close svg {
+  width: 14px;
+  height: 14px;
 }
 .lock .popup__content {
   visibility: visible;
@@ -4298,7 +4308,6 @@ picture {
   }
 }
 @media (max-width: 1364px) {
- 
   .quality__container {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -5552,7 +5561,6 @@ picture {
   }
 }
 @media (any-hover: hover) and (any-hover: hover) {
- 
   .vacancies-text__btn .btn__arrow:hover svg {
     -webkit-transform: none;
     -ms-transform: none;
@@ -5561,4 +5569,39 @@ picture {
   .vacancies-text__btn .btn__arrow:hover svg path {
     fill: var(--color-whte);
   }
+}
+
+.form-file__list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.form-file__item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.form-file__icon svg {
+  width: 15px;
+  height: 15px;
+  color: #7a7b7f;
+}
+.form-file__name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 17px;
+}
+
+.form-file__remove {
+  padding: 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-input);
 }

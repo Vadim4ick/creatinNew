@@ -321,3 +321,52 @@
     cursor: default;
   }
 }
+
+.attachList {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.attachItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.attachIcon svg {
+  width: 15px;
+  height: 15px;
+  color: #7a7b7f;
+}
+
+.attachName {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #abacb2;
+  font-size: 12px;
+  font-family: "SuisseIntl", sans-serif;
+  font-weight: 500;
+
+  margin-right: 17px;
+}
+
+.attachSize {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-left: 6px;
+}
+
+.attachRemove {
+  padding: 8px;
+  border-radius: 6px;
+  background: #292929;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
