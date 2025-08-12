@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
 import cls from "./style.module.scss";
 import { springTransition } from "@/shared/lib";
+import { useRouter } from "next/navigation";
 
 const btnVariants = { rest: {}, hover: {} };
 
@@ -24,8 +25,11 @@ const rightDotVariants = {
 };
 
 export function MoreBtn() {
+  const router = useRouter();
+
   return (
     <motion.button
+      onClick={() => router.push("/services/1")}
       className={cls.btn}
       initial="rest"
       animate="rest"
