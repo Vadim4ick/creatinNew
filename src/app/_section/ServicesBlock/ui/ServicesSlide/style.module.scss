@@ -1,0 +1,123 @@
+/* Карточка */
+.slide {
+  position: relative;
+  width: 100%;
+  max-width: 332px;
+  border-radius: 16px;
+  background: #f2f3f7;
+  /* цвет бэкграунда теперь анимируем через motion (cardVariants) */
+
+  @media (max-width: 1200px) {
+    max-width: 100%;
+  }
+}
+
+/* Внутренняя сетка */
+.inner {
+  position: relative;
+  z-index: 1; /* выше градиента */
+  padding: 77px 24px 24px 24px;
+  display: grid;
+  grid-template-rows: clamp(200px, 22vw, 260px) auto;
+  row-gap: 24px;
+  border-radius: inherit;
+}
+
+/* Градиентный оверлей — фон карточки на ховере */
+.gradient {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+  /* сам градиент задаём классом по nameID на корне (.slide) */
+}
+
+/* Градиенты по типу (как раньше, но на .slide) */
+.slide.issledovaniya .gradient {
+  background: linear-gradient(180deg, #b0c9ff 0%, #e4edff 100%);
+}
+.slide.brending .gradient {
+  background: linear-gradient(180deg, #fcaaaa 0%, #ffe6e6 100%);
+}
+.slide.dizajn .gradient {
+  background: linear-gradient(180deg, #ffd986 0%, #fff0d0 100%);
+}
+.slide.web-razrabotka .gradient {
+  background: linear-gradient(180deg, #e2c5ff 0%, #f2e6ff 100%);
+}
+.slide.mobilnye-prilozheniya .gradient {
+  background: linear-gradient(180deg, #fecea1 0%, #ffebda 100%);
+}
+
+/* Стрелка */
+.arrow {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+
+  display: grid;
+  place-items: center;
+  z-index: 2; /* над всем */
+  border: 0;
+  padding: 12px;
+  svg {
+    color: #fff;
+  }
+}
+
+.arrow.issledovaniya {
+  background: #a6bbeb;
+}
+.arrow.brending {
+  background: #f09b9b;
+}
+.arrow.dizajn {
+  background: #ebc980;
+}
+.arrow.web-razrabotka {
+  background: #d0b6eb;
+}
+.arrow.mobilnye-prilozheniya {
+  background: #ebbf98;
+}
+
+/* Картинка */
+.image {
+  display: grid;
+  place-items: center;
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: clamp(200px, 22vw, 204px);
+    object-fit: contain;
+    /* transform/transition делает framer-motion */
+  }
+}
+
+/* Текст */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.title {
+  font-family: "SuisseIntl", sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+  color: #292929;
+  text-transform: capitalize;
+}
+.description {
+  font-family: "SuisseIntl", sans-serif;
+  font-weight: 450;
+  color: #292929;
+  font-size: 14px;
+  line-height: 18px;
+}

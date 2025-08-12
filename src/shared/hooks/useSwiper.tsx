@@ -6,11 +6,11 @@ function useSwiper({
   ref,
   options,
 }: {
-  ref: RefObject<HTMLElement>;
+  ref?: RefObject<HTMLElement>;
   options: SwiperOptions;
 }) {
   useEffect(() => {
-    if (ref.current) {
+    if (ref?.current) {
       const swiperOptions: SwiperOptions = {
         observer: true,
         observeParents: true,

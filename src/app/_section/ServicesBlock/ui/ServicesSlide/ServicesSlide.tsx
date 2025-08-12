@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
 import { GetServicesNamesQuery } from "@/graphql/__generated__";
 import { motion } from "framer-motion";
+import { useMedia } from "@/shared/hooks/useMedia";
 
 const BG_ARROW: Record<string, string> = {
   issledovaniya: "#A6BBEB",
@@ -39,6 +40,11 @@ const ServicesSlide = ({
 }: {
   item: GetServicesNamesQuery["serviceNames"]["data"][0];
 }) => {
+  const isDesktop1200 = useMedia("(max-width: 1200px)");
+
+  const steadyState = isDesktop1200.matches ? "hover" : "rest";
+  const hoverProp = isDesktop1200.matches ? undefined : "hover"; // на таче ховера нет
+
   const title = item.attributes.name ?? "";
   const img = item.attributes.image_service.data?.attributes.url ?? "";
   const gradientClass = cls[item.attributes.nameID] || ""; // класс с нужным градиентом
@@ -47,8 +53,8 @@ const ServicesSlide = ({
     <motion.div
       className={classNames(`swiper-slide ${cls.slide}`, {}, [gradientClass])}
       initial="rest"
-      animate="rest"
-      whileHover="hover"
+      animate={steadyState}
+      whileHover={hoverProp}
       variants={cardVariants}
       transition={springTransition}
     >
