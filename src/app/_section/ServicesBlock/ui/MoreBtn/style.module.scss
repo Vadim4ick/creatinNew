@@ -1,0 +1,64 @@
+.btn {
+  padding: 6px;
+  border-radius: 100px;
+  background: #f2f3f7;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 338px;
+  height: 56px; /* фикс высоты, чтобы ничего не «прыгало» */
+  overflow: hidden; /* аккуратный выезд/уезд */
+}
+
+/* Левый слот – по умолчанию ширина 0; при ховере анимируем до 52px */
+.leftSlot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 0;
+  height: 100%;
+}
+
+.btnText {
+  /* левое выравнивание текста */
+  flex: 1 1 auto;
+  text-align: left;
+
+  padding-left: 16px;
+  color: #292929;
+  font-family: "SuisseIntl", sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 450;
+  white-space: nowrap;
+}
+
+/* Универсальный кружок */
+.btnArrow,
+.btnArrowRight {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    color: #292929;
+  }
+}
+
+.btnArrow {
+  background: #204ff5;
+
+  svg {
+    color: white;
+  }
+}
+
+/* Правый кружок у правого края */
+.btnArrowRight {
+  margin-left: auto;
+}
