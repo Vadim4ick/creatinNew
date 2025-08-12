@@ -5,3 +5,144 @@
     padding-bottom: 100px;
   }
 }
+
+.slider {
+  overflow: visible !important;
+  margin: 0 0 0 80px;
+}
+
+.arrow {
+  padding: 12px;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  background: #a6bbeb;
+
+  display: grid;
+  place-items: center;
+
+  /* старт: уменьшена и прозрачна */
+  transform: scale(0.6);
+  opacity: 0;
+  transition: all 0.45s ease-out 0s;
+  will-change: transform;
+  pointer-events: none; // чтобы не мешала ховеру, пока скрыта
+
+  svg {
+    color: white;
+  }
+}
+
+/* карточка: сетка = [картинка фикс] + [контент] */
+.slide {
+  width: 100%;
+  max-width: 332px;
+  border-radius: 16px;
+  background: #f2f3f7;
+  transition: all 0.45s ease-out 0s;
+
+  position: relative;
+
+  &:hover {
+    background: transparent; // убираем фон при ховере
+
+    .image img {
+      transform: scale(1.1);
+    }
+
+    &::before {
+      opacity: 1;
+    }
+
+    .arrow {
+      transform: scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0; // скрыт по умолчанию
+    transition: all 0.45s ease-out 0s;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &.issledovaniya::before {
+    background: linear-gradient(180deg, #b0c9ff 0%, #e4edff 100%);
+  }
+
+  &.brending::before {
+    background: linear-gradient(180deg, #fcaaaa 0%, #ffe6e6 100%);
+  }
+
+  &.dizajn::before {
+    background: linear-gradient(180deg, #ffd986 0%, #fff0d0 100%);
+  }
+
+  &.web-razrabotka::before {
+    background: linear-gradient(180deg, #e2c5ff 0%, #f2e6ff 100%);
+  }
+
+  &.mobilnye-prilozheniya::before {
+    background: linear-gradient(180deg, #fecea1 0%, #ffebda 100%);
+  }
+
+  /* показать градиент только на ховере */
+  &:hover::before {
+    opacity: 1;
+  }
+
+  a {
+    padding: 77px 24px 24px 24px;
+    display: grid;
+    grid-template-rows: clamp(200px, 22vw, 260px) auto; /* ВАЖНО */
+    row-gap: 24px;
+  }
+}
+
+.description {
+  font-family: "SuisseIntl", sans-serif;
+  font-weight: 450;
+  color: #292929;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.image {
+  display: grid;
+  place-items: center;
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+
+    transition: all 0.45s ease-out 0s;
+    width: auto;
+    height: clamp(200px, 22vw, 204px); /* ВАЖНО: фикс */
+    object-fit: contain; /* без обрезки */
+  }
+}
+
+/* текстовый блок всегда стартует на одной высоте */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font-family: "SuisseIntl", sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+  color: #292929;
+  text-transform: capitalize;
+}

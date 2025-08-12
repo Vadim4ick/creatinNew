@@ -4,6 +4,7 @@ import { BannerSlider } from "@/app/_section/Banner";
 import { Cases } from "@/app/_section/Cases";
 import { FormSend } from "@/app/_section/FormSend";
 import { Partners } from "@/app/_section/Partners";
+import { ServicesBlock } from "@/app/_section/ServicesBlock";
 import { Burger } from "@/components/Burger";
 import {
   GetFormFeedbackQuery,
@@ -57,7 +58,7 @@ const PageHome = (props: PageHomeProps) => {
             <BannerSlider slides={homePage.data.attributes.bannerMedia.data} />
           )}
 
-        {/* <ServicesBlock /> */}
+        <ServicesBlock />
 
         {homePage.data.attributes.cases && (
           <Cases

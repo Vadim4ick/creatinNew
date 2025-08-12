@@ -74,8 +74,6 @@ const FormSendPopup = memo(() => {
 
   const [files, setFiles] = useState<File[]>([]);
 
-  console.log(files);
-
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const picked = Array.from(e.target.files ?? []);
 
