@@ -1,0 +1,71 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: space-between;
+  color: #292929;
+  margin-bottom: 48px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  h2 {
+    font-size: 48px;
+    line-height: 58px;
+    font-family: "SuisseIntl", sans-serif;
+    font-weight: 500;
+
+    @media (max-width: 768px) {
+      font-size: 38px;
+      line-height: 46px;
+    }
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 22px;
+    font-family: "SuisseIntl", sans-serif;
+    font-weight: 450;
+
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+  }
+}
+
+.cards {
+  @media (min-width: 991px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(216px, 1fr));
+    gap: 16px;
+    justify-items: center;
+  }
+}
+
+// .swiper {
+//   overflow: visible !important;
+// }
+
+.card {
+  background: #f2f3f7;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+
+  height: 216px;
+  width: 216px;
+
+  @media (max-width: 768px) {
+    width: 127px;
+    height: 127px;
+
+    img {
+      max-width: 82px;
+    }
+  }
+}
