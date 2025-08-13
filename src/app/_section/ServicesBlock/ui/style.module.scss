@@ -12,11 +12,11 @@
 }
 
 .slider {
-  overflow: visible !important;
-  margin: 0 80px 0 80px;
+  max-width: 100%;
+  padding: 0 80px;
 
   @media (max-width: 1200px) {
-    margin: 0 16px 0 16px;
+    padding: 0 16px;
 
     > div {
       display: grid;
@@ -37,6 +37,8 @@
   flex-direction: column;
   gap: 36px;
   margin-bottom: 18px;
+
+  width: 100%;
 
   @media (max-width: 1200px) {
     margin-bottom: 0;

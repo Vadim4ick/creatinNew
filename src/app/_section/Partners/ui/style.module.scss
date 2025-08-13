@@ -73,10 +73,10 @@
 .swiper {
   --pad: 80px;
   max-width: 100%;
-  padding: 0 var(--pad);
+  padding: 0 80px;
   margin: 0 auto;
 
   @media (max-width: 1200px) {
-    --pad: 16px;
+    padding: 0 16px;
   }
 }
