@@ -4277,8 +4277,8 @@ picture {
 }
 @media (max-width: 1200px) {
   [class*="__container"] {
-    --pad: 20px;
-    --pad-neg: -20px;
+    --pad: 16px;
+    --pad-neg: -16px;
   }
 }
 

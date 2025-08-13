@@ -69,3 +69,14 @@
     }
   }
 }
+
+.swiper {
+  --pad: 80px;
+  max-width: 100%;
+  padding: 0 var(--pad);
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    --pad: 16px;
+  }
+}

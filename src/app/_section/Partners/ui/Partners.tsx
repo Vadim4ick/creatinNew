@@ -48,26 +48,26 @@ const Partners = (props: PartnersProps) => {
             нашу страсть к дизайну
           </p>
         </div>
+      </div>
 
-        <div className={`${cls.swiper} swiper`} ref={swiperRef}>
-          <div className={`partners__swiper swiper-wrapper ${cls.cards}`}>
-            {partners.icons.data.map((item) => {
-              return (
-                <div
+      <div className={`swiper ${cls.swiper}`} ref={swiperRef}>
+        <div className={`partners__swiper swiper-wrapper ${cls.cards}`}>
+          {partners.icons.data.map((item) => {
+            return (
+              <div
+                key={item.id}
+                className={`partners__slide swiper-slide ${cls.card}`}
+              >
+                <Image
+                  width={item.attributes.width}
+                  height={item.attributes.height}
                   key={item.id}
-                  className={`partners__slide swiper-slide ${cls.card}`}
-                >
-                  <Image
-                    width={item.attributes.width}
-                    height={item.attributes.height}
-                    key={item.id}
-                    alt=""
-                    src={getFileUrl(item.attributes.url)}
-                  />
-                </div>
-              );
-            })}
-          </div>
+                  alt=""
+                  src={getFileUrl(item.attributes.url)}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
