@@ -46,7 +46,7 @@ export function LogoLink() {
     });
 
     letterI.start({
-      y: 0,
+      y: 5,
       transition: SPRING,
     });
     setShown(false);
