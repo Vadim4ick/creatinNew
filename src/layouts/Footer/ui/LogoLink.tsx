@@ -3,39 +3,60 @@
 import { motion, useAnimation } from "framer-motion";
 import { useCallback, useState } from "react";
 
-const bouncy1400 = {
-  duration: 1.4,
-  ease: [0.34, 1.56, 0.64, 1],
-};
-const springLogo = { type: "spring", mass: 1, stiffness: 80, damping: 20 };
+const SPRING = { type: "spring", mass: 1, stiffness: 195.9, damping: 8.57 };
 
 export function LogoLink() {
   const [shown, setShown] = useState(false);
   const dot = useAnimation();
+  const letterI = useAnimation();
+
+  const bounceLetter = useCallback(() => {
+    letterI.start({
+      y: 10,
+      transition: { duration: 0.25, ease: "easeOut" },
+    });
+  }, [letterI]);
 
   const onHoverStart = useCallback(() => {
     if (!shown) {
       setShown(true);
-      // плавное появление сверху + отскоки
       dot.start({
         opacity: 1,
         scale: 1,
-        y: [-40, -26, 0, -10, 0],
-        transition: { ...bouncy1400, times: [0, 0.3, 0.6, 0.82, 1] },
+        y: [-40, -22, 0, -8, 0],
+        transition: SPRING,
       });
+      bounceLetter();
     } else {
-      // повторный hover — только подпрыгивание
       dot.start({
-        y: [0, -5, 0, -6, 0],
-        transition: { ...bouncy1400, times: [0, 0.35, 0.6, 0.82, 1] },
+        y: [0, -6, 0, -4, 0],
+        transition: SPRING,
       });
+
+      bounceLetter();
     }
-  }, [shown, dot]);
+  }, [shown, dot, bounceLetter]);
+
+  const onHoverEnd = useCallback(() => {
+    dot.start({
+      y: [0, -15, -35],
+      opacity: [1, 0.6, 0],
+      scale: [1, 0.95, 0.85],
+      transition: SPRING,
+    });
+
+    letterI.start({
+      y: 0,
+      transition: SPRING,
+    });
+    setShown(false);
+  }, [dot, letterI]);
 
   return (
     <motion.span
-      transition={springLogo}
+      transition={SPRING}
       onHoverStart={onHoverStart}
+      onHoverEnd={onHoverEnd}
       style={{ display: "inline-block" }}
     >
       <motion.svg
@@ -67,7 +88,13 @@ export function LogoLink() {
             d="M434.753 141.772C414.077 141.772 381.872 136.189 381.872 100.088V67.7085H372.906V41.6559H381.872V21H407.489V41.6559H431.277V67.7085H407.489V94.3193C407.489 113.859 421.762 115.72 434.753 115.72V141.772Z"
             fill="#D7D9DB"
           />
-          <path d="M448 141V49H474V141H448Z" fill="#D7D9DB" />
+          <motion.path
+            animate={letterI}
+            style={{ transformOrigin: "bottom" }}
+            d="M448 141V49H474V141H448Z"
+            fill="#D7D9DB"
+          />
+
           <path
             d="M484.773 140.857V88.9624C484.773 59.2545 505.822 38.3838 533.887 38.3838C561.768 38.3838 583.001 59.2545 583.001 88.9624V140.857H557.152V88.9624C557.152 73.7324 547.735 64.7072 533.887 64.7072C520.039 64.7072 510.623 73.7324 510.623 88.9624V140.857H484.773Z"
             fill="#D7D9DB"
@@ -75,7 +102,7 @@ export function LogoLink() {
 
           <motion.rect
             x="448"
-            y="10"
+            y="20" // было 10 → опустили на 10px
             width="26"
             height="26"
             rx="13"

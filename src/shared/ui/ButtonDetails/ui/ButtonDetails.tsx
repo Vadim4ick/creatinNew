@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
 import cls from "./style.module.scss";
 import { springTransition } from "@/shared/lib";
 import { useRouter } from "next/navigation";
@@ -24,13 +23,21 @@ const rightDotVariants = {
   hover: { x: 35, opacity: 0 },
 };
 
-export function MoreBtn() {
+export function ButtonDetails({
+  className = "",
+  Icon,
+  onClick,
+}: {
+  className?: string;
+  Icon: () => JSX.Element;
+  onClick?: () => void;
+}) {
   const router = useRouter();
 
   return (
     <motion.button
-      onClick={() => router.push("/services/1")}
-      className={cls.btn}
+      onClick={onClick}
+      className={`${cls.btn} ${className}`}
       initial="rest"
       animate="rest"
       whileHover="hover"
@@ -50,12 +57,12 @@ export function MoreBtn() {
           variants={leftDotVariants}
           transition={springTransition}
         >
-          <BtnArrowThird />
+          <Icon />
         </motion.div>
       </motion.div>
 
       {/* Текст остаётся левым и сдвигается естественно, когда растёт leftSlot */}
-      <span className={cls.btnText}>Подробнее</span>
+      <span className={cls.btnText}>Задать вопрос напрямую</span>
 
       {/* Правый кружок */}
       <motion.div
@@ -64,7 +71,7 @@ export function MoreBtn() {
         transition={springTransition}
         aria-hidden
       >
-        <BtnArrowThird />
+        <Icon />
       </motion.div>
     </motion.button>
   );

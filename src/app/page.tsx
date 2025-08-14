@@ -1,5 +1,6 @@
 import { gql } from "@/graphql/client";
 import { PageHome } from "@/page/PageHome";
+import { getSettledValue } from "@/shared/lib";
 
 export async function generateMetadata() {
   const { homePage } = await gql.GetSeoHomePage();
@@ -29,15 +30,25 @@ export async function generateMetadata() {
 export const revalidate = 0;
 
 const Home = async () => {
-  const { homePage } = await gql.GetHomePage();
-  const { partner } = await gql.GetPartners();
-  const { formFeedback } = await gql.GetFormFeedback();
+  const [homePageRes, partnerRes, formFeedbackRes, askedQuestionsRes] =
+    await Promise.allSettled([
+      await gql.GetHomePage(),
+      await gql.GetPartners(),
+      await gql.GetFormFeedback(),
+      await gql.GetAskedQuestions(),
+    ]);
+
+  const homePage = getSettledValue(homePageRes);
+  const partner = getSettledValue(partnerRes);
+  const formFeedback = getSettledValue(formFeedbackRes);
+  const askedQuestion = getSettledValue(askedQuestionsRes);
 
   return (
     <PageHome
-      homePage={homePage}
-      partner={partner}
-      formFeedback={formFeedback}
+      homePage={homePage?.homePage}
+      partner={partner?.partner}
+      formFeedback={formFeedback?.formFeedback}
+      askedQuestions={askedQuestion?.askedQuestions}
     />
   );
 };

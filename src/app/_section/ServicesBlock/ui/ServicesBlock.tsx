@@ -5,12 +5,14 @@ import cls from "./style.module.scss";
 import { useMemo, useRef, useState } from "react";
 import { useSwiper } from "@/shared/hooks/useSwiper";
 import Swiper, { A11y, Mousewheel, SwiperOptions } from "swiper";
-import { MoreBtn } from "./MoreBtn/MoreBtn";
 import { Arrow } from "@/shared/icons/Arrow";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { ServicesSlide } from "./ServicesSlide/ServicesSlide";
 import { motion } from "framer-motion";
 import { springTransition } from "@/shared/lib";
+import { ButtonDetails } from "@/shared/ui/ButtonDetails";
+import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
+import { useRouter } from "next/navigation";
 
 const flipVariants = {
   prev: { scaleX: 1 },
@@ -25,6 +27,8 @@ const ServicesBlock = () => {
 
   const ref = useRef<HTMLDivElement | null>(null);
   const swiperRef = useRef<Swiper | null>(null);
+
+  const router = useRouter();
 
   // направление, в которое поедем по клику и как крутить стрелку
   const [dir, setDir] = useState<Dir>("next");
@@ -81,7 +85,10 @@ const ServicesBlock = () => {
           <h2>Креативные решения для вашего бизнеса</h2>
 
           <div className={cls.description}>
-            <MoreBtn />
+            <ButtonDetails
+              Icon={() => <BtnArrowThird />}
+              onClick={() => router.push("/services/1")}
+            />
             <p>
               Мы создаем дизайн, который не только привлекает внимание, но и
               решает бизнес-задачи. В каждом проекте мы делаем акцент на

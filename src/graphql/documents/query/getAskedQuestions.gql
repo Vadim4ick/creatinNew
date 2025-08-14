@@ -1,0 +1,10 @@
+query GetAskedQuestions {
+  askedQuestions {
+    data {
+      attributes {
+        question
+        anser
+      }
+    }
+  }
+}

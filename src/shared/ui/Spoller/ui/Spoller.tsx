@@ -1,6 +1,6 @@
 "use strict";
 
-import { classNames } from "@/shared/lib";
+import { classNames, springTransition } from "@/shared/lib";
 import { Disclosure } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
@@ -31,6 +31,7 @@ export function Spoller(props: SpollerProps) {
         <>
           <Disclosure.Button
             style={style}
+            data-open={open}
             className={classNames(
               "",
               {
@@ -46,9 +47,9 @@ export function Spoller(props: SpollerProps) {
             variants={variants}
             initial="closed"
             animate={open ? "open" : "closed"}
-            transition={{ duration: 0.5 }}
+            transition={springTransition}
           >
-            <motion.div variants={panelVariants} transition={{ delay: 0.5 }}>
+            <motion.div variants={panelVariants} transition={springTransition}>
               <Disclosure.Panel static>{children}</Disclosure.Panel>
             </motion.div>
           </motion.div>

@@ -16,3 +16,6 @@ export const hexToRgba = (hex: string, alpha = 1) => {
   const b = bigint & 255;
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
+
+export const getSettledValue = <T>(res: PromiseSettledResult<T>): T | null =>
+  res.status === "fulfilled" ? res.value : null;

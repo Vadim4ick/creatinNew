@@ -1,0 +1,112 @@
+.askedQuestions {
+  padding-top: 160px;
+
+  @media (max-width: 767px) {
+    padding-top: 100px;
+  }
+}
+
+.body {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+
+  @media (max-width: 991px) {
+    flex-direction: column;
+    gap: 36px;
+    align-items: center;
+  }
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    justify-content: space-between;
+
+    @media (min-width: 991px) {
+      max-width: 410px;
+    }
+
+    @media (max-width: 991px) {
+      text-align: center;
+    }
+
+    h2 {
+      color: #292929;
+      font-weight: 500;
+      font-size: 48px;
+      line-height: 58px;
+      font-family: "SuisseIntl", sans-serif;
+
+      @media (max-width: 767px) {
+        font-size: 32px;
+        line-height: 38px;
+      }
+    }
+  }
+}
+
+.question {
+  background: #f2f3f7;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.spoller {
+  padding: 26px;
+  font-size: 20px;
+  line-height: 130%;
+  font-family: "SuisseIntl", sans-serif;
+  font-weight: 500;
+  color: #3d3e40;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 20px 16px;
+  }
+  .trigger {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      transition: all 0.45s ease-out 0s;
+      svg {
+        color: #204ff5;
+      }
+    }
+  }
+}
+
+.answer {
+  padding: 26px;
+  font-size: 16px;
+  font-family: "SuisseIntl", sans-serif;
+  font-weight: 450;
+  color: #3d3e40;
+  border-top: 1px solid #d8d8d8;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 20px 16px;
+  }
+}
+
+.right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (min-width: 991px) {
+    max-width: 792px;
+  }
+}
+
+[data-open="true"] .icon {
+  transform: rotate(45deg);
+}

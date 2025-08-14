@@ -22,6 +22,50 @@ export type Scalars = {
   Upload: { input: any; output: any; }
 };
 
+export type AskedQuestion = {
+  readonly __typename?: 'AskedQuestion';
+  readonly anser: Maybe<Scalars['String']['output']>;
+  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
+  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly question: Maybe<Scalars['String']['output']>;
+  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type AskedQuestionEntity = {
+  readonly __typename?: 'AskedQuestionEntity';
+  readonly attributes: Maybe<AskedQuestion>;
+  readonly id: Maybe<Scalars['ID']['output']>;
+};
+
+export type AskedQuestionEntityResponse = {
+  readonly __typename?: 'AskedQuestionEntityResponse';
+  readonly data: Maybe<AskedQuestionEntity>;
+};
+
+export type AskedQuestionEntityResponseCollection = {
+  readonly __typename?: 'AskedQuestionEntityResponseCollection';
+  readonly data: ReadonlyArray<AskedQuestionEntity>;
+  readonly meta: ResponseCollectionMeta;
+};
+
+export type AskedQuestionFiltersInput = {
+  readonly and: InputMaybe<ReadonlyArray<InputMaybe<AskedQuestionFiltersInput>>>;
+  readonly anser: InputMaybe<StringFilterInput>;
+  readonly createdAt: InputMaybe<DateTimeFilterInput>;
+  readonly id: InputMaybe<IdFilterInput>;
+  readonly not: InputMaybe<AskedQuestionFiltersInput>;
+  readonly or: InputMaybe<ReadonlyArray<InputMaybe<AskedQuestionFiltersInput>>>;
+  readonly publishedAt: InputMaybe<DateTimeFilterInput>;
+  readonly question: InputMaybe<StringFilterInput>;
+  readonly updatedAt: InputMaybe<DateTimeFilterInput>;
+};
+
+export type AskedQuestionInput = {
+  readonly anser: InputMaybe<Scalars['String']['input']>;
+  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly question: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Banner = {
   readonly __typename?: 'Banner';
   readonly button: Maybe<ComponentUiLink>;
@@ -1047,7 +1091,7 @@ export type FormFeedbackInput = {
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type GenericMorph = Banner | Case | CaseName | Complex | ComplexAccompany | ComponentBlocksIncludesHover | ComponentComponentsComplexComponent | ComponentComponentsOfferComponent | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIncludesContent | ComponentElementsIntroCard | ComponentElementsOffer | ComponentElementsTitle | ComponentElementsVacancy | ComponentImageBlocksDoubleImage | ComponentImageBlocksDoubleTextBlocks | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | ComponentImageBlocksVideo | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ComponentUiMobileLink | FormFeedback | HomePage | I18NLocale | IncludesBlock | MobileNavigation | Offer | OffersPage | Partner | Portfolio | PortfolioPage | SearchLink | SeoComplexPage | SeoOffersPage | Service | ServiceCollection | ServiceName | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vacancy;
+export type GenericMorph = AskedQuestion | Banner | Case | CaseName | Complex | ComplexAccompany | ComponentBlocksIncludesHover | ComponentComponentsComplexComponent | ComponentComponentsOfferComponent | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIncludesContent | ComponentElementsIntroCard | ComponentElementsOffer | ComponentElementsTitle | ComponentElementsVacancy | ComponentImageBlocksDoubleImage | ComponentImageBlocksDoubleTextBlocks | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | ComponentImageBlocksVideo | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ComponentUiMobileLink | FormFeedback | HomePage | I18NLocale | IncludesBlock | MobileNavigation | Offer | OffersPage | Partner | Portfolio | PortfolioPage | SearchLink | SeoComplexPage | SeoOffersPage | Service | ServiceCollection | ServiceName | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vacancy;
 
 export type HomePage = {
   readonly __typename?: 'HomePage';
@@ -1322,6 +1366,7 @@ export type Mutation = {
   readonly __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   readonly changePassword: Maybe<UsersPermissionsLoginPayload>;
+  readonly createAskedQuestion: Maybe<AskedQuestionEntityResponse>;
   readonly createBanner: Maybe<BannerEntityResponse>;
   readonly createCase: Maybe<CaseEntityResponse>;
   readonly createCaseName: Maybe<CaseNameEntityResponse>;
@@ -1339,6 +1384,7 @@ export type Mutation = {
   /** Create a new user */
   readonly createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   readonly createVacancy: Maybe<VacancyEntityResponse>;
+  readonly deleteAskedQuestion: Maybe<AskedQuestionEntityResponse>;
   readonly deleteBanner: Maybe<BannerEntityResponse>;
   readonly deleteCase: Maybe<CaseEntityResponse>;
   readonly deleteCaseName: Maybe<CaseNameEntityResponse>;
@@ -1378,6 +1424,7 @@ export type Mutation = {
   readonly removeFile: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   readonly resetPassword: Maybe<UsersPermissionsLoginPayload>;
+  readonly updateAskedQuestion: Maybe<AskedQuestionEntityResponse>;
   readonly updateBanner: Maybe<BannerEntityResponse>;
   readonly updateCase: Maybe<CaseEntityResponse>;
   readonly updateCaseName: Maybe<CaseNameEntityResponse>;
@@ -1415,6 +1462,11 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
+};
+
+
+export type MutationCreateAskedQuestionArgs = {
+  data: AskedQuestionInput;
 };
 
 
@@ -1490,6 +1542,11 @@ export type MutationCreateUsersPermissionsUserArgs = {
 
 export type MutationCreateVacancyArgs = {
   data: VacancyInput;
+};
+
+
+export type MutationDeleteAskedQuestionArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -1605,6 +1662,12 @@ export type MutationResetPasswordArgs = {
   code: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateAskedQuestionArgs = {
+  data: AskedQuestionInput;
+  id: Scalars['ID']['input'];
 };
 
 
@@ -1998,6 +2061,8 @@ export enum PublicationState {
 
 export type Query = {
   readonly __typename?: 'Query';
+  readonly askedQuestion: Maybe<AskedQuestionEntityResponse>;
+  readonly askedQuestions: Maybe<AskedQuestionEntityResponseCollection>;
   readonly banner: Maybe<BannerEntityResponse>;
   readonly banners: Maybe<BannerEntityResponseCollection>;
   readonly case: Maybe<CaseEntityResponse>;
@@ -2042,6 +2107,19 @@ export type Query = {
   readonly usersPermissionsUsers: Maybe<UsersPermissionsUserEntityResponseCollection>;
   readonly vacancies: Maybe<VacancyEntityResponseCollection>;
   readonly vacancy: Maybe<VacancyEntityResponse>;
+};
+
+
+export type QueryAskedQuestionArgs = {
+  id: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryAskedQuestionsArgs = {
+  filters: InputMaybe<AskedQuestionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -3170,6 +3248,11 @@ export type GetBurgerLinksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetBurgerLinksQuery = { readonly __typename?: 'Query', readonly mobileNavigation: { readonly __typename?: 'MobileNavigationEntityResponse', readonly data: { readonly __typename?: 'MobileNavigationEntity', readonly attributes: { readonly __typename?: 'MobileNavigation', readonly mobileLink: ReadonlyArray<{ readonly __typename?: 'ComponentUiMobileLink', readonly id: string, readonly name: string, readonly href: string }> } } } };
 
+export type GetAskedQuestionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAskedQuestionsQuery = { readonly __typename?: 'Query', readonly askedQuestions: { readonly __typename?: 'AskedQuestionEntityResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'AskedQuestionEntity', readonly attributes: { readonly __typename?: 'AskedQuestion', readonly question: string, readonly anser: string } }> } };
+
 export type GetCaseByIdQueryVariables = Exact<{
   id: InputMaybe<Scalars['ID']['input']>;
 }>;
@@ -3871,6 +3954,18 @@ export const GetBurgerLinksDocument = gql`
   }
 }
     `;
+export const GetAskedQuestionsDocument = gql`
+    query GetAskedQuestions {
+  askedQuestions {
+    data {
+      attributes {
+        question
+        anser
+      }
+    }
+  }
+}
+    `;
 export const GetCaseByIdDocument = gql`
     query GetCaseById($id: ID) {
   case(id: $id) {
@@ -4491,6 +4586,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetBurgerLinks(variables?: GetBurgerLinksQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetBurgerLinksQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetBurgerLinksQuery>(GetBurgerLinksDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetBurgerLinks', 'query', variables);
+    },
+    GetAskedQuestions(variables?: GetAskedQuestionsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAskedQuestionsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAskedQuestionsQuery>(GetAskedQuestionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetAskedQuestions', 'query', variables);
     },
     GetCaseById(variables?: GetCaseByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetCaseByIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCaseByIdQuery>(GetCaseByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetCaseById', 'query', variables);

@@ -5,8 +5,10 @@ import { Cases } from "@/app/_section/Cases";
 import { FormSend } from "@/app/_section/FormSend";
 import { Partners } from "@/app/_section/Partners";
 import { ServicesBlock } from "@/app/_section/ServicesBlock";
+import { AskedQuestions } from "@/components/AskedQuestions";
 import { Burger } from "@/components/Burger";
 import {
+  GetAskedQuestionsQuery,
   GetFormFeedbackQuery,
   GetHomePageQuery,
   GetPartnersQuery,
@@ -16,13 +18,14 @@ import { useGetComplexSidebarTitle } from "@/shared/services/complexSidebarTitle
 import { useEffect } from "react";
 
 interface PageHomeProps {
-  homePage: GetHomePageQuery["homePage"];
-  partner: GetPartnersQuery["partner"];
-  formFeedback: GetFormFeedbackQuery["formFeedback"];
+  homePage?: GetHomePageQuery["homePage"];
+  partner?: GetPartnersQuery["partner"];
+  formFeedback?: GetFormFeedbackQuery["formFeedback"];
+  askedQuestions?: GetAskedQuestionsQuery["askedQuestions"];
 }
 
 const PageHome = (props: PageHomeProps) => {
-  const { formFeedback, homePage, partner } = props;
+  const { formFeedback, homePage, partner, askedQuestions } = props;
   const { data } = useGetComplexSidebarTitle();
 
   const isDesktop = useMedia("(max-width: 1200px)");
@@ -53,25 +56,32 @@ const PageHome = (props: PageHomeProps) => {
         }}
         className="page"
       >
-        {homePage.data.attributes.bannerMedia.data &&
+        {homePage &&
+          homePage.data.attributes.bannerMedia.data &&
           homePage.data.attributes.bannerMedia.data?.length > 0 && (
             <BannerSlider slides={homePage.data.attributes.bannerMedia.data} />
           )}
 
         <ServicesBlock />
 
-        {homePage.data.attributes.cases && (
+        {homePage && homePage.data.attributes.cases && (
           <Cases
             className="cases__block"
             cases={homePage.data.attributes.cases}
           />
         )}
 
-        {partner.data && (
+        {partner && partner.data && (
           <Partners partners={partner.data.attributes.partners} />
         )}
 
-        {formFeedback.data && (
+        {askedQuestions &&
+          askedQuestions.data &&
+          askedQuestions.data.length > 0 && (
+            <AskedQuestions askedQuestions={askedQuestions.data} />
+          )}
+
+        {formFeedback && formFeedback.data && (
           <FormSend form={formFeedback.data.attributes.formFeedback} />
         )}
       </main>
