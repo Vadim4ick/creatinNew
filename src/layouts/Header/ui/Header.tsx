@@ -21,7 +21,7 @@ const panelVariants = {
     height: 0,
     opacity: 0,
     transition: {
-      duration: 0.45,
+      duration: 0.5,
       ease: "easeOut",
     },
   },
@@ -29,7 +29,7 @@ const panelVariants = {
     height: "auto",
     opacity: 1,
     transition: {
-      duration: 0.45,
+      duration: 0.5,
       ease: "easeOut",
     },
   },
