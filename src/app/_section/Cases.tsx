@@ -5,8 +5,9 @@ import { GetHomePageQuery } from "@/graphql/__generated__";
 import { getRoutePortfolio } from "@/shared/const/pages";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { SplitTypeAnimation } from "@/shared/hooks/useSplitTypeAnimation";
-import { BtnArrow } from "@/shared/icons/BtnArrow";
-import Link from "next/link";
+import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
+import { ButtonDetails } from "@/shared/ui/ButtonDetails";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 interface CasesProps {
@@ -16,6 +17,8 @@ interface CasesProps {
 
 const Cases = (props: CasesProps) => {
   const { cases, className = "" } = props;
+
+  const router = useRouter();
 
   const titleRef = useRef(null);
 
@@ -39,16 +42,11 @@ const Cases = (props: CasesProps) => {
           ))}
 
           <div className="cases__more">
-            <Link
-              href={getRoutePortfolio()}
-              className="btn btn--hasarrow btn--alt"
-            >
-              <span className="btn__text"> Все кейсы</span>
-
-              <span className="btn__arrow">
-                <BtnArrow />
-              </span>
-            </Link>
+            <ButtonDetails
+              text="Все кейсы"
+              Icon={() => <BtnArrowThird />}
+              onClick={() => router.push(getRoutePortfolio())}
+            />
           </div>
         </div>
       </div>

@@ -20,7 +20,12 @@ const AskedQuestions = ({
           <div className={cls.left}>
             <h2>Вы спрашивали - Мы отвечаем</h2>
 
-            {!isTablet.matches && <ButtonDetails Icon={() => <Send />} />}
+            {!isTablet.matches && (
+              <ButtonDetails
+                text="Задать вопрос напрямую"
+                Icon={() => <Send />}
+              />
+            )}
           </div>
 
           <div className={cls.right}>
@@ -44,7 +49,12 @@ const AskedQuestions = ({
             ))}
           </div>
 
-          {isTablet.matches && <ButtonDetails Icon={() => <Send />} />}
+          {isTablet.matches && (
+            <ButtonDetails
+              text="Задать вопрос напрямую"
+              Icon={() => <Send />}
+            />
+          )}
         </div>
       </div>
     </section>

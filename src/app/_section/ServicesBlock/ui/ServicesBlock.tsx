@@ -86,6 +86,7 @@ const ServicesBlock = () => {
 
           <div className={cls.description}>
             <ButtonDetails
+              text="Задать вопрос напрямую"
               Icon={() => <BtnArrowThird />}
               onClick={() => router.push("/services/1")}
             />

@@ -109,5 +109,28 @@
     justify-content: center;
     background: #f2f3f7;
     border-radius: 50%;
+    border: 1px solid transparent;
+    transition: all 0.45s ease-out 0s;
+
+    svg {
+      transition: all 0.45s ease-out 0s;
+
+      path {
+        transition: all 0.45s ease-out 0s;
+      }
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        border-color: #204ff5;
+
+        svg {
+          transform: scale(0.85);
+          path {
+            fill: #204ff5;
+          }
+        }
+      }
+    }
   }
 }

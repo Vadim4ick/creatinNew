@@ -6,9 +6,11 @@ import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
-import { CustomLink } from "@/shared/ui/Link";
+import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
+import { ButtonDetails } from "@/shared/ui/ButtonDetails";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { memo, useRef } from "react";
 
 interface CaseProps {
@@ -17,6 +19,8 @@ interface CaseProps {
 
 const Case = memo((props: CaseProps) => {
   const { project } = props;
+
+  const router = useRouter();
 
   const caseRef = useRef<HTMLDivElement | null>(null);
 
@@ -43,13 +47,12 @@ const Case = memo((props: CaseProps) => {
         </div>
         {!isDesktop.matches && (
           <div className="case-card__btns">
-            <CustomLink
-              href={getRouteCase(project.id)}
+            <ButtonDetails
               variant="white"
-              iconPosition="right"
-            >
-              Смотреть кейс
-            </CustomLink>
+              text="Смотреть кейс"
+              Icon={() => <BtnArrowThird />}
+              onClick={() => router.push(getRouteCase(project.id))}
+            />
           </div>
         )}
       </div>

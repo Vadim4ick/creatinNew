@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import cls from "./style.module.scss";
-import { springTransition } from "@/shared/lib";
-import { useRouter } from "next/navigation";
+import { classNames, springTransition } from "@/shared/lib";
 
 const btnVariants = { rest: {}, hover: {} };
 
@@ -23,21 +22,25 @@ const rightDotVariants = {
   hover: { x: 35, opacity: 0 },
 };
 
+type Variant = "default" | "white";
+
 export function ButtonDetails({
   className = "",
   Icon,
   onClick,
+  text,
+  variant = "default",
 }: {
   className?: string;
   Icon: () => JSX.Element;
   onClick?: () => void;
+  text: string;
+  variant?: Variant;
 }) {
-  const router = useRouter();
-
   return (
     <motion.button
       onClick={onClick}
-      className={`${cls.btn} ${className}`}
+      className={classNames(`${cls.btn} ${className}`, {}, [cls[variant]])}
       initial="rest"
       animate="rest"
       whileHover="hover"
@@ -62,7 +65,7 @@ export function ButtonDetails({
       </motion.div>
 
       {/* Текст остаётся левым и сдвигается естественно, когда растёт leftSlot */}
-      <span className={cls.btnText}>Задать вопрос напрямую</span>
+      <span className={cls.btnText}>{text}</span>
 
       {/* Правый кружок */}
       <motion.div
