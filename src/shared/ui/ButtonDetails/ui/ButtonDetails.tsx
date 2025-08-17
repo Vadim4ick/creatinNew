@@ -22,7 +22,7 @@ const rightDotVariants = {
   hover: { x: 35, opacity: 0 },
 };
 
-type Variant = "default" | "white";
+type Variant = "default" | "white" | "dark";
 
 export function ButtonDetails({
   className = "",

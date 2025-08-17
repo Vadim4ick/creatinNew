@@ -39,7 +39,7 @@ const Partners = (props: PartnersProps) => {
 
   return (
     <section className={cls.partners}>
-      <div className={"partners__container"}>
+      <div className={`partners__container ${cls.container}`}>
         <div className={cls.header}>
           <h2>{partners.title}</h2>
 
@@ -48,26 +48,25 @@ const Partners = (props: PartnersProps) => {
             нашу страсть к дизайну
           </p>
         </div>
-      </div>
-
-      <div className={`swiper ${cls.swiper}`} ref={swiperRef}>
-        <div className={`partners__swiper swiper-wrapper ${cls.cards}`}>
-          {partners.icons.data.map((item) => {
-            return (
-              <div
-                key={item.id}
-                className={`partners__slide swiper-slide ${cls.card}`}
-              >
-                <Image
-                  width={item.attributes.width}
-                  height={item.attributes.height}
+        <div className={`swiper`} ref={swiperRef}>
+          <div className={`partners__swiper swiper-wrapper ${cls.cards}`}>
+            {partners.icons.data.map((item) => {
+              return (
+                <div
                   key={item.id}
-                  alt=""
-                  src={getFileUrl(item.attributes.url)}
-                />
-              </div>
-            );
-          })}
+                  className={`partners__slide swiper-slide ${cls.card}`}
+                >
+                  <Image
+                    width={item.attributes.width}
+                    height={item.attributes.height}
+                    key={item.id}
+                    alt=""
+                    src={getFileUrl(item.attributes.url)}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 "use client";
 
+import { AboutStatisticBaner } from "@/app/_section/AboutStatisticBaner";
 import { BannerSlider } from "@/app/_section/Banner";
 import { Cases } from "@/app/_section/Cases";
 import { FormSend } from "@/app/_section/FormSend";
@@ -70,6 +71,8 @@ const PageHome = (props: PageHomeProps) => {
             cases={homePage.data.attributes.cases}
           />
         )}
+
+        <AboutStatisticBaner />
 
         {partner && partner.data && (
           <Partners partners={partner.data.attributes.partners} />

@@ -70,3 +70,19 @@
     background: #f2f3f7;
   }
 }
+
+.dark {
+  background: #292929;
+
+  .btnText {
+    color: white;
+  }
+
+  .btnArrowRight {
+    background: #204ff5;
+
+    svg {
+      color: white;
+    }
+  }
+}

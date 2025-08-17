@@ -1,0 +1,231 @@
+.content {
+  width: 100%;
+
+  padding: 96px 120px;
+  background: #202020;
+  border-radius: 20px;
+
+  @media (max-width: 1500px) {
+    padding: 64px 32px;
+  }
+  @media (max-width: 768px) {
+    padding: 64px 16px 40px 16px;
+  }
+}
+
+.statistic {
+  padding-bottom: 160px;
+
+  @media (max-width: 1200px) {
+    padding-bottom: 100px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+
+  @media (max-width: 768px) {
+    gap: 48px;
+  }
+
+  .heading {
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: 991px) {
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    @media (max-width: 768px) {
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+    }
+
+    .title {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        left: -8px;
+        width: 310px;
+        height: 62px;
+        background-image: url(/img/decorBoxSecondary.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        @media (max-width: 768px) {
+          width: 250px;
+          height: 52px;
+        }
+      }
+    }
+
+    h2 {
+      color: #ffffff;
+      font-family: "SuisseIntl", sans-serif;
+      font-weight: 500;
+      font-size: 48px;
+      line-height: 48px;
+      z-index: 2;
+      position: relative;
+
+      @media (max-width: 768px) {
+        font-size: 38px;
+        line-height: 38px;
+      }
+    }
+
+    p {
+      padding-top: 13px;
+      max-width: 560px;
+      font-family: "SuisseIntl", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: #abacb2;
+
+      @media (min-width: 991px) {
+        text-align: right;
+      }
+
+      @media (max-width: 768px) {
+        padding: 0;
+        text-align: center;
+      }
+    }
+  }
+
+  .statisticBlocks {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+
+    @media (max-width: 1335px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 24px;
+    }
+
+    .statisticBlock {
+      background: #292929;
+      padding-top: 28px;
+      display: flex;
+      border-radius: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+      gap: 36px;
+
+      @media (max-width: 768px) {
+        padding-top: 33px;
+        gap: 49px;
+      }
+
+      .image {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 32px;
+
+        &.img1 {
+          margin: 0;
+        }
+
+        &.img2 {
+          margin-bottom: 16px;
+        }
+
+        img {
+          max-width: 228px;
+
+          @media (max-width: 1300px) {
+            max-width: 180px;
+          }
+
+          @media (max-width: 1300px) {
+            max-width: 276px;
+          }
+        }
+      }
+
+      .statisticItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 11px;
+        max-width: 180px;
+
+        @media (max-width: 768px) {
+          gap: 22px;
+        }
+
+        span {
+          background: linear-gradient(180deg, #999999 9.57%, #484848 97.87%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          text-fill-color: transparent;
+          font-family: "SuisseIntl", sans-serif;
+          font-weight: 500;
+          font-size: 64px;
+          line-height: 130%;
+
+          @media (max-width: 768px) {
+            font-size: 72px;
+          }
+        }
+
+        p {
+          color: #dadce3;
+          font-family: "SuisseIntl", sans-serif;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 130%;
+          text-align: center;
+
+          @media (max-width: 768px) {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 991px) {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    @media (max-width: 768px) {
+      align-items: center;
+      padding: 0 15px;
+    }
+
+    p {
+      max-width: 560px;
+      font-family: "SuisseIntl", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: #abacb2;
+
+      @media (max-width: 768px) {
+        text-align: center;
+      }
+    }
+  }
+}

@@ -199,184 +199,190 @@ const FormSend = memo((props: FormSendProps) => {
 
   return (
     <section className={classNames(cls.sendForm, {}, [className])}>
-      <div className={cls.container}>
-        <div className={cls.mainInfo}>
-          <h2 className={cls.titleDesk}>
-            Оставьте <span>заявку</span> чтобы обсудить проект
-          </h2>
+      <div className={`formSend__container ${cls.wrapper}`}>
+        <div className={cls.container}>
+          <div className={cls.mainInfo}>
+            <h2 className={cls.titleDesk}>
+              Оставьте <span>заявку</span> чтобы обсудить проект
+            </h2>
 
-          <div className={cls.contactBlocks}>
-            <Address form={form} />
-          </div>
-        </div>
-
-        <div className={cls.feedBackForm}>
-          <h2 className={cls.titleMobile}>
-            Оставьте <span>заявку</span> чтобы обсудить проект
-          </h2>
-
-          <div className={cls.text}>
-            <span>Cвяжитесь с нами любым удобным способом.</span>{" "}
-            <span>Мы всегда рады новым идеям и ответим на ваши вопросы</span>
+            <div className={cls.contactBlocks}>
+              <Address form={form} />
+            </div>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className={cls.form}>
-            <Controller
-              control={control}
-              name="name"
-              render={({ field }) => (
-                <motion.input
-                  type="text"
-                  placeholder="Ваше имя"
-                  className={classNames("", { [cls.error]: !!errors.name }, [])}
-                  {...register("name")}
-                  {...fieldMotionInp(!!errors.name)}
-                  {...field}
-                />
-              )}
-            />
+          <div className={cls.feedBackForm}>
+            <h2 className={cls.titleMobile}>
+              Оставьте <span>заявку</span> чтобы обсудить проект
+            </h2>
 
-            <div className={cls.block}>
+            <div className={cls.text}>
+              <span>Cвяжитесь с нами любым удобным способом.</span>{" "}
+              <span>Мы всегда рады новым идеям и ответим на ваши вопросы</span>
+            </div>
+
+            <form onSubmit={handleSubmit(onSubmit)} className={cls.form}>
               <Controller
                 control={control}
-                name="email"
+                name="name"
                 render={({ field }) => (
                   <motion.input
-                    type="email"
-                    placeholder="E-mail"
+                    type="text"
+                    placeholder="Ваше имя"
+                    className={classNames(
+                      "",
+                      { [cls.error]: !!errors.name },
+                      []
+                    )}
+                    {...register("name")}
+                    {...fieldMotionInp(!!errors.name)}
+                    {...field}
+                  />
+                )}
+              />
+
+              <div className={cls.block}>
+                <Controller
+                  control={control}
+                  name="email"
+                  render={({ field }) => (
+                    <motion.input
+                      type="email"
+                      placeholder="E-mail"
+                      className={classNames(
+                        "",
+                        {
+                          [cls.error]: errors.email?.message,
+                        },
+                        []
+                      )}
+                      {...register("email")}
+                      {...fieldMotionInp(!!errors.taskDescription)}
+                      {...field}
+                    />
+                  )}
+                />
+
+                <span>или</span>
+
+                <Controller
+                  control={control}
+                  name="phone"
+                  render={({ field }) => (
+                    <MaskedInput
+                      mask="+7 (999) 999-9999"
+                      type="tel"
+                      placeholder="Телефон"
+                      className={classNames(
+                        cls.tel,
+                        {
+                          [cls.error]: errors.phone?.message,
+                        },
+                        []
+                      )}
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+
+              <Controller
+                control={control}
+                name="taskDescription"
+                render={({ field }) => (
+                  <motion.textarea
+                    placeholder="Описание задачи (тезисно)"
                     className={classNames(
                       "",
                       {
-                        [cls.error]: errors.email?.message,
+                        [cls.error]: errors.taskDescription?.message,
                       },
                       []
                     )}
-                    {...register("email")}
                     {...fieldMotionInp(!!errors.taskDescription)}
                     {...field}
                   />
                 )}
               />
 
-              <span>или</span>
-
-              <Controller
-                control={control}
-                name="phone"
-                render={({ field }) => (
-                  <MaskedInput
-                    mask="+7 (999) 999-9999"
-                    type="tel"
-                    placeholder="Телефон"
+              <div className={cls.footer}>
+                <motion.label
+                  className={classNames(
+                    cls.file,
+                    { [cls.inputFile]: fileLoaded },
+                    []
+                  )}
+                  htmlFor="file1"
+                  {...fieldMotionInp(!!errors.file)}
+                >
+                  <div
                     className={classNames(
-                      cls.tel,
+                      cls.icon,
                       {
-                        [cls.error]: errors.phone?.message,
+                        [cls.active]: fileCount > 0,
                       },
                       []
                     )}
-                    {...field}
-                  />
-                )}
-              />
-            </div>
-
-            <Controller
-              control={control}
-              name="taskDescription"
-              render={({ field }) => (
-                <motion.textarea
-                  placeholder="Описание задачи (тезисно)"
-                  className={classNames(
-                    "",
-                    {
-                      [cls.error]: errors.taskDescription?.message,
-                    },
-                    []
-                  )}
-                  {...fieldMotionInp(!!errors.taskDescription)}
-                  {...field}
-                />
-              )}
-            />
-
-            <div className={cls.footer}>
-              <motion.label
-                className={classNames(
-                  cls.file,
-                  { [cls.inputFile]: fileLoaded },
-                  []
-                )}
-                htmlFor="file1"
-                {...fieldMotionInp(!!errors.file)}
-              >
-                <div
-                  className={classNames(
-                    cls.icon,
-                    {
-                      [cls.active]: fileCount > 0,
-                    },
-                    []
-                  )}
-                >
-                  <File />
-
-                  {fileCount > 0 && (
-                    <span className={cls.count}>{fileCount}</span>
-                  )}
-                </div>
-
-                <span> Прикрепить файл</span>
-              </motion.label>
-
-              <SendBtn isValid={isValid} />
-            </div>
-
-            {files.length > 0 && (
-              <div className={cls.attachList}>
-                {files.map((f, i) => (
-                  <motion.div
-                    key={`${f.name}-${f.lastModified}-${f.size}`}
-                    className={cls.attachItem}
-                    initial={{ opacity: 0, y: 3 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -3 }}
-                    layout
                   >
-                    <span className={cls.attachIcon}>
-                      <File />
-                    </span>
-                    <span className={cls.attachName} title={f.name}>
-                      {f.name}
-                    </span>
+                    <File />
 
-                    <button
-                      type="button"
-                      className={cls.attachRemove}
-                      aria-label="Удалить"
-                      onClick={() => removeFile(i)}
-                    >
-                      <Close />
-                    </button>
-                  </motion.div>
-                ))}
+                    {fileCount > 0 && (
+                      <span className={cls.count}>{fileCount}</span>
+                    )}
+                  </div>
+
+                  <span> Прикрепить файл</span>
+                </motion.label>
+
+                <SendBtn isValid={isValid} />
               </div>
-            )}
-          </form>
+
+              {files.length > 0 && (
+                <div className={cls.attachList}>
+                  {files.map((f, i) => (
+                    <motion.div
+                      key={`${f.name}-${f.lastModified}-${f.size}`}
+                      className={cls.attachItem}
+                      initial={{ opacity: 0, y: 3 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -3 }}
+                      layout
+                    >
+                      <span className={cls.attachIcon}>
+                        <File />
+                      </span>
+                      <span className={cls.attachName} title={f.name}>
+                        {f.name}
+                      </span>
+
+                      <button
+                        type="button"
+                        className={cls.attachRemove}
+                        aria-label="Удалить"
+                        onClick={() => removeFile(i)}
+                      >
+                        <Close />
+                      </button>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+            </form>
+          </div>
         </div>
+
+        <input
+          {...register("file")}
+          ref={fileInputRef}
+          type="file"
+          id="file1"
+          multiple
+          className={classNames("visually-hidden", {}, [])}
+          onChange={handleFileChange}
+        />
+
+        {send && <SuccessPopup full={true} setSend={setSend} />}
       </div>
-
-      <input
-        {...register("file")}
-        ref={fileInputRef}
-        type="file"
-        id="file1"
-        multiple
-        className={classNames("visually-hidden", {}, [])}
-        onChange={handleFileChange}
-      />
-
-      {send && <SuccessPopup full={true} setSend={setSend} />}
     </section>
   );
 });
