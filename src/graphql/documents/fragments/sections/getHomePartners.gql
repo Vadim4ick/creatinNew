@@ -2,12 +2,26 @@ fragment GetHomePartners on ComponentSectionsPartners {
   title
   description
 
-  icons(pagination: { limit: 25 }) {
+  our_partners {
     data {
-      id
-
       attributes {
-        ...MediaFragment
+        noFillImage {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
+        fillImage {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
+        title
       }
     }
   }
