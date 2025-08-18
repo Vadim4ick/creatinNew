@@ -1,15 +1,12 @@
 "use client";
 
 import { GetHomePartnersFragment } from "@/graphql/__generated__";
-import { getFileUrl } from "@/shared/helpers/getFileUrl";
-import Image from "next/image";
-
 import cls from "./style.module.scss";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useSwiper } from "@/shared/hooks/useSwiper";
 import { useRef } from "react";
 import { A11y, Mousewheel } from "swiper";
-import { motion } from "framer-motion";
+import { PartnersItem } from "./PartnersItem";
 
 interface PartnersProps {
   partners: GetHomePartnersFragment;
@@ -53,57 +50,7 @@ const Partners = (props: PartnersProps) => {
               const noFill = item.attributes.noFillImage.data.attributes;
               const fill = item.attributes.fillImage?.data?.attributes;
 
-              return (
-                <div
-                  key={idx}
-                  className={`partners__slide swiper-slide ${cls.card}`}
-                >
-                  <motion.div
-                    className={cls.imageWrapper}
-                    initial="rest"
-                    whileHover="hover"
-                    animate="rest"
-                  >
-                    {/* noFill */}
-                    <motion.div
-                      className={cls.imageInner}
-                      variants={{
-                        rest: { opacity: 1, scale: 1 },
-                        hover: { opacity: 0, scale: 1.08 },
-                      }}
-                      transition={{ ease: "easeOut", duration: 0.3 }}
-                    >
-                      <Image
-                        width={noFill.width}
-                        height={noFill.height}
-                        alt=""
-                        src={getFileUrl(noFill.url)}
-                        className={cls.image}
-                      />
-                    </motion.div>
-
-                    {/* fill */}
-                    {fill && (
-                      <motion.div
-                        className={cls.imageInner}
-                        variants={{
-                          rest: { opacity: 0, scale: 1 },
-                          hover: { opacity: 1, scale: 1.08 },
-                        }}
-                        transition={{ ease: "easeOut", duration: 0.3 }}
-                      >
-                        <Image
-                          width={fill.width}
-                          height={fill.height}
-                          alt=""
-                          src={getFileUrl(fill.url)}
-                          className={cls.image}
-                        />
-                      </motion.div>
-                    )}
-                  </motion.div>
-                </div>
-              );
+              return <PartnersItem key={idx} noFill={noFill} fill={fill} />;
             })}
           </div>
         </div>
