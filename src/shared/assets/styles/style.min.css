@@ -135,7 +135,10 @@ body::-webkit-scrollbar-thumb {
   --pad-neg: -80px;
   /* max-width: 100%; */
 
-  max-width: calc(1700px + (var(--pad) * 2));
+  /* max-width: calc(1700px + (var(--pad) * 2)); */
+
+  max-width: calc(1376px + (var(--pad) * 2));
+  width: 100%;
   padding: 0 var(--pad);
   margin: 0 auto;
 }

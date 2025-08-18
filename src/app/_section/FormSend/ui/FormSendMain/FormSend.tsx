@@ -199,7 +199,7 @@ const FormSend = memo((props: FormSendProps) => {
 
   return (
     <section className={classNames(cls.sendForm, {}, [className])}>
-      <div className={`formSend__container ${cls.wrapper}`}>
+      <div className={` ${cls.wrapper}`}>
         <div className={cls.container}>
           <div className={cls.mainInfo}>
             <h2 className={cls.titleDesk}>
