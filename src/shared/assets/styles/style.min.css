@@ -1727,27 +1727,29 @@ body.popup-show::after {
   overflow: hidden;
 }
 .case-card__title {
-  font-size: 1.75rem;
+  font-size: 28px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 80%;
+  font-weight: 450;
+  line-height: 100%;
   text-transform: lowercase;
   padding: 6px 11px;
+  font-family: "SuisseIntl", sans-serif;
   border-radius: 100px;
   display: inline-block;
   background: var(--color-accent);
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   width: auto;
   -webkit-box-flex: 0;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
 }
 .case-card__info {
-  font-size: 1.125rem;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 116%;
+  line-height: 20px;
   text-transform: lowercase;
+  font-family: "SuisseIntl", sans-serif;
   margin-bottom: auto;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -2376,10 +2378,10 @@ body.popup-show::after {
   -webkit-transition: all 0.6s ease-out 0s;
   transition: all 0.6s ease-out 0s;
   will-change: font-size;
-  -webkit-user-select: none;
+  /* -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none; */
   position: relative;
   -webkit-transform-origin: top left;
   -ms-transform-origin: top left;
@@ -2395,10 +2397,10 @@ body.popup-show::after {
   -webkit-transform-origin: top left;
   -ms-transform-origin: top left;
   transform-origin: top left;
-  -webkit-user-select: none;
+  /* -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none; */
 }
 .video {
   margin-bottom: 77px;
