@@ -23,17 +23,26 @@ const PartnersItem = ({
       onMouseLeave={() => setHover(false)}
     >
       <motion.div
+        className={cls.imageWrapper}
         animate={{
           scale: hover ? 1.08 : 1,
         }}
-        transition={{ ease: "easeOut", duration: 0.8 }}
+        transition={{ ease: "easeOut", duration: 0.45 }}
       >
         <Image
-          width={hover ? fill.width : noFill.width}
-          height={hover ? fill.height : noFill.height}
+          width={noFill.width}
+          height={noFill.height}
           alt=""
-          src={getFileUrl(hover ? fill.url : noFill.url)}
+          src={getFileUrl(noFill.url)}
           className={cls.image}
+        />
+
+        <Image
+          width={fill.width}
+          height={fill.height}
+          alt=""
+          src={getFileUrl(fill.url)}
+          className={cls.imageFill}
         />
       </motion.div>
     </div>
