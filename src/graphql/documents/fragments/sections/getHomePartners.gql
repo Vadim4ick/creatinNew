@@ -1,6 +1,5 @@
 fragment GetHomePartners on ComponentSectionsPartners {
   title
-  description
 
   our_partners {
     data {

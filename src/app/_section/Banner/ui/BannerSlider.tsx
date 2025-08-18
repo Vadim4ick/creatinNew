@@ -95,18 +95,43 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
     <section className={classNames(styles.hero, {}, [className])}>
       <div ref={ref} className={`swiper ${styles.swiper}`}>
         <div className="swiper-wrapper">
-          {slides.map((s, i) => (
-            <div key={i} className={`swiper-slide ${styles.slide}`}>
-              {/* <Image src={s.attributes.url} alt="" fill className={styles.bg} /> */}
+          {slides.map((s, i) => {
+            const { url, mime } = s.attributes;
 
-              <ImagePreloader
+            return (
+              <div key={i} className={`swiper-slide ${styles.slide}`}>
+                {/* <ImagePreloader
                 src={s.attributes.url}
                 alt=""
                 className={styles.bg}
                 fill={true}
-              />
-            </div>
-          ))}
+              /> */}
+
+                {mime.startsWith("image/") ? (
+                  <ImagePreloader
+                    src={url}
+                    alt=""
+                    className={styles.bg}
+                    fill={true}
+                  />
+                ) : mime.startsWith("video/") ? (
+                  <video
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    className={styles.bg}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={url} type={mime} />
+                  </video>
+                ) : null}
+              </div>
+            );
+          })}
         </div>
 
         {/* Навигация */}
