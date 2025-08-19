@@ -119,7 +119,7 @@ const PageCase = memo(
           )}
 
           <section className="project">
-            <article className="project__container">
+            <div className="project__container projects-all">
               {caseContent.content.map((el) => {
                 if (el.idBlock === "oneImage") {
                   return (
@@ -172,7 +172,7 @@ const PageCase = memo(
                   );
                 }
               })}
-            </article>
+            </div>
           </section>
         </main>
       </>
