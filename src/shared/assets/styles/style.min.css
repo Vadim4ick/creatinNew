@@ -5335,11 +5335,11 @@ picture {
 .projects-all {
   display: flex;
   flex-direction: column;
-  gap: 160px;
+  gap: 16px;
 }
 
 @media (max-width: 767px) {
   .projects-all {
-    gap: 80px;
+    gap: 12px;
   }
 }
