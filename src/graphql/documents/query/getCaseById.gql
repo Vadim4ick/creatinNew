@@ -7,6 +7,15 @@ query GetCaseById($id: ID) {
         backround
 
         content {
+          ... on ComponentImageBlocksAboutProject {
+            id
+            idBlock
+            client
+            industry
+            deadline
+            tasks
+          }
+
           ... on ComponentImageBlocksOneImage {
             idBlock
             id

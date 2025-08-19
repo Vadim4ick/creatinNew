@@ -1,6 +1,7 @@
 "use client";
 
 import { BurgerCase } from "@/components/Burger/ui/BurgerCase/BurgerCase";
+import { AboutProjectBlock } from "@/components/imageBlocks/AboutProjectBlock";
 import { DoubleImage } from "@/components/imageBlocks/DoubleImage";
 import { DoubleTextBlocks } from "@/components/imageBlocks/DoubleTextBlocks";
 import { GridImage } from "@/components/imageBlocks/GridImage";
@@ -8,6 +9,7 @@ import { OneImage } from "@/components/imageBlocks/OneImage";
 import { TextBlock } from "@/components/imageBlocks/TextBlocks";
 import { VideoBlock } from "@/components/imageBlocks/VideoBlock";
 import {
+  ComponentImageBlocksAboutProject,
   ComponentImageBlocksDoubleImage,
   ComponentImageBlocksDoubleTextBlocks,
   ComponentImageBlocksGridImage,
@@ -28,6 +30,7 @@ type OneImage = ComponentImageBlocksOneImage;
 type TextImage = ComponentImageBlocksTextBlock;
 type DoubleTextBlocks = ComponentImageBlocksDoubleTextBlocks;
 type VideoBlock = ComponentImageBlocksVideo;
+type AboutProject = ComponentImageBlocksAboutProject;
 
 type CaseContent = {
   readonly content: (
@@ -37,6 +40,7 @@ type CaseContent = {
     | TextImage
     | DoubleTextBlocks
     | VideoBlock
+    | AboutProject
   )[];
   readonly mobileName: string;
   readonly backround: ["black"] | ["white"];
@@ -157,6 +161,13 @@ const PageCase = memo(
                     <VideoBlock
                       key={el.idBlock + el.id}
                       content={el as VideoBlock}
+                    />
+                  );
+                } else if (el.idBlock === "aboutProject") {
+                  return (
+                    <AboutProjectBlock
+                      key={el.idBlock + el.id}
+                      content={el as AboutProject}
                     />
                   );
                 }
