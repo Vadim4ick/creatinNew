@@ -79,33 +79,6 @@ query GetCaseById($id: ID) {
             idBlock
             title
             description
-            desctopMaxWidth
-            selectType
-          }
-
-          ... on ComponentImageBlocksDoubleTextBlocks {
-            id
-            idBlock
-            oldTitle
-            oldDescription
-            newTitle
-            newDescription
-
-            oldLogo {
-              data {
-                attributes {
-                  ...MediaFragment
-                }
-              }
-            }
-
-            newLogo {
-              data {
-                attributes {
-                  ...MediaFragment
-                }
-              }
-            }
           }
 
           ... on ComponentImageBlocksVideo {
