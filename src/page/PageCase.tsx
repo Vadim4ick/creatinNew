@@ -1,5 +1,7 @@
 "use client";
 
+import { FormSend } from "@/app/_section/FormSend";
+import { BtnView } from "@/components/BtnView";
 import { BurgerCase } from "@/components/Burger/ui/BurgerCase/BurgerCase";
 import { AboutProjectBlock } from "@/components/imageBlocks/AboutProjectBlock";
 import { DoubleImage } from "@/components/imageBlocks/DoubleImage";
@@ -15,6 +17,7 @@ import {
   ComponentImageBlocksTextBlock,
   ComponentImageBlocksVideo,
   GetCasesIdsQuery,
+  GetFormFeedbackQuery,
 } from "@/graphql/__generated__";
 import { getRouteCase } from "@/shared/const/pages";
 import { useMedia } from "@/shared/hooks/useMedia";
@@ -47,10 +50,12 @@ const PageCase = memo(
     caseContent,
     ids,
     id,
+    formFeedback,
   }: {
     id: string;
     caseContent: CaseContent;
     ids: GetCasesIdsQuery["cases"]["data"];
+    formFeedback?: GetFormFeedbackQuery["formFeedback"];
   }) => {
     const router = useRouter();
     const [currentId] = useState<number>(parseInt(id));
@@ -162,6 +167,14 @@ const PageCase = memo(
                 }
               })}
             </div>
+
+            <div className="project__container">
+              <BtnView />
+            </div>
+
+            {formFeedback && formFeedback.data && (
+              <FormSend form={formFeedback.data.attributes.formFeedback} />
+            )}
           </section>
         </main>
       </>

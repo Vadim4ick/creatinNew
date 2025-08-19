@@ -1,0 +1,74 @@
+.btn {
+  padding: 14px;
+  background: #edeef2;
+  font-family: "SuisseIntl", sans-serif;
+  position: relative;
+  color: #292929;
+  border-radius: 12px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 316px;
+
+  border: 1px solid transparent;
+
+  transition: all 0.45s ease-out 0s;
+
+  @media (any-hover: hover) {
+    &:hover {
+      border-color: #204ff5;
+      color: #204ff5;
+
+      .arrow {
+        top: 0;
+        padding-top: 20px;
+        transform: translate(0, 0%);
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+      }
+    }
+  }
+
+  span {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 120%;
+  }
+
+  .arrow {
+    padding: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #204ff5;
+    border-radius: 50%;
+    position: absolute;
+    right: 14px;
+    top: 50%;
+
+    transform: translate(0, -50%);
+
+    transition: all 0.45s ease-out 0s;
+
+    svg {
+      width: 10px;
+      height: 10px;
+      color: white;
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+.wrapper {
+  width: 100%;
+  padding-top: 51px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 767px) {
+    padding-top: 40px;
+  }
+}

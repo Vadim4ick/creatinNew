@@ -1,5 +1,6 @@
 import { gql } from "@/graphql/client";
 import { PageCase } from "@/page/PageCase";
+import { getSettledValue } from "@/shared/lib";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
@@ -30,22 +31,29 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 const CasePage = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
 
-  const { case: caseContent } = await gql.GetCaseById({
-    id,
-  });
+  const [caseContentRes, formFeedbackRes, casesRes] = await Promise.allSettled([
+    await gql.GetCaseById({
+      id,
+    }),
+    await gql.GetFormFeedback(),
+    await gql.GetCasesIds(),
+  ]);
 
-  const { cases } = await gql.GetCasesIds();
+  const formFeedback = getSettledValue(formFeedbackRes);
+  const caseContent = getSettledValue(caseContentRes);
+  const cases = getSettledValue(casesRes);
 
-  if (!caseContent.data) {
+  if (!caseContent || !caseContent.case.data) {
     return notFound();
   }
 
   return (
     <PageCase
       //@ts-ignore
-      caseContent={caseContent.data.attributes}
-      ids={cases.data}
+      caseContent={caseContent.case.data.attributes}
+      ids={cases?.cases.data || []}
       id={id}
+      formFeedback={formFeedback?.formFeedback}
     />
   );
 };
