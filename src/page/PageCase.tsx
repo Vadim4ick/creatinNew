@@ -175,7 +175,9 @@ const PageCase = memo(
               <BtnView />
             </div>
 
-            <OtherProjects caseContent={caseContent.cases} />
+            {caseContent.cases.data?.length > 0 && (
+              <OtherProjects caseContent={caseContent.cases} />
+            )}
 
             {formFeedback && formFeedback.data && (
               <FormSend form={formFeedback.data.attributes.formFeedback} />

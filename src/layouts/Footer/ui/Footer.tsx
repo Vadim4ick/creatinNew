@@ -61,7 +61,8 @@ const CompanyInfo = memo(() => {
 });
 
 const Footer = memo(() => {
-  const isMobile = useMedia("(max-width: 760px)");
+  const isTablet = useMedia("(max-width: 991px)");
+  const isMobile = useMedia("(max-width: 768px)");
 
   const { data, isLoading } = useGetServicesNames();
 
@@ -78,7 +79,7 @@ const Footer = memo(() => {
 
           <div
             style={{
-              display: isMobile.matches ? "block" : "none",
+              display: isTablet.matches ? "block" : "none",
             }}
             ref={ref}
           >

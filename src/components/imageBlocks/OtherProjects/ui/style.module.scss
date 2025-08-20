@@ -1,13 +1,7 @@
 .body {
   display: flex;
 
-  overflow: auto;
-  padding-right: 16px;
   gap: 16px;
-
-  @media (max-width: 767px) {
-    gap: 12px;
-  }
 }
 
 .container {

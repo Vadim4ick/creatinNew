@@ -3264,7 +3264,7 @@ body.popup-show::after {
 }
 @media (max-width: 767px) {
   .project {
-    margin-bottom: 80px;
+    margin-bottom: 0px;
   }
 }
 .project__image {
