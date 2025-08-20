@@ -12,7 +12,7 @@ export function LogoLink() {
 
   const bounceLetter = useCallback(() => {
     letterI.start({
-      y: 10,
+      y: 20,
       transition: { duration: 0.25, ease: "easeOut" },
     });
   }, [letterI]);
@@ -23,13 +23,13 @@ export function LogoLink() {
       dot.start({
         opacity: 1,
         scale: 1,
-        y: [-40, -22, 0, -8, 0],
+        y: [-40, -100, 0, -100, 0],
         transition: SPRING,
       });
       bounceLetter();
     } else {
       dot.start({
-        y: [0, -6, 0, -4, 0],
+        y: [0, -6, 0, -40, 0],
         transition: SPRING,
       });
 
@@ -46,7 +46,7 @@ export function LogoLink() {
     });
 
     letterI.start({
-      y: 5,
+      y: 10,
       transition: SPRING,
     });
     setShown(false);
@@ -89,9 +89,10 @@ export function LogoLink() {
             fill="#D7D9DB"
           />
           <motion.path
+            initial={{ y: 10 }}
             animate={letterI}
             style={{ transformOrigin: "bottom" }}
-            d="M448 141V49H474V141H448Z"
+            d="M448 141V32H474V141H448Z"
             fill="#D7D9DB"
           />
 
@@ -102,7 +103,7 @@ export function LogoLink() {
 
           <motion.rect
             x="448"
-            y="20" // было 10 → опустили на 10px
+            y="10" // было 10 → опустили на 10px
             width="26"
             height="26"
             rx="13"
