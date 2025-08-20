@@ -55,15 +55,29 @@ export function LogoLink({ triggerMobile }: { triggerMobile: boolean }) {
     setShown(false);
   }, [dot, letterI]);
 
+  const playMobileAnimation = useCallback(() => {
+    dot.start({
+      opacity: 1,
+      scale: [0.8, 1.0, 1],
+      y: [-60, 10, -15, 0], // сначала вверх, потом вниз (чуть ниже), потом отскок
+      transition: SPRING,
+    });
+
+    letterI.start({
+      y: [0, 25, 15, 20],
+      transition: SPRING,
+    });
+  }, [dot, letterI]);
+
   useEffect(() => {
     if (!isMobile.matches) return;
 
     if (triggerMobile) {
-      onHoverStart();
+      playMobileAnimation();
     } else {
       onHoverEnd();
     }
-  }, [triggerMobile, onHoverStart, onHoverEnd, isMobile.matches]);
+  }, [triggerMobile, playMobileAnimation, onHoverEnd, isMobile.matches]);
 
   return (
     <motion.span

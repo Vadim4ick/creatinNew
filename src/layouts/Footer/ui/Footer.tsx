@@ -66,7 +66,7 @@ const Footer = memo(() => {
   const { data, isLoading } = useGetServicesNames();
 
   const ref = useRef(null);
-  const inView = useInView(ref, { amount: 0.07 });
+  const inView = useInView(ref, { amount: 0.1 });
 
   return (
     <footer className={cls.footer}>
@@ -76,11 +76,16 @@ const Footer = memo(() => {
             <LogoLink triggerMobile={inView} />
           </a>
 
-          {isMobile.matches && (
-            <div ref={ref}>
+          <div
+            style={{
+              display: isMobile.matches ? "block" : "none",
+            }}
+            ref={ref}
+          >
+            {isMobile.matches && (
               <Services data={data?.serviceNames.data} isLoading={isLoading} />
-            </div>
-          )}
+            )}
+          </div>
 
           {!isMobile.matches && <CompanyInfo />}
         </div>
