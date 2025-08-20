@@ -6,6 +6,24 @@ query GetCaseById($id: ID) {
 
         backround
 
+        cases {
+          data {
+            id
+
+            attributes {
+              title
+
+              imageMain {
+                data {
+                  attributes {
+                    ...MediaFragment
+                  }
+                }
+              }
+            }
+          }
+        }
+
         content {
           ... on ComponentImageBlocksAboutProject {
             id

@@ -7,6 +7,7 @@ import { AboutProjectBlock } from "@/components/imageBlocks/AboutProjectBlock";
 import { DoubleImage } from "@/components/imageBlocks/DoubleImage";
 import { GridImage } from "@/components/imageBlocks/GridImage";
 import { OneImage } from "@/components/imageBlocks/OneImage";
+import { OtherProjects } from "@/components/imageBlocks/OtherProjects";
 import { TextBlock } from "@/components/imageBlocks/TextBlocks";
 import { VideoBlock } from "@/components/imageBlocks/VideoBlock";
 import {
@@ -16,6 +17,7 @@ import {
   ComponentImageBlocksOneImage,
   ComponentImageBlocksTextBlock,
   ComponentImageBlocksVideo,
+  GetCaseByIdQuery,
   GetCasesIdsQuery,
   GetFormFeedbackQuery,
 } from "@/graphql/__generated__";
@@ -42,6 +44,7 @@ type CaseContent = {
     | AboutProject
   )[];
   readonly mobileName: string;
+  readonly cases: GetCaseByIdQuery["case"]["data"]["attributes"]["cases"];
   readonly backround: ["black"] | ["white"];
 };
 
@@ -171,6 +174,8 @@ const PageCase = memo(
             <div className="project__container">
               <BtnView />
             </div>
+
+            <OtherProjects caseContent={caseContent.cases} />
 
             {formFeedback && formFeedback.data && (
               <FormSend form={formFeedback.data.attributes.formFeedback} />
