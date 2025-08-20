@@ -1,14 +1,17 @@
 "use client";
 
+import { useMedia } from "@/shared/hooks/useMedia";
 import { motion, useAnimation } from "framer-motion";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const SPRING = { type: "spring", mass: 1, stiffness: 195.9, damping: 8.57 };
 
-export function LogoLink() {
+export function LogoLink({ triggerMobile }: { triggerMobile: boolean }) {
   const [shown, setShown] = useState(false);
   const dot = useAnimation();
   const letterI = useAnimation();
+
+  const isMobile = useMedia("(max-width: 991px)");
 
   const bounceLetter = useCallback(() => {
     letterI.start({
@@ -51,6 +54,16 @@ export function LogoLink() {
     });
     setShown(false);
   }, [dot, letterI]);
+
+  useEffect(() => {
+    if (!isMobile.matches) return;
+
+    if (triggerMobile) {
+      onHoverStart();
+    } else {
+      onHoverEnd();
+    }
+  }, [triggerMobile, onHoverStart, onHoverEnd, isMobile.matches]);
 
   return (
     <motion.span

@@ -2,11 +2,12 @@
 
 import cls from "./Footer.module.scss";
 import { useMedia } from "@/shared/hooks/useMedia";
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { useGetServicesNames } from "@/shared/services/servicesName";
 import { GetServicesNamesQuery } from "@/graphql/__generated__";
 import { Skeleton } from "@/shared/ui/Skeleton";
 import { LogoLink } from "./LogoLink";
+import { useInView } from "framer-motion";
 
 const Services = memo(
   ({
@@ -64,16 +65,21 @@ const Footer = memo(() => {
 
   const { data, isLoading } = useGetServicesNames();
 
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.07 });
+
   return (
     <footer className={cls.footer}>
       <div className={cls.container}>
         <div className={cls.companyInfo}>
           <a className={cls.logo} href="/">
-            <LogoLink />
+            <LogoLink triggerMobile={inView} />
           </a>
 
           {isMobile.matches && (
-            <Services data={data?.serviceNames.data} isLoading={isLoading} />
+            <div ref={ref}>
+              <Services data={data?.serviceNames.data} isLoading={isLoading} />
+            </div>
           )}
 
           {!isMobile.matches && <CompanyInfo />}
