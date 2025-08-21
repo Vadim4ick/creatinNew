@@ -39,7 +39,6 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
       setCases(undefined);
     }
   }, [data]);
-
   return (
     <ServiceLayout
       items={caseNames}
