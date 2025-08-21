@@ -1,5 +1,5 @@
 query GetSearchLinks {
-  searchLinks {
+  searchLinks(sort: "id:asc", pagination: { limit: 150 }) {
     data {
       attributes {
         title

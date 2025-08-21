@@ -1,5 +1,5 @@
 query GetCasesIds {
-  cases(sort: "id:asc", pagination: { limit: 100 }) {
+  cases(sort: "id:asc", pagination: { limit: 150 }) {
     data {
       id
     }

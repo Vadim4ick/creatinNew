@@ -1,7 +1,7 @@
 query GetCasesByNameIds($ids: [ID]) {
   cases(
     filters: { case_names: { id: { in: $ids } } }
-    pagination: { limit: 70 }
+    pagination: { limit: 150 }
   ) {
     data {
       id

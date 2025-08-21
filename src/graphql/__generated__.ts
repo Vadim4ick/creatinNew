@@ -3902,7 +3902,7 @@ export const GetHomePartnersFragmentDoc = gql`
     ${MediaFragmentFragmentDoc}`;
 export const GetCasesByNameIdsDocument = gql`
     query GetCasesByNameIds($ids: [ID]) {
-  cases(filters: {case_names: {id: {in: $ids}}}, pagination: {limit: 70}) {
+  cases(filters: {case_names: {id: {in: $ids}}}, pagination: {limit: 150}) {
     data {
       id
       attributes {
@@ -4192,7 +4192,7 @@ export const GetCaseByIdDocument = gql`
     ${MediaFragmentFragmentDoc}`;
 export const GetCasesIdsDocument = gql`
     query GetCasesIds {
-  cases(sort: "id:asc", pagination: {limit: 100}) {
+  cases(sort: "id:asc", pagination: {limit: 150}) {
     data {
       id
     }
@@ -4384,7 +4384,7 @@ export const GetPortfolioDocument = gql`
   portfolio {
     data {
       attributes {
-        cases(filters: {case_names: {id: {in: $ids}}}, pagination: {limit: 70}) {
+        cases(filters: {case_names: {id: {in: $ids}}}, pagination: {limit: 150}) {
           data {
             id
             attributes {
@@ -4399,7 +4399,7 @@ export const GetPortfolioDocument = gql`
     ${CaseFragmentFragmentDoc}`;
 export const GetSearchLinksDocument = gql`
     query GetSearchLinks {
-  searchLinks {
+  searchLinks(sort: "id:asc", pagination: {limit: 150}) {
     data {
       attributes {
         title
