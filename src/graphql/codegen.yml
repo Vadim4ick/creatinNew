@@ -1,5 +1,6 @@
 overwrite: true
-schema: https://strapi.creatin.ru/graphql
+# schema: https://strapi.creatin.ru/graphql
+schema: http://0.0.0.0:1337/graphql
 documents: "./src/graphql/documents/**/*.gql"
 generates:
   ./src/graphql/__generated__.ts:

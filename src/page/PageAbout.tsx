@@ -20,7 +20,7 @@ import { useEffect } from "react";
 
 interface PageAboutProps {
   serviceNames: GetServicesNamesQuery["serviceNames"];
-  partner: GetPartnersQuery["partner"];
+  partner: GetPartnersQuery["ourPartners"];
   formFeedback: GetFormFeedbackQuery["formFeedback"];
 }
 
@@ -73,9 +73,7 @@ const PageAbout = (props: PageAboutProps) => {
 
         {serviceNames.data && <Quality serviceNames={serviceNames.data} />}
 
-        {partner.data.attributes.partners && (
-          <Partners partners={partner.data.attributes.partners} />
-        )}
+        {partner.data && <Partners partners={partner.data} />}
 
         {data?.studio.data.attributes.vacancies && (
           <Vacancies vacancies={data.studio.data.attributes.vacancies} />

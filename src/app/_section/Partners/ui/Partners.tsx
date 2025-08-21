@@ -1,15 +1,15 @@
 "use client";
 
-import { GetHomePartnersFragment } from "@/graphql/__generated__";
 import cls from "./style.module.scss";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { useSwiper } from "@/shared/hooks/useSwiper";
 import { useRef } from "react";
 import { A11y, Mousewheel } from "swiper";
 import { PartnersItem } from "./PartnersItem";
+import { GetPartnersQuery } from "@/graphql/__generated__";
 
 interface PartnersProps {
-  partners: GetHomePartnersFragment;
+  partners: GetPartnersQuery["ourPartners"]["data"];
 }
 
 const Partners = (props: PartnersProps) => {
@@ -36,7 +36,7 @@ const Partners = (props: PartnersProps) => {
     <section className={cls.partners}>
       <div className={`partners__container ${cls.container}`}>
         <div className={cls.header}>
-          <h2>{partners.title}</h2>
+          <h2>Наши партнёры</h2>
 
           <p>
             Рука в руку к креативным вершинам. <br /> Наши партнёры дополняют
@@ -46,7 +46,7 @@ const Partners = (props: PartnersProps) => {
 
         <div className={`swiper`} ref={swiperRef}>
           <div className={`partners__swiper swiper-wrapper ${cls.cards}`}>
-            {partners.our_partners.data.map((item, idx) => {
+            {partners.map((item, idx) => {
               const noFill = item.attributes.noFillImage.data.attributes;
               const fill = item.attributes.fillImage?.data?.attributes;
 

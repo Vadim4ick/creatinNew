@@ -46,7 +46,7 @@ const Home = async () => {
   return (
     <PageHome
       homePage={homePage?.homePage}
-      partner={partner?.partner}
+      partner={partner?.ourPartners}
       formFeedback={formFeedback?.formFeedback}
       askedQuestions={askedQuestion?.askedQuestions}
     />

@@ -1,5 +1,4 @@
 import { getRouteOffersPage } from "@/shared/const/pages";
-import { useGetMobileBurgerLinks } from "@/shared/services/mobileBurgerLinks";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Lottie, { Options } from "react-lottie";
@@ -11,10 +10,36 @@ interface MenuProps {
   onClickContacts: () => void;
 }
 
+const mobileNavigation = [
+  {
+    id: "1",
+    name: "главная",
+    href: "/",
+  },
+  {
+    id: "2",
+    name: "контакты",
+    href: null,
+  },
+  {
+    id: "3",
+    name: "услуги",
+    href: "/services",
+  },
+  {
+    id: "4",
+    name: "портфолио",
+    href: "/portfolio",
+  },
+  {
+    id: "5",
+    name: "студия",
+    href: "/about",
+  },
+];
+
 const Menu = (props: MenuProps) => {
   const { active, activeContacts, onClickContacts } = props;
-
-  const { data: burgerLinks } = useGetMobileBurgerLinks();
 
   const router = useRouter();
 
@@ -122,19 +147,17 @@ const Menu = (props: MenuProps) => {
             </a>
 
             <ul className="mobile-nav__list">
-              {burgerLinks?.mobileNavigation.data.attributes.mobileLink.map(
-                (el) => {
-                  return (
-                    <li key={el.id} className="mobile-nav__item">
-                      {el.href ? (
-                        <Link href={el.href}>{el.name}</Link>
-                      ) : (
-                        <a onClick={onClickContacts}>{el.name}</a>
-                      )}
-                    </li>
-                  );
-                }
-              )}
+              {mobileNavigation?.map((el) => {
+                return (
+                  <li key={el.id} className="mobile-nav__item">
+                    {el.href ? (
+                      <Link href={el.href}>{el.name}</Link>
+                    ) : (
+                      <a onClick={onClickContacts}>{el.name}</a>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

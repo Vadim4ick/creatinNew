@@ -20,7 +20,7 @@ import { useEffect } from "react";
 
 interface PageHomeProps {
   homePage?: GetHomePageQuery["homePage"];
-  partner?: GetPartnersQuery["partner"];
+  partner?: GetPartnersQuery["ourPartners"];
   formFeedback?: GetFormFeedbackQuery["formFeedback"];
   askedQuestions?: GetAskedQuestionsQuery["askedQuestions"];
 }
@@ -74,9 +74,7 @@ const PageHome = (props: PageHomeProps) => {
 
         <AboutStatisticBaner />
 
-        {partner && partner.data && (
-          <Partners partners={partner.data.attributes.partners} />
-        )}
+        {partner && partner.data && <Partners partners={partner.data} />}
 
         {askedQuestions &&
           askedQuestions.data &&

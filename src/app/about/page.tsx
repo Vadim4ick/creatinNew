@@ -27,7 +27,7 @@ const AboutPage = async () => {
 
   const { serviceNames } = await gql.GetServicesNames();
 
-  const { partner } = await gql.GetPartners();
+  const partners = await gql.GetPartners();
 
   const { formFeedback } = await gql.GetFormFeedback();
 
@@ -35,7 +35,7 @@ const AboutPage = async () => {
     <>
       <PageAbout
         serviceNames={serviceNames}
-        partner={partner}
+        partner={partners.ourPartners}
         formFeedback={formFeedback}
       />
     </>

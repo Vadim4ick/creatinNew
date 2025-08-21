@@ -2,8 +2,6 @@ query GetStudio {
   studio {
     data {
       attributes {
-        title
-
         introCards {
           ...IntroCardFragment
         }
