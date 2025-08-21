@@ -6,19 +6,13 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     id: params.id,
   });
 
-  if (!offer.data || !offer.data.attributes || !offer.data.attributes.seo) {
+  if (!offer.data || !offer.data.attributes) {
     // Добавьте проверку на существование нужных свойств
     return null;
   }
 
   const metadata = {
-    title: offer.data.attributes.seo.metaTitle,
-    description: offer.data.attributes.seo.metaDescription,
-    keywords: offer.data.attributes.seo.keywords,
-    robots: offer.data.attributes.seo.metaRobots,
-    viewport: offer.data.attributes.seo.metaViewport,
-    structuredData: offer.data.attributes.seo.structuredData,
-    canonical: offer.data.attributes.seo.canonicalURL,
+    title: offer.data.attributes.name,
   };
 
   return metadata;

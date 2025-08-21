@@ -2,9 +2,7 @@ query GetSeoCaseId($id: ID) {
   case(id: $id) {
     data {
       attributes {
-        seo {
-          ...SeoFragment
-        }
+        mobileName
       }
     }
   }

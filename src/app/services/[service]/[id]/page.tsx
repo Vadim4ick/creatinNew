@@ -7,22 +7,12 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     id: params.id,
   });
 
-  if (
-    !serviceCollection.data ||
-    !serviceCollection.data.attributes ||
-    !serviceCollection.data.attributes.seo
-  ) {
+  if (!serviceCollection.data || !serviceCollection.data.attributes) {
     return null;
   }
 
   const metadata = {
-    title: serviceCollection.data.attributes.seo.metaTitle,
-    description: serviceCollection.data.attributes.seo.metaDescription,
-    keywords: serviceCollection.data.attributes.seo.keywords,
-    robots: serviceCollection.data.attributes.seo.metaRobots,
-    viewport: serviceCollection.data.attributes.seo.metaViewport,
-    structuredData: serviceCollection.data.attributes.seo.structuredData,
-    canonical: serviceCollection.data.attributes.seo.canonicalURL,
+    title: serviceCollection.data.attributes.name,
   };
 
   return metadata;

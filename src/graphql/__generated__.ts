@@ -181,7 +181,6 @@ export type Case = {
   readonly info: Scalars['String']['output'];
   readonly mobileName: Scalars['String']['output'];
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly seo: Maybe<ComponentSharedSeo>;
   readonly title: Scalars['String']['output'];
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
 };
@@ -233,7 +232,6 @@ export type CaseFiltersInput = {
   readonly not: InputMaybe<CaseFiltersInput>;
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<CaseFiltersInput>>>;
   readonly publishedAt: InputMaybe<DateTimeFilterInput>;
-  readonly seo: InputMaybe<ComponentSharedSeoFiltersInput>;
   readonly title: InputMaybe<StringFilterInput>;
   readonly updatedAt: InputMaybe<DateTimeFilterInput>;
 };
@@ -248,7 +246,6 @@ export type CaseInput = {
   readonly info: InputMaybe<Scalars['String']['input']>;
   readonly mobileName: InputMaybe<Scalars['String']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
-  readonly seo: InputMaybe<ComponentSharedSeoInput>;
   readonly title: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1089,7 +1086,7 @@ export type FormFeedbackInput = {
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type GenericMorph = AskedQuestion | Banner | Case | CaseName | Complex | ComplexAccompany | ComponentBlocksIncludesHover | ComponentComponentsComplexComponent | ComponentComponentsOfferComponent | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIncludesContent | ComponentElementsIntroCard | ComponentElementsOffer | ComponentElementsTitle | ComponentElementsVacancy | ComponentImageBlocksAboutProject | ComponentImageBlocksDoubleImage | ComponentImageBlocksDoubleTextBlocks | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | ComponentImageBlocksVideo | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ComponentUiMobileLink | FormFeedback | HomePage | I18NLocale | IncludesBlock | Offer | OffersPage | OurPartner | Portfolio | PortfolioPage | SearchLink | SeoComplexPage | SeoOffersPage | Service | ServiceCollection | ServiceName | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vacancy;
+export type GenericMorph = AskedQuestion | Banner | Case | CaseName | Complex | ComplexAccompany | ComponentBlocksIncludesHover | ComponentComponentsComplexComponent | ComponentComponentsOfferComponent | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIncludesContent | ComponentElementsIntroCard | ComponentElementsOffer | ComponentElementsTitle | ComponentElementsVacancy | ComponentImageBlocksAboutProject | ComponentImageBlocksDoubleImage | ComponentImageBlocksDoubleTextBlocks | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | ComponentImageBlocksVideo | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ComponentUiMobileLink | FormFeedback | HomePage | I18NLocale | IncludesBlock | Offer | OffersPage | OurPartner | Portfolio | PortfolioPage | SearchLink | Service | ServiceCollection | ServiceName | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vacancy;
 
 export type HomePage = {
   readonly __typename?: 'HomePage';
@@ -1367,8 +1364,6 @@ export type Mutation = {
   readonly deletePortfolio: Maybe<PortfolioEntityResponse>;
   readonly deletePortfolioPage: Maybe<PortfolioPageEntityResponse>;
   readonly deleteSearchLink: Maybe<SearchLinkEntityResponse>;
-  readonly deleteSeoComplexPage: Maybe<SeoComplexPageEntityResponse>;
-  readonly deleteSeoOffersPage: Maybe<SeoOffersPageEntityResponse>;
   readonly deleteService: Maybe<ServiceEntityResponse>;
   readonly deleteServiceCollection: Maybe<ServiceCollectionEntityResponse>;
   readonly deleteServiceName: Maybe<ServiceNameEntityResponse>;
@@ -1407,8 +1402,6 @@ export type Mutation = {
   readonly updatePortfolio: Maybe<PortfolioEntityResponse>;
   readonly updatePortfolioPage: Maybe<PortfolioPageEntityResponse>;
   readonly updateSearchLink: Maybe<SearchLinkEntityResponse>;
-  readonly updateSeoComplexPage: Maybe<SeoComplexPageEntityResponse>;
-  readonly updateSeoOffersPage: Maybe<SeoOffersPageEntityResponse>;
   readonly updateService: Maybe<ServiceEntityResponse>;
   readonly updateServiceCollection: Maybe<ServiceCollectionEntityResponse>;
   readonly updateServiceName: Maybe<ServiceNameEntityResponse>;
@@ -1731,16 +1724,6 @@ export type MutationUpdateSearchLinkArgs = {
 };
 
 
-export type MutationUpdateSeoComplexPageArgs = {
-  data: SeoComplexPageInput;
-};
-
-
-export type MutationUpdateSeoOffersPageArgs = {
-  data: SeoOffersPageInput;
-};
-
-
 export type MutationUpdateServiceArgs = {
   data: ServiceInput;
   id: Scalars['ID']['input'];
@@ -1814,7 +1797,6 @@ export type Offer = {
   readonly name: Scalars['String']['output'];
   readonly offerBanner: Maybe<BannerEntityResponse>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly seo: Maybe<ComponentSharedSeo>;
   readonly service_name: Maybe<ServiceNameEntityResponse>;
   readonly sliderCase: Maybe<ComponentComponentsSliderCase>;
   readonly textBlocks: Maybe<ReadonlyArray<Maybe<ComponentComponentsTextBlock>>>;
@@ -1866,7 +1848,6 @@ export type OfferFiltersInput = {
   readonly offerBanner: InputMaybe<BannerFiltersInput>;
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<OfferFiltersInput>>>;
   readonly publishedAt: InputMaybe<DateTimeFilterInput>;
-  readonly seo: InputMaybe<ComponentSharedSeoFiltersInput>;
   readonly service_name: InputMaybe<ServiceNameFiltersInput>;
   readonly sliderCase: InputMaybe<ComponentComponentsSliderCaseFiltersInput>;
   readonly textBlocks: InputMaybe<ComponentComponentsTextBlockFiltersInput>;
@@ -1883,7 +1864,6 @@ export type OfferInput = {
   readonly name: InputMaybe<Scalars['String']['input']>;
   readonly offerBanner: InputMaybe<Scalars['ID']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
-  readonly seo: InputMaybe<ComponentSharedSeoInput>;
   readonly service_name: InputMaybe<Scalars['ID']['input']>;
   readonly sliderCase: InputMaybe<ComponentComponentsSliderCaseInput>;
   readonly textBlocks: InputMaybe<ReadonlyArray<InputMaybe<ComponentComponentsTextBlockInput>>>;
@@ -2086,8 +2066,6 @@ export type Query = {
   readonly portfolioPage: Maybe<PortfolioPageEntityResponse>;
   readonly searchLink: Maybe<SearchLinkEntityResponse>;
   readonly searchLinks: Maybe<SearchLinkEntityResponseCollection>;
-  readonly seoComplexPage: Maybe<SeoComplexPageEntityResponse>;
-  readonly seoOffersPage: Maybe<SeoOffersPageEntityResponse>;
   readonly service: Maybe<ServiceEntityResponse>;
   readonly serviceCollection: Maybe<ServiceCollectionEntityResponse>;
   readonly serviceCollections: Maybe<ServiceCollectionEntityResponseCollection>;
@@ -2267,16 +2245,6 @@ export type QuerySearchLinksArgs = {
 };
 
 
-export type QuerySeoComplexPageArgs = {
-  publicationState?: InputMaybe<PublicationState>;
-};
-
-
-export type QuerySeoOffersPageArgs = {
-  publicationState?: InputMaybe<PublicationState>;
-};
-
-
 export type QueryServiceArgs = {
   id: InputMaybe<Scalars['ID']['input']>;
 };
@@ -2436,54 +2404,6 @@ export type SearchLinkInput = {
   readonly url: InputMaybe<Scalars['String']['input']>;
 };
 
-export type SeoComplexPage = {
-  readonly __typename?: 'SeoComplexPage';
-  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
-  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly seo: Maybe<ComponentSharedSeo>;
-  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type SeoComplexPageEntity = {
-  readonly __typename?: 'SeoComplexPageEntity';
-  readonly attributes: Maybe<SeoComplexPage>;
-  readonly id: Maybe<Scalars['ID']['output']>;
-};
-
-export type SeoComplexPageEntityResponse = {
-  readonly __typename?: 'SeoComplexPageEntityResponse';
-  readonly data: Maybe<SeoComplexPageEntity>;
-};
-
-export type SeoComplexPageInput = {
-  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
-  readonly seo: InputMaybe<ComponentSharedSeoInput>;
-};
-
-export type SeoOffersPage = {
-  readonly __typename?: 'SeoOffersPage';
-  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
-  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly seo: Maybe<ComponentSharedSeo>;
-  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type SeoOffersPageEntity = {
-  readonly __typename?: 'SeoOffersPageEntity';
-  readonly attributes: Maybe<SeoOffersPage>;
-  readonly id: Maybe<Scalars['ID']['output']>;
-};
-
-export type SeoOffersPageEntityResponse = {
-  readonly __typename?: 'SeoOffersPageEntityResponse';
-  readonly data: Maybe<SeoOffersPageEntity>;
-};
-
-export type SeoOffersPageInput = {
-  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
-  readonly seo: InputMaybe<ComponentSharedSeoInput>;
-};
-
 export type Service = {
   readonly __typename?: 'Service';
   readonly Services: Maybe<ComponentSectionsServices>;
@@ -2517,7 +2437,6 @@ export type ServiceCollection = {
   readonly name: Scalars['String']['output'];
   readonly price: Scalars['Long']['output'];
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly seo: Maybe<ComponentSharedSeo>;
   readonly sliderCase: Maybe<ComponentComponentsSliderCase>;
   readonly textBlocks: Maybe<ReadonlyArray<Maybe<ComponentComponentsTextBlock>>>;
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
@@ -2561,7 +2480,6 @@ export type ServiceCollectionFiltersInput = {
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<ServiceCollectionFiltersInput>>>;
   readonly price: InputMaybe<LongFilterInput>;
   readonly publishedAt: InputMaybe<DateTimeFilterInput>;
-  readonly seo: InputMaybe<ComponentSharedSeoFiltersInput>;
   readonly sliderCase: InputMaybe<ComponentComponentsSliderCaseFiltersInput>;
   readonly textBlocks: InputMaybe<ComponentComponentsTextBlockFiltersInput>;
   readonly updatedAt: InputMaybe<DateTimeFilterInput>;
@@ -2575,7 +2493,6 @@ export type ServiceCollectionInput = {
   readonly name: InputMaybe<Scalars['String']['input']>;
   readonly price: InputMaybe<Scalars['Long']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
-  readonly seo: InputMaybe<ComponentSharedSeoInput>;
   readonly sliderCase: InputMaybe<ComponentComponentsSliderCaseInput>;
   readonly textBlocks: InputMaybe<ReadonlyArray<InputMaybe<ComponentComponentsTextBlockInput>>>;
   readonly video: InputMaybe<Scalars['ID']['input']>;
@@ -3350,19 +3267,7 @@ export type GetSeoCaseIdQueryVariables = Exact<{
 }>;
 
 
-export type GetSeoCaseIdQuery = { readonly __typename?: 'Query', readonly case: { readonly __typename?: 'CaseEntityResponse', readonly data: { readonly __typename?: 'CaseEntity', readonly attributes: { readonly __typename?: 'Case', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
-
-export type GetSeoComplexQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetSeoComplexQuery = { readonly __typename?: 'Query', readonly seoComplexPage: { readonly __typename?: 'SeoComplexPageEntityResponse', readonly data: { readonly __typename?: 'SeoComplexPageEntity', readonly attributes: { readonly __typename?: 'SeoComplexPage', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
-
-export type GetSeoComplexPageQueryVariables = Exact<{
-  id: InputMaybe<Scalars['ID']['input']>;
-}>;
-
-
-export type GetSeoComplexPageQuery = { readonly __typename?: 'Query', readonly complex: { readonly __typename?: 'ComplexEntityResponse', readonly data: { readonly __typename?: 'ComplexEntity', readonly attributes: { readonly __typename?: 'Complex', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
+export type GetSeoCaseIdQuery = { readonly __typename?: 'Query', readonly case: { readonly __typename?: 'CaseEntityResponse', readonly data: { readonly __typename?: 'CaseEntity', readonly attributes: { readonly __typename?: 'Case', readonly mobileName: string } } } };
 
 export type GetSeoHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3374,24 +3279,14 @@ export type GetSeoOfferQueryVariables = Exact<{
 }>;
 
 
-export type GetSeoOfferQuery = { readonly __typename?: 'Query', readonly offer: { readonly __typename?: 'OfferEntityResponse', readonly data: { readonly __typename?: 'OfferEntity', readonly attributes: { readonly __typename?: 'Offer', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
-
-export type GetSeoOffersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetSeoOffersQuery = { readonly __typename?: 'Query', readonly seoOffersPage: { readonly __typename?: 'SeoOffersPageEntityResponse', readonly data: { readonly __typename?: 'SeoOffersPageEntity', readonly attributes: { readonly __typename?: 'SeoOffersPage', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
-
-export type GetSeoPortfolioPageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetSeoPortfolioPageQuery = { readonly __typename?: 'Query', readonly portfolioPage: { readonly __typename?: 'PortfolioPageEntityResponse', readonly data: { readonly __typename?: 'PortfolioPageEntity', readonly attributes: { readonly __typename?: 'PortfolioPage', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
+export type GetSeoOfferQuery = { readonly __typename?: 'Query', readonly offer: { readonly __typename?: 'OfferEntityResponse', readonly data: { readonly __typename?: 'OfferEntity', readonly attributes: { readonly __typename?: 'Offer', readonly name: string } } } };
 
 export type GetSeoServiceCollectionPageQueryVariables = Exact<{
   id: InputMaybe<Scalars['ID']['input']>;
 }>;
 
 
-export type GetSeoServiceCollectionPageQuery = { readonly __typename?: 'Query', readonly serviceCollection: { readonly __typename?: 'ServiceCollectionEntityResponse', readonly data: { readonly __typename?: 'ServiceCollectionEntity', readonly attributes: { readonly __typename?: 'ServiceCollection', readonly seo: { readonly __typename?: 'ComponentSharedSeo', readonly metaTitle: string, readonly metaDescription: string, readonly keywords: string, readonly metaRobots: string, readonly structuredData: any, readonly metaViewport: string, readonly canonicalURL: string } } } } };
+export type GetSeoServiceCollectionPageQuery = { readonly __typename?: 'Query', readonly serviceCollection: { readonly __typename?: 'ServiceCollectionEntityResponse', readonly data: { readonly __typename?: 'ServiceCollectionEntity', readonly attributes: { readonly __typename?: 'ServiceCollection', readonly name: string } } } };
 
 export type GetSeoServicesPageQueryVariables = Exact<{
   id: InputMaybe<Scalars['ID']['input']>;
@@ -4423,40 +4318,12 @@ export const GetSeoCaseIdDocument = gql`
   case(id: $id) {
     data {
       attributes {
-        seo {
-          ...SeoFragment
-        }
+        mobileName
       }
     }
   }
 }
-    ${SeoFragmentFragmentDoc}`;
-export const GetSeoComplexDocument = gql`
-    query GetSeoComplex {
-  seoComplexPage {
-    data {
-      attributes {
-        seo {
-          ...SeoFragment
-        }
-      }
-    }
-  }
-}
-    ${SeoFragmentFragmentDoc}`;
-export const GetSeoComplexPageDocument = gql`
-    query GetSeoComplexPage($id: ID) {
-  complex(id: $id) {
-    data {
-      attributes {
-        seo {
-          ...SeoFragment
-        }
-      }
-    }
-  }
-}
-    ${SeoFragmentFragmentDoc}`;
+    `;
 export const GetSeoHomePageDocument = gql`
     query GetSeoHomePage {
   homePage {
@@ -4475,53 +4342,23 @@ export const GetSeoOfferDocument = gql`
   offer(id: $id) {
     data {
       attributes {
-        seo {
-          ...SeoFragment
-        }
+        name
       }
     }
   }
 }
-    ${SeoFragmentFragmentDoc}`;
-export const GetSeoOffersDocument = gql`
-    query GetSeoOffers {
-  seoOffersPage {
-    data {
-      attributes {
-        seo {
-          ...SeoFragment
-        }
-      }
-    }
-  }
-}
-    ${SeoFragmentFragmentDoc}`;
-export const GetSeoPortfolioPageDocument = gql`
-    query GetSeoPortfolioPage {
-  portfolioPage {
-    data {
-      attributes {
-        seo {
-          ...SeoFragment
-        }
-      }
-    }
-  }
-}
-    ${SeoFragmentFragmentDoc}`;
+    `;
 export const GetSeoServiceCollectionPageDocument = gql`
     query GetSeoServiceCollectionPage($id: ID) {
   serviceCollection(id: $id) {
     data {
       attributes {
-        seo {
-          ...SeoFragment
-        }
+        name
       }
     }
   }
 }
-    ${SeoFragmentFragmentDoc}`;
+    `;
 export const GetSeoServicesPageDocument = gql`
     query GetSeoServicesPage($id: ID) {
   service(id: $id) {
@@ -4618,23 +4455,11 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     GetSeoCaseId(variables?: GetSeoCaseIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoCaseIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSeoCaseIdQuery>(GetSeoCaseIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoCaseId', 'query', variables);
     },
-    GetSeoComplex(variables?: GetSeoComplexQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoComplexQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetSeoComplexQuery>(GetSeoComplexDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoComplex', 'query', variables);
-    },
-    GetSeoComplexPage(variables?: GetSeoComplexPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoComplexPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetSeoComplexPageQuery>(GetSeoComplexPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoComplexPage', 'query', variables);
-    },
     GetSeoHomePage(variables?: GetSeoHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoHomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSeoHomePageQuery>(GetSeoHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoHomePage', 'query', variables);
     },
     GetSeoOffer(variables?: GetSeoOfferQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoOfferQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSeoOfferQuery>(GetSeoOfferDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoOffer', 'query', variables);
-    },
-    GetSeoOffers(variables?: GetSeoOffersQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoOffersQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetSeoOffersQuery>(GetSeoOffersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoOffers', 'query', variables);
-    },
-    GetSeoPortfolioPage(variables?: GetSeoPortfolioPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoPortfolioPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetSeoPortfolioPageQuery>(GetSeoPortfolioPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoPortfolioPage', 'query', variables);
     },
     GetSeoServiceCollectionPage(variables?: GetSeoServiceCollectionPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetSeoServiceCollectionPageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSeoServiceCollectionPageQuery>(GetSeoServiceCollectionPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetSeoServiceCollectionPage', 'query', variables);
