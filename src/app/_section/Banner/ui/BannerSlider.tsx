@@ -12,7 +12,7 @@ import { useMedia } from "@/shared/hooks/useMedia";
 import { useGetSearchLinks } from "@/shared/services/useGetSearchLinks";
 import { useRouter } from "next/navigation";
 import { GetHomePageQuery } from "@/graphql/__generated__";
-import { ImagePreloader } from "@/shared/ui/ImagePreloader";
+import Image from "next/image";
 
 type Props = {
   slides: GetHomePageQuery["homePage"]["data"]["attributes"]["bannerMedia"]["data"];
@@ -60,6 +60,8 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
       slidesPerView: 1,
       spaceBetween: 20,
       speed: 800,
+      loop: true,
+      loopedSlides: slides.length > 5 ? 5 : slides.length,
       effect: "fade",
       fadeEffect: { crossFade: true },
       autoplay: {
@@ -84,7 +86,7 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
       observer: true,
       observeParents: true,
     }),
-    [isDesktop.matches]
+    [isDesktop.matches, slides.length]
   );
 
   useSwiper({ ref: ref as any, options });
@@ -108,12 +110,7 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
               /> */}
 
                 {mime.startsWith("image/") ? (
-                  <ImagePreloader
-                    src={url}
-                    alt=""
-                    className={styles.bg}
-                    fill={true}
-                  />
+                  <Image fill={true} src={url} alt="" className={styles.bg} />
                 ) : mime.startsWith("video/") ? (
                   <video
                     style={{

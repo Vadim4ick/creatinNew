@@ -70,14 +70,14 @@ export function ImagePreloader({
   return (
     <div
       className={`${styles.imgWrap} ${wrapperClassName || ""}`}
-      style={arStyle}
+      // style={arStyle}
     >
-      {showSkeleton && !loaded && (
+      {/* {showSkeleton && !loaded && (
         <div
           className={`${styles.skeleton} ${skeletonClassName || ""}`}
           aria-hidden
         />
-      )}
+      )} */}
 
       <Image
         src={finalSrc}
