@@ -13,19 +13,10 @@
 
 .slider {
   max-width: 100%;
-  padding: 0 250px;
 
-  @media (max-width: 1800px) {
-    padding: 0 150px;
-  }
-
-  @media (max-width: 1600px) {
-    padding: 0 80px;
-  }
+  overflow: visible !important;
 
   @media (max-width: 1200px) {
-    padding: 0 16px;
-
     > div {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(358px, 1fr));

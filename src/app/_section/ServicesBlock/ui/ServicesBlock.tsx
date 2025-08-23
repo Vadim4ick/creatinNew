@@ -115,11 +115,13 @@ const ServicesBlock = () => {
         </div>
       </div>
 
-      <div ref={ref} className={`swiper ${cls.slider}`}>
-        <div className="swiper-wrapper">
-          {data?.serviceNames.data.map((item) => (
-            <ServicesSlide key={item.id} item={item} />
-          ))}
+      <div className="services__container">
+        <div ref={ref} className={`swiper ${cls.slider}`}>
+          <div className="swiper-wrapper">
+            {data?.serviceNames.data.map((item) => (
+              <ServicesSlide key={item.id} item={item} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
