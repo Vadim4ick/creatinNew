@@ -22,6 +22,7 @@ const AskedQuestions = ({
 
             {!isTablet.matches && (
               <ButtonDetails
+                leftColor="#27A5E5"
                 text="Задать вопрос напрямую"
                 Icon={() => <Send />}
               />
@@ -51,6 +52,7 @@ const AskedQuestions = ({
 
           {isTablet.matches && (
             <ButtonDetails
+              leftColor="#27A5E5"
               text="Задать вопрос напрямую"
               Icon={() => <Send />}
             />

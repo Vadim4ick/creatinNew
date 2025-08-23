@@ -30,12 +30,14 @@ export function ButtonDetails({
   onClick,
   text,
   variant = "default",
+  leftColor,
 }: {
   className?: string;
   Icon: () => JSX.Element;
   onClick?: () => void;
   text: string;
   variant?: Variant;
+  leftColor?: string;
 }) {
   return (
     <motion.button
@@ -56,6 +58,7 @@ export function ButtonDetails({
         aria-hidden
       >
         <motion.div
+          style={leftColor ? { background: leftColor } : undefined}
           className={cls.btnArrow}
           variants={leftDotVariants}
           transition={springTransition}

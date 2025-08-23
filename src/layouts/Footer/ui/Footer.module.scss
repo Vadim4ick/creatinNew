@@ -75,8 +75,16 @@
       width: fit-content;
       font-family: "SuisseIntl", sans-serif;
 
+      transition: all 0.45s ease-out 0s;
+
       @media (max-width: 768px) {
         line-height: 18px;
+      }
+
+      @media (any-hover: hover) {
+        &:hover {
+          color: #292929;
+        }
       }
     }
   }
@@ -157,6 +165,16 @@
         gap: 10px;
       }
 
+      transition: all 0.45s ease-out 0s;
+
+      @media (any-hover: hover) {
+        &:hover {
+          li {
+            color: #929398;
+          }
+        }
+      }
+
       li {
         font-size: 14px;
         line-height: 130%;
@@ -164,11 +182,19 @@
         font-weight: 450;
         font-family: "SuisseIntl", sans-serif;
 
+        transition: all 0.45s ease-out 0s;
+
         @media (max-width: 768px) {
           font-size: 16px;
         }
 
         text-transform: capitalize;
+
+        @media (any-hover: hover) {
+          &:hover {
+            color: #292929;
+          }
+        }
       }
     }
   }

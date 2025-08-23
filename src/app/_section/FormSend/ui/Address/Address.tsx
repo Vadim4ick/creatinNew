@@ -17,13 +17,13 @@ const cardVariants = {
 } as const;
 
 const arrowVariants = {
-  idle: { rotate: 0, ["--arrow-stroke" as any]: "#7a7b7f" },
+  idle: { rotate: 0, ["--arrow-stroke" as any]: "#204FF5" },
   hover: { rotate: 90, ["--arrow-stroke" as any]: "#c0ff00" },
 } as const;
 
 const textVariants = {
-  idle: { color: "#ffffff" },
-  hover: { color: "#c0ff00" },
+  idle: { color: "#ffffff", fontSize: "17px" },
+  hover: { color: "#c0ff00", fontSize: "15px" },
 } as const;
 
 const Address = ({ form }: AddressProps) => {
