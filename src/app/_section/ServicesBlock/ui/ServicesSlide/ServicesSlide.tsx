@@ -6,6 +6,7 @@ import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
 import { GetServicesNamesQuery } from "@/graphql/__generated__";
 import { motion } from "framer-motion";
 import { useMedia } from "@/shared/hooks/useMedia";
+import Image from "next/image";
 
 const BG_ARROW: Record<string, string> = {
   issledovaniya: "#A6BBEB",

@@ -89,12 +89,15 @@
 .image {
   display: grid;
   place-items: center;
+  position: relative;
 
   img {
     max-height: 100%;
     max-width: 100%;
-    width: auto;
-    height: clamp(200px, 22vw, 204px);
+    position: absolute;
+    padding: 0 32px;
+    // width: auto;
+    // height: clamp(200px, 22vw, 204px);
     object-fit: contain;
     /* transform/transition делает framer-motion */
   }
