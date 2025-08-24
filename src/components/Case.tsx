@@ -7,6 +7,7 @@ import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
 import useIntersectionObserver from "@/shared/hooks/useIntersectionObserver";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
+import { DecorBgGreen } from "@/shared/icons/DecorBgGreen";
 import { ButtonDetails } from "@/shared/ui/ButtonDetails";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,6 +42,8 @@ const Case = memo((props: CaseProps) => {
       <div className="case-card__item case-card__item--text">
         <div className="case-card__title">
           {project.attributes.title && project.attributes.title}
+
+          <DecorBgGreen />
         </div>
         <div className="case-card__info">
           {project.attributes.info && project.attributes.info}
