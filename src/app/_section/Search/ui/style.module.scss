@@ -1,5 +1,6 @@
 .search {
   font-family: sans-serif;
+  position: relative;
 }
 
 .wrap {
@@ -102,6 +103,8 @@
 .popular {
   margin-top: 16px;
   padding: 16px;
+  position: absolute;
+  width: 100%;
 
   background: rgba(255, 255, 255, 0.6);
   border-radius: 12px;
