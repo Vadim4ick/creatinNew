@@ -15,13 +15,14 @@ const AskedQuestions = ({
 
   return (
     <section className={cls.askedQuestions}>
-      <div className="asked-questions__container">
+      <div className={`asked-questions__container ${cls.container}`}>
         <div className={cls.body}>
           <div className={cls.left}>
             <h2>Вы спрашивали - Мы отвечаем</h2>
 
             {!isTablet.matches && (
               <ButtonDetails
+                mobileEnd={true}
                 leftColor="#27A5E5"
                 text="Задать вопрос напрямую"
                 Icon={() => <Send />}
@@ -55,6 +56,7 @@ const AskedQuestions = ({
               leftColor="#27A5E5"
               text="Задать вопрос напрямую"
               Icon={() => <Send />}
+              mobileEnd={true}
             />
           )}
         </div>

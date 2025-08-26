@@ -10,6 +10,13 @@
   @media (max-width: 1200px) {
     max-width: 100%;
   }
+
+  @media (max-width: 768px) {
+    height: 468px;
+    a {
+      height: 100%;
+    }
+  }
 }
 
 /* Внутренняя сетка */
@@ -21,6 +28,10 @@
   grid-template-rows: clamp(200px, 22vw, 260px) auto;
   row-gap: 24px;
   border-radius: inherit;
+
+  @media (max-width: 768px) {
+    grid-template-rows: clamp(215px, 22vw, 260px) auto;
+  }
 }
 
 /* Градиентный оверлей — фон карточки на ховере */
@@ -108,6 +119,10 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media (max-width: 768px) {
+    justify-content: flex-end;
+  }
 }
 .title {
   font-family: "SuisseIntl", sans-serif;

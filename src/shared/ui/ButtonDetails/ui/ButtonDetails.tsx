@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import cls from "./style.module.scss";
 import { classNames, springTransition } from "@/shared/lib";
+import { useMedia } from "@/shared/hooks/useMedia";
 
 const btnVariants = { rest: {}, hover: {} };
 
@@ -31,6 +32,7 @@ export function ButtonDetails({
   text,
   variant = "default",
   leftColor,
+  mobileEnd = false,
 }: {
   className?: string;
   Icon: () => JSX.Element;
@@ -38,13 +40,15 @@ export function ButtonDetails({
   text: string;
   variant?: Variant;
   leftColor?: string;
+  mobileEnd?: boolean;
 }) {
+  const isMobile = useMedia("(max-width: 768px)");
   return (
     <motion.button
       onClick={onClick}
       className={classNames(`${cls.btn} ${className}`, {}, [cls[variant]])}
       initial="rest"
-      animate="rest"
+      animate={isMobile.matches && mobileEnd ? "hover" : "rest"}
       whileHover="hover"
       variants={btnVariants}
       transition={springTransition}

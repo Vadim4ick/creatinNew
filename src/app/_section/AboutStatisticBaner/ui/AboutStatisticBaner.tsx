@@ -14,7 +14,7 @@ const AboutStatisticBaner = () => {
 
   return (
     <section className={cls.statistic}>
-      <div className={`statistic__container`}>
+      <div className={`statistic__container ${cls.container}`}>
         <div className={cls.content}>
           <div className={cls.heading}>
             <div className={cls.title}>

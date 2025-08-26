@@ -13,6 +13,12 @@
   }
 }
 
+.container {
+  @media (max-width: 768px) {
+    padding: 0;
+  }
+}
+
 .statistic {
   padding-bottom: 160px;
 
