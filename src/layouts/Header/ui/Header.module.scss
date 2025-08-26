@@ -34,6 +34,16 @@
   }
 }
 
+.mobileHeader {
+  display: none;
+  padding: 24px 0;
+  svg {
+    height: 20px;
+  }
+  @media (max-width: 1200px) {
+    display: block;
+  }
+}
 .container {
   padding: 14px;
 }

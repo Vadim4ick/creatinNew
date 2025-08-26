@@ -5,13 +5,8 @@ import { getSettledValue } from "@/shared/lib";
 export async function generateMetadata() {
   const { homePage } = await gql.GetSeoHomePage();
 
-  if (
-    !homePage.data ||
-    !homePage.data.attributes ||
-    !homePage.data.attributes.seo
-  ) {
-    // Добавьте проверку на существование нужных свойств
-    return null;
+  if (!homePage.data?.attributes?.seo?.metaViewport) {
+    return { width: "device-width", initialScale: 1 }; // дефолт
   }
 
   const metadata = {
@@ -25,6 +20,12 @@ export async function generateMetadata() {
   };
 
   return metadata;
+}
+
+export async function generateViewport() {
+  return {
+    viewport: { width: "device-width", initialScale: 1 },
+  };
 }
 
 export const revalidate = 0;

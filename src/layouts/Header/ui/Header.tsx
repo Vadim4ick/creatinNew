@@ -195,6 +195,12 @@ const Header = () => {
         </AnimatePresence>
       </header>
 
+      <header className={cls.mobileHeader}>
+        <Link href={"/"} className={cls.logo}>
+          <Logo />
+        </Link>
+      </header>
+
       <div className="mobile-menu-overlay"></div>
     </>
   );
