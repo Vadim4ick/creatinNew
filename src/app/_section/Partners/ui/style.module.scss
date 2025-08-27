@@ -90,15 +90,23 @@
 }
 
 .card {
-  @media (any-hover: hover) {
-    &:hover {
-      .image {
-        opacity: 0;
-      }
+  .image {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
 
-      .imageFill {
-        opacity: 1;
-      }
+  .imageFill {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &.active {
+    .image {
+      opacity: 0;
+    }
+
+    .imageFill {
+      opacity: 1;
     }
   }
 }

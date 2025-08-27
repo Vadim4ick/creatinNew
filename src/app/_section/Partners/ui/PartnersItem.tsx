@@ -18,9 +18,13 @@ const PartnersItem = ({
 
   return (
     <div
-      className={`partners__slide swiper-slide ${cls.card}`}
+      className={`partners__slide swiper-slide ${cls.card} ${
+        hover ? cls.active : ""
+      }`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      onTouchStart={() => setHover(true)}
+      onTouchEnd={() => setHover(false)}
     >
       <motion.div
         className={cls.imageWrapper}
