@@ -6,10 +6,24 @@ query GetHomePage {
           ...GetHomeCases
         }
 
-        bannerMedia {
+        banera_dlya_glavnoj_straniczies {
           data {
             attributes {
-              ...MediaFragment
+              desktopMedia {
+                data {
+                  attributes {
+                    ...MediaFragment
+                  }
+                }
+              }
+
+              mobileMedia {
+                data {
+                  attributes {
+                    ...MediaFragment
+                  }
+                }
+              }
             }
           }
         }

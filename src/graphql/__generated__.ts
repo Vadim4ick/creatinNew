@@ -1086,16 +1086,75 @@ export type FormFeedbackInput = {
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type GenericMorph = AskedQuestion | Banner | Case | CaseName | Complex | ComplexAccompany | ComponentBlocksIncludesHover | ComponentComponentsComplexComponent | ComponentComponentsOfferComponent | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIncludesContent | ComponentElementsIntroCard | ComponentElementsOffer | ComponentElementsTitle | ComponentElementsVacancy | ComponentImageBlocksAboutProject | ComponentImageBlocksDoubleImage | ComponentImageBlocksDoubleTextBlocks | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | ComponentImageBlocksVideo | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ComponentUiMobileLink | FormFeedback | HomePage | I18NLocale | IncludesBlock | Offer | OffersPage | OurPartner | Portfolio | PortfolioPage | SearchLink | Service | ServiceCollection | ServiceName | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vacancy;
+export type GenericMorph = AskedQuestion | Banner | Case | CaseName | Complex | ComplexAccompany | ComponentBlocksIncludesHover | ComponentComponentsComplexComponent | ComponentComponentsOfferComponent | ComponentComponentsSliderCase | ComponentComponentsTextBlock | ComponentComponentsVacancies | ComponentElementsIncludesContent | ComponentElementsIntroCard | ComponentElementsOffer | ComponentElementsTitle | ComponentElementsVacancy | ComponentImageBlocksAboutProject | ComponentImageBlocksDoubleImage | ComponentImageBlocksDoubleTextBlocks | ComponentImageBlocksGridImage | ComponentImageBlocksOneImage | ComponentImageBlocksTextBlock | ComponentImageBlocksVideo | ComponentSectionsAboutSection | ComponentSectionsFormSend | ComponentSectionsPartners | ComponentSectionsSectionTitles | ComponentSectionsServices | ComponentSharedMetaSocial | ComponentSharedSeo | ComponentUiLink | ComponentUiMobileLink | FormFeedback | HomeBaner | HomePage | I18NLocale | IncludesBlock | Offer | OffersPage | OurPartner | Portfolio | SearchLink | Service | ServiceCollection | ServiceName | Studio | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Vacancy;
+
+export type HomeBaner = {
+  readonly __typename?: 'HomeBaner';
+  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
+  readonly desktopMedia: UploadFileEntityResponse;
+  readonly mobileMedia: Maybe<UploadFileEntityResponse>;
+  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly title: Scalars['String']['output'];
+  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type HomeBanerEntity = {
+  readonly __typename?: 'HomeBanerEntity';
+  readonly attributes: Maybe<HomeBaner>;
+  readonly id: Maybe<Scalars['ID']['output']>;
+};
+
+export type HomeBanerEntityResponse = {
+  readonly __typename?: 'HomeBanerEntityResponse';
+  readonly data: Maybe<HomeBanerEntity>;
+};
+
+export type HomeBanerEntityResponseCollection = {
+  readonly __typename?: 'HomeBanerEntityResponseCollection';
+  readonly data: ReadonlyArray<HomeBanerEntity>;
+  readonly meta: ResponseCollectionMeta;
+};
+
+export type HomeBanerFiltersInput = {
+  readonly and: InputMaybe<ReadonlyArray<InputMaybe<HomeBanerFiltersInput>>>;
+  readonly createdAt: InputMaybe<DateTimeFilterInput>;
+  readonly id: InputMaybe<IdFilterInput>;
+  readonly not: InputMaybe<HomeBanerFiltersInput>;
+  readonly or: InputMaybe<ReadonlyArray<InputMaybe<HomeBanerFiltersInput>>>;
+  readonly publishedAt: InputMaybe<DateTimeFilterInput>;
+  readonly title: InputMaybe<StringFilterInput>;
+  readonly updatedAt: InputMaybe<DateTimeFilterInput>;
+};
+
+export type HomeBanerInput = {
+  readonly desktopMedia: InputMaybe<Scalars['ID']['input']>;
+  readonly mobileMedia: InputMaybe<Scalars['ID']['input']>;
+  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly title: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeBanerRelationResponseCollection = {
+  readonly __typename?: 'HomeBanerRelationResponseCollection';
+  readonly data: ReadonlyArray<HomeBanerEntity>;
+};
 
 export type HomePage = {
   readonly __typename?: 'HomePage';
+  readonly banera_dlya_glavnoj_straniczies: Maybe<HomeBanerRelationResponseCollection>;
   readonly bannerMedia: UploadFileRelationResponseCollection;
   readonly cases: Maybe<CaseRelationResponseCollection>;
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
   readonly seo: Maybe<ComponentSharedSeo>;
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type HomePageBanera_Dlya_Glavnoj_StranicziesArgs = {
+  filters: InputMaybe<HomeBanerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -1125,6 +1184,7 @@ export type HomePageEntityResponse = {
 };
 
 export type HomePageInput = {
+  readonly banera_dlya_glavnoj_straniczies: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
   readonly bannerMedia: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
   readonly cases: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
@@ -1335,6 +1395,7 @@ export type Mutation = {
   readonly createCase: Maybe<CaseEntityResponse>;
   readonly createCaseName: Maybe<CaseNameEntityResponse>;
   readonly createComplex: Maybe<ComplexEntityResponse>;
+  readonly createHomeBaner: Maybe<HomeBanerEntityResponse>;
   readonly createIncludesBlock: Maybe<IncludesBlockEntityResponse>;
   readonly createOffer: Maybe<OfferEntityResponse>;
   readonly createOurPartner: Maybe<OurPartnerEntityResponse>;
@@ -1356,13 +1417,13 @@ export type Mutation = {
   readonly deleteComplex: Maybe<ComplexEntityResponse>;
   readonly deleteComplexAccompany: Maybe<ComplexAccompanyEntityResponse>;
   readonly deleteFormFeedback: Maybe<FormFeedbackEntityResponse>;
+  readonly deleteHomeBaner: Maybe<HomeBanerEntityResponse>;
   readonly deleteHomePage: Maybe<HomePageEntityResponse>;
   readonly deleteIncludesBlock: Maybe<IncludesBlockEntityResponse>;
   readonly deleteOffer: Maybe<OfferEntityResponse>;
   readonly deleteOffersPage: Maybe<OffersPageEntityResponse>;
   readonly deleteOurPartner: Maybe<OurPartnerEntityResponse>;
   readonly deletePortfolio: Maybe<PortfolioEntityResponse>;
-  readonly deletePortfolioPage: Maybe<PortfolioPageEntityResponse>;
   readonly deleteSearchLink: Maybe<SearchLinkEntityResponse>;
   readonly deleteService: Maybe<ServiceEntityResponse>;
   readonly deleteServiceCollection: Maybe<ServiceCollectionEntityResponse>;
@@ -1394,13 +1455,13 @@ export type Mutation = {
   readonly updateComplexAccompany: Maybe<ComplexAccompanyEntityResponse>;
   readonly updateFileInfo: UploadFileEntityResponse;
   readonly updateFormFeedback: Maybe<FormFeedbackEntityResponse>;
+  readonly updateHomeBaner: Maybe<HomeBanerEntityResponse>;
   readonly updateHomePage: Maybe<HomePageEntityResponse>;
   readonly updateIncludesBlock: Maybe<IncludesBlockEntityResponse>;
   readonly updateOffer: Maybe<OfferEntityResponse>;
   readonly updateOffersPage: Maybe<OffersPageEntityResponse>;
   readonly updateOurPartner: Maybe<OurPartnerEntityResponse>;
   readonly updatePortfolio: Maybe<PortfolioEntityResponse>;
-  readonly updatePortfolioPage: Maybe<PortfolioPageEntityResponse>;
   readonly updateSearchLink: Maybe<SearchLinkEntityResponse>;
   readonly updateService: Maybe<ServiceEntityResponse>;
   readonly updateServiceCollection: Maybe<ServiceCollectionEntityResponse>;
@@ -1446,6 +1507,11 @@ export type MutationCreateCaseNameArgs = {
 
 export type MutationCreateComplexArgs = {
   data: ComplexInput;
+};
+
+
+export type MutationCreateHomeBanerArgs = {
+  data: HomeBanerInput;
 };
 
 
@@ -1530,6 +1596,11 @@ export type MutationDeleteCaseNameArgs = {
 
 
 export type MutationDeleteComplexArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteHomeBanerArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -1680,6 +1751,12 @@ export type MutationUpdateFormFeedbackArgs = {
 };
 
 
+export type MutationUpdateHomeBanerArgs = {
+  data: HomeBanerInput;
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationUpdateHomePageArgs = {
   data: HomePageInput;
 };
@@ -1710,11 +1787,6 @@ export type MutationUpdateOurPartnerArgs = {
 
 export type MutationUpdatePortfolioArgs = {
   data: PortfolioInput;
-};
-
-
-export type MutationUpdatePortfolioPageArgs = {
-  data: PortfolioPageInput;
 };
 
 
@@ -2008,30 +2080,6 @@ export type PortfolioInput = {
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type PortfolioPage = {
-  readonly __typename?: 'PortfolioPage';
-  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
-  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly seo: Maybe<ComponentSharedSeo>;
-  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type PortfolioPageEntity = {
-  readonly __typename?: 'PortfolioPageEntity';
-  readonly attributes: Maybe<PortfolioPage>;
-  readonly id: Maybe<Scalars['ID']['output']>;
-};
-
-export type PortfolioPageEntityResponse = {
-  readonly __typename?: 'PortfolioPageEntityResponse';
-  readonly data: Maybe<PortfolioPageEntity>;
-};
-
-export type PortfolioPageInput = {
-  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
-  readonly seo: InputMaybe<ComponentSharedSeoInput>;
-};
-
 export enum PublicationState {
   Live = 'LIVE',
   Preview = 'PREVIEW'
@@ -2051,6 +2099,8 @@ export type Query = {
   readonly complexAccompany: Maybe<ComplexAccompanyEntityResponse>;
   readonly complexes: Maybe<ComplexEntityResponseCollection>;
   readonly formFeedback: Maybe<FormFeedbackEntityResponse>;
+  readonly homeBaner: Maybe<HomeBanerEntityResponse>;
+  readonly homeBaners: Maybe<HomeBanerEntityResponseCollection>;
   readonly homePage: Maybe<HomePageEntityResponse>;
   readonly i18NLocale: Maybe<I18NLocaleEntityResponse>;
   readonly i18NLocales: Maybe<I18NLocaleEntityResponseCollection>;
@@ -2063,7 +2113,6 @@ export type Query = {
   readonly ourPartner: Maybe<OurPartnerEntityResponse>;
   readonly ourPartners: Maybe<OurPartnerEntityResponseCollection>;
   readonly portfolio: Maybe<PortfolioEntityResponse>;
-  readonly portfolioPage: Maybe<PortfolioPageEntityResponse>;
   readonly searchLink: Maybe<SearchLinkEntityResponse>;
   readonly searchLinks: Maybe<SearchLinkEntityResponseCollection>;
   readonly service: Maybe<ServiceEntityResponse>;
@@ -2161,6 +2210,19 @@ export type QueryFormFeedbackArgs = {
 };
 
 
+export type QueryHomeBanerArgs = {
+  id: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryHomeBanersArgs = {
+  filters: InputMaybe<HomeBanerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type QueryHomePageArgs = {
   publicationState?: InputMaybe<PublicationState>;
 };
@@ -2223,11 +2285,6 @@ export type QueryOurPartnersArgs = {
 
 
 export type QueryPortfolioArgs = {
-  publicationState?: InputMaybe<PublicationState>;
-};
-
-
-export type QueryPortfolioPageArgs = {
   publicationState?: InputMaybe<PublicationState>;
 };
 
@@ -3204,7 +3261,7 @@ export type GetFormFeedbackQuery = { readonly __typename?: 'Query', readonly for
 export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly cases: { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } }, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } } } }> }, readonly bannerMedia: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } }> } } } } };
+export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly cases: { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } }, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } } } }> }, readonly banera_dlya_glavnoj_straniczies: { readonly __typename?: 'HomeBanerRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'HomeBanerEntity', readonly attributes: { readonly __typename?: 'HomeBaner', readonly desktopMedia: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } }, readonly mobileMedia: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } } } }> } } } } };
 
 export type GetOfferByIdQueryVariables = Exact<{
   id: InputMaybe<Scalars['ID']['input']>;
@@ -4063,10 +4120,23 @@ export const GetHomePageDocument = gql`
         cases {
           ...GetHomeCases
         }
-        bannerMedia {
+        banera_dlya_glavnoj_straniczies {
           data {
             attributes {
-              ...MediaFragment
+              desktopMedia {
+                data {
+                  attributes {
+                    ...MediaFragment
+                  }
+                }
+              }
+              mobileMedia {
+                data {
+                  attributes {
+                    ...MediaFragment
+                  }
+                }
+              }
             }
           }
         }

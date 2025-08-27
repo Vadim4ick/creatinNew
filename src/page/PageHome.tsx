@@ -58,9 +58,14 @@ const PageHome = (props: PageHomeProps) => {
         className="page"
       >
         {homePage &&
-          homePage.data.attributes.bannerMedia.data &&
-          homePage.data.attributes.bannerMedia.data?.length > 0 && (
-            <BannerSlider slides={homePage.data.attributes.bannerMedia.data} />
+          homePage.data.attributes.banera_dlya_glavnoj_straniczies.data &&
+          homePage.data.attributes.banera_dlya_glavnoj_straniczies.data
+            ?.length > 0 && (
+            <BannerSlider
+              slides={
+                homePage.data.attributes.banera_dlya_glavnoj_straniczies.data
+              }
+            />
           )}
 
         <ServicesBlock />

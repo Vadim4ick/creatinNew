@@ -15,7 +15,7 @@ import { GetHomePageQuery } from "@/graphql/__generated__";
 import Image from "next/image";
 
 type Props = {
-  slides: GetHomePageQuery["homePage"]["data"]["attributes"]["bannerMedia"]["data"];
+  slides: GetHomePageQuery["homePage"]["data"]["attributes"]["banera_dlya_glavnoj_straniczies"]["data"];
   className?: string;
 };
 
@@ -98,7 +98,13 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
       <div ref={ref} className={`swiper ${styles.swiper}`}>
         <div className="swiper-wrapper">
           {slides.map((s, i) => {
-            const { url, mime } = s.attributes;
+            const desk = s.attributes.desktopMedia?.data?.attributes;
+            const mob = s.attributes.mobileMedia?.data?.attributes;
+
+            const urlDesk = desk?.url;
+            const mimeDesk = desk?.mime;
+            const urlMob = mob?.url || urlDesk; // fallback
+            const mimeMob = mob?.mime || mimeDesk; // fallback
 
             return (
               <div key={i} className={`swiper-slide ${styles.slide}`}>
@@ -109,9 +115,15 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
                 fill={true}
               /> */}
 
-                {mime.startsWith("image/") ? (
-                  <Image fill={true} src={url} alt="" className={styles.bg} />
-                ) : mime.startsWith("video/") ? (
+                {mimeDesk.startsWith("image/") ||
+                mimeMob.startsWith("image/") ? (
+                  <picture>
+                    <source media="(max-width: 768px)" srcSet={urlMob} />
+                    <source media="(min-width: 769px)" srcSet={urlDesk} />
+                    <Image fill src={urlDesk} alt="" className={styles.bg} />
+                  </picture>
+                ) : mimeDesk.startsWith("video/") ||
+                  mimeMob.startsWith("video/") ? (
                   <video
                     style={{
                       width: "100%",
@@ -123,7 +135,16 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
                     loop
                     playsInline
                   >
-                    <source src={url} type={mime} />
+                    <source
+                      media="(max-width: 768px)"
+                      src={urlMob}
+                      type={mimeMob}
+                    />
+                    <source
+                      media="(min-width: 769px)"
+                      src={urlDesk}
+                      type={mimeDesk}
+                    />
                   </video>
                 ) : null}
               </div>
