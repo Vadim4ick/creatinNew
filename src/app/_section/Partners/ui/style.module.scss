@@ -89,13 +89,17 @@
   transition: opacity 0.45s ease-out; // анимация появления
 }
 
-.card:hover {
-  .image {
-    opacity: 0;
-  }
+.card {
+  @media (any-hover: hover) {
+    &:hover {
+      .image {
+        opacity: 0;
+      }
 
-  .imageFill {
-    opacity: 1;
+      .imageFill {
+        opacity: 1;
+      }
+    }
   }
 }
 
