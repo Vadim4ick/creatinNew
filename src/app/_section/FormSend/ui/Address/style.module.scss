@@ -1,11 +1,7 @@
 .contancs {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-
-  @media (max-width: 768px) {
-    gap: 4px;
-  }
+  gap: 4px;
 
   .item {
     padding: 0 18px;

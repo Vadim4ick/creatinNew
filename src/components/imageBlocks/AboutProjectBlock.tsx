@@ -3,11 +3,13 @@ import cls from "./Styles.module.scss";
 
 const AboutProjectBlock = ({
   content,
+  darkTheme,
 }: {
   content: ComponentImageBlocksAboutProject;
+  darkTheme: boolean;
 }) => {
   return (
-    <div className={`${cls.wrapper} ${cls.about}`}>
+    <div className={`${cls.wrapper} ${cls.about} ${darkTheme ? cls.dark : ""}`}>
       <h2 className={cls.title}>О проекте</h2>
 
       <div className={cls.aboutContent}>

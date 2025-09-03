@@ -63,7 +63,7 @@ const PageCase = memo(
     const router = useRouter();
     const [currentId] = useState<number>(parseInt(id));
 
-    const { setDarkTheme } = useContext(DarkProviderContext);
+    const { setDarkTheme, darkTheme } = useContext(DarkProviderContext);
 
     const isDesktop = useMedia("(max-width: 1200px)");
 
@@ -151,6 +151,7 @@ const PageCase = memo(
                     <TextBlock
                       key={el.idBlock + el.id}
                       content={el as TextImage}
+                      darkTheme={darkTheme}
                     />
                   );
                 } else if (el.idBlock === "videoBlock") {
@@ -165,6 +166,7 @@ const PageCase = memo(
                     <AboutProjectBlock
                       key={el.idBlock + el.id}
                       content={el as AboutProject}
+                      darkTheme={darkTheme}
                     />
                   );
                 }

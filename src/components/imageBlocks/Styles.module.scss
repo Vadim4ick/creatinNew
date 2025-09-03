@@ -8,6 +8,13 @@
   }
 }
 
+.dark p,
+.dark h1,
+.dark h2,
+.dark span {
+  color: white !important;
+}
+
 .row {
   display: flex;
   justify-content: space-between;
@@ -181,6 +188,8 @@
   }
 }
 .about {
+  padding: 128px 0;
+
   .title {
     font-family: "SuisseIntl", sans-serif;
     font-weight: 500;
