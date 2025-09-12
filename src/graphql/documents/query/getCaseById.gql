@@ -44,6 +44,14 @@ query GetCaseById($id: ID) {
                 }
               }
             }
+
+            mobileImage {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
           }
 
           ... on ComponentImageBlocksGridImage {
@@ -71,6 +79,30 @@ query GetCaseById($id: ID) {
                 }
               }
             }
+
+            mobileImageOne {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+
+            mobileImageTwo {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+
+            mobileImageThree {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
           }
 
           ... on ComponentImageBlocksDoubleImage {
@@ -84,6 +116,22 @@ query GetCaseById($id: ID) {
               }
             }
             imageOne {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+
+            mobileImageOne {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+
+            mobileImageTwo {
               data {
                 attributes {
                   ...MediaFragment

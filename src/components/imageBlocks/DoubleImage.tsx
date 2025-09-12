@@ -8,25 +8,48 @@ const DoubleImage = memo(
   (props: { content: ComponentImageBlocksDoubleImage }) => {
     const { content } = props;
 
+    const imgOne = content.imageOne?.data?.attributes;
+    const imgTwo = content.imageTwo?.data?.attributes;
+    const mobOne = content.mobileImageOne?.data?.attributes;
+    const mobTwo = content.mobileImageTwo?.data?.attributes;
+
     return (
       <div key={content.id + "two"} className="project__images">
         <div className="project__image">
-          {/* <Image
-          alt=""
-          src={getFileUrl(content.imageOne?.data.attributes.url)}
-          width={content.imageOne?.data.attributes.width}
-          height={content.imageOne?.data.attributes.height}
-        /> */}
-          <img src={getFileUrl(content.imageOne?.data.attributes.url)} />
+          <picture>
+            {mobOne && (
+              <source
+                srcSet={getFileUrl(mobOne.url)}
+                media="(max-width: 768px)"
+                width={mobOne.width}
+                height={mobOne.height}
+              />
+            )}
+            <img
+              src={getFileUrl(imgOne?.url)}
+              width={imgOne?.width}
+              height={imgOne?.height}
+              alt=""
+            />
+          </picture>
         </div>
         <div className="project__image">
-          {/* <Image
-          alt=""
-          src={getFileUrl(content.imageTwo?.data.attributes.url)}
-          width={content.imageTwo?.data.attributes.width}
-          height={content.imageTwo?.data.attributes.height}
-        /> */}
-          <img src={getFileUrl(content.imageTwo?.data.attributes.url)} />
+          <picture>
+            {mobTwo && (
+              <source
+                srcSet={getFileUrl(mobTwo.url)}
+                media="(max-width: 768px)"
+                width={mobTwo.width}
+                height={mobTwo.height}
+              />
+            )}
+            <img
+              src={getFileUrl(imgTwo?.url)}
+              width={imgTwo?.width}
+              height={imgTwo?.height}
+              alt=""
+            />
+          </picture>
         </div>
       </div>
     );
