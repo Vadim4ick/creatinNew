@@ -21,6 +21,22 @@ fragment GetHomeCases on CaseRelationResponseCollection {
           }
         }
       }
+
+      imageMainMobile {
+        data {
+          attributes {
+            ...MediaFragment
+          }
+        }
+      }
+
+      imageBigMobile {
+        data {
+          attributes {
+            ...MediaFragment
+          }
+        }
+      }
     }
   }
 }

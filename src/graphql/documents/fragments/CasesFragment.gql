@@ -16,6 +16,22 @@ fragment CaseFragment on Case {
     }
   }
 
+  imageMainMobile {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+
+  imageBigMobile {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
+
   case_names {
     data {
       attributes {

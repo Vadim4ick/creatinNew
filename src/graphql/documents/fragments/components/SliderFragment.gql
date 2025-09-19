@@ -22,6 +22,22 @@ fragment SliderFragment on ComponentComponentsSliderCase {
             }
           }
         }
+
+        imageMainMobile {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
+
+        imageBigMobile {
+          data {
+            attributes {
+              ...MediaFragment
+            }
+          }
+        }
       }
     }
   }

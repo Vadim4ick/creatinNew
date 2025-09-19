@@ -22,16 +22,25 @@ const Case = memo((props: CaseProps) => {
   const { project } = props;
 
   const router = useRouter();
-
   const caseRef = useRef<HTMLDivElement | null>(null);
 
-  const isDesktop = useMedia("(max-width: 1200px)");
+  const isBelow1200 = useMedia("(max-width: 1200px)");
+  const isMobile = useMedia("(max-width: 778px)");
 
   useIntersectionObserver({
     ref: caseRef,
     margin: "30px",
     once: true,
   });
+
+  // Выбираем картинку в зависимости от размера
+  const bigImage = isMobile.matches
+    ? project.attributes.imageBigMobile
+    : project.attributes.imageBig;
+
+  const mainImage = isMobile.matches
+    ? project.attributes.imageMainMobile
+    : project.attributes.imageMain;
 
   return (
     <div
@@ -42,13 +51,12 @@ const Case = memo((props: CaseProps) => {
       <div className="case-card__item case-card__item--text">
         <div className="case-card__title">
           {project.attributes.title && project.attributes.title}
-
           <DecorBgGreen />
         </div>
         <div className="case-card__info">
           {project.attributes.info && project.attributes.info}
         </div>
-        {!isDesktop.matches && (
+        {!isBelow1200.matches && (
           <div className="case-card__btns">
             <ButtonDetails
               variant="white"
@@ -61,34 +69,30 @@ const Case = memo((props: CaseProps) => {
       </div>
 
       <div className="case-card__item case-card__item--big">
-        {project.attributes.imageBig && (
-          <Image
-            fill
-            src={getFileUrl(project.attributes.imageBig.data.attributes.url)}
-            alt=""
-          />
+        {bigImage && (
+          <Image fill src={getFileUrl(bigImage.data.attributes.url)} alt="" />
         )}
       </div>
 
-      {isDesktop.matches ? (
+      {isBelow1200.matches ? (
         <Link
           href={getRouteCase(project.id)}
           className="case-card__item case-card__item--main"
         >
-          {project.attributes.imageMain && (
+          {mainImage && (
             <Image
               fill
-              src={getFileUrl(project.attributes.imageMain.data.attributes.url)}
+              src={getFileUrl(mainImage.data.attributes.url)}
               alt=""
             />
           )}
         </Link>
       ) : (
         <a className="case-card__item case-card__item--main">
-          {project.attributes.imageMain && (
+          {mainImage && (
             <Image
               fill
-              src={getFileUrl(project.attributes.imageMain.data.attributes.url)}
+              src={getFileUrl(mainImage.data.attributes.url)}
               alt=""
             />
           )}
