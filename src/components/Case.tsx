@@ -33,14 +33,16 @@ const Case = memo((props: CaseProps) => {
     once: true,
   });
 
-  // Выбираем картинку в зависимости от размера
-  const bigImage = isMobile.matches
-    ? project.attributes.imageBigMobile
-    : project.attributes.imageBig;
+  // Выбираем картинку в зависимости от размера и fallback на десктоп
+  const bigImage =
+    isMobile.matches && project.attributes.imageBigMobile.data
+      ? project.attributes.imageBigMobile
+      : project.attributes.imageBig;
 
-  const mainImage = isMobile.matches
-    ? project.attributes.imageMainMobile
-    : project.attributes.imageMain;
+  const mainImage =
+    isMobile.matches && project.attributes.imageMainMobile.data
+      ? project.attributes.imageMainMobile
+      : project.attributes.imageMain;
 
   return (
     <div
@@ -50,12 +52,10 @@ const Case = memo((props: CaseProps) => {
     >
       <div className="case-card__item case-card__item--text">
         <div className="case-card__title">
-          {project.attributes.title && project.attributes.title}
+          {project.attributes.title}
           <DecorBgGreen />
         </div>
-        <div className="case-card__info">
-          {project.attributes.info && project.attributes.info}
-        </div>
+        <div className="case-card__info">{project.attributes.info}</div>
         {!isBelow1200.matches && (
           <div className="case-card__btns">
             <ButtonDetails
