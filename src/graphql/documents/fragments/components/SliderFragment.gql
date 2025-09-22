@@ -30,14 +30,6 @@ fragment SliderFragment on ComponentComponentsSliderCase {
             }
           }
         }
-
-        imageBigMobile {
-          data {
-            attributes {
-              ...MediaFragment
-            }
-          }
-        }
       }
     }
   }

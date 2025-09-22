@@ -24,14 +24,6 @@ fragment CaseFragment on Case {
     }
   }
 
-  imageBigMobile {
-    data {
-      attributes {
-        ...MediaFragment
-      }
-    }
-  }
-
   case_names {
     data {
       attributes {

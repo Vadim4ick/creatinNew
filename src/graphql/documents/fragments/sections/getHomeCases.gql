@@ -29,14 +29,6 @@ fragment GetHomeCases on CaseRelationResponseCollection {
           }
         }
       }
-
-      imageBigMobile {
-        data {
-          attributes {
-            ...MediaFragment
-          }
-        }
-      }
     }
   }
 }

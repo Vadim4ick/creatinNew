@@ -26,6 +26,10 @@
       gap: 20px;
       width: 100%;
       text-decoration: none; /* на всякий случай */
+
+      span {
+        height: 19px;
+      }
     }
 
     /* Кнопка-стрелка: вращение через CSS var (управляет framer) */

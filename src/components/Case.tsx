@@ -34,10 +34,7 @@ const Case = memo((props: CaseProps) => {
   });
 
   // Выбираем картинку в зависимости от размера и fallback на десктоп
-  const bigImage =
-    isMobile.matches && project.attributes.imageBigMobile.data
-      ? project.attributes.imageBigMobile
-      : project.attributes.imageBig;
+  const bigImage = project.attributes.imageBig;
 
   const mainImage =
     isMobile.matches && project.attributes.imageMainMobile.data

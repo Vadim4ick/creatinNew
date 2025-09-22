@@ -20,7 +20,7 @@ const Cases = (props: CasesProps) => {
   return (
     <section className={`cases ${className}`}>
       <div className="cases__container">
-        <h2 className="cases__title">Наши партнёры</h2>
+        <h2 className="cases__title">Портфолио</h2>
 
         <div className="cases__row">
           {cases.data.map((el) => (

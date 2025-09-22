@@ -82,7 +82,7 @@ const ServicesBlock = () => {
     <section className={cls.servicesBlock}>
       <div className={"services__container"}>
         <div className={cls.servicesHeader}>
-          <h2>Креативные решения для вашего бизнеса</h2>
+          <h2>Экспертное агентство для вашего бизнеса</h2>
 
           <div className={cls.description}>
             <ButtonDetails
@@ -91,9 +91,8 @@ const ServicesBlock = () => {
               onClick={() => router.push("/services/1")}
             />
             <p>
-              Мы создаем дизайн, который не только привлекает внимание, но и
-              решает бизнес-задачи. В каждом проекте мы делаем акцент на
-              индивидуальности бренда, чтобы подчеркнуть его уникальные черты.
+              Мы создаем продукт, который привлекает внимание, решает задачи
+              бизнеса и раскрывает характер бренда.
             </p>
           </div>
         </div>
