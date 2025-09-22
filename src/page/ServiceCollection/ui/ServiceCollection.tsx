@@ -18,6 +18,8 @@ import { Video } from "@/components/Video";
 import { BurgerServiceCollection } from "@/components/Burger/ui/BurgerServiceCollection/BurgerServiceCollection";
 import { ContentBanner } from "@/components/ContentBanner";
 import { getRouteServices } from "@/shared/const/pages";
+import { classNames } from "@/shared/lib";
+import cls from "./style.module.scss";
 
 const ServiceCollection = memo(
   ({
@@ -90,8 +92,13 @@ const ServiceCollection = memo(
         {!serviceCollection && <div>Такой коллекции пока не существует</div>}
 
         <div className="page__base">
+          {video}
+
           {serviceCollection?.name && (
-            <section className="hero fade-up mb-96" ref={refSection}>
+            <section
+              className={classNames("fade-up mb-96", {}, [cls.hero])}
+              ref={refSection}
+            >
               <div className="hero__left">
                 <h1 className="hero__title">{serviceCollection.name}</h1>
 
@@ -122,50 +129,44 @@ const ServiceCollection = memo(
                 </ReactMarkdown>
               </div>
 
-              {isPhone.matches && video}
-
-              <div className="hero__right">
+              <div className={cls.right}>
                 <div
-                  className="hero-card"
+                  className={classNames(cls.card, {}, [cls.price])}
                   // @ts-ignore
                   style={{ "--icon": "url(/img/icons/price.svg)" }}
                 >
-                  <div className="hero-card__icon"></div>
-                  <div className="hero-card__name">
-                    <span> Стоимость </span>
-                  </div>
-                  <div className="hero-card__value">
+                  <div style={{ margin: 0 }} className="hero-card__icon"></div>
+
+                  <div className={cls.content}>
+                    <p>Стоимость от</p>
+
                     <span>
-                      от
-                      <b className="_rub">
-                        {` ${priceFormatter(serviceCollection?.price)}`}
-                      </b>
+                      {` ${priceFormatter(serviceCollection?.price)}`}
                     </span>
                   </div>
                 </div>
 
                 {serviceCollection?.deadlines && (
                   <div
-                    className="hero-card mobile-block"
+                    className={classNames(cls.card, {}, [cls.time])}
                     // @ts-ignore
                     style={{ "--icon": "url(/img/icons/time.svg)" }}
                   >
-                    <div className="hero-card__icon"></div>
-                    <div className="hero-card__name">
-                      <span> срок выполнения </span>
-                    </div>
-                    <div className="hero-card__value">
-                      <span>
-                        <b>{serviceCollection?.deadlines}</b>
-                      </span>
+                    <div
+                      style={{ margin: 0 }}
+                      className="hero-card__icon"
+                    ></div>
+
+                    <div className={cls.content}>
+                      <p>срок выполнения</p>
+
+                      <span>{serviceCollection?.deadlines}</span>
                     </div>
                   </div>
                 )}
               </div>
             </section>
           )}
-
-          {!isPhone.matches && video}
 
           {serviceCollection?.textBlocks && (
             <TextBlocks
