@@ -8,8 +8,6 @@ query GetServiceById($id: ID) {
 
         Services {
           id
-          title
-          description
 
           service_collections {
             data {
