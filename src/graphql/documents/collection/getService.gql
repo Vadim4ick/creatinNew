@@ -16,6 +16,17 @@ query GetServiceById($id: ID) {
               id
 
               attributes {
+                serviceColorImageComponent {
+                  color
+
+                  imageService {
+                    data {
+                      attributes {
+                        ...MediaFragment
+                      }
+                    }
+                  }
+                }
                 name
 
                 description

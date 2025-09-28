@@ -7,14 +7,15 @@ import {
 import ServiceLayout from "@/layouts/ServiceLayout";
 import { useGetServiceByNameID } from "@/shared/services/serviceByNameID";
 import React, { memo, useEffect, useMemo, useState } from "react";
-import { BurgerServices } from "../components/Burger/ui/BurgerServices/BurgerServices";
-import { TextBlocks } from "../components/TextBlocks";
-import { RelevantProjects } from "../components/Relevant-project";
-import { ContentBanner } from "../components/ContentBanner";
+import { BurgerServices } from "../../../components/Burger/ui/BurgerServices/BurgerServices";
+import { TextBlocks } from "../../../components/TextBlocks";
+import { RelevantProjects } from "../../../components/Relevant-project";
+import { ContentBanner } from "../../../components/ContentBanner";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
-import { Video } from "../components/Video";
+import { Video } from "../../../components/Video";
 import { getRouteService, getRouteServices } from "@/shared/const/pages";
+import cls from "./style.module.scss";
 
 const AllServicePageComponents = memo(
   ({
@@ -101,18 +102,17 @@ const AllServicePageComponents = memo(
               <Video srcMedia={service.video.data.attributes} />
             )}
 
-            {service.Services && (
-              <section className="services">
-                <div className="services__left">
-                  <h2 className="services__title" data-observe>
-                    {service.Services.title}
-                  </h2>
-                  <p className="services__subtitle">
-                    {service.Services.description}
-                  </p>
-                </div>
+            {service.textBlocks && <TextBlocks blocks={service.textBlocks} />}
 
-                <div className="services__row">
+            {service.SliderCase?.cases && (
+              <RelevantProjects cases={service.SliderCase.cases.data} />
+            )}
+
+            {service.Services && (
+              <section className={cls.services}>
+                <h2 data-observe>Что мы предлагаем?</h2>
+
+                <div className={cls.content}>
                   {service.Services.service_collections.data.map((item) => (
                     <Link
                       key={item.id}
@@ -120,48 +120,64 @@ const AllServicePageComponents = memo(
                         service.serviceName.data.attributes.name,
                         item.id
                       )}
-                      className="services__column"
-                      // @ts-ignore
-                      style={{ "--icon": "url(/img/icons/services.svg)" }}
+                      className={cls.item}
                     >
-                      <div className="services__name">
-                        {item.attributes.name}
+                      <div
+                        style={{
+                          background:
+                            item.attributes.serviceColorImageComponent?.color ??
+                            "#FFEDC9",
+                        }}
+                        className={cls.header}
+                      >
+                        {item.attributes.serviceColorImageComponent
+                          ?.imageService?.data?.attributes?.url && (
+                          <img
+                            className={cls.image}
+                            src={
+                              item.attributes.serviceColorImageComponent
+                                .imageService.data.attributes.url
+                            }
+                            alt=""
+                          />
+                        )}
                       </div>
-                      <div className="services__info">
-                        <ReactMarkdown
-                          skipHtml
-                          components={{
-                            p: ({ children }) => {
-                              return (
-                                <>
-                                  {children
-                                    ?.toString()
-                                    .split(",\n")
-                                    .map((line, index) => (
-                                      <React.Fragment key={index}>
-                                        {line}
-                                        {/* @ts-ignore */}
-                                        {index < children.length - 1 && <br />}
-                                      </React.Fragment>
-                                    ))}
-                                </>
-                              );
-                            },
-                          }}
-                        >
-                          {item.attributes.description}
-                        </ReactMarkdown>
+
+                      <div className={cls.body}>
+                        <p className={cls.title}>{item.attributes.name}</p>
+
+                        <div className={cls.description}>
+                          <ReactMarkdown
+                            skipHtml
+                            components={{
+                              p: ({ children }) => {
+                                return (
+                                  <>
+                                    {children
+                                      ?.toString()
+                                      .split(",\n")
+                                      .map((line, index) => (
+                                        <React.Fragment key={index}>
+                                          {line}
+                                          {/* @ts-ignore */}
+                                          {index < children.length - 1 && (
+                                            <br />
+                                          )}
+                                        </React.Fragment>
+                                      ))}
+                                  </>
+                                );
+                              },
+                            }}
+                          >
+                            {item.attributes.description}
+                          </ReactMarkdown>
+                        </div>
                       </div>
                     </Link>
                   ))}
                 </div>
               </section>
-            )}
-
-            {service.textBlocks && <TextBlocks blocks={service.textBlocks} />}
-
-            {service.SliderCase?.cases && (
-              <RelevantProjects cases={service.SliderCase.cases.data} />
             )}
 
             {service.contentBanner.data && (

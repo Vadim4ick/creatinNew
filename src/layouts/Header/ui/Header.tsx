@@ -2,7 +2,7 @@
 
 import { classNames } from "@/shared/lib";
 import Link from "next/link";
-import { useContext, useRef, useState } from "react";
+import { memo, useContext, useRef, useState } from "react";
 import cls from "./Header.module.scss";
 import { Logo } from "@/shared/icons/Logo";
 import { Burger } from "./Burger";
@@ -79,7 +79,7 @@ const MENU = [
   { label: "Контакты", href: "#!" },
 ];
 
-const Header = () => {
+const Header = memo(() => {
   const headerRef = useRef<HTMLDivElement | null>(null);
 
   const [open, setOpen] = useState(false);
@@ -204,6 +204,6 @@ const Header = () => {
       <div className="mobile-menu-overlay"></div>
     </>
   );
-};
+});
 
 export { Header };
