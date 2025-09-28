@@ -1,6 +1,49 @@
 .active {
-  background: var(--color-primary);
+  background: #292929;
   color: var(--color-whte);
+
+  @media (any-hover: hover) {
+    &:hover {
+      border-color: transparent;
+      color: white;
+    }
+  }
+}
+
+.btnSpecialOffer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: "SuisseIntl", sans-serif;
+  color: #292929;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  background: #c0ff00;
+  width: 100%;
+  height: 54px;
+  border-radius: 14px;
+  padding: 0 12px 0 20px;
+  border: 1px solid transparent;
+
+  transition: all 0.45s ease-out 0s;
+
+  @media (any-hover: hover) {
+    &:hover {
+      border: 1px solid var(--Primary-color-Black, #292929);
+    }
+  }
+
+  .icon {
+    border-radius: 8px;
+    background: #a1d600;
+    height: 30px;
+    width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .link {

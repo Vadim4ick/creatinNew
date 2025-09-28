@@ -4,13 +4,13 @@ import { classNames } from "@/shared/lib";
 import { Dispatch, SetStateAction, memo, useContext } from "react";
 import cls from "./Sidebar.module.scss";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
-import { BtnArrow } from "@/shared/icons/BtnArrow";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
-import Lottie, { Options } from "react-lottie";
+import { Options } from "react-lottie";
 import animationData from "@/shared/assets/animation/data.json";
 import { usePathname, useRouter } from "next/navigation";
 import { getRouteComplexPage, getRouteOffersPage } from "@/shared/const/pages";
 import { GetComplexSidebarTitleQuery } from "@/graphql/__generated__";
+import { SpecialOffer } from "@/shared/icons/SpecialOffer";
 
 export interface SidebarItems {
   readonly id: string;
@@ -140,7 +140,20 @@ const Sidebar = memo((props: SidebarProps) => {
           )}
         </ul>
 
-        <div className="sidebar__image">
+        <button
+          onClick={() => {
+            router.push(getRouteOffersPage());
+          }}
+          className={cls.btnSpecialOffer}
+        >
+          <span>Спецпредложения</span>
+
+          <div className={cls.icon}>
+            <SpecialOffer />
+          </div>
+        </button>
+
+        {/* <div className="sidebar__image">
           <button
             onClick={() => {
               router.push(getRouteOffersPage());
@@ -148,15 +161,7 @@ const Sidebar = memo((props: SidebarProps) => {
           >
             <Lottie isClickToPauseDisabled={true} options={defaultOptions} />
           </button>
-        </div>
-
-        <button onClick={onClickPopup} className={"btn btn--hasarrow"}>
-          <span className="btn__text">Оставить заявку</span>
-
-          <span className="btn__arrow">
-            <BtnArrow />
-          </span>
-        </button>
+        </div> */}
       </div>
     </aside>
   );
