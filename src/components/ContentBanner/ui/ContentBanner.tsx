@@ -1,7 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
 import { BannerFragmentFragment } from "@/graphql/__generated__";
-import { getFileUrl } from "@/shared/helpers/getFileUrl";
 import { classNames } from "@/shared/lib";
 import cls from "./ContentBanner.module.scss";
 import ReactMarkdown from "react-markdown";
@@ -10,6 +7,8 @@ import React, { useContext } from "react";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
+import rehypeRaw from "rehype-raw";
+import { DecorBgGreen } from "@/shared/icons/DecorBgGreen";
 
 interface ContentBannerProps {
   className?: string;
@@ -28,72 +27,39 @@ const ContentBanner = (props: ContentBannerProps) => {
       onContextMenu={(e) => handleContextMenu(e)}
       className={classNames("cta__image", {}, [cls.container])}
     >
-      {!isDesktop.matches ? (
-        <img src={getFileUrl(content.imgDesktop.data.attributes.url)} />
-      ) : (
-        <img src={getFileUrl(content.imgMobile.data.attributes.url)} />
-      )}
-
-      <div className={cls.blur}>
-        <div className={cls.content}>
+      <div className={cls.content}>
+        <div className={cls.left}>
           <ReactMarkdown
-            skipHtml
+            rehypePlugins={[rehypeRaw]}
             components={{
-              p: ({ children }) => (
-                <h3
-                  style={{
-                    maxWidth: !isDesktop.matches
-                      ? content.widthTitle
-                      : undefined,
-                  }}
-                >
-                  {children}
-                </h3>
+              p: ({ children }) => <h3>{children}</h3>,
+              strong: ({ children }) => (
+                <b>
+                  <span>{children}</span>
+
+                  <DecorBgGreen />
+                </b>
               ),
-              strong: ({ children }) => <b>{children}</b>,
+              br: () => <br />,
             }}
           >
             {content.title}
           </ReactMarkdown>
+        </div>
 
+        <div className={cls.right}>
           <ReactMarkdown
             skipHtml
             components={{
-              p: ({ children }) => (
-                <p
-                  style={{
-                    maxWidth: !isDesktop.matches
-                      ? content.widthDescription
-                      : undefined,
-                  }}
-                >
-                  {children}
-                </p>
-              ),
+              p: ({ children }) => <p>{children}</p>,
             }}
           >
             {content.description}
           </ReactMarkdown>
 
-          {isDesktop.matches && (
-            <div className={cls.buttons}>
-              <a className={cls.blue} onClick={() => setOpen(true)}>
-                Получить сейчас
-              </a>
-
-              {content.button && (
-                <Link className={cls.none} href={content.button.href}>
-                  {content.button.name}
-                </Link>
-              )}
-            </div>
-          )}
-        </div>
-
-        {!isDesktop.matches && (
           <div className={cls.buttons}>
             <a className={cls.blue} onClick={() => setOpen(true)}>
-              Получить сейчас
+              Обсудить проект
             </a>
 
             {content.button && (
@@ -102,39 +68,12 @@ const ContentBanner = (props: ContentBannerProps) => {
               </Link>
             )}
           </div>
-        )}
+        </div>
 
-        <div
-          style={
-            !isDesktop.matches
-              ? { height: "100%", width: content.widthBlur }
-              : { width: "100%", height: content.widthBlurMobile }
-          }
-          className={cls.blurEffect}
-        />
+        <div className={cls.image}>
+          <img src="/content-baner.png" />
+        </div>
       </div>
-
-      <ReactMarkdown
-        skipHtml
-        components={{
-          p: ({ children }) => (
-            <span>
-              {children
-                ?.toString()
-                .split(",\n")
-                .map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    {/* @ts-ignore */}
-                    {index < children.length - 1 && <br />}
-                  </React.Fragment>
-                ))}
-            </span>
-          ),
-        }}
-      >
-        {content.label}
-      </ReactMarkdown>
     </div>
   );
 };
