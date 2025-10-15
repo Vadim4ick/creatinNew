@@ -1,9 +1,9 @@
 "use client";
 
 import { RelevantProjects } from "@/components/Relevant-project";
-import { SectionTitle } from "@/app/services/_sections/SectionTitle";
-import { TextBlocks } from "@/components/TextBlocks";
 import {
+  ComponentServicesContentSingleImageBlock,
+  ComponentServicesContentTextVariant,
   GetServiceCollectionByIdQuery,
   GetServicesTitleByIdQuery,
 } from "@/graphql/__generated__";
@@ -20,6 +20,8 @@ import { ContentBanner } from "@/components/ContentBanner";
 import { getRouteServices } from "@/shared/const/pages";
 import { classNames } from "@/shared/lib";
 import cls from "./style.module.scss";
+import { ServicesTextBlock } from "@/components/ServicesBlocks/ServicesTextBlock/ServicesTextBlock";
+import { ServicesImageBlock } from "@/components/ServicesBlocks/ServicesImageBlock/ServicesImageBlock";
 
 const ServiceCollection = memo(
   ({
@@ -168,16 +170,34 @@ const ServiceCollection = memo(
             </section>
           )}
 
-          {serviceCollection?.textBlocks && (
+          {/* {serviceCollection?.textBlocks && (
             <TextBlocks
               blocks={serviceCollection.textBlocks}
               animation={true}
             />
-          )}
+          )} */}
 
-          {serviceCollection?.Title && (
+          {serviceCollection?.content &&
+            serviceCollection.content.map((item) => {
+              // @ts-ignore
+              if (item?.idBlock === "textVariant") {
+                const currItem = item as ComponentServicesContentTextVariant;
+
+                return <ServicesTextBlock key={currItem.id} block={currItem} />;
+                // @ts-ignore
+              } else if (item?.idBlock === "imageBlock") {
+                const currItem =
+                  item as ComponentServicesContentSingleImageBlock;
+
+                return (
+                  <ServicesImageBlock key={currItem.id} block={currItem} />
+                );
+              }
+            })}
+
+          {/* {serviceCollection?.Title && (
             <SectionTitle title={serviceCollection?.Title} />
-          )}
+          )} */}
 
           {serviceCollection?.sliderCase?.cases.data.length !== 0 &&
             serviceCollection?.sliderCase && (
@@ -189,6 +209,7 @@ const ServiceCollection = memo(
 
           {serviceCollection?.contentBanner.data && (
             <ContentBanner
+              className={cls.banner}
               content={serviceCollection.contentBanner.data.attributes}
             />
           )}

@@ -4,7 +4,6 @@ import cls from "./ContentBanner.module.scss";
 import ReactMarkdown from "react-markdown";
 import Link from "next/link";
 import React, { useContext } from "react";
-import { useMedia } from "@/shared/hooks/useMedia";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
 import rehypeRaw from "rehype-raw";
@@ -18,14 +17,12 @@ interface ContentBannerProps {
 const ContentBanner = (props: ContentBannerProps) => {
   const { className, content } = props;
 
-  const isDesktop = useMedia("(max-width: 900px)");
-
   const { setOpen } = useContext(PopupProviderContext);
 
   return (
     <div
       onContextMenu={(e) => handleContextMenu(e)}
-      className={classNames("cta__image", {}, [cls.container])}
+      className={classNames("cta__image", {}, [cls.container, className])}
     >
       <div className={cls.content}>
         <div className={cls.left}>

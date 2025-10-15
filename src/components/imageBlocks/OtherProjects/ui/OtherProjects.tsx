@@ -11,11 +11,18 @@ import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
 import { A11y, Mousewheel, SwiperOptions } from "swiper";
 import { useSwiper } from "@/shared/hooks/useSwiper";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { classNames } from "@/shared/lib";
 
 const OtherProjects = ({
   caseContent,
+  margin,
+  className = "",
+  title = "Другие проекты",
 }: {
   caseContent: GetCaseByIdQuery["case"]["data"]["attributes"]["cases"];
+  margin?: number;
+  className?: string;
+  title?: string;
 }) => {
   const isMobile = useMedia("(max-width: 991px)");
   const ref = useRef<HTMLDivElement | null>(null);
@@ -24,11 +31,11 @@ const OtherProjects = ({
     () => ({
       modules: [A11y, Mousewheel],
       direction: "horizontal",
-      spaceBetween: isMobile.matches ? 12 : 16,
+      spaceBetween: margin ? margin : isMobile.matches ? 12 : 16,
       speed: 450,
       mousewheel: { releaseOnEdges: true },
     }),
-    [isMobile.matches]
+    [isMobile.matches, margin]
   );
 
   useSwiper({
@@ -37,8 +44,12 @@ const OtherProjects = ({
   });
 
   return (
-    <div className={`project__container ${cls.container}`}>
-      <h2 className={cls.title}>Другие проекты</h2>
+    <div
+      className={classNames(`project__container ${cls.container}`, {}, [
+        className,
+      ])}
+    >
+      <h2 className={cls.title}>{title}</h2>
 
       <div className={cls.body}>
         <div ref={ref} className={`swiper ${cls.slider}`}>
@@ -90,4 +101,4 @@ const ProjectCard = ({ href, img }: { href: string; img: string }) => {
   );
 };
 
-export { OtherProjects };
+export { OtherProjects, ProjectCard };

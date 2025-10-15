@@ -95,3 +95,18 @@
     }
   }
 }
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 160px;
+
+  overflow: hidden;
+  @media (max-width: 768px) {
+    gap: 100px;
+  }
+}
+
+.banner {
+  margin: 0 !important;
+}

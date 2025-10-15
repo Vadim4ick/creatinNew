@@ -53,6 +53,29 @@ query GetServiceById($id: ID) {
 
         title
 
+        content {
+          ... on ComponentServicesContentTextVariant {
+            idBlock
+            id
+            title
+            description
+          }
+
+          ... on ComponentServicesContentSingleImageBlock {
+            idBlock
+            id
+            title
+            description
+            image {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+          }
+        }
+
         textBlocks {
           ...TextBlocksFragment
         }

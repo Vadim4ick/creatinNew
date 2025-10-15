@@ -5,6 +5,28 @@ query GetServiceCollectionById($id: ID) {
 
       attributes {
         name
+        content {
+          ... on ComponentServicesContentTextVariant {
+            idBlock
+            id
+            title
+            description
+          }
+
+          ... on ComponentServicesContentSingleImageBlock {
+            idBlock
+            id
+            title
+            description
+            image {
+              data {
+                attributes {
+                  ...MediaFragment
+                }
+              }
+            }
+          }
+        }
 
         description
 

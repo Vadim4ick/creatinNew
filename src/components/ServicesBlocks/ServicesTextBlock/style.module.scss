@@ -1,0 +1,28 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+
+  max-width: 750px;
+
+  h4 {
+    font-size: 28px;
+    line-height: 35px;
+    font-family: "SuisseIntl", sans-serif;
+    font-weight: 500;
+    color: #26272b;
+
+    @media (max-width: 768px) {
+      font-size: 26px;
+      line-height: 32px;
+    }
+  }
+
+  p {
+    font-family: "SuisseIntl", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    color: #26272b;
+  }
+}

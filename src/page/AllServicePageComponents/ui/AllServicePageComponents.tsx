@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  ComponentServicesContentSingleImageBlock,
+  ComponentServicesContentTextVariant,
   GetServiceByIdQuery,
   GetServicesNamesQuery,
 } from "@/graphql/__generated__";
@@ -8,7 +10,6 @@ import ServiceLayout from "@/layouts/ServiceLayout";
 import { useGetServiceByNameID } from "@/shared/services/serviceByNameID";
 import React, { memo, useEffect, useMemo, useState } from "react";
 import { BurgerServices } from "../../../components/Burger/ui/BurgerServices/BurgerServices";
-import { TextBlocks } from "../../../components/TextBlocks";
 import { RelevantProjects } from "../../../components/Relevant-project";
 import { ContentBanner } from "../../../components/ContentBanner";
 import Link from "next/link";
@@ -16,6 +17,8 @@ import ReactMarkdown from "react-markdown";
 import { Video } from "../../../components/Video";
 import { getRouteService, getRouteServices } from "@/shared/const/pages";
 import cls from "./style.module.scss";
+import { ServicesTextBlock } from "@/components/ServicesBlocks/ServicesTextBlock/ServicesTextBlock";
+import { ServicesImageBlock } from "@/components/ServicesBlocks/ServicesImageBlock/ServicesImageBlock";
 
 const AllServicePageComponents = memo(
   ({
@@ -65,44 +68,65 @@ const AllServicePageComponents = memo(
         )}
       >
         {service && (
-          <div className="page__base">
-            <section className="hero">
-              <div className="hero__left">
-                <h1 className="hero__title">{service.title}</h1>
+          <div className={`page__base ${cls.page}`}>
+            <div>
+              <section className="hero">
+                <div className="hero__left">
+                  <h1 className="hero__title">{service.title}</h1>
 
-                <ReactMarkdown
-                  skipHtml
-                  components={{
-                    p: ({ children }) => {
-                      return (
-                        <>
-                          <div className="hero__info">
-                            {children
-                              ?.toString()
-                              .split(",\n")
-                              .map((line, index) => (
-                                <React.Fragment key={index}>
-                                  {line}
-                                  {/* @ts-ignore */}
-                                  {index < children.length - 1 && <br />}
-                                </React.Fragment>
-                              ))}
-                          </div>
-                        </>
-                      );
-                    },
-                  }}
-                >
-                  {service.description}
-                </ReactMarkdown>
-              </div>
-            </section>
+                  <ReactMarkdown
+                    skipHtml
+                    components={{
+                      p: ({ children }) => {
+                        return (
+                          <>
+                            <div className="hero__info">
+                              {children
+                                ?.toString()
+                                .split(",\n")
+                                .map((line, index) => (
+                                  <React.Fragment key={index}>
+                                    {line}
+                                    {/* @ts-ignore */}
+                                    {index < children.length - 1 && <br />}
+                                  </React.Fragment>
+                                ))}
+                            </div>
+                          </>
+                        );
+                      },
+                    }}
+                  >
+                    {service.description}
+                  </ReactMarkdown>
+                </div>
+              </section>
 
-            {service.video.data && (
-              <Video srcMedia={service.video.data.attributes} />
-            )}
+              {service.video.data && (
+                <Video srcMedia={service.video.data.attributes} />
+              )}
+            </div>
 
-            {service.textBlocks && <TextBlocks blocks={service.textBlocks} />}
+            {/* {service.textBlocks && <TextBlocks blocks={service.textBlocks} />} */}
+            {service.content &&
+              service.content.map((item) => {
+                // @ts-ignore
+                if (item?.idBlock === "textVariant") {
+                  const currItem = item as ComponentServicesContentTextVariant;
+
+                  return (
+                    <ServicesTextBlock key={currItem.id} block={currItem} />
+                  );
+                  // @ts-ignore
+                } else if (item?.idBlock === "imageBlock") {
+                  const currItem =
+                    item as ComponentServicesContentSingleImageBlock;
+
+                  return (
+                    <ServicesImageBlock key={currItem.id} block={currItem} />
+                  );
+                }
+              })}
 
             {service.SliderCase?.cases && (
               <RelevantProjects cases={service.SliderCase.cases.data} />
@@ -181,7 +205,10 @@ const AllServicePageComponents = memo(
             )}
 
             {service.contentBanner.data && (
-              <ContentBanner content={service.contentBanner.data.attributes} />
+              <ContentBanner
+                className={cls.banner}
+                content={service.contentBanner.data.attributes}
+              />
             )}
           </div>
         )}
