@@ -1,6 +1,7 @@
 import { PagePortfilio } from "@/page/PagePortfilio";
 import { gql } from "@/graphql/client";
 import { notFound } from "next/navigation";
+import { getSettledValue } from "@/shared/lib";
 
 export async function generateMetadata() {
   const metadata = {
@@ -11,13 +12,24 @@ export async function generateMetadata() {
 }
 
 const PortfolioPage = async () => {
-  const { caseNames } = await gql.GetCasesNames();
+  const [caseNamesRes, formFeedbackRes] = await Promise.allSettled([
+    await gql.GetCasesNames(),
+    await gql.GetFormFeedback(),
+  ]);
 
-  if (!caseNames.data.length) {
+  const caseNames = getSettledValue(caseNamesRes);
+  const formFeedback = getSettledValue(formFeedbackRes);
+
+  if (!caseNames || !caseNames.caseNames.data.length) {
     return notFound();
   }
 
-  return <PagePortfilio caseNames={caseNames.data} />;
+  return (
+    <PagePortfilio
+      caseNames={caseNames.caseNames.data}
+      formFeedback={formFeedback?.formFeedback}
+    />
+  );
 };
 
 export default PortfolioPage;

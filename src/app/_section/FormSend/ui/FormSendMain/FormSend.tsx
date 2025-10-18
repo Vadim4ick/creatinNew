@@ -65,10 +65,11 @@ type SignUpSchemaType = z.infer<typeof SignUpSchema>;
 interface FormSendProps {
   form: FormSendFragmentFragment;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const FormSend = memo((props: FormSendProps) => {
-  const { form, className = "" } = props;
+  const { form, className = "", style = {} } = props;
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -198,7 +199,10 @@ const FormSend = memo((props: FormSendProps) => {
   };
 
   return (
-    <section className={classNames(cls.sendForm, {}, [className])}>
+    <section
+      style={style}
+      className={classNames(cls.sendForm, {}, [className])}
+    >
       <div className={` ${cls.wrapper}`}>
         <div className={cls.container}>
           <div className={cls.mainInfo}>

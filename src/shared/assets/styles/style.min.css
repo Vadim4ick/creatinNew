@@ -150,7 +150,7 @@ body::-webkit-scrollbar-thumb {
   padding-top: 23px;
   -ms-grid-columns: 270px auto;
   grid-template-columns: 270px auto;
-  margin-bottom: 172px;
+  margin-bottom: 160px;
   gap: 84px;
   position: relative;
 }
@@ -1886,7 +1886,7 @@ body.popup-show::after {
 .case-card__item--main {
   width: 100%;
   bottom: 0;
-  aspect-ratio: 1/1;
+  aspect-ratio: 680/580;
   left: 0;
   -webkit-transition: all 0.6s ease-out 0s;
   transition: all 0.6s ease-out 0s;
@@ -3868,24 +3868,21 @@ picture {
     display: none;
   }
 
-  .cases.cases--portfolio .case-card__item--main {
-    border-radius: 24px;
-  }
   .cases.cases--portfolio .case-card {
     aspect-ratio: 1022/700;
-    border-radius: 24px;
+    border-radius: 20px;
   }
   .cases.cases--portfolio .case-card .case-card__item--text {
     width: calc(50% - 102px);
     padding: 36px 48px;
   }
   .cases.cases--portfolio .case-card .case-card__item--big {
-    width: calc(58.32% - 30px);
+    width: calc(61.3% - 30px);
     aspect-ratio: 1022/596;
   }
   .cases.cases--portfolio .case-card .case-card__item--main {
     aspect-ratio: 1022/700;
-    border-radius: 24px;
+    /* border-radius: 20px; */
   }
   .hero-sale + .hero-sale {
     position: absolute;
@@ -3951,7 +3948,7 @@ picture {
     aspect-ratio: 100/93;
   }
   .cases.cases--portfolio .case-card:hover .case-card__item--main {
-    aspect-ratio: 100/67.5;
+    aspect-ratio: 100/74;
     width: calc(50% - 102px);
   }
 }
@@ -4096,7 +4093,7 @@ picture {
   .page__container {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
-    margin-bottom: 87px;
+    margin-bottom: 100px;
   }
   .page__right {
     display: none;
@@ -4361,6 +4358,7 @@ picture {
   }
   .case-card__item--main {
     height: 100%;
+    aspect-ratio: 1/1;
     border-radius: 22px;
   }
 
