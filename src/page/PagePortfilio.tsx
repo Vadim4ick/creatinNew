@@ -41,7 +41,7 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
   }, [data]);
   return (
     <ServiceLayout
-      items={caseNames}
+      items={[]}
       isLoading={false}
       noReddirect={true}
       BugerMenu={() => (
@@ -55,12 +55,20 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
       )}
       sidebarItemElement={"input"}
       setInputIds={setCaseIds}
+      // containerClass={"conteinerNoPadding"}
     >
       <div className="page__base">
         {!cases && !isLoading && <div>В данном разделе кейсов пока нет!</div>}
         {isLoading && <Loader />}
 
-        {cases && <CasesProtfolio cases={cases} />}
+        {cases && (
+          <CasesProtfolio
+            cases={cases}
+            caseNames={caseNames}
+            setInputIds={setCaseIds}
+            inputIds={caseIds}
+          />
+        )}
       </div>
     </ServiceLayout>
   );

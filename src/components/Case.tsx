@@ -67,7 +67,7 @@ const Case = memo((props: CaseProps) => {
 
       <div className="case-card__item case-card__item--big">
         {bigImage && (
-          <Image fill src={getFileUrl(bigImage.data.attributes.url)} alt="" />
+          <img src={getFileUrl(bigImage.data.attributes.url)} alt="" />
         )}
       </div>
 
@@ -77,21 +77,13 @@ const Case = memo((props: CaseProps) => {
           className="case-card__item case-card__item--main"
         >
           {mainImage && (
-            <Image
-              fill
-              src={getFileUrl(mainImage.data.attributes.url)}
-              alt=""
-            />
+            <img src={getFileUrl(mainImage.data.attributes.url)} alt="" />
           )}
         </Link>
       ) : (
         <a className="case-card__item case-card__item--main">
           {mainImage && (
-            <Image
-              fill
-              src={getFileUrl(mainImage.data.attributes.url)}
-              alt=""
-            />
+            <img src={getFileUrl(mainImage.data.attributes.url)} alt="" />
           )}
         </a>
       )}

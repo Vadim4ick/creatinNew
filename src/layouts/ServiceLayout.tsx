@@ -88,30 +88,30 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
     time: 100,
   });
 
-  const onClickFooter = () => {
-    if (onChangeDopFooter) {
-      return onChangeDopFooter();
-    }
-    if (!indexDate) {
-      return null;
-    }
+  // const onClickFooter = () => {
+  //   if (onChangeDopFooter) {
+  //     return onChangeDopFooter();
+  //   }
+  //   if (!indexDate) {
+  //     return null;
+  //   }
 
-    const currentDate = indexDate.filter((el) => el.id === serviceId);
+  //   const currentDate = indexDate.filter((el) => el.id === serviceId);
 
-    const idx = indexDate.findIndex((el) => el.id === serviceId);
+  //   const idx = indexDate.findIndex((el) => el.id === serviceId);
 
-    if (indexDate[idx + 1]?.nameID === "complex") {
-      return router.push(`${urlPathname}/${indexDate[0].id}`);
-    }
+  //   if (indexDate[idx + 1]?.nameID === "complex") {
+  //     return router.push(`${urlPathname}/${indexDate[0].id}`);
+  //   }
 
-    const nextDate = currentDate[0].index + 1;
+  //   const nextDate = currentDate[0].index + 1;
 
-    if (nextDate >= items.length) {
-      return router.push(`${urlPathname}/${indexDate[0].id}`);
-    } else {
-      return router.push(`${urlPathname}/${indexDate[nextDate].id}`);
-    }
-  };
+  //   if (nextDate >= items.length) {
+  //     return router.push(`${urlPathname}/${indexDate[0].id}`);
+  //   } else {
+  //     return router.push(`${urlPathname}/${indexDate[nextDate].id}`);
+  //   }
+  // };
 
   useEffect(() => {
     const initialIndexes = items.map((item, index) => ({
@@ -124,10 +124,12 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({
   }, [items]);
 
   useEffect(() => {
-    document.documentElement.setAttribute(
-      "style",
-      '--font-primary: "Jeko-otf", Fallback'
-    );
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute(
+        "style",
+        '--font-primary: "Jeko-otf", Fallback'
+      );
+    }
   }, []);
 
   if (isLoading || loadingComplex) {

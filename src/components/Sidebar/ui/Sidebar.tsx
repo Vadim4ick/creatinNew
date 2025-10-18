@@ -1,12 +1,9 @@
 "use client";
 
 import { classNames } from "@/shared/lib";
-import { Dispatch, SetStateAction, memo, useContext } from "react";
+import { Dispatch, SetStateAction, memo } from "react";
 import cls from "./Sidebar.module.scss";
 import { Breadcrumbs } from "../lib/Breadcrumbs";
-import { PopupProviderContext } from "@/shared/providers/popupProvider";
-import { Options } from "react-lottie";
-import animationData from "@/shared/assets/animation/data.json";
 import { usePathname, useRouter } from "next/navigation";
 import { getRouteComplexPage, getRouteOffersPage } from "@/shared/const/pages";
 import { GetComplexSidebarTitleQuery } from "@/graphql/__generated__";
@@ -44,31 +41,17 @@ const Sidebar = memo((props: SidebarProps) => {
     complexTitle,
   } = props;
 
-  const { onClickPopup } = useContext(PopupProviderContext);
-
   const router = useRouter();
   const pathname = usePathname();
-
-  const defaultOptions: Options = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-      clearCanvas: true,
-      className: "lottie",
-    },
-  };
 
   return (
     <aside className="sidebar">
       <div className="sidebar__row">
         <Breadcrumbs />
 
-        <ul className="sidebar__items">
-          {items.length &&
-            items.map((item, i) => {
+        {items && items.length > 0 && (
+          <ul className="sidebar__items">
+            {items.map((item, i) => {
               if (itemElement === "normal") {
                 return (
                   <li
@@ -120,25 +103,26 @@ const Sidebar = memo((props: SidebarProps) => {
               }
             })}
 
-          {complexTitle?.data && complexTitle.data.attributes.title && (
-            <li
-              className={"sidebar__item"}
-              onClick={() => router.push(getRouteComplexPage())}
-            >
-              <a
-                className={classNames(
-                  `sidebar__link ${cls.link}`,
-                  {
-                    [cls.active]: pathname === getRouteComplexPage(),
-                  },
-                  []
-                )}
+            {complexTitle?.data && complexTitle.data.attributes.title && (
+              <li
+                className={"sidebar__item"}
+                onClick={() => router.push(getRouteComplexPage())}
               >
-                {complexTitle.data.attributes.title}
-              </a>
-            </li>
-          )}
-        </ul>
+                <a
+                  className={classNames(
+                    `sidebar__link ${cls.link}`,
+                    {
+                      [cls.active]: pathname === getRouteComplexPage(),
+                    },
+                    []
+                  )}
+                >
+                  {complexTitle.data.attributes.title}
+                </a>
+              </li>
+            )}
+          </ul>
+        )}
 
         <button
           onClick={() => {
@@ -152,16 +136,6 @@ const Sidebar = memo((props: SidebarProps) => {
             <SpecialOffer />
           </div>
         </button>
-
-        {/* <div className="sidebar__image">
-          <button
-            onClick={() => {
-              router.push(getRouteOffersPage());
-            }}
-          >
-            <Lottie isClickToPauseDisabled={true} options={defaultOptions} />
-          </button>
-        </div> */}
       </div>
     </aside>
   );

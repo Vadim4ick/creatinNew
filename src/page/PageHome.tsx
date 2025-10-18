@@ -32,11 +32,6 @@ const PageHome = (props: PageHomeProps) => {
   const isDesktop = useMedia("(max-width: 1200px)");
 
   useEffect(() => {
-    document.documentElement.setAttribute(
-      "style",
-      '--font-primary: "Jeko-otf", Fallback'
-    );
-
     document.body.style.marginTop = "0px";
 
     return () => {

@@ -30,10 +30,12 @@ const PageAbout = (props: PageAboutProps) => {
   const isDesktop = useMedia("(max-width: 1200px)");
 
   useEffect(() => {
-    document.documentElement.setAttribute(
-      "style",
-      '--font-primary: "Jeko-otf", Fallback'
-    );
+    if (typeof window !== "undefined") {
+      document.documentElement.setAttribute(
+        "style",
+        '--font-primary: "Jeko-otf", Fallback'
+      );
+    }
   }, []);
 
   const { data, isLoading } = useGetStudio();

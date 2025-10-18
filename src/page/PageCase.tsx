@@ -98,13 +98,6 @@ const PageCase = memo(
       }
     }, [currentId, ids, router]);
 
-    useEffect(() => {
-      document.documentElement.setAttribute(
-        "style",
-        '--font-primary: "Jeko-otf", Fallback'
-      );
-    }, []);
-
     return (
       <>
         {isDesktop.matches && (
