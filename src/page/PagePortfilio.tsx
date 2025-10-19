@@ -59,7 +59,7 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
         )}
         sidebarItemElement={"input"}
         setInputIds={setCaseIds}
-        // containerClass={"conteinerNoPadding"}
+        containerClass={!isDesktop.matches ? "" : "conteinerNoPadding"}
       >
         <div className="page__base">
           {!cases && !isLoading && <div>В данном разделе кейсов пока нет!</div>}

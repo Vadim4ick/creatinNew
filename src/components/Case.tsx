@@ -9,17 +9,17 @@ import { useMedia } from "@/shared/hooks/useMedia";
 import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
 import { DecorBgGreen } from "@/shared/icons/DecorBgGreen";
 import { ButtonDetails } from "@/shared/ui/ButtonDetails";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { memo, useRef } from "react";
 
 interface CaseProps {
   project: CaseEntity;
+  className?: string;
 }
 
 const Case = memo((props: CaseProps) => {
-  const { project } = props;
+  const { project, className = "" } = props;
 
   const router = useRouter();
   const caseRef = useRef<HTMLDivElement | null>(null);
@@ -45,7 +45,7 @@ const Case = memo((props: CaseProps) => {
     <div
       onContextMenu={(e) => handleContextMenu(e)}
       ref={caseRef}
-      className="cases__column case-card fade-up"
+      className={`cases__column case-card fade-up ${className}`}
     >
       <div className="case-card__item case-card__item--text">
         <div className="case-card__title">

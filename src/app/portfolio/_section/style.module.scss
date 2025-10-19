@@ -10,13 +10,28 @@
     font-weight: 500;
     font-size: 36px;
     line-height: 45px;
+
+    @media (max-width: 1200px) {
+      padding-left: 16px;
+    }
   }
 
   ul {
     display: flex;
     align-items: center;
     gap: 8px;
+
+    @media (max-width: 1200px) {
+      padding-left: 16px;
+    }
     overflow: auto;
+
+    /* скрыть скроллбар */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE и Edge */
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
 
     li {
       padding: 10px 14px;
@@ -48,4 +63,10 @@
 
 .container {
   padding-top: 0;
+}
+
+.item {
+  @media (max-width: 1200px) {
+    margin: 0 16px;
+  }
 }

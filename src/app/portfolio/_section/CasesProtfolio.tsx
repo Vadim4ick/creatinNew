@@ -57,7 +57,7 @@ const CasesProtfolio = ({
         {/* <div className={`page__container ${cls.container}`}> */}
         {cases.map((el) => (
           // @ts-ignore
-          <Case key={el.id} project={el} />
+          <Case key={el.id} project={el} className={cls.item} />
         ))}
         {/* </div> */}
       </div>

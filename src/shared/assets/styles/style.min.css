@@ -4353,12 +4353,12 @@ picture {
     margin-top: 37px;
   }
   .case-card {
-    aspect-ratio: 350/461;
+    aspect-ratio: 350/420;
     border-radius: 22px;
   }
   .case-card__item--main {
     height: 100%;
-    aspect-ratio: 1/1;
+    aspect-ratio: 358/420;
     border-radius: 22px;
   }
 
