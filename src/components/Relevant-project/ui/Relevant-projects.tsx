@@ -7,7 +7,6 @@ import cls from "./RelevantProject.module.scss";
 
 interface RelevantProjectsProps {
   cases: SliderFragmentFragment["cases"]["data"];
-  animation?: boolean;
 }
 
 const RelevantProjects = memo((props: RelevantProjectsProps) => {

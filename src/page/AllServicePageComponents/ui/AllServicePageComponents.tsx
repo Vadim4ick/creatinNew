@@ -128,10 +128,6 @@ const AllServicePageComponents = memo(
                 }
               })}
 
-            {service.SliderCase?.cases && (
-              <RelevantProjects cases={service.SliderCase.cases.data} />
-            )}
-
             {service.Services && (
               <section className={cls.services}>
                 <h2 data-observe>Что мы предлагаем?</h2>
@@ -202,6 +198,10 @@ const AllServicePageComponents = memo(
                   ))}
                 </div>
               </section>
+            )}
+
+            {service.SliderCase?.cases && (
+              <RelevantProjects cases={service.SliderCase.cases.data} />
             )}
 
             {service.contentBanner.data && (

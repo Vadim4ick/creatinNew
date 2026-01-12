@@ -93,66 +93,50 @@ const ServiceCollection = memo(
       >
         {!serviceCollection && <div>Такой коллекции пока не существует</div>}
 
-        <div className="page__base">
-          {video}
+        <div className={`page__base ${cls.page}`}>
+          <div>
+            {video}
 
-          {serviceCollection?.name && (
-            <section
-              className={classNames("fade-up mb-96", {}, [cls.hero])}
-              ref={refSection}
-            >
-              <div className="hero__left">
-                <h1 className="hero__title">{serviceCollection.name}</h1>
+            {serviceCollection?.name && (
+              <section
+                className={classNames("fade-up mb-96", {}, [cls.hero])}
+                ref={refSection}
+              >
+                <div className="hero__left">
+                  <h1 className="hero__title">{serviceCollection.name}</h1>
 
-                <ReactMarkdown
-                  skipHtml
-                  components={{
-                    p: ({ children }) => {
-                      return (
-                        <>
-                          <div className="hero__info">
-                            {children
-                              ?.toString()
-                              .split(",\n")
-                              .map((line, index) => (
-                                <React.Fragment key={index}>
-                                  {line}
-                                  {/* @ts-ignore */}
-                                  {index < children.length - 1 && <br />}
-                                </React.Fragment>
-                              ))}
-                          </div>
-                        </>
-                      );
-                    },
-                  }}
-                >
-                  {serviceCollection.description}
-                </ReactMarkdown>
-              </div>
-
-              <div className={cls.right}>
-                <div
-                  className={classNames(cls.card, {}, [cls.price])}
-                  // @ts-ignore
-                  style={{ "--icon": "url(/img/icons/price.svg)" }}
-                >
-                  <div style={{ margin: 0 }} className="hero-card__icon"></div>
-
-                  <div className={cls.content}>
-                    <p>Стоимость от</p>
-
-                    <span>
-                      {` ${priceFormatter(serviceCollection?.price)}`}
-                    </span>
-                  </div>
+                  <ReactMarkdown
+                    skipHtml
+                    components={{
+                      p: ({ children }) => {
+                        return (
+                          <>
+                            <div className="hero__info">
+                              {children
+                                ?.toString()
+                                .split(",\n")
+                                .map((line, index) => (
+                                  <React.Fragment key={index}>
+                                    {line}
+                                    {/* @ts-ignore */}
+                                    {index < children.length - 1 && <br />}
+                                  </React.Fragment>
+                                ))}
+                            </div>
+                          </>
+                        );
+                      },
+                    }}
+                  >
+                    {serviceCollection.description}
+                  </ReactMarkdown>
                 </div>
 
-                {serviceCollection?.deadlines && (
+                <div className={cls.right}>
                   <div
-                    className={classNames(cls.card, {}, [cls.time])}
+                    className={classNames(cls.card, {}, [cls.price])}
                     // @ts-ignore
-                    style={{ "--icon": "url(/img/icons/time.svg)" }}
+                    style={{ "--icon": "url(/img/icons/price.svg)" }}
                   >
                     <div
                       style={{ margin: 0 }}
@@ -160,15 +144,36 @@ const ServiceCollection = memo(
                     ></div>
 
                     <div className={cls.content}>
-                      <p>срок выполнения</p>
+                      <p>Стоимость от</p>
 
-                      <span>{serviceCollection?.deadlines}</span>
+                      <span>
+                        {` ${priceFormatter(serviceCollection?.price)}`}
+                      </span>
                     </div>
                   </div>
-                )}
-              </div>
-            </section>
-          )}
+
+                  {serviceCollection?.deadlines && (
+                    <div
+                      className={classNames(cls.card, {}, [cls.time])}
+                      // @ts-ignore
+                      style={{ "--icon": "url(/img/icons/time.svg)" }}
+                    >
+                      <div
+                        style={{ margin: 0 }}
+                        className="hero-card__icon"
+                      ></div>
+
+                      <div className={cls.content}>
+                        <p>срок выполнения</p>
+
+                        <span>{serviceCollection?.deadlines}</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+          </div>
 
           {/* {serviceCollection?.textBlocks && (
             <TextBlocks
@@ -202,7 +207,6 @@ const ServiceCollection = memo(
           {serviceCollection?.sliderCase?.cases.data.length !== 0 &&
             serviceCollection?.sliderCase && (
               <RelevantProjects
-                animation={true}
                 cases={serviceCollection?.sliderCase.cases.data}
               />
             )}

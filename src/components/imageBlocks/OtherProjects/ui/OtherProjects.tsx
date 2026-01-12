@@ -13,6 +13,9 @@ import { useSwiper } from "@/shared/hooks/useSwiper";
 import { useMedia } from "@/shared/hooks/useMedia";
 import { classNames } from "@/shared/lib";
 
+const baseHeight = 446;
+const height = 394;
+
 const OtherProjects = ({
   caseContent,
   margin,
@@ -51,7 +54,12 @@ const OtherProjects = ({
     >
       <h2 className={cls.title}>{title}</h2>
 
-      <div className={cls.body}>
+      <div
+        style={{
+          height: baseHeight,
+        }}
+        className={cls.body}
+      >
         <div ref={ref} className={`swiper ${cls.slider}`}>
           <div className="swiper-wrapper">
             {caseContent.data.map((el) => (
@@ -79,7 +87,7 @@ const ProjectCard = ({ href, img }: { href: string; img: string }) => {
       onMouseLeave={() => setHover(false)}
     >
       <motion.div
-        animate={{ height: hover ? 394 : 446 }} // уменьшаем высоту
+        animate={{ height: hover ? height : baseHeight }} // уменьшаем высоту
         transition={{ duration: 0.45, ease: "easeOut" }}
         className={cls.imageWrapper}
       >

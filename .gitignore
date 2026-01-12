@@ -7,7 +7,7 @@
 .yarn/install-state.gz
 1.verstka
 .env
-
+test.js
 # testing
 /coverage
 
