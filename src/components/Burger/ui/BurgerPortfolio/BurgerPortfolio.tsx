@@ -126,6 +126,12 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
     sendTaskBtnRef.current?.classList.remove("trigger-active");
   };
 
+  const onClickServices = () => {
+    onToggleSubMenu();
+
+    // Убираю кнопку
+    sendTaskBtnRef.current?.classList.remove("trigger-active");
+  };
   return (
     <>
       <div ref={overlayRef} className="mobile-menu-overlay"></div>
@@ -220,6 +226,7 @@ const BurgerPortfolio = memo((props: BurgerPortfolioProps) => {
               active={active}
               activeContacts={activeContacts}
               onClickContacts={onClickContacts}
+              onClickServices={onClickServices}
             />
           </div>
         </nav>

@@ -112,6 +112,13 @@ const BurgerAbout = (props: BurgerAboutProps) => {
     sendTaskBtnRef.current?.classList.remove("trigger-active");
   };
 
+  const onClickServices = () => {
+    onToggleSubMenu();
+
+    // Убираю кнопку
+    sendTaskBtnRef.current?.classList.remove("trigger-active");
+  };
+
   return (
     <>
       <div ref={overlayRef} className="mobile-menu-overlay"></div>
@@ -178,6 +185,7 @@ const BurgerAbout = (props: BurgerAboutProps) => {
               active={active}
               activeContacts={activeContacts}
               onClickContacts={onClickContacts}
+              onClickServices={onClickServices}
             />
           </div>
         </nav>

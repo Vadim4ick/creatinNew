@@ -105,6 +105,14 @@ const Burger = (props: BurgerProps) => {
 
   const onClickContacts = () => {
     setActiveContacts(true);
+
+    // Убираю кнопку
+    sendTaskBtnRef.current?.classList.remove("trigger-active");
+  };
+
+  const onClickServices = () => {
+    onToggleSubMenu();
+
     // Убираю кнопку
     sendTaskBtnRef.current?.classList.remove("trigger-active");
   };
@@ -171,6 +179,7 @@ const Burger = (props: BurgerProps) => {
               active={active}
               activeContacts={activeContacts}
               onClickContacts={onClickContacts}
+              onClickServices={onClickServices}
             />
           </div>
         </nav>

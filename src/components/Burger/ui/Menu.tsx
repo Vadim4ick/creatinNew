@@ -3,45 +3,58 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Lottie, { Options } from "react-lottie";
 import animationData from "@/shared/assets/animation/data-mobile.json";
+import { useCallback, useMemo } from "react";
 
 interface MenuProps {
   active: boolean;
   activeContacts: boolean;
   onClickContacts: () => void;
+  onClickServices: () => void;
 }
 
-const mobileNavigation = [
-  {
-    id: "1",
-    name: "главная",
-    href: "/",
-  },
-  {
-    id: "2",
-    name: "контакты",
-    href: null,
-  },
-  {
-    id: "3",
-    name: "услуги",
-    href: "/services",
-  },
-  {
-    id: "4",
-    name: "портфолио",
-    href: "/portfolio",
-  },
-  {
-    id: "5",
-    name: "студия",
-    href: "/about",
-  },
-];
-
 const Menu = (props: MenuProps) => {
-  const { active, activeContacts, onClickContacts } = props;
+  const { active, activeContacts, onClickContacts, onClickServices } = props;
 
   const router = useRouter();
+
+  const mobileNavigation = useCallback(
+    ({
+      clickContacts,
+      clickServices,
+    }: {
+      clickContacts: () => void;
+      clickServices: () => void;
+    }) => {
+      return [
+        {
+          id: "1",
+          name: "главная",
+          href: "/",
+        },
+        {
+          id: "2",
+          name: "контакты",
+          click: clickContacts,
+        },
+        {
+          id: "3",
+          name: "услуги",
+          click: clickServices,
+        },
+        {
+          id: "4",
+          name: "портфолио",
+          href: "/portfolio",
+        },
+        {
+          id: "5",
+          name: "студия",
+          href: "/about",
+        },
+      ];
+    },
+    []
+  );
 
   const onClick = () => {
     router.push(getRouteOffersPage());
@@ -147,13 +160,16 @@ const Menu = (props: MenuProps) => {
             </a>
 
             <ul className="mobile-nav__list">
-              {mobileNavigation?.map((el) => {
+              {mobileNavigation({
+                clickContacts: onClickContacts,
+                clickServices: onClickServices,
+              })?.map((el) => {
                 return (
                   <li key={el.id} className="mobile-nav__item">
                     {el.href ? (
                       <Link href={el.href}>{el.name}</Link>
                     ) : (
-                      <a onClick={onClickContacts}>{el.name}</a>
+                      <a onClick={el.click}>{el.name}</a>
                     )}
                   </li>
                 );
