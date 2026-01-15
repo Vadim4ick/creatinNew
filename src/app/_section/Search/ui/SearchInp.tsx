@@ -126,7 +126,7 @@ export const SearchInp: React.FC<{
       </div>
 
       <AnimatePresence>
-        {open && popularLinks.length > 0 && (
+        {popularLinks.length > 0 && (
           <motion.div
             className={styles.popular}
             initial={{ opacity: 0, y: -10 }}

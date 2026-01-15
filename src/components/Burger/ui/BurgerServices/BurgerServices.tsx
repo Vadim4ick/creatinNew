@@ -216,7 +216,7 @@ const BurgerServices = (props: BurgerServicesProps) => {
                 title="Показать подменю услуг"
                 className={classNames("mobile-menu__link btn", {}, [cls.btn])}
               >
-                {"Услуги"}
+                {SubMenuName ?? "Услуги"}
               </button>
             ) : (
               <button

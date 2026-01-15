@@ -7,7 +7,6 @@ const TextBlock = memo(
   (props: { content: ComponentImageBlocksTextBlock; darkTheme: boolean }) => {
     const { content, darkTheme } = props;
 
-    console.log(darkTheme);
     return (
       <div className={`${cls.head} ${darkTheme ? cls.dark : ""}`}>
         <h2 className={cls.title}>{content.title}</h2>

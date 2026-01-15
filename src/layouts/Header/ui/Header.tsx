@@ -15,6 +15,7 @@ import {
   getRoutePortfolio,
   getRouteServices,
 } from "@/shared/const/pages";
+import { DarkProviderContext } from "@/shared/providers/darkProvider";
 
 const panelVariants = {
   closed: {
@@ -80,6 +81,8 @@ const MENU = [
 ];
 
 const Header = memo(() => {
+  const { darkTheme } = useContext(DarkProviderContext);
+
   const headerRef = useRef<HTMLDivElement | null>(null);
 
   const [open, setOpen] = useState(false);
@@ -197,7 +200,7 @@ const Header = memo(() => {
 
       <header className={cls.mobileHeader}>
         <Link href={"/"} className={cls.logo}>
-          <Logo />
+          <Logo fillPath={darkTheme ? "white" : "black"} />
         </Link>
       </header>
 

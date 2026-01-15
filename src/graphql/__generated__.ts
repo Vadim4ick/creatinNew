@@ -3679,7 +3679,7 @@ export const OffersBlockFragmentDoc = gql`
     fragment OffersBlock on ComponentComponentsOfferComponent {
   id
   name
-  offers {
+  offers(filters: {publishedAt: {notNull: true}}) {
     data {
       id
       attributes {
