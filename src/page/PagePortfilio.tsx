@@ -23,13 +23,10 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
   const { caseNames, formFeedback } = props;
 
   const [caseIds, setCaseIds] = useState<string[]>([]);
-  const [caseIdsForHook, setCaseIdsForHook] = useState<string[]>([]);
 
   const isDesktop = useMedia("(max-width: 1200px)");
 
-  const { data, isLoading } = useGetCasesByNameId(
-    isDesktop.matches ? caseIdsForHook : caseIds
-  );
+  const { data, isLoading } = useGetCasesByNameId(caseIds);
 
   const [cases, setCases] = useState<
     GetCasesByNameIdsQuery["cases"]["data"] | undefined
@@ -42,6 +39,7 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
       setCases(undefined);
     }
   }, [data]);
+
   return (
     <>
       <ServiceLayout
@@ -53,8 +51,8 @@ const PagePortfilio = memo((props: PagePortfolioProps) => {
             title="Сортировать по направлениям"
             SubMenuName="Портфолио"
             items={caseNames}
-            setCaseIdsForHook={setCaseIdsForHook}
-            caseIdsForHook={caseIdsForHook}
+            setCaseIdsForHook={setCaseIds}
+            caseIdsForHook={caseIds}
           />
         )}
         sidebarItemElement={"input"}

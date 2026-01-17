@@ -5,7 +5,7 @@ import { SidebarItems } from "@/components/Sidebar/ui/Sidebar";
 import { GetCasesByNameIdsQuery } from "@/graphql/__generated__";
 
 import cls from "./style.module.scss";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 const CasesProtfolio = ({
   cases,
