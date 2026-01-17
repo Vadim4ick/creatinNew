@@ -1,4 +1,4 @@
-import { memo, useMemo, useRef, useState } from "react";
+import { memo, useMemo, useRef } from "react";
 
 import { Navigation, Pagination, EffectFade, Autoplay } from "swiper";
 import type { SwiperOptions } from "swiper/types";
@@ -21,7 +21,6 @@ type Props = {
 
 export const BannerSlider = memo(({ slides, className = "" }: Props) => {
   const { data } = useGetSearchLinks();
-  const [isReady, setIsReady] = useState(false);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -86,10 +85,6 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
       },
       observer: true,
       observeParents: true,
-
-      on: {
-        init: () => setIsReady(true),
-      },
     }),
     [isDesktop.matches, slides.length],
   );
@@ -99,15 +94,7 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
   const router = useRouter();
 
   return (
-    <section
-      className={classNames(
-        styles.hero,
-        {
-          [styles.ready]: isReady,
-        },
-        [className],
-      )}
-    >
+    <section className={classNames(styles.hero, {}, [className])}>
       <div ref={ref} className={`swiper ${styles.swiper}`}>
         {/* {isReady && ( */}
         <div className="swiper-wrapper">
@@ -181,14 +168,6 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
           <div className={styles.pagination} />
         </div>
       </div>
-
-      {!isReady && (
-        <div className={styles.skeleton} aria-hidden="true">
-          <div className={styles.skeletonBg} />
-
-          <div className={styles.skeletonDots} />
-        </div>
-      )}
 
       <div className={styles.overlay}>
         <div className={styles.overlayInner}>
