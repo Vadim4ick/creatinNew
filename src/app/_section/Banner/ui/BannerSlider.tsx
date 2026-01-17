@@ -1,4 +1,4 @@
-import { memo, useMemo, useRef } from "react";
+import { memo, useMemo, useRef, useState } from "react";
 
 import { Navigation, Pagination, EffectFade, Autoplay } from "swiper";
 import type { SwiperOptions } from "swiper/types";
@@ -21,6 +21,7 @@ type Props = {
 
 export const BannerSlider = memo(({ slides, className = "" }: Props) => {
   const { data } = useGetSearchLinks();
+  const [isReady, setIsReady] = useState(false);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -85,8 +86,12 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
       },
       observer: true,
       observeParents: true,
+
+      on: {
+        init: () => setIsReady(true),
+      },
     }),
-    [isDesktop.matches, slides.length]
+    [isDesktop.matches, slides.length],
   );
 
   useSwiper({ ref: ref as any, options });
@@ -94,63 +99,73 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
   const router = useRouter();
 
   return (
-    <section className={classNames(styles.hero, {}, [className])}>
+    <section
+      className={classNames(
+        styles.hero,
+        {
+          [styles.ready]: isReady,
+        },
+        [className],
+      )}
+    >
       <div ref={ref} className={`swiper ${styles.swiper}`}>
-        <div className="swiper-wrapper">
-          {slides.map((s, i) => {
-            const desk = s.attributes.desktopMedia?.data?.attributes;
-            const mob = s.attributes.mobileMedia?.data?.attributes;
+        {isReady && (
+          <div className="swiper-wrapper">
+            {slides.map((s, i) => {
+              const desk = s.attributes.desktopMedia?.data?.attributes;
+              const mob = s.attributes.mobileMedia?.data?.attributes;
 
-            const urlDesk = desk?.url;
-            const mimeDesk = desk?.mime;
-            const urlMob = mob?.url || urlDesk; // fallback
-            const mimeMob = mob?.mime || mimeDesk; // fallback
+              const urlDesk = desk?.url;
+              const mimeDesk = desk?.mime;
+              const urlMob = mob?.url || urlDesk; // fallback
+              const mimeMob = mob?.mime || mimeDesk; // fallback
 
-            return (
-              <div key={i} className={`swiper-slide ${styles.slide}`}>
-                {/* <ImagePreloader
+              return (
+                <div key={i} className={`swiper-slide ${styles.slide}`}>
+                  {/* <ImagePreloader
                 src={s.attributes.url}
                 alt=""
                 className={styles.bg}
                 fill={true}
               /> */}
 
-                {mimeDesk.startsWith("image/") ||
-                mimeMob.startsWith("image/") ? (
-                  <picture>
-                    <source media="(max-width: 768px)" srcSet={urlMob} />
-                    <source media="(min-width: 769px)" srcSet={urlDesk} />
-                    <Image fill src={urlDesk} alt="" className={styles.bg} />
-                  </picture>
-                ) : mimeDesk.startsWith("video/") ||
-                  mimeMob.startsWith("video/") ? (
-                  <video
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    className={styles.bg}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                  >
-                    <source
-                      media="(max-width: 768px)"
-                      src={urlMob}
-                      type={mimeMob}
-                    />
-                    <source
-                      media="(min-width: 769px)"
-                      src={urlDesk}
-                      type={mimeDesk}
-                    />
-                  </video>
-                ) : null}
-              </div>
-            );
-          })}
-        </div>
+                  {mimeDesk.startsWith("image/") ||
+                  mimeMob.startsWith("image/") ? (
+                    <picture>
+                      <source media="(max-width: 768px)" srcSet={urlMob} />
+                      <source media="(min-width: 769px)" srcSet={urlDesk} />
+                      <Image fill src={urlDesk} alt="" className={styles.bg} />
+                    </picture>
+                  ) : mimeDesk.startsWith("video/") ||
+                    mimeMob.startsWith("video/") ? (
+                    <video
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      className={styles.bg}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    >
+                      <source
+                        media="(max-width: 768px)"
+                        src={urlMob}
+                        type={mimeMob}
+                      />
+                      <source
+                        media="(min-width: 769px)"
+                        src={urlDesk}
+                        type={mimeDesk}
+                      />
+                    </video>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         {/* Навигация */}
         <button className={styles.navPrev} aria-label="Предыдущий слайд">
@@ -166,6 +181,14 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
           <div className={styles.pagination} />
         </div>
       </div>
+
+      {!isReady && (
+        <div className={styles.skeleton} aria-hidden="true">
+          <div className={styles.skeletonBg} />
+
+          <div className={styles.skeletonDots} />
+        </div>
+      )}
 
       <div className={styles.overlay}>
         <div className={styles.overlayInner}>

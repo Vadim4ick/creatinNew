@@ -115,7 +115,9 @@
   height: 6px;
   border-radius: 999px;
   background: #b4b5b8;
-  transition: transform 0.15s ease, background 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
 }
 
 .overlay {
@@ -153,4 +155,65 @@
   .pagination {
     bottom: 14px;
   }
+}
+
+.skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 5; // выше слайдера, ниже overlay если нужно
+}
+
+/* Фон-слайд */
+.skeletonBg {
+  position: absolute;
+  inset: 0;
+  border-radius: 0; // как у твоего hero
+  background: rgba(0, 0, 0, 0.08);
+  animation: shimmer 1.2s infinite linear;
+}
+
+/* Плашка под поиск (примерно в месте SearchInp) */
+.skeletonSearch {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  width: min(720px, calc(100% - 32px));
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  animation: shimmer 1.2s infinite linear;
+}
+
+/* Пагинация-скелетон */
+.skeletonDots {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  animation: shimmer 1.2s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Когда ready — плавно убираем скелетон */
+.ready .skeleton {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
 }
