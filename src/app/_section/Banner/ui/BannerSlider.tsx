@@ -109,63 +109,63 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
       )}
     >
       <div ref={ref} className={`swiper ${styles.swiper}`}>
-        {isReady && (
-          <div className="swiper-wrapper">
-            {slides.map((s, i) => {
-              const desk = s.attributes.desktopMedia?.data?.attributes;
-              const mob = s.attributes.mobileMedia?.data?.attributes;
+        {/* {isReady && ( */}
+        <div className="swiper-wrapper">
+          {slides.map((s, i) => {
+            const desk = s.attributes.desktopMedia?.data?.attributes;
+            const mob = s.attributes.mobileMedia?.data?.attributes;
 
-              const urlDesk = desk?.url;
-              const mimeDesk = desk?.mime;
-              const urlMob = mob?.url || urlDesk; // fallback
-              const mimeMob = mob?.mime || mimeDesk; // fallback
+            const urlDesk = desk?.url;
+            const mimeDesk = desk?.mime;
+            const urlMob = mob?.url || urlDesk; // fallback
+            const mimeMob = mob?.mime || mimeDesk; // fallback
 
-              return (
-                <div key={i} className={`swiper-slide ${styles.slide}`}>
-                  {/* <ImagePreloader
+            return (
+              <div key={i} className={`swiper-slide ${styles.slide}`}>
+                {/* <ImagePreloader
                 src={s.attributes.url}
                 alt=""
                 className={styles.bg}
                 fill={true}
               /> */}
 
-                  {mimeDesk.startsWith("image/") ||
-                  mimeMob.startsWith("image/") ? (
-                    <picture>
-                      <source media="(max-width: 768px)" srcSet={urlMob} />
-                      <source media="(min-width: 769px)" srcSet={urlDesk} />
-                      <Image fill src={urlDesk} alt="" className={styles.bg} />
-                    </picture>
-                  ) : mimeDesk.startsWith("video/") ||
-                    mimeMob.startsWith("video/") ? (
-                    <video
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                      }}
-                      className={styles.bg}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                    >
-                      <source
-                        media="(max-width: 768px)"
-                        src={urlMob}
-                        type={mimeMob}
-                      />
-                      <source
-                        media="(min-width: 769px)"
-                        src={urlDesk}
-                        type={mimeDesk}
-                      />
-                    </video>
-                  ) : null}
-                </div>
-              );
-            })}
-          </div>
-        )}
+                {mimeDesk.startsWith("image/") ||
+                mimeMob.startsWith("image/") ? (
+                  <picture>
+                    <source media="(max-width: 768px)" srcSet={urlMob} />
+                    <source media="(min-width: 769px)" srcSet={urlDesk} />
+                    <Image fill src={urlDesk} alt="" className={styles.bg} />
+                  </picture>
+                ) : mimeDesk.startsWith("video/") ||
+                  mimeMob.startsWith("video/") ? (
+                  <video
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    className={styles.bg}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source
+                      media="(max-width: 768px)"
+                      src={urlMob}
+                      type={mimeMob}
+                    />
+                    <source
+                      media="(min-width: 769px)"
+                      src={urlDesk}
+                      type={mimeDesk}
+                    />
+                  </video>
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
+        {/* )} */}
 
         {/* Навигация */}
         <button className={styles.navPrev} aria-label="Предыдущий слайд">
