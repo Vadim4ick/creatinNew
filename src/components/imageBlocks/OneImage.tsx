@@ -16,16 +16,16 @@ const OneImage = memo((props: { content: ComponentImageBlocksOneImage }) => {
           <source
             srcSet={getFileUrl(mobile.url)}
             media="(max-width: 768px)"
-            width={mobile.width}
-            height={mobile.height}
+            // width={mobile.width}
+            // height={mobile.height}
           />
         )}
 
-        <Image
+        <img
           alt=""
           src={getFileUrl(desktop?.url)}
-          width={desktop?.width}
-          height={desktop?.height}
+          // width={desktop?.width}
+          // height={desktop?.height}
         />
       </picture>
     </div>

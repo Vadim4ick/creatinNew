@@ -21,12 +21,18 @@ const AskedQuestions = ({
             <h2>Вы спрашивали - Мы отвечаем</h2>
 
             {!isTablet.matches && (
-              <ButtonDetails
-                mobileEnd={true}
-                leftColor="#27A5E5"
-                text="Задать вопрос напрямую"
-                Icon={() => <Send />}
-              />
+              <a
+                href="https://t.me/creatin_dsgn"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ButtonDetails
+                  mobileEnd={true}
+                  leftColor="#27A5E5"
+                  text="Задать вопрос напрямую"
+                  Icon={() => <Send />}
+                />
+              </a>
             )}
           </div>
 
@@ -52,12 +58,18 @@ const AskedQuestions = ({
           </div>
 
           {isTablet.matches && (
-            <ButtonDetails
-              leftColor="#27A5E5"
-              text="Задать вопрос напрямую"
-              Icon={() => <Send />}
-              mobileEnd={true}
-            />
+            <a
+              href="https://t.me/creatin_dsgn"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ButtonDetails
+                leftColor="#27A5E5"
+                text="Задать вопрос напрямую"
+                Icon={() => <Send />}
+                mobileEnd={true}
+              />
+            </a>
           )}
         </div>
       </div>

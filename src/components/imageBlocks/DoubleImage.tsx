@@ -21,14 +21,14 @@ const DoubleImage = memo(
               <source
                 srcSet={getFileUrl(mobOne.url)}
                 media="(max-width: 768px)"
-                width={mobOne.width}
-                height={mobOne.height}
+                // width={mobOne.width}
+                // height={mobOne.height}
               />
             )}
             <img
               src={getFileUrl(imgOne?.url)}
-              width={imgOne?.width}
-              height={imgOne?.height}
+              // width={imgOne?.width}
+              // height={imgOne?.height}
               alt=""
             />
           </picture>
@@ -39,21 +39,21 @@ const DoubleImage = memo(
               <source
                 srcSet={getFileUrl(mobTwo.url)}
                 media="(max-width: 768px)"
-                width={mobTwo.width}
-                height={mobTwo.height}
+                // width={mobTwo.width}
+                // height={mobTwo.height}
               />
             )}
             <img
               src={getFileUrl(imgTwo?.url)}
-              width={imgTwo?.width}
-              height={imgTwo?.height}
+              // width={imgTwo?.width}
+              // height={imgTwo?.height}
               alt=""
             />
           </picture>
         </div>
       </div>
     );
-  }
+  },
 );
 
 export { DoubleImage };

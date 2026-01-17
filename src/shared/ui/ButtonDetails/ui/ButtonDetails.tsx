@@ -44,47 +44,45 @@ export function ButtonDetails({
 }) {
   const isMobile = useMedia("(max-width: 768px)");
   return (
-    <a href="https://t.me/creatin_dsgn" target="_blank" rel="noreferrer">
-      <motion.button
-        onClick={onClick}
-        className={classNames(`${cls.btn} ${className}`, {}, [cls[variant]])}
-        initial="rest"
-        animate={isMobile.matches && mobileEnd ? "hover" : "rest"}
-        whileHover="hover"
-        variants={btnVariants}
+    <motion.button
+      onClick={onClick}
+      className={classNames(`${cls.btn} ${className}`, {}, [cls[variant]])}
+      initial="rest"
+      animate={isMobile.matches && mobileEnd ? "hover" : "rest"}
+      whileHover="hover"
+      variants={btnVariants}
+      transition={springTransition}
+      type="button"
+    >
+      {/* Левый слот (занимает место при ховере) */}
+      <motion.div
+        className={cls.leftSlot}
+        variants={leftSlotVariants}
         transition={springTransition}
-        type="button"
+        aria-hidden
       >
-        {/* Левый слот (занимает место при ховере) */}
         <motion.div
-          className={cls.leftSlot}
-          variants={leftSlotVariants}
+          style={leftColor ? { background: leftColor } : undefined}
+          className={cls.btnArrow}
+          variants={leftDotVariants}
           transition={springTransition}
-          aria-hidden
-        >
-          <motion.div
-            style={leftColor ? { background: leftColor } : undefined}
-            className={cls.btnArrow}
-            variants={leftDotVariants}
-            transition={springTransition}
-          >
-            <Icon />
-          </motion.div>
-        </motion.div>
-
-        {/* Текст остаётся левым и сдвигается естественно, когда растёт leftSlot */}
-        <span className={cls.btnText}>{text}</span>
-
-        {/* Правый кружок */}
-        <motion.div
-          className={cls.btnArrowRight}
-          variants={rightDotVariants}
-          transition={springTransition}
-          aria-hidden
         >
           <Icon />
         </motion.div>
-      </motion.button>
-    </a>
+      </motion.div>
+
+      {/* Текст остаётся левым и сдвигается естественно, когда растёт leftSlot */}
+      <span className={cls.btnText}>{text}</span>
+
+      {/* Правый кружок */}
+      <motion.div
+        className={cls.btnArrowRight}
+        variants={rightDotVariants}
+        transition={springTransition}
+        aria-hidden
+      >
+        <Icon />
+      </motion.div>
+    </motion.button>
   );
 }
