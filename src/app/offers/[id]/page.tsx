@@ -1,5 +1,5 @@
 import { gql } from "@/graphql/client";
-import { PageOffer } from "@/page/PageOffer";
+import { PageOffer } from "@/page/PageOffer/PageOffer";
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const { offer } = await gql.GetSeoOffer({

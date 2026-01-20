@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import { Loader } from "@/shared/ui/Loader/Loader";
 import { getRouteOffers } from "@/shared/const/pages";
 import { SectionTitle } from "@/app/services/_sections/SectionTitle";
+import cls from "./style.module.scss";
 
 const PageOffer = ({
   serviceNames,
@@ -33,7 +34,7 @@ const PageOffer = ({
   formFeedback: GetFormFeedbackQuery["formFeedback"];
 }) => {
   const [activeServiceId, setActiveServicesId] = useState<string | undefined>(
-    undefined
+    undefined,
   );
 
   const refSection = useRef<HTMLElement | null>(null);
@@ -106,9 +107,9 @@ const PageOffer = ({
       onChangeDop={onChangeDop}
       onChangeDopFooter={onChangeDopFooter}
     >
-      <div className="page__base">
+      <div className={`page__base ${cls.page}`}>
         <section className="fade-up mb-42" ref={refSection}>
-          {offer?.offerBanner.data.attributes && (
+          {offer?.offerBanner?.data?.attributes && (
             <OfferTopBanner banner={offer.offerBanner.data.attributes} />
           )}
         </section>
@@ -136,7 +137,7 @@ const PageOffer = ({
               <div
                 className={`includes__row--no-hover ${
                   offer?.includes_blocks.data.some(
-                    (el) => el.attributes.blockHover.title
+                    (el) => el.attributes.blockHover.title,
                   ) && "includes__row"
                 }`}
               >
