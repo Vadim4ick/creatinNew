@@ -147,7 +147,7 @@ const ServiceCollection = memo(
                       <p>Стоимость от</p>
 
                       <span>
-                        {` ${priceFormatter(serviceCollection?.price)}`}
+                        {` ${priceFormatter(serviceCollection?.price)}`} ₽
                       </span>
                     </div>
                   </div>
@@ -220,7 +220,7 @@ const ServiceCollection = memo(
         </div>
       </ServiceLayout>
     );
-  }
+  },
 );
 
 export { ServiceCollection };

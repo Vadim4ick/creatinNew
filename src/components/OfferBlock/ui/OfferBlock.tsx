@@ -28,9 +28,11 @@ const OfferBlock = ({
                       src={getFileUrl(offer.attributes.img.data.attributes.url)}
                     />
 
-                    <span className={cls.highlighted}>
-                      {offer.attributes.highlighted}
-                    </span>
+                    {offer.attributes.highlighted && (
+                      <span className={cls.highlighted}>
+                        {offer.attributes.highlighted}
+                      </span>
+                    )}
                   </div>
                   <div className={cls.text}>
                     <div className={cls.title}>{offer.attributes.name}</div>
