@@ -28,17 +28,30 @@ const Services = memo(
                   <Skeleton width="100px" height="16px" />
                 </li>
               ))
-            : data?.map((el) => {
+            : data &&
+              [
+                ...data,
+                {
+                  id: "#!",
+                  attributes: { name: "Отраслевые решения" },
+                },
+                {
+                  id: "/offers",
+                  attributes: { name: "Спецпредложения" },
+                },
+              ]?.map((el) => {
                 return (
                   <li key={el.id}>
-                    <a href={`/services/${el.id}`}>{el.attributes.name}</a>
+                    <a href={Number(el.id) ? `/services/${el.id}` : el.id}>
+                      {el.attributes.name}
+                    </a>
                   </li>
                 );
               })}
         </ul>
       </div>
     );
-  }
+  },
 );
 
 const CompanyInfo = memo(() => {

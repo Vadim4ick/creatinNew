@@ -407,7 +407,9 @@ body.popup-show::after {
   -webkit-transition: -webkit-transform 0.3s ease 0s;
   transition: -webkit-transform 0.3s ease 0s;
   transition: transform 0.3s ease 0s;
-  transition: transform 0.3s ease 0s, -webkit-transform 0.3s ease 0s;
+  transition:
+    transform 0.3s ease 0s,
+    -webkit-transform 0.3s ease 0s;
   background-color: #eee;
   padding: 36px 36px 20px 36px;
   width: 100%;
@@ -546,7 +548,8 @@ body.popup-show::after {
 }
 @font-face {
   font-family: "Jeko";
-  src: url("/fonts/JekoMedium.eot") format("embedded-opentype"),
+  src:
+    url("/fonts/JekoMedium.eot") format("embedded-opentype"),
     /* url("/fonts/JekoMedium.woff2") format("woff2"), */
       url("/fonts/JekoMedium.woff") format("woff"),
     url("/fonts/JekoMedium.ttf") format("truetype");
@@ -558,7 +561,8 @@ body.popup-show::after {
 /* Для шрифта Jeko Regular */
 @font-face {
   font-family: "Jeko";
-  src: url("/fonts/JekoRegular.eot") format("embedded-opentype"),
+  src:
+    url("/fonts/JekoRegular.eot") format("embedded-opentype"),
     /* url("/fonts/JekoRegular.woff2") format("woff2"), */
       url("/fonts/JekoRegular.woff") format("woff"),
     url("/fonts/JekoRegular.ttf") format("truetype");
@@ -570,7 +574,8 @@ body.popup-show::after {
 /* Для шрифта Jeko Regular */
 @font-face {
   font-family: "Jeko";
-  src: url("/fonts/JekoSemiBold.eot") format("embedded-opentype"),
+  src:
+    url("/fonts/JekoSemiBold.eot") format("embedded-opentype"),
     /* url("/fonts/JekoSemiBold.woff2") format("woff2"), */
       url("/fonts/JekoSemiBold.woff") format("woff"),
     url("/fonts/JekoSemiBold.ttf") format("truetype");
@@ -1084,8 +1089,12 @@ body.popup-show::after {
   height: 52px;
 }
 .mobile-menu__back.hide-active {
-  -webkit-transition: width 0.3s ease-out 0s, opacity 0.3s ease-out 0s;
-  transition: width 0.3s ease-out 0s, opacity 0.3s ease-out 0s;
+  -webkit-transition:
+    width 0.3s ease-out 0s,
+    opacity 0.3s ease-out 0s;
+  transition:
+    width 0.3s ease-out 0s,
+    opacity 0.3s ease-out 0s;
   will-change: width, opacity;
   opacity: 1;
 }
@@ -1448,7 +1457,8 @@ body.popup-show::after {
   -webkit-transition: -webkit-clip-path 1.5s ease-in-out 0s;
   transition: -webkit-clip-path 1.5s ease-in-out 0s;
   transition: clip-path 1.5s ease-in-out 0s;
-  transition: clip-path 1.5s ease-in-out 0s,
+  transition:
+    clip-path 1.5s ease-in-out 0s,
     -webkit-clip-path 1.5s ease-in-out 0s;
 }
 .intro._watcher-view {
@@ -2047,7 +2057,9 @@ body.popup-show::after {
   -webkit-transition: -webkit-transform 0.3s ease-out 0s;
   transition: -webkit-transform 0.3s ease-out 0s;
   transition: transform 0.3s ease-out 0s;
-  transition: transform 0.3s ease-out 0s, -webkit-transform 0.3s ease-out 0s;
+  transition:
+    transform 0.3s ease-out 0s,
+    -webkit-transform 0.3s ease-out 0s;
   pointer-events: none;
 }
 .mobile-menu-overlay {
@@ -2506,7 +2518,9 @@ body.popup-show::after {
   -webkit-transition: -webkit-transform 0.3s ease-out 0s;
   transition: -webkit-transform 0.3s ease-out 0s;
   transition: transform 0.3s ease-out 0s;
-  transition: transform 0.3s ease-out 0s, -webkit-transform 0.3s ease-out 0s;
+  transition:
+    transform 0.3s ease-out 0s,
+    -webkit-transform 0.3s ease-out 0s;
   font-size: 20px;
   font-weight: 600;
   line-height: 140%;
@@ -2587,16 +2601,30 @@ body.popup-show::after {
   border-radius: 20px;
   background: var(--color-card-bg);
   overflow: hidden;
-  -webkit-transition: height 0.7s ease-out 0s, width 0.7s ease-out 0s,
-    z-index 0s ease 0s, opacity 0.7s ease-out 0.7s,
+  -webkit-transition:
+    height 0.7s ease-out 0s,
+    width 0.7s ease-out 0s,
+    z-index 0s ease 0s,
+    opacity 0.7s ease-out 0.7s,
     -webkit-transform 0.7s ease-out 0s;
-  transition: height 0.7s ease-out 0s, width 0.7s ease-out 0s,
-    z-index 0s ease 0s, opacity 0.7s ease-out 0.7s,
+  transition:
+    height 0.7s ease-out 0s,
+    width 0.7s ease-out 0s,
+    z-index 0s ease 0s,
+    opacity 0.7s ease-out 0.7s,
     -webkit-transform 0.7s ease-out 0s;
-  transition: height 0.7s ease-out 0s, width 0.7s ease-out 0s,
-    transform 0.7s ease-out 0s, z-index 0s ease 0s, opacity 0.7s ease-out 0.7s;
-  transition: height 0.7s ease-out 0s, width 0.7s ease-out 0s,
-    transform 0.7s ease-out 0s, z-index 0s ease 0s, opacity 0.7s ease-out 0.7s,
+  transition:
+    height 0.7s ease-out 0s,
+    width 0.7s ease-out 0s,
+    transform 0.7s ease-out 0s,
+    z-index 0s ease 0s,
+    opacity 0.7s ease-out 0.7s;
+  transition:
+    height 0.7s ease-out 0s,
+    width 0.7s ease-out 0s,
+    transform 0.7s ease-out 0s,
+    z-index 0s ease 0s,
+    opacity 0.7s ease-out 0.7s,
     -webkit-transform 0.7s ease-out 0s;
   padding: 6px;
   opacity: 0;
@@ -2931,7 +2959,9 @@ body.popup-show::after {
   -webkit-transition: -webkit-transform 0.3s ease-out 0s;
   transition: -webkit-transform 0.3s ease-out 0s;
   transition: transform 0.3s ease-out 0s;
-  transition: transform 0.3s ease-out 0s, -webkit-transform 0.3s ease-out 0s;
+  transition:
+    transform 0.3s ease-out 0s,
+    -webkit-transform 0.3s ease-out 0s;
   will-change: transform;
 }
 .includes__info {
@@ -3004,14 +3034,23 @@ body.popup-show::after {
   width: 100%;
   height: auto;
   margin-bottom: auto;
-  -webkit-transition: all 0.3s ease-out 0s, width 0.3s ease-out 0.3s,
+  -webkit-transition:
+    all 0.3s ease-out 0s,
+    width 0.3s ease-out 0.3s,
     -webkit-box-flex 0.3s ease-out 0.3s;
-  transition: all 0.3s ease-out 0s, width 0.3s ease-out 0.3s,
+  transition:
+    all 0.3s ease-out 0s,
+    width 0.3s ease-out 0.3s,
     -webkit-box-flex 0.3s ease-out 0.3s;
-  transition: all 0.3s ease-out 0s, flex 0.3s ease-out 0.3s,
+  transition:
+    all 0.3s ease-out 0s,
+    flex 0.3s ease-out 0.3s,
     width 0.3s ease-out 0.3s;
-  transition: all 0.3s ease-out 0s, flex 0.3s ease-out 0.3s,
-    width 0.3s ease-out 0.3s, -webkit-box-flex 0.3s ease-out 0.3s,
+  transition:
+    all 0.3s ease-out 0s,
+    flex 0.3s ease-out 0.3s,
+    width 0.3s ease-out 0.3s,
+    -webkit-box-flex 0.3s ease-out 0.3s,
     -ms-flex 0.3s ease-out 0.3s;
   will-change: height;
 }
@@ -3173,8 +3212,12 @@ body.popup-show::after {
   -webkit-transform: translateX(100%);
   -ms-transform: translateX(100%);
   transform: translateX(100%);
-  -webkit-transition: all 0.3s ease-out 0s, opacity 0.2s ease-out 0.3s;
-  transition: all 0.3s ease-out 0s, opacity 0.2s ease-out 0.3s;
+  -webkit-transition:
+    all 0.3s ease-out 0s,
+    opacity 0.2s ease-out 0.3s;
+  transition:
+    all 0.3s ease-out 0s,
+    opacity 0.2s ease-out 0.3s;
 }
 ._active .promotion__more {
   opacity: 1;
@@ -3240,6 +3283,18 @@ body.popup-show::after {
 @media (max-width: 1200px) {
   .project {
     margin-top: 30px;
+  }
+
+  .page__container {
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+    margin-bottom: 100px;
+  }
+  .page__right {
+    display: none;
+  }
+  .sidebar {
+    display: none;
   }
 }
 @media (max-width: 767px) {
@@ -4091,16 +4146,9 @@ picture {
 
 @media (max-width: 1365px) {
   .page__container {
-    -ms-grid-columns: 1fr;
-    grid-template-columns: 1fr;
-    margin-bottom: 100px;
+    gap: 50px;
   }
-  .page__right {
-    display: none;
-  }
-  .sidebar {
-    display: none;
-  }
+
   .steps {
     padding: 35px 36px;
   }
@@ -5137,11 +5185,20 @@ picture {
   .intro-cards__item .intro-cards-graph svg rect,
   .intro-cards__item .intro-cards-trust svg path,
   .intro-cards__item .intro-cards-trust svg rect {
-    -webkit-transition: all 0.6s ease-out 0s, -webkit-transform-origin 0s;
-    transition: all 0.6s ease-out 0s, -webkit-transform-origin 0s;
-    transition: all 0.6s ease-out 0s, transform-origin 0s;
-    transition: all 0.6s ease-out 0s, transform-origin 0s,
-      -webkit-transform-origin 0s, -ms-transform-origin 0s;
+    -webkit-transition:
+      all 0.6s ease-out 0s,
+      -webkit-transform-origin 0s;
+    transition:
+      all 0.6s ease-out 0s,
+      -webkit-transform-origin 0s;
+    transition:
+      all 0.6s ease-out 0s,
+      transform-origin 0s;
+    transition:
+      all 0.6s ease-out 0s,
+      transform-origin 0s,
+      -webkit-transform-origin 0s,
+      -ms-transform-origin 0s;
   }
   .intro-cards__item:hover .intro-cards-achievement svg:first-child {
     -webkit-transform: translateY(3px);

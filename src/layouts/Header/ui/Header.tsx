@@ -177,20 +177,36 @@ const Header = memo(() => {
                     </div>
                   </div>
 
-                  <a href="#!" className={cls.secondaryCta}>
-                    Отраслевые решения
-                    <button className={cls.arrow}>
-                      <svg
-                        width="10"
-                        height="10"
-                        viewBox="0 0 10 10"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M-1.90961e-07 5.63131L-2.46153e-07 4.36869L7.57576 4.36869L4.10354 0.896464L5 -2.18557e-07L10 5L5 10L4.10354 9.10354L7.57576 5.63131L-1.90961e-07 5.63131Z" />
-                      </svg>
-                    </button>
-                  </a>
+                  <div className={cls.ctaGroup}>
+                    <a href="#!" className={cls.secondaryCta}>
+                      Отраслевые решения
+                      <button className={cls.arrow}>
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M-1.90961e-07 5.63131L-2.46153e-07 4.36869L7.57576 4.36869L4.10354 0.896464L5 -2.18557e-07L10 5L5 10L4.10354 9.10354L7.57576 5.63131L-1.90961e-07 5.63131Z" />
+                        </svg>
+                      </button>
+                    </a>
+                    <Link href="/offers" className={cls.secondaryCta}>
+                      Спецпредложения
+                      <button className={cls.arrow}>
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M-1.90961e-07 5.63131L-2.46153e-07 4.36869L7.57576 4.36869L4.10354 0.896464L5 -2.18557e-07L10 5L5 10L4.10354 9.10354L7.57576 5.63131L-1.90961e-07 5.63131Z" />
+                        </svg>
+                      </button>
+                    </Link>
+                  </div>
                 </motion.aside>
               </div>
             </motion.div>

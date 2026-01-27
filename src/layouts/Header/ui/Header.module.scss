@@ -168,18 +168,23 @@
     }
   }
 }
+.ctaGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 .side {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 20px;
+  gap: 14px;
   justify-content: space-between;
-  padding-top: 8px;
 }
 .contacts {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 16px;
 }
 .contactBlock .label {
   color: #7a7b7f;
