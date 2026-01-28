@@ -1,4 +1,4 @@
-import { memo, useMemo, useRef } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 
 import { Navigation, Pagination, EffectFade, Autoplay } from "swiper";
 import type { SwiperOptions } from "swiper/types";
@@ -25,6 +25,38 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const isDesktop = useMedia("(max-width: 992px)");
+
+  const [isSwiperCssReady, setIsSwiperCssReady] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const wrapper = el.querySelector<HTMLElement>(".swiper-wrapper");
+    if (!wrapper) return;
+
+    let raf1 = 0;
+    let raf2 = 0;
+
+    const check = () => {
+      const display = window.getComputedStyle(wrapper).display;
+      if (display === "flex") {
+        setIsSwiperCssReady(true);
+        return;
+      }
+      // пробуем ещё чуть-чуть (без таймера, только кадры)
+      raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(check);
+      });
+    };
+
+    check();
+
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, []);
 
   const links = useMemo(() => {
     const rows = data?.searchLinks?.data ?? [];
@@ -93,10 +125,17 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
 
   const router = useRouter();
 
+  console.log(isSwiperCssReady);
+
   return (
     <section className={classNames(styles.hero, {}, [className])}>
-      <div ref={ref} className={`swiper ${styles.swiper}`}>
-        {/* {isReady && ( */}
+      {isSwiperCssReady && (
+        <div className={styles.sliderPreloader} aria-hidden="true">
+          <div className={styles.spinner} />
+        </div>
+      )}
+
+      <div ref={ref} className={classNames(`swiper ${styles.swiper}`, {}, [])}>
         <div className="swiper-wrapper">
           {slides.map((s, i) => {
             const desk = s.attributes.desktopMedia?.data?.attributes;
@@ -108,14 +147,16 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
             const mimeMob = mob?.mime || mimeDesk; // fallback
 
             return (
-              <div key={i} className={`swiper-slide ${styles.slide}`}>
-                {/* <ImagePreloader
-                src={s.attributes.url}
-                alt=""
-                className={styles.bg}
-                fill={true}
-              /> */}
-
+              <div
+                key={i}
+                className={classNames(
+                  `swiper-slide ${styles.slide}`,
+                  {
+                    [styles.swiperNotReady]: !isSwiperCssReady,
+                  },
+                  [],
+                )}
+              >
                 {mimeDesk.startsWith("image/") ||
                 mimeMob.startsWith("image/") ? (
                   <picture>
@@ -152,7 +193,6 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
             );
           })}
         </div>
-        {/* )} */}
 
         {/* Навигация */}
         <button className={styles.navPrev} aria-label="Предыдущий слайд">
