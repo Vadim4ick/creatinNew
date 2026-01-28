@@ -1,7 +1,7 @@
 .block {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 8px;
 
   max-width: 750px;
 
@@ -11,6 +11,7 @@
     font-family: "SuisseIntl", sans-serif;
     font-weight: 500;
     color: #26272b;
+    margin-bottom: 14px;
 
     @media (max-width: 768px) {
       font-size: 26px;
