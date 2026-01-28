@@ -5,10 +5,11 @@ import { useRef } from "react";
 
 interface SectionTitleProps {
   title: GetServiceCollectionByIdQuery["serviceCollection"]["data"]["attributes"]["Title"];
+  style?: React.CSSProperties;
 }
 
 const SectionTitle = (props: SectionTitleProps) => {
-  const { title } = props;
+  const { title, style } = props;
 
   const ref = useRef<HTMLElement | null>(null);
 
@@ -18,7 +19,7 @@ const SectionTitle = (props: SectionTitleProps) => {
   });
 
   return (
-    <section ref={ref} className="steps fade-up">
+    <section ref={ref} style={style} className="steps fade-up">
       <div className="steps__row">
         <h2 className="steps__title">{title.title}</h2>
 

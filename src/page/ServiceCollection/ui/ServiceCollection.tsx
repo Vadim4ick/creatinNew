@@ -22,6 +22,7 @@ import { classNames } from "@/shared/lib";
 import cls from "./style.module.scss";
 import { ServicesTextBlock } from "@/components/ServicesBlocks/ServicesTextBlock/ServicesTextBlock";
 import { ServicesImageBlock } from "@/components/ServicesBlocks/ServicesImageBlock/ServicesImageBlock";
+import { SectionTitle } from "@/app/services/_sections/SectionTitle";
 
 const ServiceCollection = memo(
   ({
@@ -200,9 +201,12 @@ const ServiceCollection = memo(
               }
             })}
 
-          {/* {serviceCollection?.Title && (
-            <SectionTitle title={serviceCollection?.Title} />
-          )} */}
+          {serviceCollection?.Title && (
+            <SectionTitle
+              title={serviceCollection?.Title}
+              style={{ margin: 0 }}
+            />
+          )}
 
           {serviceCollection?.sliderCase?.cases.data.length !== 0 &&
             serviceCollection?.sliderCase && (
