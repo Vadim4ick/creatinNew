@@ -192,7 +192,10 @@ const Header = memo(() => {
                         </svg>
                       </button>
                     </a>
-                    <Link href="/offers" className={cls.secondaryCta}>
+                    <Link
+                      href="/offers"
+                      className={`${cls.secondaryCta} ${cls.offers}`}
+                    >
                       Спецпредложения
                       <button className={cls.arrow}>
                         <svg

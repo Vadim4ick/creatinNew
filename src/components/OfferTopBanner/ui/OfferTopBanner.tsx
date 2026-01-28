@@ -31,21 +31,21 @@ const OfferTopBanner = ({
             strong: ({ children }) => <b>{children}</b>,
             p: (props) => {
               // @ts-ignore
-              const cleanedData = props.children.map((item, index) => {
-                if (typeof item === "string") {
-                  // Заменяем '\n' на перенос строки
-                  const lines = item.split("\n");
-                  return lines.map((line, i) => (
-                    <React.Fragment key={i}>
-                      {line}
-                      {i < lines.length - 1 && <br />}
-                    </React.Fragment>
-                  ));
-                }
-                return item;
-              });
+              // const cleanedData = props.children.map((item, index) => {
+              //   if (typeof item === "string") {
+              //     // Заменяем '\n' на перенос строки
+              //     const lines = item.split("\n");
+              //     return lines.map((line, i) => (
+              //       <React.Fragment key={i}>
+              //         {line}
+              //         {i < lines.length - 1 && <br />}
+              //       </React.Fragment>
+              //     ));
+              //   }
+              //   return item;
+              // });
 
-              return <h3>{cleanedData}</h3>;
+              return <h3>{props.children}</h3>;
             },
           }}
         >

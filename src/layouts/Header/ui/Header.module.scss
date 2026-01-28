@@ -226,6 +226,18 @@
   font-family: "SuisseIntl", sans-serif;
   text-decoration: none;
 
+  &.offers {
+    background: #c0ff00;
+    color: #292929;
+    border: 1px solid #c0ff00;
+
+    &:hover {
+      .arrow {
+        background: #292929;
+      }
+    }
+  }
+
   /* плавная анимация для hover */
 
   transition: all 0.45s ease-out 0s;
