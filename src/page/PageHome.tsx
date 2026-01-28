@@ -43,7 +43,9 @@ const PageHome = (props: PageHomeProps) => {
     <>
       {isDesktop.matches && <Burger complexTitle={data} SubMenuName="Услуги" />}
 
-      <h1 className="visually-hidden">Студия разработки и брендинга creatin</h1>
+      <h1 className="visually-hidden">
+        Агентство разработки и брендинга creatin
+      </h1>
 
       <main
         onCopy={(event: React.ClipboardEvent<HTMLElement>) => {

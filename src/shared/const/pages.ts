@@ -6,7 +6,7 @@ export enum AppRoutes {
   OFFERS = "Спецпредложения",
   COMPLEX = "Cопровождения",
   CASE = "Проект",
-  ABOUT = "Студия",
+  ABOUT = "Агентство",
 }
 
 export const getRouteHome = () => "/";

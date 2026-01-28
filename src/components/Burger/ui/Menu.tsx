@@ -48,12 +48,12 @@ const Menu = (props: MenuProps) => {
         },
         {
           id: "5",
-          name: "студия",
+          name: "агентство",
           href: "/about",
         },
       ];
     },
-    []
+    [],
   );
 
   const onClick = () => {

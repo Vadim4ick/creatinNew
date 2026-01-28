@@ -76,7 +76,7 @@ const sideVariants = {
 const MENU = [
   { label: "Услуги", href: `${getRouteServices()}/1` },
   { label: "Портфолио", href: getRoutePortfolio() },
-  { label: "Студия", href: getRouteAbout() },
+  { label: "Агентство", href: getRouteAbout() },
   { label: "Контакты", href: "#!" },
 ];
 
