@@ -4,6 +4,7 @@ import { useMedia } from "@/shared/hooks/useMedia";
 import ReactMarkdown from "react-markdown";
 import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
 import React from "react";
+import { DecorBgGreen } from "@/shared/icons/DecorBgGreen";
 
 const OfferTopBanner = ({
   banner,
@@ -28,7 +29,7 @@ const OfferTopBanner = ({
         <ReactMarkdown
           skipHtml
           components={{
-            strong: ({ children }) => <b>{children}</b>,
+            // strong: ({ children }) => <b>{children}</b>,
             p: (props) => {
               // @ts-ignore
               // const cleanedData = props.children.map((item, index) => {
@@ -45,7 +46,11 @@ const OfferTopBanner = ({
               //   return item;
               // });
 
-              return <h3>{props.children}</h3>;
+              return (
+                <h3>
+                  <span>{props.children}</span> <DecorBgGreen />
+                </h3>
+              );
             },
           }}
         >

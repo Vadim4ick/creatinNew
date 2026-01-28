@@ -4569,7 +4569,7 @@ picture {
     -ms-flex-direction: column;
     flex-direction: column;
     gap: 24px;
-    padding: 48px var(--pad) 64px var(--pad);
+    /* padding: 48px var(--pad) 64px var(--pad); */
     margin-left: var(--pad-neg);
     margin-right: var(--pad-neg);
     border-radius: 12px;
@@ -4579,11 +4579,11 @@ picture {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
-    font-size: 28px;
-    line-height: 140%;
+    font-size: 22px;
+    line-height: 130%;
   }
   .text-block__info {
-    font-size: 1.125rem;
+    font-size: 16px;
     line-height: 140%;
   }
   .steps {
