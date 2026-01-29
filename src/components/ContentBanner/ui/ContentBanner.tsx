@@ -7,7 +7,7 @@ import React, { useContext } from "react";
 import { PopupProviderContext } from "@/shared/providers/popupProvider";
 import { handleContextMenu } from "@/shared/helpers/handleContenxtMenu";
 import rehypeRaw from "rehype-raw";
-import { DecorBgGreen } from "@/shared/icons/DecorBgGreen";
+import { getFileUrl } from "@/shared/helpers/getFileUrl";
 
 interface ContentBannerProps {
   className?: string;
@@ -21,6 +21,12 @@ const ContentBanner = (props: ContentBannerProps) => {
 
   return (
     <div
+      style={{
+        background:
+          content.bgColorServiceBanner ??
+          "linear-gradient(180deg, #292929 0%, #151515 100%)",
+        ["--effect-color" as any]: content.colorImageEffectServiceBanner,
+      }}
       onContextMenu={(e) => handleContextMenu(e)}
       className={classNames("cta__image", {}, [cls.container, className])}
     >
@@ -60,9 +66,13 @@ const ContentBanner = (props: ContentBannerProps) => {
         </div>
 
         <div className={cls.right}>
-          <div className={cls.image}>
-            <img src="/test.png" />
-          </div>
+          {content.imgServiceBanner.data && (
+            <div className={cls.image}>
+              <img
+                src={getFileUrl(content.imgServiceBanner.data.attributes.url)}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

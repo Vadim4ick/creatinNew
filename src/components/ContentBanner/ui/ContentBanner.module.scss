@@ -5,7 +5,6 @@
   overflow: hidden;
   height: 448px;
   border-radius: 24px;
-  background: linear-gradient(180deg, #292929 0%, #151515 100%);
 
   @media (max-width: 768px) {
     margin-top: 100px;
@@ -157,7 +156,7 @@
           width: 408px;
           height: 408px;
           border-radius: 50%;
-          background: #204ff5;
+          background: var(--effect-color);
           opacity: 0.3;
 
           filter: blur(160px);
@@ -175,7 +174,7 @@
           width: 358px;
           height: 358px;
           border-radius: 50%;
-          background: #204ff5;
+          background: var(--effect-color);
 
           filter: blur(120px);
           mix-blend-mode: plus-lighter;
