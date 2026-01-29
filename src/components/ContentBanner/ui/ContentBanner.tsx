@@ -26,33 +26,25 @@ const ContentBanner = (props: ContentBannerProps) => {
     >
       <div className={cls.content}>
         <div className={cls.left}>
-          <ReactMarkdown
-            rehypePlugins={[rehypeRaw]}
-            components={{
-              p: ({ children }) => <h3>{children}</h3>,
-              strong: ({ children }) => (
-                <b>
-                  <span>{children}</span>
+          <div className={cls.text}>
+            <ReactMarkdown
+              rehypePlugins={[rehypeRaw]}
+              components={{
+                p: ({ children }) => <h3>{children}</h3>,
+              }}
+            >
+              {content.title}
+            </ReactMarkdown>
 
-                  <DecorBgGreen />
-                </b>
-              ),
-              br: () => <br />,
-            }}
-          >
-            {content.title}
-          </ReactMarkdown>
-        </div>
-
-        <div className={cls.right}>
-          <ReactMarkdown
-            skipHtml
-            components={{
-              p: ({ children }) => <p>{children}</p>,
-            }}
-          >
-            {content.description}
-          </ReactMarkdown>
+            <ReactMarkdown
+              skipHtml
+              components={{
+                p: ({ children }) => <p>{children}</p>,
+              }}
+            >
+              {content.description}
+            </ReactMarkdown>
+          </div>
 
           <div className={cls.buttons}>
             <a className={cls.blue} onClick={() => setOpen(true)}>
@@ -67,8 +59,10 @@ const ContentBanner = (props: ContentBannerProps) => {
           </div>
         </div>
 
-        <div className={cls.image}>
-          <img src="/content-baner.png" />
+        <div className={cls.right}>
+          <div className={cls.image}>
+            <img src="/test.png" />
+          </div>
         </div>
       </div>
     </div>

@@ -56,26 +56,6 @@ const OfferTopBanner = ({
         >
           {banner.title}
         </ReactMarkdown>
-
-        <ReactMarkdown
-          skipHtml
-          components={{
-            p: ({ children }) => (
-              <p
-                style={{
-                  width: banner.widthDescriptionBannerOfferPage
-                    ? banner.widthDescriptionBannerOfferPage
-                    : undefined,
-                }}
-              >
-                {" "}
-                {children}
-              </p>
-            ),
-          }}
-        >
-          {banner.descriptionOffers}
-        </ReactMarkdown>
       </div>
     </div>
   );

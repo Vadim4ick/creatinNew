@@ -1,7 +1,6 @@
 fragment BannerFragment on Banner {
   title
   description
-  descriptionOffers
   label
   imgDesktop {
     data {
@@ -23,12 +22,15 @@ fragment BannerFragment on Banner {
     name
   }
 
-  widthTitle
-  widthDescription
-  widthDescriptionBannerOfferPage
-
-  widthBlur
-  widthBlurMobile
+  bgColorServiceBanner
+  colorImageEffectServiceBanner
+  imgServiceBanner {
+    data {
+      attributes {
+        ...MediaFragment
+      }
+    }
+  }
 
   offerBannerMobile {
     data {
