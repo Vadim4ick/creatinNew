@@ -28,37 +28,37 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
   const isDesktop = useMedia("(max-width: 992px)");
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // const [isSwiperCssReady, setIsSwiperCssReady] = useState(false);
+  const [isSwiperCssReady, setIsSwiperCssReady] = useState(false);
 
-  // useEffect(() => {
-  //   const el = ref.current;
-  //   if (!el) return;
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-  //   const wrapper = el.querySelector<HTMLElement>(".swiper-wrapper");
-  //   if (!wrapper) return;
+    const wrapper = el.querySelector<HTMLElement>(".swiper-wrapper");
+    if (!wrapper) return;
 
-  //   let raf1 = 0;
-  //   let raf2 = 0;
+    let raf1 = 0;
+    let raf2 = 0;
 
-  //   const check = () => {
-  //     const display = window.getComputedStyle(wrapper).display;
-  //     if (display === "flex") {
-  //       // setIsSwiperCssReady(true);
-  //       return;
-  //     }
-  //     // пробуем ещё чуть-чуть (без таймера, только кадры)
-  //     raf1 = requestAnimationFrame(() => {
-  //       raf2 = requestAnimationFrame(check);
-  //     });
-  //   };
+    const check = () => {
+      const display = window.getComputedStyle(wrapper).display;
+      if (display === "flex") {
+        setIsSwiperCssReady(true);
+        return;
+      }
+      // пробуем ещё чуть-чуть (без таймера, только кадры)
+      raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(check);
+      });
+    };
 
-  //   check();
+    check();
 
-  //   return () => {
-  //     cancelAnimationFrame(raf1);
-  //     cancelAnimationFrame(raf2);
-  //   };
-  // }, []);
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, []);
 
   const links = useMemo(() => {
     const rows = data?.searchLinks?.data ?? [];
@@ -134,11 +134,11 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
 
   return (
     <section className={classNames(styles.hero, {}, [className])}>
-      {/* {isSwiperCssReady && (
+      {!isSwiperCssReady && (
         <div className={styles.sliderPreloader} aria-hidden="true">
           <div className={styles.spinner} />
         </div>
-      )} */}
+      )}
 
       <div ref={ref} className={classNames(`swiper ${styles.swiper}`, {}, [])}>
         <div className="swiper-wrapper">
@@ -157,7 +157,7 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
                 className={classNames(
                   `swiper-slide ${styles.slide}`,
                   {
-                    // [styles.swiperNotReady]: !isSwiperCssReady,
+                    [styles.swiperNotReady]: !isSwiperCssReady,
                   },
                   [],
                 )}
