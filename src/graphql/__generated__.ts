@@ -1130,6 +1130,8 @@ export type HomeBaner = {
   readonly __typename?: 'HomeBaner';
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
   readonly desktopMedia: UploadFileEntityResponse;
+  readonly keywords: Maybe<Scalars['JSON']['output']>;
+  readonly link: Maybe<Scalars['String']['output']>;
   readonly mobileMedia: Maybe<UploadFileEntityResponse>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
   readonly title: Scalars['String']['output'];
@@ -1157,6 +1159,8 @@ export type HomeBanerFiltersInput = {
   readonly and: InputMaybe<ReadonlyArray<InputMaybe<HomeBanerFiltersInput>>>;
   readonly createdAt: InputMaybe<DateTimeFilterInput>;
   readonly id: InputMaybe<IdFilterInput>;
+  readonly keywords: InputMaybe<JsonFilterInput>;
+  readonly link: InputMaybe<StringFilterInput>;
   readonly not: InputMaybe<HomeBanerFiltersInput>;
   readonly or: InputMaybe<ReadonlyArray<InputMaybe<HomeBanerFiltersInput>>>;
   readonly publishedAt: InputMaybe<DateTimeFilterInput>;
@@ -1166,6 +1170,8 @@ export type HomeBanerFiltersInput = {
 
 export type HomeBanerInput = {
   readonly desktopMedia: InputMaybe<Scalars['ID']['input']>;
+  readonly keywords: InputMaybe<Scalars['JSON']['input']>;
+  readonly link: InputMaybe<Scalars['String']['input']>;
   readonly mobileMedia: InputMaybe<Scalars['ID']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
   readonly title: InputMaybe<Scalars['String']['input']>;
@@ -3301,7 +3307,7 @@ export type GetFormFeedbackQuery = { readonly __typename?: 'Query', readonly for
 export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly cases: { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } }, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } }, readonly imageMainMobile: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } } } }> }, readonly banera_dlya_glavnoj_straniczies: { readonly __typename?: 'HomeBanerRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'HomeBanerEntity', readonly attributes: { readonly __typename?: 'HomeBaner', readonly desktopMedia: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } }, readonly mobileMedia: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } } } }> } } } } };
+export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePageEntityResponse', readonly data: { readonly __typename?: 'HomePageEntity', readonly attributes: { readonly __typename?: 'HomePage', readonly cases: { readonly __typename?: 'CaseRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'CaseEntity', readonly id: string, readonly attributes: { readonly __typename?: 'Case', readonly title: string, readonly info: string, readonly imageBig: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } }, readonly imageMain: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } }, readonly imageMainMobile: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } } } }> }, readonly banera_dlya_glavnoj_straniczies: { readonly __typename?: 'HomeBanerRelationResponseCollection', readonly data: ReadonlyArray<{ readonly __typename?: 'HomeBanerEntity', readonly attributes: { readonly __typename?: 'HomeBaner', readonly keywords: any, readonly link: string, readonly desktopMedia: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } }, readonly mobileMedia: { readonly __typename?: 'UploadFileEntityResponse', readonly data: { readonly __typename?: 'UploadFileEntity', readonly attributes: { readonly __typename?: 'UploadFile', readonly name: string, readonly url: string, readonly width: number, readonly height: number, readonly mime: string } } } } }> } } } } };
 
 export type GetOfferByIdQueryVariables = Exact<{
   id: InputMaybe<Scalars['ID']['input']>;
@@ -4279,6 +4285,8 @@ export const GetHomePageDocument = gql`
         banera_dlya_glavnoj_straniczies {
           data {
             attributes {
+              keywords
+              link
               desktopMedia {
                 data {
                   attributes {

@@ -13,6 +13,7 @@ import { useGetSearchLinks } from "@/shared/services/useGetSearchLinks";
 import { useRouter } from "next/navigation";
 import { GetHomePageQuery } from "@/graphql/__generated__";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   slides: GetHomePageQuery["homePage"]["data"]["attributes"]["banera_dlya_glavnoj_straniczies"]["data"];
@@ -25,38 +26,39 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const isDesktop = useMedia("(max-width: 992px)");
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const [isSwiperCssReady, setIsSwiperCssReady] = useState(false);
+  // const [isSwiperCssReady, setIsSwiperCssReady] = useState(false);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+  // useEffect(() => {
+  //   const el = ref.current;
+  //   if (!el) return;
 
-    const wrapper = el.querySelector<HTMLElement>(".swiper-wrapper");
-    if (!wrapper) return;
+  //   const wrapper = el.querySelector<HTMLElement>(".swiper-wrapper");
+  //   if (!wrapper) return;
 
-    let raf1 = 0;
-    let raf2 = 0;
+  //   let raf1 = 0;
+  //   let raf2 = 0;
 
-    const check = () => {
-      const display = window.getComputedStyle(wrapper).display;
-      if (display === "flex") {
-        setIsSwiperCssReady(true);
-        return;
-      }
-      // пробуем ещё чуть-чуть (без таймера, только кадры)
-      raf1 = requestAnimationFrame(() => {
-        raf2 = requestAnimationFrame(check);
-      });
-    };
+  //   const check = () => {
+  //     const display = window.getComputedStyle(wrapper).display;
+  //     if (display === "flex") {
+  //       // setIsSwiperCssReady(true);
+  //       return;
+  //     }
+  //     // пробуем ещё чуть-чуть (без таймера, только кадры)
+  //     raf1 = requestAnimationFrame(() => {
+  //       raf2 = requestAnimationFrame(check);
+  //     });
+  //   };
 
-    check();
+  //   check();
 
-    return () => {
-      cancelAnimationFrame(raf1);
-      cancelAnimationFrame(raf2);
-    };
-  }, []);
+  //   return () => {
+  //     cancelAnimationFrame(raf1);
+  //     cancelAnimationFrame(raf2);
+  //   };
+  // }, []);
 
   const links = useMemo(() => {
     const rows = data?.searchLinks?.data ?? [];
@@ -96,10 +98,10 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
       loopedSlides: slides.length > 5 ? 5 : slides.length,
       effect: "fade",
       fadeEffect: { crossFade: true },
-      autoplay: {
-        delay: 4500,
-        disableOnInteraction: false,
-      },
+      // autoplay: {
+      //   delay: 4500,
+      //   disableOnInteraction: false,
+      // },
       allowTouchMove: isDesktop.matches,
       navigation: {
         prevEl: `.${styles.navPrev}`,
@@ -115,6 +117,11 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
             index + 1
           }"></span>`,
       },
+      on: {
+        slideChange(swiper) {
+          setActiveIndex(swiper.realIndex); // realIndex важен при loop
+        },
+      },
       observer: true,
       observeParents: true,
     }),
@@ -125,15 +132,13 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
 
   const router = useRouter();
 
-  console.log(isSwiperCssReady);
-
   return (
     <section className={classNames(styles.hero, {}, [className])}>
-      {isSwiperCssReady && (
+      {/* {isSwiperCssReady && (
         <div className={styles.sliderPreloader} aria-hidden="true">
           <div className={styles.spinner} />
         </div>
-      )}
+      )} */}
 
       <div ref={ref} className={classNames(`swiper ${styles.swiper}`, {}, [])}>
         <div className="swiper-wrapper">
@@ -152,7 +157,7 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
                 className={classNames(
                   `swiper-slide ${styles.slide}`,
                   {
-                    [styles.swiperNotReady]: !isSwiperCssReady,
+                    // [styles.swiperNotReady]: !isSwiperCssReady,
                   },
                   [],
                 )}
@@ -189,6 +194,21 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
                     />
                   </video>
                 ) : null}
+
+                {/* {!s.attributes.keywords && (
+                  <div className={styles.tags}>
+                    <div className={styles.container}>
+                      <div className={styles.content}>
+                        <button>Позиционирование</button>
+                        <button>Фирменный стиль</button>
+                        <button>SMM-book</button>
+                        <button>AD-book</button>
+                        <button>Брендинг</button>
+                        <button>Брендбук</button>
+                      </div>
+                    </div>
+                  </div>
+                )} */}
               </div>
             );
           })}
@@ -208,6 +228,37 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
           <div className={styles.pagination} />
         </div>
       </div>
+
+      {slides[activeIndex] &&
+        slides[activeIndex].attributes.keywords &&
+        slides[activeIndex].attributes.keywords?.length > 0 && (
+          <div className={styles.tags}>
+            <div className={styles.container}>
+              <div className={styles.content}>
+                {slides[activeIndex].attributes.keywords.map(
+                  (k: string, i: number) => (
+                    <button key={i}>
+                      <Link
+                        target={
+                          slides[activeIndex].attributes.link
+                            ? "_blank"
+                            : "_self"
+                        }
+                        href={
+                          slides[activeIndex].attributes.link
+                            ? `/${slides[activeIndex].attributes.link}`
+                            : `#!`
+                        }
+                      >
+                        {k}
+                      </Link>
+                    </button>
+                  ),
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
       <div className={styles.overlay}>
         <div className={styles.overlayInner}>

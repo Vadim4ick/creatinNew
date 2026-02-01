@@ -9,6 +9,10 @@ query GetHomePage {
         banera_dlya_glavnoj_straniczies {
           data {
             attributes {
+              keywords
+
+              link
+
               desktopMedia {
                 data {
                   attributes {
