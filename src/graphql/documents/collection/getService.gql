@@ -17,14 +17,9 @@ query GetServiceById($id: ID) {
                 serviceColorImageComponent {
                   color
 
-                  imageService {
-                    data {
-                      attributes {
-                        ...MediaFragment
-                      }
-                    }
-                  }
+                  bgBtn
                 }
+                descCard
                 name
 
                 description

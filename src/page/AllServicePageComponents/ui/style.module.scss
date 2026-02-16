@@ -23,7 +23,7 @@
 
   .content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(390px, 390px));
+    grid-template-columns: repeat(auto-fit, minmax(244px, 244px));
     gap: 16px;
 
     align-items: stretch; // тянем элементы на всю высоту строки
@@ -34,66 +34,66 @@
     }
   }
 
-  .item {
-    display: flex;
-    flex-direction: column; // чтобы header и body выстраивались вертикально
-    height: 100%; // теперь сама карточка растягивается
+  // .item {
+  //   display: flex;
+  //   flex-direction: column; // чтобы header и body выстраивались вертикально
+  //   height: 100%; // теперь сама карточка растягивается
 
-    .header {
-      height: 190px;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-      position: relative;
+  //   .header {
+  //     height: 190px;
+  //     border-top-left-radius: 12px;
+  //     border-top-right-radius: 12px;
+  //     position: relative;
 
-      .image {
-        position: absolute;
-        inset: 0; /* заменяет top/left/right/bottom */
-        padding-top: 25px;
-        margin: auto;
-        max-width: 100%; /* можно регулировать */
-        max-height: 100%;
-        object-fit: contain;
-      }
-    }
+  //     .image {
+  //       position: absolute;
+  //       inset: 0; /* заменяет top/left/right/bottom */
+  //       padding-top: 25px;
+  //       margin: auto;
+  //       max-width: 100%; /* можно регулировать */
+  //       max-height: 100%;
+  //       object-fit: contain;
+  //     }
+  //   }
 
-    .body {
-      flex: 1;
-      background: #f1f2f6;
+  //   .body {
+  //     flex: 1;
+  //     background: #f1f2f6;
 
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-      padding: 32px 28px 28px 28px;
+  //     display: flex;
+  //     flex-direction: column;
+  //     gap: 20px;
+  //     align-items: center;
+  //     padding: 32px 28px 28px 28px;
 
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
+  //     border-bottom-left-radius: 12px;
+  //     border-bottom-right-radius: 12px;
 
-      @media (max-width: 768px) {
-        gap: 24px;
-      }
+  //     @media (max-width: 768px) {
+  //       gap: 24px;
+  //     }
 
-      .title {
-        text-align: center;
-        font-size: 24px;
-        padding: 0 32px;
-        line-height: 130%;
-        color: #3f3f3f;
+  //     .title {
+  //       text-align: center;
+  //       font-size: 24px;
+  //       padding: 0 32px;
+  //       line-height: 130%;
+  //       color: #3f3f3f;
 
-        @media (max-width: 768px) {
-          padding: 0 16px;
-        }
-      }
+  //       @media (max-width: 768px) {
+  //         padding: 0 16px;
+  //       }
+  //     }
 
-      .description {
-        text-align: center;
-        font-size: 14px;
-        color: #3f3f3f;
-        font-weight: 450;
-        line-height: 130%;
-      }
-    }
-  }
+  //     .description {
+  //       text-align: center;
+  //       font-size: 14px;
+  //       color: #3f3f3f;
+  //       font-weight: 450;
+  //       line-height: 130%;
+  //     }
+  //   }
+  // }
 }
 
 .page {

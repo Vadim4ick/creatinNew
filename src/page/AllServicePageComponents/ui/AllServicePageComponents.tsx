@@ -19,6 +19,8 @@ import { getRouteService, getRouteServices } from "@/shared/const/pages";
 import cls from "./style.module.scss";
 import { ServicesTextBlock } from "@/components/ServicesBlocks/ServicesTextBlock/ServicesTextBlock";
 import { ServicesImageBlock } from "@/components/ServicesBlocks/ServicesImageBlock/ServicesImageBlock";
+import { CardService } from "@/components/CardService/CardService";
+import { useCanHover } from "@/shared/hooks/useCanHover";
 
 const AllServicePageComponents = memo(
   ({
@@ -31,13 +33,15 @@ const AllServicePageComponents = memo(
     const { data: serviceData, isLoading: isLoadingService } =
       useGetServiceByNameID(id);
 
+    const canHover = useCanHover();
+
     const [service, setService] = useState<
       GetServiceByIdQuery["services"]["data"][0]["attributes"] | undefined
     >(undefined);
 
     const index = useMemo(
       () => serviceNames.findIndex((el) => el.id === id),
-      [id, serviceNames]
+      [id, serviceNames],
     );
 
     useEffect(() => {
@@ -138,6 +142,29 @@ const AllServicePageComponents = memo(
                       key={item.id}
                       href={getRouteService(
                         service.serviceName.data.attributes.name,
+                        item.id,
+                      )}
+                    >
+                      <CardService
+                        title={item.attributes.name}
+                        canHover={canHover}
+                        bgBtn={
+                          item.attributes.serviceColorImageComponent?.bgBtn
+                        }
+                        desc={item.attributes?.descCard}
+                        serviceId={item.id}
+                        bg={
+                          item.attributes.serviceColorImageComponent?.color ??
+                          "edeef2"
+                        }
+                      />
+                    </Link>
+                  ))}
+
+                  {/* <Link
+                      key={item.id}
+                      href={getRouteService(
+                        service.serviceName.data.attributes.name,
                         item.id
                       )}
                       className={cls.item}
@@ -179,7 +206,6 @@ const AllServicePageComponents = memo(
                                       .map((line, index) => (
                                         <React.Fragment key={index}>
                                           {line}
-                                          {/* @ts-ignore */}
                                           {index < children.length - 1 && (
                                             <br />
                                           )}
@@ -194,8 +220,7 @@ const AllServicePageComponents = memo(
                           </ReactMarkdown>
                         </div>
                       </div>
-                    </Link>
-                  ))}
+                    </Link> */}
                 </div>
               </section>
             )}
@@ -214,7 +239,7 @@ const AllServicePageComponents = memo(
         )}
       </ServiceLayout>
     );
-  }
+  },
 );
 
 export { AllServicePageComponents };
