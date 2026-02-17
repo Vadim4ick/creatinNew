@@ -164,3 +164,50 @@
   top: 10px;
   left: 12px;
 }
+
+.fileWrapper {
+  position: absolute;
+  top: 28%;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  width: 310px;
+  height: 220px; // лучше фикс, чем 100%
+  perspective: 800px;
+  pointer-events: none; // чтобы wrapper не перехватывал hover
+}
+
+.fileLayer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: auto;
+}
+
+.social {
+  position: absolute;
+  top: 4%;
+  left: 0%;
+  // transform: translate(-50%, -50%);
+  width: 310px;
+  height: 310px; // лучше фикс, чем 100%
+  perspective: 800px;
+  pointer-events: none; // чтобы wrapper не перехватывал hover
+}
+
+.socialEl1 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: auto;
+}
+
+.socialEl2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

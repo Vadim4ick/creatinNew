@@ -6,6 +6,7 @@ import styles from "./style.module.scss";
 import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
 import { springTransition } from "@/shared/lib";
 import { useState } from "react";
+import { ServiceVisual } from "./ServiceVisual";
 
 type Props = {
   bg: string;
@@ -14,11 +15,6 @@ type Props = {
   serviceId: string;
   title: string;
   canHover?: boolean;
-};
-
-const cardVariants = {
-  rest: {},
-  hover: {},
 };
 
 const rightArrowVariants = {
@@ -43,19 +39,6 @@ const leftArrowVariants = {
   },
 };
 
-const middleCubeVariants = {
-  rest: {
-    x: 0,
-    y: 0,
-    rotate: 0,
-  },
-  hover: {
-    x: -30,
-    y: -25,
-    rotate: -15,
-  },
-};
-
 const CardService = ({
   bg,
   serviceId,
@@ -69,15 +52,12 @@ const CardService = ({
   return (
     <motion.div
       className={styles.card}
-      variants={cardVariants}
       style={{ background: !isHovered ? "#EDEEF2" : bg }}
       initial="rest"
-      animate="rest"
-      // whileHover="hover"
-      transition={{ duration: 0.3 }}
-      whileHover={canHover ? "hover" : undefined}
+      animate={canHover && isHovered ? "hover" : "rest"}
       onMouseEnter={canHover ? () => setIsHovered(true) : undefined}
       onMouseLeave={canHover ? () => setIsHovered(false) : undefined}
+      transition={{ duration: 0.3 }}
     >
       {/* Левая стрелка — появляется */}
       <motion.div
@@ -104,42 +84,9 @@ const CardService = ({
         <BtnArrowThird />
       </motion.div>
 
-      <div className={styles.imageContainer}>
-        {Number(serviceId) === 5 && (
-          <>
-            {/* Верхняя композиция */}
-            <div className={styles.topGroup}>
-              <img
-                src="/serviceCards/cube/1.png"
-                srcSet="/serviceCards/cube/1-2x.png 2x"
-                alt="top"
-              />
-            </div>
+      <ServiceVisual serviceId={serviceId} />
 
-            {/* Синий куб */}
-            <motion.div
-              className={styles.middleCube}
-              variants={middleCubeVariants}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
-              <img
-                src="/serviceCards/cube/2.png"
-                srcSet="/serviceCards/cube/2-2x.png 2x"
-                alt="middle"
-              />
-            </motion.div>
-
-            {/* Нижний куб */}
-            <div className={styles.bottomCube}>
-              <img
-                src="/serviceCards/cube/3.png"
-                srcSet="/serviceCards/cube/3-2x.png 2x"
-                alt="bottom"
-              />
-            </div>
-          </>
-        )}
-      </div>
+      <div />
 
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
