@@ -211,3 +211,18 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.pieWrap {
+  position: absolute;
+  top: 50px;
+  right: 0%;
+  width: 100%;
+  height: 100%;
+}
+
+.slice {
+  position: absolute;
+  will-change: transform;
+  pointer-events: none; // чтобы hover ловился контейнером
+  user-select: none;
+}
