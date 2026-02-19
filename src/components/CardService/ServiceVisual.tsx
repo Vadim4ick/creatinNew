@@ -9,6 +9,7 @@ import { Brendbook } from "./cards/Brendbook";
 import { SSMBook } from "./cards/SSMBook";
 import { ADBook } from "./cards/ADBook";
 import { PlatformBrend } from "./cards/PlatformBrend";
+import { Naming } from "./cards/Naming";
 
 type Props = {
   serviceId: string;
@@ -26,6 +27,7 @@ export const ServiceVisual = ({ serviceId }: Props) => {
   if (id === 11) return <SSMBook />;
   if (id === 12) return <ADBook />;
   if (id === 6) return <PlatformBrend />;
+  if (id === 7) return <Naming />;
 
   return null;
 };
