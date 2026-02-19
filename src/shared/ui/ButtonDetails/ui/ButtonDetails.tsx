@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import cls from "./style.module.scss";
 import { classNames, springTransition } from "@/shared/lib";
 import { useMedia } from "@/shared/hooks/useMedia";
+import { memo } from "react";
 
 const btnVariants = { rest: {}, hover: {} };
 
@@ -17,72 +18,85 @@ const leftDotVariants = {
   hover: { x: 0, opacity: 1 },
 };
 
-// Правый кружок — уезжает и растворяется
-const rightDotVariants = {
-  rest: { x: 0, opacity: 1 },
-  hover: { x: 35, opacity: 0 },
-};
-
 type Variant = "default" | "white" | "dark";
 
-export function ButtonDetails({
-  className = "",
-  Icon,
-  onClick,
-  text,
-  variant = "default",
-  leftColor,
-  mobileEnd = false,
-}: {
-  className?: string;
-  Icon: () => JSX.Element;
-  onClick?: () => void;
-  text: string;
-  variant?: Variant;
-  leftColor?: string;
-  mobileEnd?: boolean;
-}) {
-  const isMobile = useMedia("(max-width: 768px)");
-  return (
-    <motion.button
-      onClick={onClick}
-      className={classNames(`${cls.btn} ${className}`, {}, [cls[variant]])}
-      initial="rest"
-      animate={isMobile.matches && mobileEnd ? "hover" : "rest"}
-      whileHover="hover"
-      variants={btnVariants}
-      transition={springTransition}
-      type="button"
-    >
-      {/* Левый слот (занимает место при ховере) */}
-      <motion.div
-        className={cls.leftSlot}
-        variants={leftSlotVariants}
+// Правый слот — схлопывается при ховере
+const rightSlotVariants = {
+  rest: { width: 52 },
+  hover: { width: 0 },
+};
+
+// Кружок внутри — просто исчезает по opacity, x не нужен
+const rightDotVariants = {
+  rest: { x: 0, opacity: 1 },
+  hover: { x: 44, opacity: 0 },
+};
+export const ButtonDetails = memo(
+  ({
+    className = "",
+    Icon,
+    onClick,
+    text,
+    variant = "default",
+    leftColor,
+    mobileEnd = false,
+  }: {
+    className?: string;
+    Icon: () => JSX.Element;
+    onClick?: () => void;
+    text: string;
+    variant?: Variant;
+    leftColor?: string;
+    mobileEnd?: boolean;
+  }) => {
+    const isMobile = useMedia("(max-width: 768px)");
+
+    return (
+      <motion.button
+        onClick={onClick}
+        className={classNames(`${cls.btn} ${className}`, {}, [cls[variant]])}
+        initial="rest"
+        animate={isMobile.matches && mobileEnd ? "hover" : "rest"}
+        whileHover="hover"
+        variants={btnVariants}
         transition={springTransition}
-        aria-hidden
+        type="button"
       >
+        {/* Левый слот (занимает место при ховере) */}
         <motion.div
-          style={leftColor ? { background: leftColor } : undefined}
-          className={cls.btnArrow}
-          variants={leftDotVariants}
+          className={cls.leftSlot}
+          variants={leftSlotVariants}
+          transition={springTransition}
+          aria-hidden
+        >
+          <motion.div
+            style={leftColor ? { background: leftColor } : undefined}
+            className={cls.btnArrow}
+            variants={leftDotVariants}
+            transition={springTransition}
+          >
+            <Icon />
+          </motion.div>
+        </motion.div>
+
+        {/* Текст остаётся левым и сдвигается естественно, когда растёт leftSlot */}
+        <span className={cls.btnText}>{text}</span>
+
+        {/* Правый слот */}
+        <motion.div
+          className={cls.rightSlot}
+          variants={rightSlotVariants}
           transition={springTransition}
         >
-          <Icon />
+          <motion.div
+            className={cls.btnArrowRight}
+            variants={rightDotVariants}
+            transition={springTransition}
+          >
+            <Icon />
+          </motion.div>
         </motion.div>
-      </motion.div>
-
-      {/* Текст остаётся левым и сдвигается естественно, когда растёт leftSlot */}
-      <span className={cls.btnText}>{text}</span>
-
-      {/* Правый кружок */}
-      <motion.div
-        className={cls.btnArrowRight}
-        variants={rightDotVariants}
-        transition={springTransition}
-        aria-hidden
-      >
-        <Icon />
-      </motion.div>
-    </motion.button>
-  );
-}
+      </motion.button>
+    );
+  },
+);

@@ -86,3 +86,13 @@
     }
   }
 }
+
+.rightSlot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow: hidden; // ключевое — клипает кружок внутри себя
+  min-width: 0; // позволяет схлопываться до 0
+  flex-shrink: 0;
+}

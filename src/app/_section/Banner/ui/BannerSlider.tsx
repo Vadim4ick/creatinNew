@@ -98,10 +98,10 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
       loopedSlides: slides.length > 5 ? 5 : slides.length,
       effect: "fade",
       fadeEffect: { crossFade: true },
-      // autoplay: {
-      //   delay: 4500,
-      //   disableOnInteraction: false,
-      // },
+      autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+      },
       allowTouchMove: isDesktop.matches,
       navigation: {
         prevEl: `.${styles.navPrev}`,
@@ -157,7 +157,7 @@ export const BannerSlider = memo(({ slides, className = "" }: Props) => {
                 className={classNames(
                   `swiper-slide ${styles.slide}`,
                   {
-                    [styles.swiperNotReady]: !isSwiperCssReady,
+                    // [styles.swiperNotReady]: !isSwiperCssReady,
                   },
                   [],
                 )}
