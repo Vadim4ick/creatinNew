@@ -12,6 +12,7 @@ import { PlatformBrend } from "./cards/PlatformBrend";
 import { Naming } from "./cards/Naming";
 import { BrandedStyle } from "./cards/BrandedStyle";
 import { Tz } from "./cards/Tz";
+import { MotionDesign } from "./cards/MotionDesign";
 
 type Props = {
   serviceId: string;
@@ -32,6 +33,8 @@ export const ServiceVisual = ({ serviceId }: Props) => {
   if (id === 7) return <Naming />;
   if (id === 9) return <BrandedStyle />;
   if (id === 10) return <Tz />;
+
+  if (id === 13) return <MotionDesign />;
 
   return null;
 };

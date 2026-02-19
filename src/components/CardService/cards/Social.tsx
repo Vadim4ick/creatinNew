@@ -11,7 +11,7 @@ const fileBackVariants = {
 
 const filePaper1Variants = {
   rest: { rotate: 0, x: -100, y: -100 },
-  hover: { rotate: -270, x: -100, y: -100 },
+  hover: { rotate: 90, x: -100, y: -100 },
 };
 
 const fileContainerVariants = {
