@@ -11,6 +11,7 @@ import { ADBook } from "./cards/ADBook";
 import { PlatformBrend } from "./cards/PlatformBrend";
 import { Naming } from "./cards/Naming";
 import { BrandedStyle } from "./cards/BrandedStyle";
+import { Tz } from "./cards/Tz";
 
 type Props = {
   serviceId: string;
@@ -30,6 +31,7 @@ export const ServiceVisual = ({ serviceId }: Props) => {
   if (id === 6) return <PlatformBrend />;
   if (id === 7) return <Naming />;
   if (id === 9) return <BrandedStyle />;
+  if (id === 10) return <Tz />;
 
   return null;
 };
