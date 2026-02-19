@@ -331,3 +331,8 @@
   pointer-events: auto;
   z-index: 55;
 }
+
+.swiper:not(:global(.swiper-initialized)) {
+  opacity: 0;
+  pointer-events: none;
+}
