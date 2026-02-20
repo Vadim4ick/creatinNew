@@ -16,6 +16,7 @@ import { MotionDesign } from "./cards/MotionDesign";
 import { PromoProducts } from "./cards/PromoProducts";
 import { Illustration } from "./cards/Illustration";
 import { ThreeD } from "./cards/ThreeD";
+import { PrintedProducts } from "./cards/PrintedProducts";
 
 type Props = {
   serviceId: string;
@@ -41,6 +42,7 @@ export const ServiceVisual = ({ serviceId }: Props) => {
   if (id === 14) return <PromoProducts />;
   if (id === 15) return <Illustration />;
   if (id === 16) return <ThreeD />;
+  if (id === 18) return <PrintedProducts />;
 
   return null;
 };
