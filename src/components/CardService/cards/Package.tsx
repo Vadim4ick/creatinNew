@@ -7,23 +7,33 @@ import styles from "../style.module.scss";
 const t = { duration: 0.3, ease: "easeInOut" as const };
 
 const containerVariants = {
-  rest: { x: 45, y: 102 },
-  hover: { x: 47, y: 102 },
+  rest: { x: 90, y: 102 },
+  hover: { x: 25, y: 80 },
 };
 
 const slice1 = {
-  rest: { x: 0, y: -65, rotate: 0, scale: 1 },
-  hover: { x: -75, y: -110, rotate: -15, scale: 1 },
+  rest: { x: 5, y: -8, rotate: 0, scale: 1 },
+  hover: { x: -25, y: -30, rotate: -15, scale: 1 },
 };
 
 const slice2 = {
-  rest: { x: 38, y: -52, rotate: 0, scale: 1 },
-  hover: { x: 38, y: -52, rotate: 0, scale: 1 },
+  rest: { x: 165, y: 60, rotate: 0, scale: 1 },
+  hover: { x: 165, y: 60, rotate: 0, scale: 1 },
 };
 
 const slice3 = {
-  rest: { x: 54, y: -52, rotate: 0, scale: 1 },
-  hover: { x: 54, y: -52, rotate: 0, scale: 1 },
+  rest: { x: 90, y: 122, rotate: 0, scale: 1 },
+  hover: { x: 80, y: 135, rotate: -23, scale: 1 },
+};
+
+const slice4 = {
+  rest: { x: 38, y: -52, rotate: 0, scale: 1 },
+  hover: { x: 38, y: -52, rotate: -13, scale: 1 },
+};
+
+const slice5 = {
+  rest: { x: 32, y: 60, rotate: 0, scale: 1 },
+  hover: { x: 20, y: 43, rotate: 0, scale: 1 },
 };
 
 export const Package = () => {
@@ -64,7 +74,7 @@ export const Package = () => {
         srcSet="/serviceCards/package/3-2x.png 2x"
         variants={slice3}
         transition={t}
-        style={{ zIndex: 3 }}
+        style={{ zIndex: 6 }}
         alt=""
         draggable={false}
       />
@@ -74,7 +84,19 @@ export const Package = () => {
         className={styles.slice}
         src="/serviceCards/package/4.png"
         srcSet="/serviceCards/package/4-2x.png 2x"
-        variants={slice3}
+        variants={slice4}
+        transition={t}
+        style={{ zIndex: 5 }}
+        alt=""
+        draggable={false}
+      />
+
+      {/* Слой 5 */}
+      <motion.img
+        className={styles.slice}
+        src="/serviceCards/package/5.png"
+        srcSet="/serviceCards/package/5-2x.png 2x"
+        variants={slice5}
         transition={t}
         style={{ zIndex: 3 }}
         alt=""
