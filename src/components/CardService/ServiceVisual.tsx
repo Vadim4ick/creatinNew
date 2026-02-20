@@ -19,6 +19,7 @@ import { ThreeD } from "./cards/ThreeD";
 import { PrintedProducts } from "./cards/PrintedProducts";
 import { Package } from "./cards/Package";
 import { PromotionLending } from "./cards/PromotionLending";
+import { SiteVisit } from "./cards/SiteVisit";
 
 type Props = {
   serviceId: string;
@@ -48,6 +49,7 @@ export const ServiceVisual = ({ serviceId }: Props) => {
   if (id === 18) return <PrintedProducts />;
 
   if (id === 19) return <PromotionLending />;
+  if (id === 20) return <SiteVisit />;
 
   return null;
 };
