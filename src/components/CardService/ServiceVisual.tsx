@@ -21,6 +21,7 @@ import { Package } from "./cards/Package";
 import { PromotionLending } from "./cards/PromotionLending";
 import { SiteVisit } from "./cards/SiteVisit";
 import { CorporateWeb } from "./cards/CorporateWeb";
+import { OnlineStore } from "./cards/OnlineStore";
 
 type Props = {
   serviceId: string;
@@ -52,6 +53,7 @@ export const ServiceVisual = ({ serviceId }: Props) => {
   if (id === 19) return <PromotionLending />;
   if (id === 20) return <SiteVisit />;
   if (id === 21) return <CorporateWeb />;
+  if (id === 22) return <OnlineStore />;
 
   return null;
 };
