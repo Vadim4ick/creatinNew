@@ -24,6 +24,7 @@ import { CorporateWeb } from "./cards/CorporateWeb";
 import { OnlineStore } from "./cards/OnlineStore";
 import { IndividualProj } from "./cards/IndividualProj";
 import { CrossplatformDevelop } from "./cards/CrossplatformDevelop";
+import { NativeDevelop } from "./cards/NativeDevelop";
 
 type Props = {
   serviceId: string;
@@ -59,6 +60,7 @@ export const ServiceVisual = ({ serviceId }: Props) => {
   if (id === 23) return <IndividualProj />;
 
   if (id === 26) return <CrossplatformDevelop />;
+  if (id === 27) return <NativeDevelop />;
 
   return null;
 };

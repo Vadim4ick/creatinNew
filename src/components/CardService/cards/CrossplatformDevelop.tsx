@@ -7,8 +7,8 @@ import styles from "../style.module.scss";
 const t = { duration: 0.3, ease: "easeInOut" as const };
 
 const containerVariants = {
-  rest: { x: 68, y: 102 },
-  hover: { x: -15, y: 102 },
+  rest: { x: 68, y: 150 },
+  hover: { x: -15, y: 120 },
 };
 
 const slice1 = {
