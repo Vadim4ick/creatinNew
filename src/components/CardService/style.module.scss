@@ -218,6 +218,15 @@
   right: 0%;
   width: 100%;
   height: 100%;
+
+  @media (max-width: 991px) {
+    top: 34%;
+    left: 20%;
+    right: auto; // обязательно сбросить right
+    transform: translate(-50%, -50%) !important;
+    width: auto; // важно, иначе 100% ломает центрирование
+    height: auto;
+  }
 }
 
 .slice {
