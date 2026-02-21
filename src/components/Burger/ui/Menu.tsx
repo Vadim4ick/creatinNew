@@ -111,7 +111,7 @@ const Menu = (props: MenuProps) => {
             </a>
             <ul className="mobile-nav__list">
               <li className="mobile-nav__item">
-                <a>+7 (918) 199-90-22</a>
+                <a>+7 (919) 000-30-03</a>
               </li>
               <li className="mobile-nav__item ">
                 <a>creat_in@mail.ru</a>

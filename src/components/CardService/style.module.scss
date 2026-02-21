@@ -169,11 +169,16 @@
   position: absolute;
   top: 28%;
   left: 0%;
-  transform: translate(-50%, -50%);
   width: 310px;
   height: 220px; // лучше фикс, чем 100%
   perspective: 800px;
   pointer-events: none; // чтобы wrapper не перехватывал hover
+
+  @media (max-width: 991px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+  }
 }
 
 .fileLayer {
