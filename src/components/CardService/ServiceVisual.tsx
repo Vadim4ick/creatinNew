@@ -26,6 +26,7 @@ import { IndividualProj } from "./cards/IndividualProj";
 import { CrossplatformDevelop } from "./cards/CrossplatformDevelop";
 import { NativeDevelop } from "./cards/NativeDevelop";
 import { UXDesign } from "./cards/UXDesign";
+import { Prototyping } from "./cards/Prototyping";
 
 type Props = {
   serviceId: string;
@@ -60,6 +61,7 @@ export const ServiceVisual = ({ serviceId }: Props) => {
   if (id === 22) return <OnlineStore />;
   if (id === 23) return <IndividualProj />;
 
+  if (id === 24) return <Prototyping />;
   if (id === 25) return <UXDesign />;
   if (id === 26) return <CrossplatformDevelop />;
   if (id === 27) return <NativeDevelop />;
