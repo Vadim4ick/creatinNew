@@ -3,8 +3,7 @@
 
 import { motion } from "framer-motion";
 import styles from "../style.module.scss";
-
-const t = { duration: 0.3, ease: "easeInOut" as const };
+import { layerTransition } from "@/shared/const/animations";
 
 const containerVariants = {
   rest: { x: 55, y: 102 },
@@ -26,7 +25,7 @@ export const Naming = () => {
     <motion.div
       className={styles.pieWrap}
       variants={containerVariants}
-      transition={t}
+      transition={layerTransition}
     >
       {/* Слой 2 */}
       <motion.img
@@ -34,7 +33,7 @@ export const Naming = () => {
         src="/serviceCards/naming/2.png"
         srcSet="/serviceCards/naming/2-2x.png 2x"
         variants={slice2}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 1 }}
         alt=""
         draggable={false}
@@ -46,7 +45,7 @@ export const Naming = () => {
         src="/serviceCards/naming/1.png"
         srcSet="/serviceCards/naming/1-2x.png 2x"
         variants={slice1}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 2 }}
         alt=""
         draggable={false}

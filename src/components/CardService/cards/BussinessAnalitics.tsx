@@ -3,8 +3,7 @@
 
 import { motion } from "framer-motion";
 import styles from "../style.module.scss";
-
-const t = { duration: 0.3, ease: "easeInOut" as const };
+import { layerTransition } from "@/shared/const/animations";
 
 // Контейнер двигаешь как хочешь (у тебя было x:55 -> 0)
 const containerVariants = {
@@ -44,7 +43,7 @@ export const BussinessAnalitics = () => {
     <motion.div
       className={styles.pieWrap}
       variants={containerVariants}
-      transition={t}
+      transition={layerTransition}
     >
       {/* Слой 1 */}
       <motion.img
@@ -52,7 +51,7 @@ export const BussinessAnalitics = () => {
         src="/serviceCards/bussinessAnalitics/1.png"
         srcSet="/serviceCards/bussinessAnalitics/1-2x.png 2x"
         variants={slice1}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 1 }}
         alt=""
         draggable={false}
@@ -64,7 +63,7 @@ export const BussinessAnalitics = () => {
         src="/serviceCards/bussinessAnalitics/2.png"
         srcSet="/serviceCards/bussinessAnalitics/2-2x.png 2x"
         variants={slice2}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 2 }}
         alt=""
         draggable={false}
@@ -76,7 +75,7 @@ export const BussinessAnalitics = () => {
         src="/serviceCards/bussinessAnalitics/3.png"
         srcSet="/serviceCards/bussinessAnalitics/3-2x.png 2x"
         variants={slice3}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 3 }}
         alt=""
         draggable={false}
@@ -86,7 +85,7 @@ export const BussinessAnalitics = () => {
         src="/serviceCards/bussinessAnalitics/4.png"
         srcSet="/serviceCards/bussinessAnalitics/4-2x.png 2x"
         variants={slice4}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 2 }}
         alt=""
         draggable={false}
@@ -96,7 +95,7 @@ export const BussinessAnalitics = () => {
         src="/serviceCards/bussinessAnalitics/5.png"
         srcSet="/serviceCards/bussinessAnalitics/5-2x.png 2x"
         variants={slice5}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 2 }}
         alt=""
         draggable={false}

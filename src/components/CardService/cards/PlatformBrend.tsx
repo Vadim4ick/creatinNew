@@ -3,8 +3,7 @@
 
 import { motion } from "framer-motion";
 import styles from "../style.module.scss";
-
-const t = { duration: 0.3, ease: "easeInOut" as const };
+import { layerTransition } from "@/shared/const/animations";
 
 const containerVariants = {
   rest: { x: 85, y: 102 },
@@ -36,7 +35,7 @@ export const PlatformBrend = () => {
     <motion.div
       className={styles.pieWrap}
       variants={containerVariants}
-      transition={t}
+      transition={layerTransition}
     >
       {/* Слой 1 */}
       <motion.img
@@ -44,7 +43,7 @@ export const PlatformBrend = () => {
         src="/serviceCards/platformBrend/1.png"
         srcSet="/serviceCards/platformBrend/1-2x.png 2x"
         variants={slice1}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 1 }}
         alt=""
         draggable={false}
@@ -56,7 +55,7 @@ export const PlatformBrend = () => {
         src="/serviceCards/platformBrend/2.png"
         srcSet="/serviceCards/platformBrend/2-2x.png 2x"
         variants={slice2}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 2 }}
         alt=""
         draggable={false}
@@ -68,7 +67,7 @@ export const PlatformBrend = () => {
         src="/serviceCards/platformBrend/3.png"
         srcSet="/serviceCards/platformBrend/3-2x.png 2x"
         variants={slice3}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 3 }}
         alt=""
         draggable={false}
@@ -80,7 +79,7 @@ export const PlatformBrend = () => {
         src="/serviceCards/platformBrend/4.png"
         srcSet="/serviceCards/platformBrend/4-2x.png 2x"
         variants={slice4}
-        transition={t}
+        transition={layerTransition}
         style={{ zIndex: 4 }}
         alt=""
         draggable={false}

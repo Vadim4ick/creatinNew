@@ -24,7 +24,7 @@ const ContentBanner = (props: ContentBannerProps) => {
       style={{
         background:
           content.bgColorServiceBanner ??
-          "linear-gradient(180deg, #292929 0%, #151515 100%)",
+          "linear-gradient(258.2deg, #204FF5 -44.15%, #080B12 133.3%)",
         ["--effect-color" as any]: content.colorImageEffectServiceBanner,
       }}
       onContextMenu={(e) => handleContextMenu(e)}

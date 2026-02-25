@@ -3,6 +3,7 @@
 
 import { motion } from "framer-motion";
 import styles from "../style.module.scss";
+import { layerTransition } from "@/shared/const/animations";
 
 const middleCubeVariants = {
   rest: {
@@ -31,7 +32,7 @@ export const Testing = () => {
       <motion.div
         className={styles.middleCube}
         variants={middleCubeVariants}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={layerTransition}
       >
         <img
           src="/serviceCards/testing/2.png"

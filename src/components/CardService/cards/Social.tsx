@@ -3,6 +3,7 @@
 
 import { motion } from "framer-motion";
 import styles from "../style.module.scss";
+import { layerTransition } from "@/shared/const/animations";
 
 const fileBackVariants = {
   rest: { rotate: 0, x: 0, y: 0 },
@@ -18,8 +19,6 @@ const fileContainerVariants = {
   rest: { x: 55 }, // дефолт чуть справа
   hover: { x: 0 }, // при наведении влево
 };
-
-const layerTransition = { duration: 0.3, ease: "easeInOut" as const };
 
 export const Social = () => {
   return (
