@@ -128,9 +128,11 @@
   line-height: 130%;
   font-weight: 450;
 
-  max-height: 0;
-  opacity: 0;
-  visibility: hidden;
+  @media (min-width: 768px) {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
   transition: all 0.3s ease 0s;
 }
 
@@ -174,10 +176,15 @@
   perspective: 800px;
   pointer-events: none; // чтобы wrapper не перехватывал hover
 
+  // @media (max-width: 991px) {
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%) !important;
+  // }
+
   @media (max-width: 991px) {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) !important;
+    right: 0%;
+    left: auto;
   }
 }
 
@@ -199,6 +206,11 @@
   height: 310px; // лучше фикс, чем 100%
   perspective: 800px;
   pointer-events: none; // чтобы wrapper не перехватывал hover
+
+  @media (max-width: 991px) {
+    right: 5%;
+    left: auto;
+  }
 }
 
 .socialEl1 {
@@ -225,12 +237,12 @@
   height: 100%;
 
   @media (max-width: 991px) {
-    top: 34%;
-    left: 20%;
-    right: auto; // обязательно сбросить right
-    transform: translate(-50%, -50%) !important;
-    width: auto; // важно, иначе 100% ломает центрирование
-    height: auto;
+    // top: 34%;
+    // left: 20%;
+    right: -15%; // обязательно сбросить right
+    // transform: translate(-50%, -50%) !important;
+    // width: auto; // важно, иначе 100% ломает центрирование
+    // height: auto;
   }
 }
 

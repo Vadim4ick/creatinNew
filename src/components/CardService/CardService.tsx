@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import styles from "./style.module.scss";
 import { BtnArrowThird } from "@/shared/icons/BtnArrowThird";
 import { springTransition } from "@/shared/lib";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ServiceVisual } from "./ServiceVisual";
+import { useMedia } from "@/shared/hooks/useMedia";
 
 type Props = {
   bg: string;
@@ -49,12 +50,27 @@ const CardService = ({
 }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const isMobile = useMedia("(max-width: 760px)");
+
+  const ref = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(ref, {
+    amount: 0.8, // 40% карточки в зоне видимости
+    once: true, // сработает один раз
+  });
+
+  useEffect(() => {
+    if (isMobile && isInView) {
+      setIsHovered(true);
+    }
+  }, [isMobile, isInView]);
+
   return (
     <motion.div
       className={styles.card}
       style={{ background: !isHovered ? "#EDEEF2" : bg }}
+      ref={ref}
       initial="rest"
-      animate={canHover && isHovered ? "hover" : "rest"}
+      animate={isHovered ? "hover" : "rest"}
       onMouseEnter={canHover ? () => setIsHovered(true) : undefined}
       onMouseLeave={canHover ? () => setIsHovered(false) : undefined}
       transition={{ duration: 0.3 }}
