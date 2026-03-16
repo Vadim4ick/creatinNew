@@ -14,20 +14,24 @@ const ServicesImageBlock = memo(
 
     return (
       <div className={cls.content}>
-        <div className={cls.block}>
-          <h4>{block.title}</h4>
+        {(block?.title || block?.description) && (
+          <div className={cls.block}>
+            {block?.title && <h4>{block?.title}</h4>}
 
-          <div className={cls.desc}>
-            <ReactMarkdown
-              rehypePlugins={[rehypeRaw]}
-              components={{
-                br: () => <br />,
-              }}
-            >
-              {block.description}
-            </ReactMarkdown>
+            {block?.description && (
+              <div className={cls.desc}>
+                <ReactMarkdown
+                  rehypePlugins={[rehypeRaw]}
+                  components={{
+                    br: () => <br />,
+                  }}
+                >
+                  {block.description}
+                </ReactMarkdown>
+              </div>
+            )}
           </div>
-        </div>
+        )}
 
         {count > 0 && (
           <div
@@ -36,7 +40,7 @@ const ServicesImageBlock = memo(
               {
                 [cls.isOdd]: count % 2 !== 0,
               },
-              []
+              [],
             )}
           >
             {images.map((image, i) => (
@@ -50,7 +54,7 @@ const ServicesImageBlock = memo(
                     [cls.fullWidth]:
                       count % 2 !== 0 && i === count - 1 && count > 1,
                   },
-                  []
+                  [],
                 )}
               />
             ))}
@@ -58,7 +62,7 @@ const ServicesImageBlock = memo(
         )}
       </div>
     );
-  }
+  },
 );
 
 export { ServicesImageBlock };
