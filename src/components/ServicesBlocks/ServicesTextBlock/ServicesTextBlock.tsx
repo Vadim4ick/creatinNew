@@ -16,6 +16,8 @@ const ServicesTextBlock = ({
         rehypePlugins={[rehypeRaw]}
         components={{
           br: () => <br />,
+          ul: ({ children }) => <ul className={cls.ul}>{children}</ul>,
+          ol: ({ children }) => <li className={cls.ol}>{children}</li>,
         }}
       >
         {block.description}

@@ -78,3 +78,25 @@
     grid-column: 1 / -1;
   }
 }
+
+.ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  li {
+    list-style: disc;
+    margin-left: 12px;
+  }
+}
+
+.ol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  li {
+    margin-left: 12px;
+    list-style: decimal;
+  }
+}
