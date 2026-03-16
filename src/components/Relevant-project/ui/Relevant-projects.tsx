@@ -15,7 +15,7 @@ const RelevantProjects = memo((props: RelevantProjectsProps) => {
   return (
     <OtherProjects
       className={cls.slider}
-      title={"Релевантные проекты"}
+      title={"Примеры работ"}
       margin={12}
       caseContent={{
         data: cases,
