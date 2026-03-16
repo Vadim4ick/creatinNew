@@ -95,10 +95,10 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: 160px;
+  gap: 80px;
 
   overflow: hidden;
   @media (max-width: 768px) {
-    gap: 100px;
+    gap: 80px;
   }
 }
