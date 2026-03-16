@@ -914,7 +914,7 @@ export type ComponentServicesContentSingleImageBlock = {
   readonly id: Scalars['ID']['output'];
   readonly idBlock: Scalars['String']['output'];
   readonly image: Maybe<UploadFileRelationResponseCollection>;
-  readonly title: Scalars['String']['output'];
+  readonly title: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -929,7 +929,7 @@ export type ComponentServicesContentTextVariant = {
   readonly description: Maybe<Scalars['String']['output']>;
   readonly id: Scalars['ID']['output'];
   readonly idBlock: Scalars['String']['output'];
-  readonly title: Scalars['String']['output'];
+  readonly title: Maybe<Scalars['String']['output']>;
 };
 
 export type ComponentSharedMetaSocial = {

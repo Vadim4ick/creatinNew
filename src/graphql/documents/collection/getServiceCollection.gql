@@ -27,7 +27,6 @@ query GetServiceCollectionById($id: ID) {
             }
           }
         }
-
         description
 
         deadlines
