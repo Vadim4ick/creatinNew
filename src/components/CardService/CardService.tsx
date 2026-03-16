@@ -59,7 +59,7 @@ const CardService = ({
   });
 
   useEffect(() => {
-    if (isMobile && isInView) {
+    if (isMobile.matches && isInView) {
       setIsHovered(true);
     }
   }, [isMobile, isInView]);
