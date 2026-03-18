@@ -29,7 +29,7 @@ const Submenu = (props: SubmenuProps) => {
   return (
     <div
       className="mobile-menu__services mobile-services"
-      style={{ maxHeight: subMenuActive ? "500px" : "0px" }}
+      style={{ maxHeight: subMenuActive ? "500px" : "0px", overflow: "auto" }}
     >
       <div className="mobile-services__row">
         <a className="mobile-services__title">
