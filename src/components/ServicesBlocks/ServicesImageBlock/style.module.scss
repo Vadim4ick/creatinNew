@@ -83,10 +83,15 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  font-family: "SuisseIntl", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  color: #26272b;
 
   li {
     list-style: disc;
-    margin-left: 16px;
+    margin-left: 22px;
   }
 }
 
@@ -94,9 +99,14 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  font-family: "SuisseIntl", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  color: #26272b;
 
   li {
-    margin-left: 16px;
+    margin-left: 22px;
     list-style: decimal;
   }
 }
